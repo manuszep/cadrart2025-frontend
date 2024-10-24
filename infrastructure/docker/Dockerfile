@@ -25,7 +25,7 @@ RUN npm run build:prod
 
 FROM nginxinc/nginx-unprivileged
 
-COPY --from=build /app/dist/cadrart2025-frontend /usr/share/nginx/html
+COPY --from=build /usr/src/app/dist/cadrart2025-frontend /usr/share/nginx/html
 
 COPY nginx.conf  /etc/nginx/conf.d/default.conf
 
