@@ -21,7 +21,7 @@ spec:
         io.kompose.service: frontend
     spec:
       containers:
-        - image: manuszep/cadrart2024-frontend
+        - image: ghcr.io/manuszep/cadrart2025-frontend
           imagePullPolicy: Always
           name: frontend
           ports:

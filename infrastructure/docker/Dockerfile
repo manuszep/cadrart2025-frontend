@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:lts-alpine As build
+FROM node:lts-alpine AS build
 
 ARG NPM_TOKEN
 ENV NPM_TOKEN ${NPM_TOKEN}
