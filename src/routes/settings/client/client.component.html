@@ -1,0 +1,24 @@
+<div class="cadrart-clients" *ngIf="data$ | async as data">
+  <cadrart-table
+    [data]="data"
+    [keys]="['name', 'company', 'address', 'mail', 'phone', 'vat', 'reduction', 'tag']"
+    [trackBy]="identify"
+    [getItemName]="getItemName"
+    [consultable]="false"
+    (cadrartEdit)="handleEditClick($event)"
+    (cadrartDelete)="handleDeleteClick($event)"
+  >
+    <td *cadrartTableValueFormatter="'name'; let entry">{{ entry?.firstName }} {{ entry?.lastName }}</td>
+    <td *cadrartTableValueFormatter="'tag'; let entry">{{ entry?.tag?.name }}</td>
+    <td *cadrartTableValueFormatter="'phone'; let entry">
+      {{ entry?.phone }}
+      <br *ngIf="entry?.phone && entry?.phone2" />
+      {{ entry?.phone2 }}
+    </td>
+    <td *cadrartTableValueFormatter="'vat'; let entry">{{ entry?.vat ? entry.vat + '%' : '' }}</td>
+  </cadrart-table>
+</div>
+
+<ng-template #formTemplate>
+  <cadrart-client-form *ngIf="entityFormGroup" [entityFormGroup]="entityFormGroup"></cadrart-client-form>
+</ng-template>

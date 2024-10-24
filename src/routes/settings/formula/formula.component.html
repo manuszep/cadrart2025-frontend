@@ -1,0 +1,45 @@
+<div class="cadrart-formulas" *ngIf="data$ | async as data">
+  <cadrart-table
+    [data]="data"
+    [keys]="['name', 'formula']"
+    [trackBy]="identify"
+    [getItemName]="getItemName"
+    [consultable]="false"
+    (cadrartEdit)="handleEditClick($event)"
+    (cadrartDelete)="handleDeleteClick($event)"
+  >
+    <td *cadrartTableValueFormatter="'formula'; let entry">
+      <cadrart-formula-tag [fomula]="entry.formula"></cadrart-formula-tag>
+    </td>
+  </cadrart-table>
+</div>
+
+<ng-template #formTemplate>
+  <form *ngIf="entityFormGroup" [formGroup]="entityFormGroup">
+    <cadrart-field formControlName="name"></cadrart-field>
+    <ng-container formArrayName="formula">
+      <ng-container *ngFor="let formulaForm of getFormulaControl().controls; let i = index">
+        <form class="cadrart-formulas__form__formulas" [formGroup]="formulaForm">
+          <cadrart-field class="cadrart-formulas__form__formulas__start" formControlName="start"></cadrart-field>
+          <cadrart-field
+            class="cadrart-formulas__form__formulas__operation"
+            formControlName="operation"
+          ></cadrart-field>
+          <cadrart-field class="cadrart-formulas__form__formulas__amount" formControlName="amount"></cadrart-field>
+
+          <cadrart-button
+            class="cadrart-formulas__form__formulas__remove"
+            [disabled]="getFormulaControl().controls.length < 2"
+            color="danger"
+            icon="delete"
+            [outline]="true"
+            [iconOnly]="true"
+            (click)="removeFormula(i)"
+            >{{ 'FIELD.ACTION.REMOVE' | translate }}</cadrart-button
+          >
+        </form>
+      </ng-container>
+    </ng-container>
+    <cadrart-button (click)="addFormula()">{{ 'FIELD.ACTION.ADD' | translate }}</cadrart-button>
+  </form>
+</ng-template>

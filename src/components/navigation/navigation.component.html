@@ -1,0 +1,117 @@
+<ng-container>
+  <nav
+    class="cadrart__navigation"
+    [class.cadrart__navigation--toggled]="service.enabled() && toggled()"
+    [class.cadrart__navigation--disabled]="!service.enabled()"
+    (cadrartClickOutside)="service.enabled() ? handleClickOutside() : null"
+  >
+    <ul class="cadrart__navigation__pages">
+      <li class="cadrart__navigation__pages__item">
+        <cadrart-button
+          icon="bolt"
+          [iconOnly]="!service.enabled() || !toggled()"
+          [disabled]="!service.enabled()"
+          color="transparent"
+          hoverColor="secondary"
+          [grow]="true"
+          justify="left"
+          [tabIndex]="-1"
+          [routerLink]="'/tasks'"
+          >{{ 'NAVIGATION.PAGES.TASKS' | translate }}</cadrart-button
+        >
+      </li>
+      <li class="cadrart__navigation__pages__item">
+        <cadrart-button
+          icon="inbox"
+          [iconOnly]="!service.enabled() || !toggled()"
+          [disabled]="!service.enabled()"
+          color="transparent"
+          hoverColor="secondary"
+          [grow]="true"
+          justify="left"
+          [tabIndex]="-1"
+          [routerLink]="'/offers'"
+          >{{ 'NAVIGATION.PAGES.OFFERS' | translate }}</cadrart-button
+        >
+      </li>
+      <li class="cadrart__navigation__pages__item">
+        <cadrart-button
+          icon="inventory_2"
+          [iconOnly]="!service.enabled() || !toggled()"
+          [disabled]="true"
+          color="transparent"
+          hoverColor="secondary"
+          [grow]="true"
+          justify="left"
+          [tabIndex]="-1"
+          [routerLink]="'/stock'"
+          >{{ 'NAVIGATION.PAGES.STOCK' | translate }}</cadrart-button
+        >
+      </li>
+      <li class="cadrart__navigation__pages__item">
+        <cadrart-button
+          icon="settings"
+          [iconOnly]="!service.enabled() || !toggled()"
+          [disabled]="!service.enabled()"
+          color="transparent"
+          hoverColor="secondary"
+          [grow]="true"
+          justify="left"
+          [tabIndex]="-1"
+          [routerLink]="'/settings/articles'"
+          >{{ 'NAVIGATION.PAGES.SETTINGS' | translate }}</cadrart-button
+        >
+      </li>
+    </ul>
+    <ul class="cadrart__navigation__actions">
+      <li class="cadrart__navigation__actions__item">
+        <cadrart-button
+          icon="add_shopping_cart"
+          [iconOnly]="!service.enabled() || !toggled()"
+          [disabled]="!service.enabled()"
+          [grow]="true"
+          justify="left"
+          [tabIndex]="-1"
+          [routerLink]="'offer/new'"
+          >{{ 'NAVIGATION.ACTIONS.NEW_OFFER' | translate }}</cadrart-button
+        >
+      </li>
+      <li
+        class="cadrart__navigation__actions__item cadrart__navigation__actions__item--search"
+        [class.active]="showSearch()"
+      >
+        <cadrart-button
+          icon="search"
+          [iconOnly]="!service.enabled() || !toggled()"
+          [grow]="true"
+          justify="left"
+          [disabled]="!service.enabled() || !hasSearchData()"
+          [tabIndex]="-1"
+          (cadrartClick)="handleSearchClick()"
+          >{{ 'NAVIGATION.ACTIONS.SEARCH' | translate }}</cadrart-button
+        >
+        <div
+          [formGroup]="searchFormConfig"
+          class="cadrart__navigation__actions__item__search-box"
+          [class.cadrart__navigation__actions__item__search-box--active]="showSearch()"
+        >
+          <cadrart-field #searchField formControlName="search"></cadrart-field>
+          <cadrart-button
+            icon="search"
+            [iconOnly]="true"
+            color="transparent"
+            hoverColor="primary"
+            [disabled]="!service.enabled() || (searchStatus$ | async) !== 'VALID'"
+          ></cadrart-button>
+        </div>
+      </li>
+    </ul>
+    <cadrart-icon
+      class="cadrart__navigation__toggle"
+      name="double_arrow"
+      (click)="service.enabled() ? handleMenuToggleClick() : null"
+      tabindex="-1"
+    ></cadrart-icon>
+    <small>{{ appVersion }}</small>
+  </nav>
+</ng-container>

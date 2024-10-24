@@ -1,0 +1,59 @@
+@import '../../styles/mixins.scss';
+
+cadrart-alert {
+  @media print {
+    display: none;
+  }
+}
+
+.cadrart-alerts {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  max-width: 800px;
+  z-index: $z-index-alert;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+cadrart-icon {
+  margin-right: $spacing-small;
+}
+
+.cadrart-card__body {
+  display: flex;
+  justify-content: center;
+}
+
+.cadrart-alerts__alert--primary .cadrart-card {
+  @include backgroundColor('primary');
+}
+
+.cadrart-alerts__alert--secondary .cadrart-card {
+  @include backgroundColor('secondary');
+}
+
+.cadrart-alerts__alert--warning .cadrart-card {
+  @include backgroundColor('warning');
+}
+
+.cadrart-alerts__alert--danger .cadrart-card {
+  @include backgroundColor('danger');
+}
+
+.cadrart-alerts__alert--success .cadrart-card {
+  @include backgroundColor('success');
+}
+
+.cadrart-alerts__alert--info .cadrart-card {
+  @include backgroundColor('info');
+}
+
+.cadrart-alerts__alert--neutral .cadrart-card {
+  @include backgroundColor('neutral');
+}
+
+.cadrart-alerts__alert--dark .cadrart-card {
+  @include backgroundColor('dark');
+}

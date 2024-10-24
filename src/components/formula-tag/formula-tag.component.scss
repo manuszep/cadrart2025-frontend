@@ -1,0 +1,50 @@
+@import '../../styles/variables.scss';
+
+.formula-tag {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: -$spacing-small;
+
+  &__step {
+    background: rgba(#fff, 0.1);
+    margin: 0 $spacing-medium 0 0;
+    padding: 0 $spacing-small;
+    display: inline-flex;
+    align-items: center;
+    border-radius: $border-radius;
+    margin-bottom: $spacing-small;
+
+    &__operator {
+      padding: 0 3px;
+      color: $color-yellow;
+    }
+
+    &__delimiter {
+      width: 10px;
+      height: 6px;
+      display: inline-grid;
+      overflow: hidden;
+      margin: 0 3px;
+      opacity: 0.5;
+
+      &:before,
+      &:after {
+        content: '';
+        grid-area: 1/1;
+        background: currentColor;
+        clip-path: polygon(
+          0 2px,
+          calc(100% - 3px) 2px,
+          calc(100% - 3px) 0,
+          100% 50%,
+          calc(100% - 3px) 100%,
+          calc(100% - 3px) calc(100% - 2px),
+          0 calc(100% - 2px)
+        );
+        transform: translate(calc(0% + var(--s, 0%)));
+      }
+    }
+  }
+}

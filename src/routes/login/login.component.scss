@@ -1,0 +1,39 @@
+@import '../../styles/variables.scss';
+
+.cadrart-login {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  cadrart-card {
+    flex-grow: 1;
+    max-width: 500px;
+    flex-direction: column;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+
+    cadrart-button {
+      align-self: flex-end;
+      margin-top: $spacing-large;
+      margin-bottom: $spacing-medium;
+    }
+  }
+
+  .cadrart-card__body {
+    flex-direction: column;
+  }
+
+  &__error {
+    text-align: center;
+    color: $color-red;
+  }
+}

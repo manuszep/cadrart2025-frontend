@@ -1,0 +1,22 @@
+<div class="cadrart-providers" *ngIf="data$ | async as data">
+  <cadrart-table
+    [data]="data"
+    [keys]="['name', 'address', 'vat', 'iban', 'mail']"
+    [trackBy]="identify"
+    [getItemName]="getItemName"
+    [consultable]="false"
+    (cadrartEdit)="handleEditClick($event)"
+    (cadrartDelete)="handleDeleteClick($event)"
+  >
+  </cadrart-table>
+</div>
+
+<ng-template #formTemplate>
+  <form *ngIf="entityFormGroup" [formGroup]="entityFormGroup">
+    <cadrart-field formControlName="name"></cadrart-field>
+    <cadrart-field formControlName="address"></cadrart-field>
+    <cadrart-field formControlName="vat"></cadrart-field>
+    <cadrart-field formControlName="iban"></cadrart-field>
+    <cadrart-field formControlName="mail"></cadrart-field>
+  </form>
+</ng-template>

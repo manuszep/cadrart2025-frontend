@@ -1,0 +1,64 @@
+<table class="cadrart-table" *ngIf="data">
+  <thead>
+    <tr>
+      <th *ngFor="let key of keys" [ngClass]="['cadrart-table__header__', key] | cadrartConcatPipe">
+        {{ headerPrefix + '.HEADER.' + $any(key) | uppercase | translate }}
+        <cadrart-icon name="arrow_drop_up"></cadrart-icon>
+      </th>
+      <th class="cadrart-table__header__actions" *ngIf="deletable || editable || consultable"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let entry of data; trackBy: trackBy || identify"
+      @existanceAnimation
+      [class.cadrart-table__row--overlay-active]="deleting === entry"
+      (cadrartClickOutside)="handleClickOutside(entry)"
+    >
+      <ng-container
+        *ngFor="let key of keys"
+        [ngTemplateOutlet]="getTemplateOutlet(key) || defaultContent"
+        [ngTemplateOutletContext]="{ $implicit: $any(entry), key: [key] }"
+      ></ng-container>
+      <td class="cadrart-table__row__actions" *ngIf="deletable || editable || consultable">
+        <cadrart-actions-group
+          [deletable]="deletable"
+          [editable]="editable"
+          [consultable]="consultable"
+          (cadrartDelete)="handleDeleteClick(entry)"
+          (cadrartEdit)="handleEditClick(entry)"
+          (cadrartConsult)="handleConsultClick(entry)"
+        >
+        </cadrart-actions-group>
+
+        <div overlay class="cadrart-table__delete-overlay">
+          <div class="cadrart-table__delete-overlay__content">
+            <div class="cadrart-table__delete-overlay__content__title">
+              {{ 'ALERT.DELETE_CONFIRMATION.TITLE' | translate : { name: getItemName($any(entry)) } }}
+            </div>
+            <div class="cadrart-table__delete-overlay__content__actions">
+              <cadrart-button
+                [outline]="true"
+                icon="cancel"
+                color="neutral"
+                (cadrartClick)="handleDeleteCancelClick()"
+                >{{ 'ALERT.DELETE_CONFIRMATION.CANCEL' | translate }}</cadrart-button
+              >
+              <cadrart-button
+                [outline]="true"
+                icon="delete"
+                color="danger"
+                (cadrartClick)="handleDeleteConfirmClick(entry)"
+                >{{ 'ALERT.DELETE_CONFIRMATION.CONFIRM' | translate }}</cadrart-button
+              >
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #defaultContent let-entry let-key="key"
+  ><td [ngClass]="['cadrart-table__body__', key] | cadrartConcatPipe">{{ entry[key] }}</td></ng-template
+>

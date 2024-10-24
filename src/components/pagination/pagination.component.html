@@ -1,0 +1,47 @@
+<div class="cadrart-pagination" *ngIf="templateData | async as data">
+  <cadrart-button
+    class="cadrart-pagination__first"
+    [disabled]="data.page === 1"
+    icon="first_page"
+    [iconOnly]="true"
+    [outline]="true"
+    (cadrartClick)="handleFirstClick()"
+    >First</cadrart-button
+  >
+  <cadrart-button
+    class="cadrart-pagination__previous"
+    [disabled]="data.page === 1"
+    icon="chevron_left"
+    [iconOnly]="true"
+    [outline]="true"
+    (cadrartClick)="handlePreviousClick()"
+    >Previous</cadrart-button
+  >
+  <div class="cadrart-pagination__pages" *ngFor="let i of data.looper">
+    <cadrart-button
+      class="cadrart-pagination__pages__page"
+      [disabled]="data.page === i"
+      [outline]="true"
+      (cadrartClick)="handlePageClick(i)"
+      >{{ i }}</cadrart-button
+    >
+  </div>
+  <cadrart-button
+    class="cadrart-pagination__next"
+    [disabled]="data.page === data.lastPage"
+    icon="chevron_right"
+    [iconOnly]="true"
+    [outline]="true"
+    (cadrartClick)="handleNextClick()"
+    >Next</cadrart-button
+  >
+  <cadrart-button
+    class="cadrart-pagination__last"
+    [disabled]="data.page === data.lastPage"
+    icon="last_page"
+    [iconOnly]="true"
+    [outline]="true"
+    (cadrartClick)="handleLastClick()"
+    >Last</cadrart-button
+  >
+</div>

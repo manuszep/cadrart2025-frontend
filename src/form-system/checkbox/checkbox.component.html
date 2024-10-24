@@ -1,0 +1,18 @@
+<div class="cadrart-field-checkbox">
+  <div class="cadrart-field-checkbox__input">
+    <label>
+      <span class="cadrart-field-checkbox__input__checkbox">
+        <input
+          autocomplete="off"
+          type="checkbox"
+          [formControl]="control"
+          [readonly]="config.readonly"
+          [autofocus]="config.autofocus"
+          [tabindex]="config.tabIndex" />
+        <cadrart-icon name="check" ></cadrart-icon>
+      </span>
+
+      <span *ngIf="label">{{ label | translate }}</span>
+    </label>
+  </div>
+</div>

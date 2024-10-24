@@ -1,0 +1,18 @@
+<ng-container *ngIf="config">
+  <div class="cadrart-field-orientation">
+    <div class="cadrart-field-orientation__input">
+      <cadrart-button
+        *ngIf="control.value === 1"
+        class="cadrart-field-orientation__input__portrait"
+        icon="portrait"
+        [iconOnly]="true"
+        (cadrartClick)="handleClick()"></cadrart-button>
+      <cadrart-button
+        *ngIf="control.value === 0"
+        class="cadrart-field-orientation__input__landscape"
+        icon="landscape"
+        [iconOnly]="true"
+        (cadrartClick)="handleClick()"></cadrart-button>
+    </div>
+  </div>
+</ng-container>

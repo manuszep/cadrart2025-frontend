@@ -1,0 +1,27 @@
+<cadrart-field-layout
+  [label]="label"
+  [iconBefore]="config.iconBefore"
+  [iconAfter]="config.iconAfter"
+  [textAfter]="config.textAfter"
+  [disabled]="config.disabled"
+>
+  <div class="cadrart-field-date__wrapper">
+    <input
+      #inputField
+      [class.has-value]="hasValue()"
+      [class.has-no-value]="!hasValue()"
+      type="date"
+      autocomplete="off"
+      [formControl]="control"
+      [name]="name"
+      [placeholder]="placeholder || '' | translate"
+      [readonly]="config.readonly"
+      [autofocus]="config.autofocus"
+      [tabindex]="config.tabIndex"
+      [controlValueTransformer]="transformer"
+      [rewriteValueOnChange]="false"
+      [attr.min]="config.min"
+      [attr.max]="config.max"
+    />
+  </div>
+</cadrart-field-layout>

@@ -1,0 +1,20 @@
+<div
+  class="cadrart-tooltip"
+  [class.cadrart-tooltip--open]="service.open()"
+  [style]="{
+    left: service.x() + 'px',
+    top: service.y() + 'px',
+  }"
+  (cadrartClickOutside)="handleClickOutside()">
+  <div class="cadrart-tooltip__arrow">
+    <ng-content></ng-content>
+    <div class="cadrart-tooltip__content">
+      <cadrart-string-or-template
+          *ngIf="service.content()"
+          [content]="service.content() || ''"
+          [inputs]="service.contentInputs()"
+          [outputs]="service.contentOutputs()"
+        ></cadrart-string-or-template>
+    </div>
+  </div>
+</div>

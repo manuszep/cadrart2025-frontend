@@ -1,0 +1,44 @@
+<div class="cadrart-team-members" *ngIf="data$ | async as data">
+  <div class="cadrart-team-members__list">
+    <cadrart-data-card
+      *ngFor="let tm of data; trackBy: identify"
+      @existanceAnimation
+      [image]="{
+        name: tm.image !== '' ? tm.image : 'default',
+        folder: 'team-member'
+      }"
+      [title]="getItemName(tm)"
+      [consultable]="false"
+      [editable]="true"
+      [deletable]="true"
+      [fields]="[
+        {
+          label: 'FIELD.MAIL.LABEL' | translate,
+          value: tm.mail
+        },
+        {
+          label: 'FIELD.PHONE.LABEL' | translate,
+          value: tm.phone
+        },
+        {
+          label: 'FIELD.ADDRESS.LABEL' | translate,
+          value: tm.address,
+          extend: true
+        }
+      ]"
+      (cadrartEdit)="handleEditClick(tm)"
+    ></cadrart-data-card>
+  </div>
+</div>
+
+<ng-template #formTemplate>
+  <form *ngIf="entityFormGroup" [formGroup]="entityFormGroup">
+    <cadrart-field formControlName="firstName"></cadrart-field>
+    <cadrart-field formControlName="lastName"></cadrart-field>
+    <cadrart-field formControlName="address"></cadrart-field>
+    <cadrart-field formControlName="mail"></cadrart-field>
+    <cadrart-field formControlName="phone"></cadrart-field>
+    <cadrart-field formControlName="image"></cadrart-field>
+    <cadrart-field formControlName="password"></cadrart-field>
+  </form>
+</ng-template>

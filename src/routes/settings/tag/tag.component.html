@@ -1,0 +1,23 @@
+<div class="cadrart-tags" *ngIf="data$ | async as data">
+  <div class="cadrart-tags__list">
+    <cadrart-data-card
+      *ngFor="let tag of data; trackBy: identify"
+      @existanceAnimation
+      [title]="getItemName(tag)"
+      [consultable]="true"
+      [editable]="true"
+      [deletable]="true"
+      [consultable]="false"
+      [inline]="true"
+      [compact]="true"
+      (cadrartEdit)="handleEditClick(tag)"
+      (cadrartDelete)="handleDeleteClick(tag)"
+    ></cadrart-data-card>
+  </div>
+</div>
+
+<ng-template #formTemplate>
+  <form *ngIf="entityFormGroup" [formGroup]="entityFormGroup">
+    <cadrart-field formControlName="name"></cadrart-field>
+  </form>
+</ng-template>

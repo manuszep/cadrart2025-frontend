@@ -1,0 +1,137 @@
+@import '../../styles/functions';
+
+$nav-color: getColor(primary);
+
+.cadrart-header {
+  padding: 0 $spacing-medium;
+  box-shadow: inset -1px 0 0 1px $color-border, $box-shadow;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  min-height: 38px;
+  z-index: $z-index-header;
+
+  @media print {
+    box-shadow: none;
+    padding: $spacing-medium;
+
+    > * {
+      display: none;
+    }
+  }
+
+  &__logo {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+
+    @media print {
+      display: block;
+    }
+
+    picture {
+      display: contents;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &__actions {
+    justify-content: flex-end;
+    display: flex;
+    padding: $spacing-small 0;
+    flex-grow: 1;
+
+    &__user {
+      display: flex;
+      align-items: center;
+      margin-left: $spacing-medium;
+      align-self: center;
+      width: 30px;
+
+      img {
+        display: block;
+        width: 30px;
+        max-height: 30px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &__nav {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    //position: absolute;
+    //left: 0;
+    width: 100%;
+    //top: 0;
+    height: 100%;
+    align-self: flex-end;
+
+    a {
+      color: rgba($color-text-light, 0.5);
+      text-decoration: none;
+      display: block;
+      padding: 0 $spacing-medium;
+      transition: color 0.3s;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      &:after {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        content: '';
+        width: 0;
+        height: 1px;
+        background-color: $nav-color;
+        transition: width 0.3s, opacity 0.3s;
+        opacity: 0;
+        z-index: 2;
+      }
+
+      &:before {
+        z-index: 1;
+        content: '';
+        position: absolute;
+        top: calc(100% - 15px);
+        left: 50%;
+        height: 14px;
+        transform: translateX(-50%);
+        width: 0;
+        height: 15px;
+        box-shadow: 0 0 13px rgba($nav-color, 0.5);
+        transition: opacity 0.3s, width 0.3s;
+        opacity: 0;
+        border-radius: 50%;
+        clip-path: polygon(-50% 15px, 0% 150%, 150% 150%, 150% 15px);
+      }
+
+      &:hover,
+      &.active {
+        &:after {
+          width: 100%;
+          opacity: 1;
+        }
+
+        &:before {
+          width: 100%;
+          opacity: 1;
+        }
+      }
+
+      &.active {
+        color: $nav-color;
+      }
+    }
+  }
+}

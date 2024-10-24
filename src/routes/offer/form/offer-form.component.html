@@ -1,0 +1,74 @@
+<form class="cadrart-offer-form" *ngIf="offerForm" [formGroup]="offerForm">
+  <div class="cadrart-offer-form__main">
+    <div class="cadrart-offer-form__main__section cadrart-offer-form__main__section--1">
+      <h1 *ngIf="!offerId">{{ 'OFFER.FORM.TITLE_NEW' | translate }}</h1>
+      <h1 *ngIf="offerId" [innerHTML]="'OFFER.FORM.TITLE' | translate : { number: offerForm.getNumber().value }"></h1>
+      <div class="cadrart-offer-form__client-field">
+        <cadrart-field formControlName="client" (onChange)="handleModelChange()"></cadrart-field>
+        <cadrart-button icon="add_circle_outline" [iconOnly]="true" (cadrartClick)="handleAddClient()"></cadrart-button>
+        <cadrart-button
+          icon="history"
+          [iconOnly]="true"
+          [disabled]="!this.offerForm.get('client')?.value"
+          (cadrartClick)="handleClientHistoryClick()"
+        ></cadrart-button>
+      </div>
+      <cadrart-field formControlName="assignedTo"></cadrart-field>
+    </div>
+    <div class="cadrart-offer-form__main__section cadrart-offer-form__main__section--2">
+      <cadrart-field formControlName="adjustedVat" (change)="handleModelChange()"></cadrart-field>
+      <cadrart-field formControlName="adjustedReduction" (change)="handleModelChange()"></cadrart-field>
+    </div>
+  </div>
+
+  <div #jobs class="cadrart-offer-form__jobs">
+    <ng-container formArrayName="jobs">
+      <ng-container *ngFor="let jobFormEntry of getjobsControl().controls; let i = index">
+        <cadrart-job-form
+          #jobForm
+          [jobForm]="jobFormEntry"
+          [extended]="extendedJob === i"
+          [deletable]="i > 0"
+          (modelChange)="handleModelChange()"
+          (cadrartDuplicate)="handleJobDuplicate(i)"
+          (cadrartToggle)="handleJobToggle(i)"
+          (cadrartDelete)="handleJobDelete(i)"
+        ></cadrart-job-form>
+      </ng-container>
+    </ng-container>
+  </div>
+</form>
+
+<ng-template #clientFormTemplate>
+  <cadrart-client-form *ngIf="clientForm" [entityFormGroup]="clientForm"></cadrart-client-form>
+</ng-template>
+
+<ng-template #footerTemplate>
+  <div class="cadrart-offer-form__footer">
+    <div class="cadrart-offer-form__footer__price">
+      <span [innerHTML]="total() | cadrartPrice"></span>&nbsp;<small>HTVA</small>
+      <span class="cadrart-offer-form__footer__price__splitter"></span>
+      <span [innerHTML]="totalWithVat() | cadrartPrice"></span>&nbsp;<small>TVAC</small>
+    </div>
+
+    <div class="cadrart-offer-form__footer__actions">
+      <cadrart-button
+        icon="add_task"
+        color="secondary"
+        (cadrartClick)="handleSaveAndPlay()"
+        [disabled]="offerForm?.status === 'INVALID'"
+        >{{ 'OFFER.FORM.START' | translate }}</cadrart-button
+      >
+      <cadrart-button icon="save" (cadrartClick)="handleSave()" [disabled]="offerForm?.status === 'INVALID'">{{
+        'OFFER.FORM.SAVE' | translate
+      }}</cadrart-button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #clientHistoryTemplate>
+  <cadrart-offer-history
+    [offers]="clientOffers()"
+    (cadrartClick)="handleOfferHistoryClick($event)"
+  ></cadrart-offer-history>
+</ng-template>

@@ -1,0 +1,13 @@
+<div class="cadrart-login">
+  <cadrart-card [title]="'LOGIN.TITLE'" [image]="image()">
+    <form class="cadrart-login__form" [formGroup]="loginForm">
+      <cadrart-field formControlName="mail" (cadrartBlur)="handleMailBlur()"></cadrart-field>
+      <cadrart-field formControlName="password"></cadrart-field>
+      <cadrart-button type="submit" (cadrartClick)="handleSubmit()">{{ 'LOGIN.SUBMIT' | translate }}</cadrart-button>
+    </form>
+
+    <div *ngIf="error()" class="cadrart-login__error">
+      {{ error() ?? '' | translate }}
+    </div>
+  </cadrart-card>
+</div>

@@ -1,0 +1,26 @@
+@import "./variables";
+
+@function getColor($color) {
+  @return map-get(map-get($colors-map, $color), background);
+}
+
+@function getTextColorFor($color) {
+  @return map-get(map-get($colors-map, $color), text);
+}
+
+@function isColorDark($color) {
+  // Parse RGB by isolating each color
+  $red: red( $color );
+  $green: green( $color );
+  $blue: blue( $color );
+  // Compute the perceptive luminance, keeping
+  // in mind that the human eye favors green.
+  $l: 1 - calc(( 0.299 * $red + 0.587 * $green + 0.114 * $blue ) / 255);
+  /* arguably this should be 0.50, but testing out various colors, this seemed to be the best so far. */
+  @if ( $l < 0.41 ) {
+    // if the luminance is less than 0.41 return black
+    @return $color-text-dark;
+  } @else {
+    @return $color-text-light;
+  }
+}

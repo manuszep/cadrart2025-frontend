@@ -1,0 +1,29 @@
+<div class="cadrart-field-image">
+  <div class="cadrart-field-image__input">
+    <cadrart-button *ngIf="!control.value" [iconOnly]="!label" icon="image" (click)="handleTooltipClick($event)">
+      {{ label ?? '' | translate }}
+    </cadrart-button>
+    <img
+      *ngIf="control.value && control.value !== ''"
+      [src]="control.value | cadrartFieldImagePathPipe : config.folder : 's'"
+      (click)="handleTooltipClick($event)"
+    />
+  </div>
+</div>
+
+<ng-template #tooltipTemplate>
+  <div class="cadrart-field-image__input__actions" tooltipContent>
+    <cadrart-button [disabled]="!!control.value" color="success" [outline]="true" [iconOnly]="true" icon="camera_alt" (cadrartClick)="handleWebcamClick()">
+      {{ 'IMAGE.CAPTURE' | translate }}
+    </cadrart-button>
+    <cadrart-button [disabled]="!!control.value" color="secondary" [outline]="true" [iconOnly]="true" icon="image" (cadrartClick)="handleLoadClick()">
+      {{ 'IMAGE.LOAD' | translate }}
+    </cadrart-button>
+    <cadrart-button [disabled]="!control.value" color="info" [outline]="true" [iconOnly]="true" icon="open_in_full" (cadrartClick)="handleViewClick()">
+      {{ 'IMAGE.VIEW' | translate }}
+    </cadrart-button>
+    <cadrart-button [disabled]="!control.value" color="danger" [outline]="true" [iconOnly]="true" icon="delete" (cadrartClick)="handleDeleteClick()">
+      {{ 'IMAGE.DELETE' | translate }}
+    </cadrart-button>
+  </div>
+</ng-template>

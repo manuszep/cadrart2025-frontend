@@ -1,0 +1,124 @@
+@import '../../styles/variables.scss';
+
+cadrart-navigation {
+  z-index: $z-index-navigation;
+
+  @media print {
+    display: none;
+  }
+}
+
+.cadrart__navigation {
+  height: calc(100% - 20px);
+  filter: drop-shadow($drop-shadow);
+  user-select: none;
+  padding: 5px;
+  margin: 10px;
+  border-radius: $border-radius;
+  background-color: $color-background-l1;
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  transition: max-width $transition-duration, padding $transition-duration;
+
+  &__toggle {
+    align-self: flex-end;
+    transform: translateX(24px);
+    transition: transform $transition-duration;
+    cursor: pointer;
+    margin-bottom: -38px;
+    font-size: 12px;
+    padding: $spacing-small;
+  }
+
+  &__pages {
+    flex-grow: 1;
+    overflow: hidden;
+
+    &__item {
+      transition: padding $transition-duration, margin $transition-duration;
+    }
+  }
+
+  &__pages,
+  &__actions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__actions {
+    &__item {
+      margin: 0 0 $spacing-small;
+
+      &--search {
+        position: relative;
+
+        .cadrart__navigation__actions__item__search-box {
+          position: absolute;
+          z-index: 1;
+          width: 0;
+          left: calc(100% + $spacing-small);
+          top: -7px;
+          background-color: $color-background-l1;
+          border-radius: 0 $border-radius $border-radius 0;
+          padding: $spacing-small;
+          display: flex;
+          align-items: center;
+          opacity: 0;
+          transition: width, opacity;
+          transition-duration: $transition-duration;
+          pointer-events: none;
+
+          &--active {
+            width: 250px;
+            opacity: 1;
+            pointer-events: all;
+          }
+
+          cadrart-button {
+            line-height: 1;
+            margin-left: -26px;
+          }
+
+          cadrart-field {
+            flex-grow: 1;
+
+            .cadrart-field {
+              margin-bottom: 0;
+            }
+          }
+
+          input {
+            padding-right: 26px;
+          }
+        }
+      }
+    }
+  }
+
+  &--toggled {
+    padding: 10px;
+
+    .cadrart__navigation__pages__item {
+      margin: 5px 0;
+    }
+
+    .cadrart__navigation__toggle {
+      transform: translateX(28px) scaleX(-1);
+    }
+  }
+
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  small {
+    font-size: 8px;
+    align-self: center;
+    opacity: 0.5;
+    margin-top: 5px;
+    margin-bottom: -5px;
+  }
+}

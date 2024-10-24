@@ -1,0 +1,67 @@
+@import '../../../styles/variables.scss';
+
+.cadrart-offer-form {
+  margin-bottom: $spacing-large;
+
+  h1 {
+    margin-bottom: $spacing-large;
+  }
+
+  &__main {
+    display: flex;
+    justify-content: space-between;
+
+    &__section {
+      min-width: 400px;
+
+      &--2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  &__client-field {
+    display: flex;
+
+    cadrart-field {
+      flex-grow: 1;
+    }
+
+    cadrart-button {
+      margin-top: 24px;
+      margin-left: $spacing-small;
+    }
+  }
+
+  &__jobs {
+    margin: $spacing-large 0;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+
+    &__price {
+      font-weight: 900;
+
+      &__splitter {
+        display: inline-block;
+        width: 1px;
+        background-color: $color-grey;
+        height: 1em;
+        margin: 0 $spacing-medium;
+        vertical-align: -2px;
+      }
+    }
+
+    &__actions {
+      margin-left: $spacing-large;
+
+      cadrart-button {
+        margin-left: $spacing-large;
+      }
+    }
+  }
+}

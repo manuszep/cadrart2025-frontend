@@ -1,0 +1,30 @@
+@import '../styles/variables.scss';
+
+.cadrart {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.cadrart__page {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  height: 0;
+  position: relative;
+}
+
+.cadrart__content {
+  flex-grow: 1;
+  max-height: 100%;
+  z-index: $z-index-content;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  position: relative;
+  padding: $spacing-medium $spacing-large $spacing-large $spacing-medium;
+
+  @media print {
+    padding: 0 $spacing-medium;
+  }
+}

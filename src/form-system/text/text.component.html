@@ -1,0 +1,71 @@
+<cadrart-field-layout
+  [label]="label"
+  [iconBefore]="config.iconBefore"
+  [iconAfter]="config.iconAfter"
+  [textAfter]="config.textAfter"
+  [disabled]="config.disabled"
+>
+  <div class="cadrart-field-text__wrapper">
+    <input
+      #inputField
+      [type]="config.type ?? 'text'"
+      autocomplete="off"
+      [placeholder]="placeholder || '' | translate"
+      [readonly]="config.readonly"
+      [autofocus]="config.autofocus"
+      [pattern]="config.pattern ?? ''"
+      [tabindex]="config.tabIndex"
+      (input)="handleFieldInput($event)"
+      (blur)="handleFieldBlur($event)"
+      (focus)="handleFieldFocus()"
+    />
+
+    <ul
+      *ngIf="options | async as optionsList"
+      class="cadrart-field-text__wrapper__list"
+      [class.cadrart-field-text__wrapper__list--visible]="showOptions() && optionsList.length > 0"
+    >
+      <li
+        *ngFor="let option of optionsList; index as i"
+        class="cadrart-field-text__wrapper__list__item"
+        [class.cadrart-field-text__wrapper__list__item--highlighted]="i === highlightedIndex()"
+        (click)="handleOptionClick(option, $event)"
+      >
+        {{ option.label | translate }}
+      </li>
+    </ul>
+  </div>
+
+  <!--<input
+    #autocompleteLabel
+    autocomplete="off"
+    [id]="'search-' + name"
+    [hidden]="!config.options"
+    type="text"
+    [placeholder]="(placeholder || '') | translate"
+    [readonly]="config.readonly"
+    [autocomplete]="!!config.autocomplete ? name : 'new-password'"
+    [autofocus]="config.autofocus"
+    [pattern]="config.pattern ?? ''"
+    [tabindex]="config.tabIndex"
+    (input)="handleAutocompleteInput($event)"
+    (blur)="handleAutocompleteBlur()" />
+  <input
+    autocomplete="off"
+    [hidden]="config.options"
+    [type]="config.type ?? 'text'"
+    [formControl]="control"
+    [name]="name"
+    [placeholder]="(placeholder || '') | translate"
+    [readonly]="config.readonly"
+    [autocomplete]="!!config.autocomplete ? name : 'new-password'"
+    [autofocus]="config.autofocus"
+    [pattern]="config.pattern ?? ''"
+    [tabindex]="config.tabIndex" />
+  <datalist
+    *ngIf="config.options" id="options"
+    class="cadrart-field-text__input__options"
+    [class.cadrart-field-text__input__options--active]="showOptions">
+    <option *ngFor="let option of options | async" [value]="option.label" (click)="handleOptionClick(option)">{{ option.label | translate }}</option>
+  </datalist>-->
+</cadrart-field-layout>

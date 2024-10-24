@@ -1,0 +1,34 @@
+@use 'sass:math';
+@import '../../../styles/mixins';
+
+.cadrart-offers {
+  .cadrart-table__header__status {
+    width: 117px;
+  }
+
+  &__state {
+    white-space: nowrap;
+
+    &--started {
+      border-left: 3px solid getColor(secondary) !important;
+    }
+
+    &--created {
+      border-left: 3px solid getColor(warning) !important;
+    }
+
+    &--done {
+      border-left: 3px solid getColor(success) !important;
+    }
+
+    cadrart-button {
+      margin-left: $spacing-small;
+      opacity: 0.75;
+      transition: opacity math.div($transition-duration, 2);
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+<div class="cadrart-data-card" [class.cadrart-data-card--inline]="inline">
+  <cadrart-card
+    [title]="title"
+    [subtitle]="subtitle"
+    [image]="image"
+    [action]="action"
+    [editable]="editable"
+    [deletable]="deletable"
+    [consultable]="consultable"
+    [showOverlay]="(deleting$ | async) ?? false"
+    [inline]="inline"
+    [compact]="compact"
+    (cadrartClickOutside)="handleClickOutside()"
+    (cadrartAction)="handleActionClick()"
+    (cadrartDelete)="handleDeleteClick()"
+    (cadrartEdit)="handleEditClick()"
+    (cadrartConsult)="handleConsultClick()"
+  >
+    <div class="cadrart-data-card__description">
+      <ng-content></ng-content>
+
+      <div *ngIf="fields" class="cadrart-data-card__description__fields">
+        <div
+          *ngFor="let field of fields"
+          class="cadrart-data-card__description__fields__field"
+          [class.cadrart-data-card__description__fields__field--extended]="!!field.extend"
+        >
+          <div class="cadrart-data-card__description__fields__field__label">
+            {{ field.label | translate }}
+          </div>
+          <div class="cadrart-data-card__description__fields__field__value">
+            {{ field.value }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div extended class="cadrart-data-card__description">
+      <ng-content select="[extendedDescription]"></ng-content>
+
+      <div *ngIf="extendedFields" class="cadrart-data-card__description__fields">
+        <div
+          *ngFor="let field of extendedFields"
+          class="cadrart-data-card__description__fields__field"
+          [class.cadrart-data-card__description__fields__field--extended]="!!field.extend"
+        >
+          <div class="cadrart-data-card__description__fields__field__label">
+            {{ field.label | translate }}
+          </div>
+          <div class="cadrart-data-card__description__fields__field__value">
+            {{ field.value }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div overlay class="cadrart-data-card__delete-overlay">
+      <div class="cadrart-data-card__delete-overlay__content">
+        <div class="cadrart-data-card__delete-overlay__content__title">
+          {{
+            (inline ? 'ALERT.DELETE_CONFIRMATION.TITLE_COMPACT' : 'ALERT.DELETE_CONFIRMATION.TITLE')
+              | translate: { name: title }
+          }}
+        </div>
+        <div class="cadrart-data-card__delete-overlay__content__actions">
+          <cadrart-button
+            [outline]="true"
+            [iconOnly]="inline"
+            icon="cancel"
+            color="neutral"
+            (cadrartClick)="handleDeleteCancelClick()"
+            >{{ 'ALERT.DELETE_CONFIRMATION.CANCEL' | translate }}</cadrart-button
+          >
+          <cadrart-button
+            [outline]="true"
+            [iconOnly]="inline"
+            icon="delete"
+            color="danger"
+            (cadrartClick)="handleDeleteConfirmClick()"
+            >{{ 'ALERT.DELETE_CONFIRMATION.CONFIRM' | translate }}</cadrart-button
+          >
+        </div>
+      </div>
+    </div>
+  </cadrart-card>
+</div>

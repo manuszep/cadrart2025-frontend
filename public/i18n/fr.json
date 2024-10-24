@@ -1,0 +1,410 @@
+{
+  "HEADER": {
+    "ADD": "Ajouter",
+    "ADD_JOB": "Ajouter un travail"
+  },
+  "NAVIGATION": {
+    "PAGES": {
+      "TASKS": "Tâches",
+      "OFFERS": "Offres",
+      "STOCK": "Stock",
+      "SETTINGS": "Paramètres"
+    },
+    "ACTIONS": {
+      "NEW_OFFER": "Nouvelle offre",
+      "SEARCH": "Rechercher"
+    }
+  },
+  "INSPECTOR": {
+    "BUTTON": {
+      "BACK": "Retour"
+    }
+  },
+  "MODAL": {
+    "BUTTON": {
+      "BACK": "Fermer"
+    }
+  },
+  "ERROR": {
+    "VALIDATION": {
+      "REQUIRED": "Ce champ est requis",
+      "EMAIL": "L'adresse e-mail n'est pas valide",
+      "MINLENGTH": "Ce champ doit contenir au moins {{minlength.requiredLength}} caractères",
+      "PASSWORD": "Le mot de passe doit contenir au moins {{minLength}} caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.",
+      "TASKMAX": "Cet article ne peut dépasser {{taskMax}}&nbsp;cm"
+    },
+    "LOGIN": "Nom d'utilisateur ou mot de passe invalide."
+  },
+  "ALERT": {
+    "DELETE_CONFIRMATION": {
+      "TITLE": "Supprimer {{name}} ?",
+      "TITLE_COMPACT": "Supprimer ?",
+      "CONFIRM": "Supprimer",
+      "CANCEL": "Annuler"
+    }
+  },
+  "TEAM-MEMBER": {
+    "NEW": {
+      "TITLE": "Nouveau membre de l'équipe",
+      "SAVE": "Enregistrer"
+    }
+  },
+  "TABLE": {
+    "HEADER": {
+      "NAME": "Nom",
+      "FORMULA": "Formule",
+      "ADDRESS": "Adresse",
+      "VAT": "TVA",
+      "IBAN": "IBAN",
+      "MAIL": "E-mail",
+      "COMPANY": "Société",
+      "PHONE": "Téléphone",
+      "REDUCTION": "Réduction",
+      "TAG": "Tag",
+      "BUYSELLPRICE": "Prix d'achat / vente",
+      "TYPE": "Famille / Calcul",
+      "MAXREDUCTION": "Réduction max",
+      "PROVIDER": "Fournisseur",
+      "PROVIDERREF": "Référence fournisseur",
+      "MAXSIZE": "Taille max",
+      "COMBINE": "Combi.",
+      "NAMEPLACE": "Nom / Emplacement"
+    }
+  },
+  "IMAGE": {
+    "CAPTURE": {
+      "TITLE": "Image",
+      "LOADING": "Chargement...",
+      "CANCEL": "Fermer",
+      "SAVE": "Enregistrer",
+      "DELETE": "Supprimer",
+      "CLEAR": "Effacer",
+      "CAPTURE": "Prendre",
+      "START": "Webcam",
+      "UPLOADFILE": "Fichier"
+    }
+  },
+  "CLIENT": {
+    "NEW": {
+      "TITLE": "Nouveau client",
+      "SAVE": "Enregistrer"
+    },
+    "EDIT": {
+      "TITLE": "Modifier client",
+      "SAVE": "Enregistrer"
+    }
+  },
+  "FORMULA": {
+    "NEW": {
+      "TITLE": "Nouvelle formule",
+      "SAVE": "Enregistrer"
+    }
+  },
+  "LOCATION": {
+    "NEW": {
+      "TITLE": "Nouvel emplacement",
+      "SAVE": "Enregistrer"
+    }
+  },
+  "PROVIDER": {
+    "NEW": {
+      "TITLE": "Nouveau fournisseur",
+      "SAVE": "Enregistrer"
+    }
+  },
+  "TAG": {
+    "NEW": {
+      "TITLE": "Nouveau tag",
+      "SAVE": "Enregistrer"
+    }
+  },
+  "OFFER": {
+    "NEW": {},
+    "EDIT": {
+      "TITLE": "Modifier l'offre",
+      "SAVE": "Enregistrer"
+    },
+    "STATUS": {
+      "0": "Nouveau",
+      "1": "En cours",
+      "2": "Terminé"
+    },
+    "FORM": {
+      "OPENING": "Ouverture",
+      "MARGIN": "Marge",
+      "GLASS": "Verre",
+      "AUTO": "Auto",
+      "WIDTH": "Largeur",
+      "HEIGHT": "Hauteur",
+      "START": "Démarrer",
+      "SAVE": "Enregistrer devis",
+      "TITLE": "Offre n°&nbsp;{{number}}",
+      "TITLE_NEW": "Nouvelle offre"
+    },
+    "VIEW": {
+      "TITLE": "Offre n°&nbsp;{{number}}",
+      "ASSIGNEDTO": "Responsable",
+      "VAT": "TVA",
+      "REDUCTION": "Réduction",
+      "MEASURE": "Mesure",
+      "LOCATION": "Emplacement",
+      "DUEDATE": "Date de fin",
+      "STARTDATE": "Date de début",
+      "TOTAL": "Total",
+      "TOTALWITHVAT": "Total TVAC",
+      "EDIT": "Modifier",
+      "GLASS": "Verre",
+      "MARGIN": "Marge",
+      "OPENING": "Ouverture"
+    },
+    "SAVE": {
+      "SUCCESS": "L'offre a été enregistrée avec succès."
+    }
+  },
+  "OFFER_LIST": {
+    "HEADER": {
+      "NUMBER": "Numéro d'offre",
+      "CLIENT": "Client",
+      "CLIENTNAME": "Client",
+      "ASSIGNEDTO": "Responsable",
+      "ASSIGNEDTONAME": "Responsable",
+      "STATUS": "Statut",
+      "TOTAL": "Total"
+    },
+    "ALERTS": {
+      "DELETE_SUCCESS": "L'offre a été supprimée avec succès."
+    },
+    "FILTER": {
+      "PERIOD": {
+        "TITLE": "Période",
+        "ALL": "Tout",
+        "WEEK": "Semaine",
+        "TODAY": "Aujourd'hui"
+      },
+      "STATUS": {
+        "TITLE": "Statut",
+        "ALL": "Tout",
+        "PAUSED": "Nouveau",
+        "ACTIVE": "En cours",
+        "DONE": "Terminé"
+      }
+    }
+  },
+  "ARTICLE": {
+    "NEW": {
+      "TITLE": "Nouvel article",
+      "SAVE": "Enregistrer"
+    },
+    "EDIT": {
+      "TITLE": "Modifier article",
+      "SAVE": "Enregistrer"
+    },
+    "FAMILY": {
+      "0": "Verre",
+      "1": "Bois",
+      "2": "Carton",
+      "3": "Assemblage",
+      "4": "Passe-partout"
+    },
+    "PRICEMETHOD": {
+      "0": "Longueur",
+      "1": "Surface",
+      "2": "Prix fixe"
+    }
+  },
+  "JOB": {
+    "ORIENTATION": {
+      "0": "Portrait",
+      "1": "Paysage"
+    },
+    "MEASURE": {
+      "0": "Verre",
+      "1": "Extérieur",
+      "2": "Approximatif",
+      "3": "Ouverture"
+    }
+  },
+  "FIELD": {
+    "SELECT": {
+      "PLACEHOLDER": "Choisir..."
+    },
+    "ACTION": {
+      "REMOVE": "Supprimer",
+      "ADD": "Ajouter"
+    },
+    "SEARCH": {
+      "PLACEHOLDER": "Recherche"
+    },
+    "NAME": {
+      "LABEL": "Nom",
+      "PLACEHOLDER": "Nom"
+    },
+    "FIRSTNAME": {
+      "LABEL": "Prénom",
+      "PLACEHOLDER": "Stanislas"
+    },
+    "LASTNAME": {
+      "LABEL": "Nom",
+      "PLACEHOLDER": "Drzemala"
+    },
+    "ADDRESS": {
+      "LABEL": "Adresse",
+      "PLACEHOLDER": "68 avenue de la chasse, 1040 Etterbeek"
+    },
+    "MAIL": {
+      "LABEL": "E-mail",
+      "PLACEHOLDER": "stanislas.drzemala@gmail.com"
+    },
+    "PHONE": {
+      "LABEL": "Téléphone",
+      "PLACEHOLDER": "0475 12 34 56"
+    },
+    "PHONE2": {
+      "LABEL": "Téléphone 2",
+      "PLACEHOLDER": "0475 12 34 56"
+    },
+    "IMAGE": {
+      "LABEL": "Photo",
+      "PLACEHOLDER": "Choisir une photo"
+    },
+    "PASSWORD": {
+      "LABEL": "Mot de passe",
+      "PLACEHOLDER": "Pas 123456 !"
+    },
+    "START": {
+      "LABEL": "Début",
+      "PLACEHOLDER": "Début"
+    },
+    "OPERATION": {
+      "LABEL": "Opération",
+      "PLACEHOLDER": "Opération"
+    },
+    "AMOUNT": {
+      "LABEL": "Quantité",
+      "PLACEHOLDER": "Quantité"
+    },
+    "COMPANY": {
+      "LABEL": "Société",
+      "PLACEHOLDER": "Société"
+    },
+    "VAT": {
+      "LABEL": "TVA",
+      "PLACEHOLDER": "TVA"
+    },
+    "REDUCTION": {
+      "LABEL": "Réduction",
+      "PLACEHOLDER": "Réduction"
+    },
+    "TAG": {
+      "LABEL": "Tag",
+      "PLACEHOLDER": "Tag"
+    },
+    "PLACE": {
+      "LABEL": "Emplacement",
+      "PLACEHOLDER": "Emplacement"
+    },
+    "BUYPRICE": {
+      "LABEL": "Prix d'achat",
+      "PLACEHOLDER": "Prix d'achat"
+    },
+    "SELLPRICE": {
+      "LABEL": "Prix de vente",
+      "PLACEHOLDER": "Prix de vente"
+    },
+    "GETPRICEMETHOD": {
+      "LABEL": "Calcul",
+      "PLACEHOLDER": "Calcul"
+    },
+    "FAMILY": {
+      "LABEL": "Famille",
+      "PLACEHOLDER": "Famille"
+    },
+    "PROVIDER": {
+      "LABEL": "Fournisseur",
+      "PLACEHOLDER": "Fournisseur"
+    },
+    "PROVIDERREF": {
+      "LABEL": "Référence fournisseur",
+      "PLACEHOLDER": "Référence fournisseur"
+    },
+    "FORMULA": {
+      "LABEL": "Formule",
+      "PLACEHOLDER": "Formule"
+    },
+    "MAXLENGTH": {
+      "LABEL": "Longueur max",
+      "PLACEHOLDER": "Longueur max"
+    },
+    "MAXWIDTH": {
+      "LABEL": "Largeur max",
+      "PLACEHOLDER": "Largeur max"
+    },
+    "COMBINE": {
+      "LABEL": "Combinable",
+      "PLACEHOLDER": "Combinable"
+    },
+    "MAXREDUCTION": {
+      "LABEL": "Réduction max",
+      "PLACEHOLDER": "Réduction max"
+    },
+    "CLIENT": {
+      "LABEL": "Client",
+      "PLACEHOLDER": "Client"
+    },
+    "ASSIGNEDTO": {
+      "LABEL": "Responsable",
+      "PLACEHOLDER": "Responsable"
+    },
+    "STATUS": {
+      "LABEL": "Statut",
+      "PLACEHOLDER": "Statut"
+    },
+    "ADJUSTEDVAT": {
+      "LABEL": "TVA ajustée",
+      "PLACEHOLDER": "TVA ajustée"
+    },
+    "ADJUSTEDREDUCTION": {
+      "LABEL": "Réduction",
+      "PLACEHOLDER": "Réduction"
+    },
+    "ORIENTATION": {
+      "LABEL": "Orientation",
+      "PLACEHOLDER": "Orientation"
+    },
+    "DESCRIPTION": {
+      "LABEL": "Description",
+      "PLACEHOLDER": "Description"
+    },
+    "ARTICLE": {
+      "LABEL": "Article",
+      "PLACEHOLDER": "Article"
+    },
+    "MEASURE": {
+      "LABEL": "Mesure",
+      "PLACEHOLDER": "Mesure"
+    },
+    "LOCATION": {
+      "LABEL": "Emplacement",
+      "PLACEHOLDER": "Emplacement"
+    },
+    "DUEDATE": {
+      "LABEL": "Date d'échéance",
+      "PLACEHOLDER": "Date d'échéance"
+    },
+    "STARTDATE": {
+      "LABEL": "Date de début",
+      "PLACEHOLDER": "Date de début"
+    },
+    "COMMENT": {
+      "LABEL": "Commentaire",
+      "PLACEHOLDER": "Commentaire"
+    },
+    "IBAN": {
+      "LABEL": "Iban"
+    }
+  },
+  "LOGIN": {
+    "TITLE": "Connexion",
+    "SUBMIT": "Se connecter"
+  }
+}

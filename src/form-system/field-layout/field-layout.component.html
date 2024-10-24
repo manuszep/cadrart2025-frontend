@@ -1,0 +1,23 @@
+<ng-container>
+  <div class="cadrart-field">
+    <div
+      class="cadrart-field__input"
+      [class.cadrart-field__input--disabled]="disabled"
+      [class.cadrart-field__input--no-label]="!label"
+    >
+      <cadrart-icon
+        class="cadrart-field__input__icon cadrart-field__input__icon--before"
+        *ngIf="iconBefore"
+        [name]="iconBefore"
+      ></cadrart-icon>
+      <cadrart-icon
+        class="cadrart-field__input__icon cadrart-field__input__icon--after"
+        *ngIf="iconAfter"
+        [name]="iconAfter"
+      ></cadrart-icon>
+      <span class="cadrart-field__input__text-after" *ngIf="textAfter">{{ textAfter | translate }}</span>
+      <label *ngIf="label">{{ label | translate }}</label>
+      <ng-content></ng-content>
+    </div>
+  </div>
+</ng-container>

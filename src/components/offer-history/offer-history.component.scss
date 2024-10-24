@@ -1,0 +1,49 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.offer-history {
+  display: block;
+  padding: 0;
+  margin: 0;
+
+  &__offer {
+    list-style: none;
+    padding: $spacing-small;
+    margin: 0 (-$spacing-medium) $spacing-medium;
+    @include panel;
+
+    &__details {
+      display: flex;
+      justify-content: space-between;
+      line-height: 1.2;
+      margin-bottom: $spacing-small;
+
+      &__price {
+        text-align: right;
+      }
+    }
+
+    &__job {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid $color-border;
+      border-radius: $border-radius;
+      padding: 0 $spacing-small;
+      background: #ffffff11;
+
+      &__size {
+        flex-grow: 1;
+      }
+
+      &__price {
+        text-align: right;
+        margin-right: $spacing-medium;
+      }
+
+      cadrart-button {
+        margin-top: -2px;
+      }
+    }
+  }
+}

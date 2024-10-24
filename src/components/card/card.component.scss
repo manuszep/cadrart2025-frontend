@@ -1,0 +1,152 @@
+@use 'sass:math';
+@import '../../styles/mixins.scss';
+@import '../../styles/variables';
+
+.cadrart-card {
+  @include panel();
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $spacing-medium;
+
+  &.cadrart-card--inline {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  @media print {
+    border: 1px solid #ccc;
+    border-width: 1px 0;
+    margin: 0;
+  }
+}
+
+.cadrart-card--compact {
+  padding: $spacing-small $spacing-medium;
+}
+
+.cadrart-card--image {
+  margin-top: 20px + $spacing-medium;
+}
+
+.cadrart-card__image {
+  display: block;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  z-index: 2;
+  border-radius: 50%;
+  box-shadow: $box-shadow;
+  overflow: hidden;
+
+  img {
+    width: -moz-available;
+    width: -webkit-fill-available;
+  }
+
+  + .cadrart-card__header {
+    margin-top: 30px;
+  }
+}
+
+.cadrart-card__body-extension:empty ~ .cadrart-card__actions .cadrart-actions-group__extend {
+  display: none;
+}
+
+.cadrart-card__header {
+  margin-bottom: $spacing-medium;
+  display: flex;
+
+  &:has(.cadrart-card__header__wrapper:empty) {
+    display: none;
+  }
+
+  .cadrart-card--inline & {
+    margin: 0;
+    margin-right: $spacing-medium;
+  }
+
+  &__wrapper {
+    flex-grow: 1;
+  }
+
+  &__title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: $spacing-small;
+    margin-top: 0;
+    flex-grow: 1;
+
+    .cadrart-card--inline & {
+      margin: 0;
+    }
+
+    .cadrart-card--compact & {
+      font-size: 14px;
+    }
+
+    &__subtitle {
+      font-size: 14px;
+      font-weight: 400;
+      color: $color-grey;
+      line-height: 16px;
+    }
+  }
+}
+
+.cadrart-card__body,
+.cadrart-card__body-extension {
+  flex-grow: 1;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.cadrart-card__footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: $spacing-medium;
+  padding-top: $spacing-medium;
+  border-top: $border-width $border-style $color-border;
+}
+
+.cadrart-card__actions {
+  position: absolute;
+  top: $spacing-small;
+  right: $spacing-small;
+
+  .cadrart-card--inline & {
+    position: static;
+  }
+}
+
+.cadrart-card__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color-background-l1, 0.75);
+  backdrop-filter: blur($backdrop-blur);
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $transition-duration;
+}
+
+.cadrart-card--overlay-active {
+  .cadrart-card__overlay {
+    opacity: 1;
+    pointer-events: all;
+  }
+}

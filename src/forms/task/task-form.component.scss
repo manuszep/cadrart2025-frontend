@@ -1,0 +1,44 @@
+@import '../../styles/variables.scss';
+
+cadrart-task-form {
+  display: contents;
+}
+
+.cadrart-task-form {
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: $spacing-small;
+  }
+
+  .cadrart-field-wrapper {
+    margin: 0;
+  }
+
+  &--error {
+    background-color: rgba($color-red, 0.1);
+
+    td {
+      border-top: 1px solid rgba($color-red, 0.5);
+
+      &:first-child {
+        border-left: 1px solid rgba($color-red, 0.5);
+      }
+
+      &:last-child {
+        border-right: 1px solid rgba($color-red, 0.5);
+      }
+    }
+  }
+
+  &__error {
+    background-color: rgba($color-red, 0.1);
+    color: $color-red;
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: center !important;
+    border: 1px solid rgba($color-red, 0.5);
+    border-top: none;
+  }
+}

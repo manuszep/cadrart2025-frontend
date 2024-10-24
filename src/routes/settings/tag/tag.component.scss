@@ -1,0 +1,10 @@
+@import '../../../styles/variables.scss';
+
+.cadrart-tags {
+  &__list {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(2, 400px);
+    grid-gap: 0 10px;
+  }
+}

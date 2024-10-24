@@ -1,0 +1,26 @@
+<ul class="offer-history">
+  <li class="offer-history__offer" *ngFor="let offer of offers">
+    <div class="offer-history__offer__details">
+      <div class="offer-history__offer__details__date">
+        {{ offer.number }}<br />
+        <small [innerHTML]="offer.createdAt | cadrartDate"></small>
+      </div>
+      <div class="offer-history__offer__details__price">
+        <span [innerHTML]="offer.total | cadrartPrice"></span><br />
+        <small [innerHTML]="offer.totalWithVat | cadrartPrice"></small>
+      </div>
+    </div>
+
+    <div class="offer-history__offer__job" *ngFor="let job of offer.jobs">
+      <span class="offer-history__offer__job__size">{{ job.glassWidth }} x {{ job.glassHeight }}</span>
+      <small class="offer-history__offer__job__price" [innerHTML]="job.total | cadrartPrice"></small>
+      <cadrart-button
+        [iconOnly]="true"
+        icon="add"
+        size="small"
+        [outline]="true"
+        (cadrartClick)="handleClick(job)"
+      ></cadrart-button>
+    </div>
+  </li>
+</ul>

@@ -1,0 +1,19 @@
+@import '../../styles/variables';
+
+.cadrart-button-toggle {
+  margin-bottom: $spacing-large;
+
+  cadrart-button {
+    &:not(:first-child) button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: 1px solid rgba(0, 0, 0, 0.3);
+      margin-left: -1px;
+    }
+
+    &:not(:last-child) button {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}

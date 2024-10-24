@@ -1,0 +1,15 @@
+@import '../../../styles/variables.scss';
+
+.cadrart-locations {
+  &__list {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(2, 400px);
+    grid-gap: 0 10px;
+  }
+
+  cadrart-data-card {
+    flex-basis: 1;
+    flex-grow: 1;
+  }
+}

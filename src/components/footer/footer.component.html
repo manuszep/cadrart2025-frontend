@@ -1,0 +1,6 @@
+<ng-container *ngIf="templateData | async as data">
+  <div class="cadrart-footer" [class.cadrart-footer--toggled]="!!data.content">
+    <cadrart-pagination *ngIf="data.paginate"></cadrart-pagination>
+    <cadrart-string-or-template *ngIf="data.content" [content]="data.content || ''"></cadrart-string-or-template>
+  </div>
+</ng-container>

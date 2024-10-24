@@ -1,0 +1,30 @@
+<div *ngIf="config.options | async as options">
+  <cadrart-field-layout [label]="label" [disabled]="config.disabled">
+    <select
+      [class.cadrart-field-select__has-no-value]="
+        control.value === '' || control.value === null || control.value === undefined
+      "
+      autocomplete="off"
+      [compareWith]="compareFn"
+      [formControl]="control"
+      [name]="name"
+      [autofocus]="config.autofocus"
+      [tabindex]="config.tabIndex"
+      (blur)="handleBlur()"
+      (change)="handleChange()"
+    >
+      <option
+        [disabled]="config.required"
+        class="cadrart-field-select__input__placeholder"
+        *ngIf="placeholder"
+        value=""
+      >
+        {{ 'FIELD.SELECT.PLACEHOLDER' | translate }}
+      </option>
+      <option *ngFor="let option of options" [ngValue]="option.value">
+        {{ option.label | translate }}
+      </option>
+    </select>
+    <cadrart-icon class="cadrart-field-select__dropdown" name="arrow_drop_down"></cadrart-icon>
+  </cadrart-field-layout>
+</div>

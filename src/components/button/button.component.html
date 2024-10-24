@@ -1,0 +1,11 @@
+<button
+  [class]="cls()"
+  [type]="type"
+  [disabled]="disabled"
+  [tabindex]="tabIndex"
+  (click)="handleClick()">
+  <cadrart-icon *ngIf="icon && iconPosition === 'left'" [name]="icon || 'question_mark'"></cadrart-icon>
+  <div class="cadrart-button__content"><ng-content></ng-content></div>
+  <cadrart-icon *ngIf="icon && iconPosition === 'right'" [name]="icon || 'question_mark'"></cadrart-icon>
+  <small *ngIf="tag">{{ tag }}</small>
+</button>

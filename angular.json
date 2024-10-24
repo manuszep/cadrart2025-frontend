@@ -12,7 +12,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "cadrart",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
@@ -38,18 +38,6 @@
           },
           "configurations": {
             "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
-                }
-              ],
               "outputHashing": "all"
             },
             "development": {
@@ -70,7 +58,11 @@
               "buildTarget": "cadrart2025-frontend:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "proxy.conf.json",
+            "open": true
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"

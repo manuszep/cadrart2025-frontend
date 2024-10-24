@@ -1,0 +1,85 @@
+@use 'sass:math';
+@import '../../styles/mixins.scss';
+@import '../../styles/variables';
+
+.cadrart-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 $spacing-small;
+  filter: drop-shadow($drop-shadow);
+  margin-top: -$spacing-small;
+
+  td,
+  th {
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-style: solid solid solid none;
+    padding: $spacing-small $spacing-medium;
+    text-align: left;
+    width: max-content;
+  }
+
+  thead th {
+    font-size: 14px;
+  }
+
+  tbody tr {
+    opacity: 0.75;
+    transition: opacity $transition-duration;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  td:first-child,
+  th:first-child {
+    border-radius: $border-radius 0 0 $border-radius;
+    border-left-style: solid;
+  }
+  td:last-child,
+  th:last-child {
+    border-radius: 0 $border-radius $border-radius 0;
+  }
+
+  tr {
+    background-color: $color-background-l1;
+    position: relative;
+  }
+}
+
+.cadrart-table__delete-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color-background-l1, 0.75);
+  backdrop-filter: blur($backdrop-blur);
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $transition-duration;
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    &__title {
+      margin-right: $spacing-medium;
+    }
+
+    cadrart-button {
+      margin-right: $spacing-medium;
+    }
+  }
+}
+
+.cadrart-table__row--overlay-active {
+  .cadrart-table__delete-overlay {
+    opacity: 1;
+    pointer-events: all;
+  }
+}

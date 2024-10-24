@@ -1,0 +1,78 @@
+@use 'sass:math';
+@import '../../styles/mixins.scss';
+@import '../../styles/variables';
+
+.cadrart-data-card {
+}
+
+.cadrart-data-card__description {
+  container-name: body;
+
+  @container body (min-width: 500px) {
+    &__fields {
+      grid-template-columns: repeat(2, 1fr);
+
+      &__field {
+        &--extended {
+          grid-column: span 2;
+        }
+      }
+    }
+  }
+
+  &__fields {
+    display: grid;
+    grid-gap: $spacing-small $spacing-large;
+    font-size: 14px;
+
+    &__field {
+      &__label {
+        font-weight: 600;
+        display: inline;
+
+        &:after {
+          content: ':';
+        }
+      }
+
+      &__value {
+        display: inline;
+      }
+    }
+  }
+}
+
+.cadrart-data-card__delete-overlay {
+  width: 100%;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: $spacing-medium;
+    font-size: 14px;
+
+    .cadrart-data-card--inline & {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    &__title {
+      margin-bottom: $spacing-medium;
+
+      .cadrart-data-card--inline & {
+        flex-grow: 1;
+        margin: 0;
+      }
+    }
+
+    &__actions {
+      display: flex;
+    }
+  }
+
+  cadrart-button {
+    margin: 0 $spacing-small;
+  }
+}

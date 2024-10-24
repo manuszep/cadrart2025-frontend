@@ -1,0 +1,112 @@
+@import '../../styles/variables.scss';
+
+.cadrart-job-form {
+  &__title {
+    display: flex;
+    align-items: baseline;
+
+    &__item {
+      margin-right: $spacing-medium;
+    }
+
+    &__count {
+      flex-basis: 50px;
+    }
+
+    &__times {
+      font-size: 20px;
+    }
+
+    &__description {
+      flex-grow: 1;
+    }
+
+    &__price {
+      font-size: $font-size-l;
+      font-weight: bold;
+    }
+  }
+
+  &__details {
+    display: flex;
+    justify-content: space-between;
+
+    &__size {
+      table-layout: fixed;
+
+      tbody {
+        th {
+          font-weight: 400;
+        }
+
+        td:nth-child(2) {
+          width: 50px;
+          text-align: center;
+        }
+
+        td:nth-child(3),
+        td:nth-child(5) {
+          width: 100px;
+        }
+
+        td:nth-child(4) {
+          width: 50px;
+          text-align: center;
+          vertical-align: middle;
+        }
+
+        .cadrart-field-wrapper {
+          margin: 0;
+        }
+      }
+    }
+
+    &__extras {
+      flex-basis: 400px;
+    }
+  }
+
+  &__tasks {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: $spacing-small;
+      text-align: left;
+    }
+
+    &__indent {
+      width: 26px;
+    }
+
+    &__article {
+      width: 40%;
+      text-align: left;
+    }
+
+    &__subarticle {
+      width: 36px;
+    }
+
+    &__comment {
+      width: 75%;
+      text-align: left;
+    }
+
+    &__image {
+      width: 75px;
+      text-align: center;
+    }
+
+    &__price {
+      width: 100px;
+      text-align: right;
+    }
+  }
+
+  fieldset {
+    display: contents;
+  }
+}

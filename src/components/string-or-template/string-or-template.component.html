@@ -1,0 +1,3 @@
+<ng-container *ngIf="contentAsTemplate" [ngTemplateOutlet]="contentAsTemplate"></ng-container>
+<div *ngIf="contentAsString" [innerHtml]="contentAsString | translate"></div>
+<cadrart-dynamic-component *ngIf="contentAsComponent" [component]="contentAsComponent" [inputs]="inputs" [outputs]="outputs"></cadrart-dynamic-component>

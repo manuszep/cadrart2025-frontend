@@ -1,0 +1,68 @@
+@import "./variables";
+
+/* Local icon font */
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../public/icons.woff2) format('woff2');
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+// Typography
+body {
+  font-family: $font-family;
+  font-size: $font-size;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+h1 {
+  font-size: $font-size * 2;
+  margin: $spacing-large 0 $spacing-medium;
+
+  @media print {
+    margin-top: 0;
+  }
+}
+
+.cadrart-amount {
+  color: rgba($color-text-light, 0.75);
+  font-size: 0.8em;
+
+  @media print {
+    color: #000;
+  }
+
+  &__units {
+    color: $color-text-light;
+    font-size: 1.25em;
+
+    @media print {
+      color: #000;
+    }
+  }
+
+  &__decimals {
+    color: $color-text-light;
+
+    @media print {
+      color: #000;
+    }
+  }
+}

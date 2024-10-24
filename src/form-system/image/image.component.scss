@@ -1,0 +1,24 @@
+@import '../../styles/variables.scss';
+
+.cadrart-field-image {
+  img {
+    max-width: 60px;
+    max-height: 48px;
+    vertical-align: middle;
+    border-radius: $border-radius;
+    cursor: pointer;
+  }
+
+  &__input {
+    display: flex;
+
+    &__actions {
+      display: flex;
+      margin: 0 -5px;
+
+      cadrart-button {
+        margin: 0 5px;
+      }
+    }
+  }
+}

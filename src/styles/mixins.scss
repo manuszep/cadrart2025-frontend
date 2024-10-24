@@ -1,0 +1,21 @@
+@import "./functions";
+@import "./variables";
+
+@mixin backgroundColor($color) {
+  background-color: getColor($color);
+  color: getTextColorFor($color);
+}
+
+@mixin panel() {
+  background-color: $color-background-l1;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+  padding: $spacing-medium;
+  border: 1px solid rgba(255,255,255,.04);
+
+  @media print {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+  }
+}

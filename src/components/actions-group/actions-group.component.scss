@@ -1,0 +1,18 @@
+@use 'sass:math';
+@import '../../styles/variables';
+
+.cadrart-actions-group {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  cadrart-button {
+    margin-left: $spacing-small;
+    opacity: 0.15;
+    transition: opacity math.div($transition-duration, 2);
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

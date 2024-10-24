@@ -1,0 +1,27 @@
+<header class="cadrart-header">
+  <div class="cadrart-header__logo">
+    <picture>
+      <source srcset="logo_print.webp" media="print"/>
+      <img src="logo.gif" alt="Cadr'art"/>
+    </picture>
+  </div>
+  <ng-container>
+    <div class="cadrart-header__nav" *ngIf="service.navigation().length">
+      <a *ngFor="let nav of service.navigation()" [routerLink]="nav.path" routerLinkActive="active" tabindex="-1">{{
+        nav.label
+      }}</a>
+    </div>
+  </ng-container>
+  <div class="cadrart-header__actions" *ngIf="service.action()">
+    <cadrart-button
+      [icon]="service.action()?.icon ?? null"
+      [tag]="service.action()?.tag ?? null"
+      [hotKey]="service.action()?.hotkey"
+      [outline]="true"
+      [tabIndex]="-1"
+      (cadrartClick)="handleActionClick()">
+      <span>{{ 'HEADER.' + (service.action()?.label ?? 'ADD') | translate }}</span>
+    </cadrart-button>
+    <cadrart-image class="cadrart-header__actions__user" [name]="loginService.connectedUser()?.image ?? 'default'" folder="team-member" size="s"></cadrart-image>
+  </div>
+</header>

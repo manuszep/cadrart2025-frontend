@@ -1,0 +1,50 @@
+<div class="cadrart-offers" *ngIf="offers | async as data">
+  <cadrart-filters [config]="filtersConfig" (cadrartChange)="handleFilterChange($event)"></cadrart-filters>
+
+  <cadrart-table
+    [data]="data"
+    [keys]="['status', 'number', 'clientName', 'assignedToName', 'total']"
+    headerPrefix="OFFER_LIST"
+    [trackBy]="trackBy"
+    (cadrartConsult)="handleConsultClick($event)"
+    (cadrartEdit)="handleEditClick($event)"
+    (cadrartDelete)="handleDeleteClick($event)"
+  >
+    <td *cadrartTableValueFormatter="'number'; let entry">
+      {{ entry.number }}<br /><small>{{ entry.createdAt | cadrartMysqlDate }}</small>
+    </td>
+    <td *cadrartTableValueFormatter="'total'; let entry" [innerHtml]="entry.total | cadrartPrice"></td>
+    <td
+      class="cadrart-offers__state"
+      [class.cadrart-offers__state--started]="entry.status === statuses.STATUS_STARTED"
+      [class.cadrart-offers__state--created]="entry.status === statuses.STATUS_CREATED"
+      [class.cadrart-offers__state--done]="entry.status === statuses.STATUS_DONE"
+      *cadrartTableValueFormatter="'status'; let entry"
+    >
+      <cadrart-button
+        [iconOnly]="true"
+        icon="block"
+        [color]="entry.status === statuses.STATUS_CREATED ? 'warning' : 'transparent'"
+        hoverColor="warning"
+        [disabled]="entry.status === statuses.STATUS_CREATED"
+        (cadrartClick)="handleStopClick(entry)"
+      ></cadrart-button>
+      <cadrart-button
+        [iconOnly]="true"
+        icon="play_circle"
+        [color]="entry.status === statuses.STATUS_STARTED ? 'secondary' : 'transparent'"
+        hoverColor="secondary"
+        [disabled]="entry.status === statuses.STATUS_STARTED"
+        (cadrartClick)="handleStartClick(entry)"
+      ></cadrart-button>
+      <cadrart-button
+        [iconOnly]="true"
+        icon="check"
+        [color]="entry.status === statuses.STATUS_DONE ? 'success' : 'transparent'"
+        hoverColor="success"
+        [disabled]="entry.status === statuses.STATUS_DONE"
+        (cadrartClick)="handleCompleteClick(entry)"
+      ></cadrart-button>
+    </td>
+  </cadrart-table>
+</div>

@@ -1,0 +1,18 @@
+@import "./variables.scss";
+
+body {
+  background-color: $color-background;
+  height: 100%;
+  overflow-x: hidden;
+  color: #fff;
+  padding: 0;
+
+  @media print {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+[hidden] {
+  display: none !important;
+}

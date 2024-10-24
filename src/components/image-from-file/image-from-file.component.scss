@@ -1,0 +1,46 @@
+@import '../../styles/variables';
+
+.cadrart-image-from-file {
+  position: relative;
+
+  &__input {
+    height: 240px;
+    width: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--hidden {
+      display: none;
+      pointer-events: none;
+      position: absolute;
+    }
+
+    cadrart-button {
+      position: relative;
+
+      input {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    padding: $spacing-medium;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+
+    cadrart-button {
+      margin: 0 $spacing-small;
+    }
+  }
+}

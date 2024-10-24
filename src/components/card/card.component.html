@@ -1,0 +1,54 @@
+<div
+  class="cadrart-card"
+  [class.cadrart-card--compact]="compact"
+  [class.cadrart-card--inline]="!!inline"
+  [class.cadrart-card--image]="!!image"
+  [class.cadrart-card--extended]="extended$()"
+  [class.cadrart-card--overlay-active]="showOverlay"
+>
+  <cadrart-image *ngIf="image" class="cadrart-card__image" [name]="image.name" [folder]="image.folder" size="s"></cadrart-image>
+
+  <div class="cadrart-card__header">
+    <div class="cadrart-card__header__wrapper">
+      <h1 *ngIf="title" class="cadrart-card__header__title">
+        {{ title | translate }}
+        <span *ngIf="subtitle" class="cadrart-card__header__title__subtitle">
+          {{ subtitle | translate }}
+        </span>
+      </h1>
+      <ng-content select="[cadrartCardTitle]"></ng-content>
+    </div>
+  </div>
+
+  <div class="cadrart-card__body">
+    <ng-content></ng-content>
+  </div>
+
+  <div [@slideInOut]="extended$() ? 'extended' : 'collapsed'" class="cadrart-card__body-extension">
+    <ng-content select="[cadrartCartExtended]"></ng-content>
+  </div>
+
+  <div *ngIf="action" class="cadrart-card__footer">
+    <cadrart-button (cadrartClick)="handleActionClick()">{{ action | translate }}</cadrart-button>
+  </div>
+
+  <div class="cadrart-card__actions">
+    <cadrart-actions-group
+      [deletable]="deletable"
+      [editable]="editable"
+      [consultable]="consultable"
+      [duplicatable]="duplicatable"
+      [extendable]="true"
+      [extended]="extended$()"
+      (cadrartDelete)="handleDeleteClick()"
+      (cadrartEdit)="handleEditClick()"
+      (cadrartConsult)="handleConsultClick()"
+      (cadrartDuplicate)="handleDuplicateClick()"
+      (cadrartToggleExtend)="handleExtendClick()"
+    ></cadrart-actions-group>
+  </div>
+
+  <div class="cadrart-card__overlay">
+    <ng-content select="[overlay]"></ng-content>
+  </div>
+</div>
