@@ -17,7 +17,7 @@ RUN npm install
 
 COPY --chown=node:node . .
 
-RUN echo "export const cadrartVersion = '${CADRART_BUILD_VERSION}';" >> ./src/version.ts
+RUN echo "export const cadrartVersion = '${CADRART_BUILD_VERSION}';" > ./src/version.ts
 
 RUN npm run build:prod
 
