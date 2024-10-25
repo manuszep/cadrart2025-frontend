@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal, WritableSignal } from '@angular/core';
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { ICadrartConnectedUser, ICadrartIsLoggedInResponse, ICadrartLoginResponse } from '@manuszep/cadrart2025-common';
 
@@ -24,13 +24,22 @@ export class CadrartLoginService {
   ) {}
 
   isConnected(): Observable<boolean> {
-    return (this.http.get(getEndpointUrl('isLoggedIn')) as Observable<ICadrartIsLoggedInResponse>).pipe(
+    const user = sessionStorage.getItem('connectedUser');
+
+    if (!user) {
+      return of(false);
+    }
+
+    const parsedUser = JSON.parse(user) as ICadrartConnectedUser;
+
+    return (
+      this.http.get(getEndpointUrl(`isLoggedIn/${parsedUser.id}`)) as Observable<ICadrartIsLoggedInResponse>
+    ).pipe(
       map((result: ICadrartIsLoggedInResponse) => {
         const isLoggedIn = result.statusCode === 200;
 
         if (!isLoggedIn) {
-          this.disableInterface();
-          this.connected = false;
+          this.logout();
           this.router.navigate(['/login']);
         } else {
           this.connectedUser.set(result.user ?? null);
@@ -41,8 +50,7 @@ export class CadrartLoginService {
         return isLoggedIn;
       }),
       catchError(() => {
-        this.disableInterface();
-        this.connected = false;
+        this.logout();
         this.router.navigate(['/login']);
 
         return [false];
@@ -61,6 +69,7 @@ export class CadrartLoginService {
         }
 
         this.connectedUser.set(result.user);
+        sessionStorage.setItem('connectedUser', JSON.stringify(result.user));
 
         this.enableInterface();
         this.connected = true;
@@ -74,6 +83,8 @@ export class CadrartLoginService {
   logout(): void {
     // logout
     this.connectedUser.set(null);
+    this.connected = false;
+    sessionStorage.removeItem('connectedUser');
     this.disableInterface();
   }
 
