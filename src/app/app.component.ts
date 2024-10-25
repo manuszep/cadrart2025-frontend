@@ -34,7 +34,7 @@ export class CadrartAppComponent {
       .getVersion()
       .pipe(take(1))
       .subscribe((version) => {
-        console.log(`Cadrart version: ${version}`);
+        console.info(`Cadrart version: ${version}`);
       });
   }
 }

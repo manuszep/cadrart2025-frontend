@@ -20,8 +20,6 @@ export class CadrartTooltipService {
   getElementPosition(element: HTMLElement): { x: number; y: number } {
     const rect = element.getBoundingClientRect();
 
-    console.log(rect.top, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
-
     return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
   }
 
