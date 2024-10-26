@@ -27,6 +27,8 @@ export class CadrartLoginService {
     const user = sessionStorage.getItem('connectedUser');
 
     if (!user) {
+      this.logout();
+      this.router.navigate(['/login']);
       return of(false);
     }
 
