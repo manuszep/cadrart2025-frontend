@@ -12,6 +12,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { ICadrartFileResponse } from '@manuszep/cadrart2025-common';
 
 import { CadrartButtonComponent } from '../../components/button/button.component';
 import { CadrartModalService } from '../../components/modal/modal.service';
@@ -20,7 +21,7 @@ import { CadrartFieldImagePathPipe } from '../../pipes/image.pipe';
 import { CadrartTooltipComponent } from '../../components/tooltip/tooltip.component';
 import { CadrartImageCaptureComponent } from '../../components/image-capture/image-capture.component';
 import { CadrartImageFromFileComponent } from '../../components/image-from-file/image-from-file.component';
-import { CadrartFileService, FileResponseInterface } from '../../services/file.service';
+import { CadrartFileService } from '../../services/file.service';
 import { CadrartAlertService } from '../../components/alert/alert.service';
 import { CadrartImageComponent } from '../../components/image/image.component';
 import { CadrartTooltipService } from '../../components/tooltip/tooltip.service';
@@ -74,7 +75,7 @@ export class CadrartFieldImageComponent
 
   private save(value: File): void {
     this.fileService.upload(value, 'test.jpg', this.config.folder ?? 'default').subscribe({
-      next: (res: FileResponseInterface) => {
+      next: (res: ICadrartFileResponse) => {
         if (res.statusCode === 200) {
           this.control.setValue(res.file);
           this.modalService.closeModal();

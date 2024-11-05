@@ -22,6 +22,6 @@
       (cadrartClick)="handleActionClick()">
       <span>{{ 'HEADER.' + (service.action()?.label ?? 'ADD') | translate }}</span>
     </cadrart-button>
-    <cadrart-image class="cadrart-header__actions__user" [name]="loginService.connectedUser()?.image ?? 'default'" folder="team-member" size="s"></cadrart-image>
   </div>
+  <cadrart-image class="cadrart-header__actions__user" [name]="loginService.connectedUser()?.image ?? 'default'" folder="team-member" size="s"></cadrart-image>
 </header>
