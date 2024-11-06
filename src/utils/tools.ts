@@ -13,7 +13,7 @@ export function isBoolean(value: unknown): value is boolean {
 }
 
 export function isObject(value: unknown): value is object {
-  return typeof value === 'object';
+  return value !== null && typeof value === 'object';
 }
 
 export function isArray(value: unknown): value is any[] {

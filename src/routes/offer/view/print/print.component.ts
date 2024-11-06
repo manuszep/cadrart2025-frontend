@@ -31,7 +31,9 @@ import { CadrartCardComponent } from '../../../../components/card/card.component
 })
 export class CadrartRouteOfferViewPrintComponent {
   @Input({ required: true }) offerNumber!: string | null;
+  @Input({ required: true }) offerDate?: string;
   @Input({ required: true }) clientName!: string;
+  @Input({ required: true }) clientAddress?: string;
   @Input({ required: true }) assignedToName!: string;
   @Input({ required: true }) vat!: number;
   @Input({ required: true }) reduction!: number;

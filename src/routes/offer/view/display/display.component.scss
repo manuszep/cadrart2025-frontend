@@ -143,12 +143,18 @@
       }
     }
 
-    &__total {
+    &__total, &__subtotal {
       display: flex;
       justify-content: space-between;
       border-top: $border-width * 4 $border-style $color-border;
       padding: $spacing-medium;
       font-weight: 900;
+    }
+
+    &__subtotal {
+      font-size: .875em;
+      opacity: 0.5;
+      border-top-width: $border-width;
     }
   }
 
@@ -162,8 +168,15 @@
     padding: 0 $spacing-large;
   }
 
+  &__vat {
+    font-size: .875em;
+    opacity: 0.5;
+  }
+
   &__total {
     margin-top: $spacing-large;
+    font-size: .875em;
+    opacity: 0.5;
   }
 
   &__footer {

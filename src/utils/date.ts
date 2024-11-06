@@ -5,13 +5,23 @@ export function htmlDateToDate(htmlDate: string): Date | null {
     return null;
   }
 
-  return new Date(year, month - 1, day);
+  const d = new Date(year, month - 1, day);
+
+  if (isNaN(d.getTime())) {
+    return null;
+  }
+
+  return d;
 }
 
 export function dateToHtmlDate(date: Date | null): string {
-  if (!date) {
+  if (!date || isNaN(date.getTime())) {
     return '';
   }
 
-  return date.toISOString().split('T')[0];
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
+  const day = date.getDate().toString().padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
 }

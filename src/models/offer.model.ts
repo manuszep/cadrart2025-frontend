@@ -12,7 +12,27 @@ import { CadrartEntity } from './api.model';
 
 export class CadrartOffer extends CadrartEntity<ICadrartOffer> {
   get createdAt(): Date | null {
-    return this._data.createdAt ?? null;
+    const d = this._data.createdAt;
+
+    if (!d) {
+      return null;
+    }
+
+    if (d instanceof Date) {
+      return d;
+    }
+
+    return new Date(d);
+  }
+
+  get offerDate(): string {
+    const d = this.createdAt;
+
+    if (!d) {
+      return '';
+    }
+
+    return d.toLocaleDateString('fr-FR');
   }
 
   get number(): string | null {
@@ -29,6 +49,14 @@ export class CadrartOffer extends CadrartEntity<ICadrartOffer> {
     }
 
     return `${this.client.firstName} ${this.client.lastName}`;
+  }
+
+  get clientAddress(): string {
+    if (!this.client) {
+      return '';
+    }
+
+    return `${this.client.address}`;
   }
 
   get assignedTo(): PartialDeep<ICadrartTeamMember> | null {

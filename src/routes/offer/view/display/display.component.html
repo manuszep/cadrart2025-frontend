@@ -20,11 +20,6 @@
     </dl>
   </section>
   <cadrart-card class="cadrart-offer-view__job" *ngFor="let job of jobs">
-    <div cadrartCardTitle class="cadrart-offer-view__job__title">
-      <span class="cadrart-offer-view__job__title__count">{{ job.count }}&times;</span>
-      <span class="cadrart-offer-view__job__title__description">{{ job.description }}</span>
-      <cadrart-image class="cadrart-offer-view__job__title__image" *ngIf="job.image" [name]="job.image" folder="job" size="s" (click)="handleJobImageClick(job.image)"></cadrart-image>
-    </div>
     <div class="cadrart-offer-view__job__info">
       <dl class="cadrart-offer-view__job__info__size">
         <div class="cadrart-offer-view__job__info__size__glass dl-block">
@@ -80,8 +75,16 @@
       </div>
     </div>
 
+    <div class="cadrart-offer-view__job__subtotal" *ngIf="(job.count ?? 1) > 1">
+      <div class="cadrart-offer-view__job__subtotal__label">{{ 'OFFER.VIEW.SUBTOTAL' | translate }}</div>
+      <div class="cadrart-offer-view__job__subtotal__total" [innerHTML]="(job.total ?? 0) / (job.count ?? 1) | cadrartPrice"></div>
+    </div>
+
     <div class="cadrart-offer-view__job__total">
-      <div class="cadrart-offer-view__job__total__label">{{ 'OFFER.VIEW.TOTAL' | translate }}</div>
+      <div class="cadrart-offer-view__job__total__label">
+        {{ 'OFFER.VIEW.TOTAL' | translate }}
+        <span *ngIf="(job.count ?? 1) > 1">( &times;{{ job.count }} )</span>
+      </div>
       <div class="cadrart-offer-view__job__total__total" [innerHTML]="job.total ?? 0 | cadrartPrice"></div>
     </div>
   </cadrart-card>
@@ -91,7 +94,7 @@
     <div class="cadrart-offer-view__total__total" [innerHTML]="total | cadrartPrice"></div>
   </div>
 
-  <div class="cadrart-offer-view__vat">
+  <div class="cadrart-offer-view__vat" *ngIf="vat > 0">
     <div class="cadrart-offer-view__vat__label">{{ 'OFFER.VIEW.VAT' | translate }}&nbsp;: <span [innerHTML]="vat | cadrartAmount:'%':false"></span></div>
     <div
       class="cadrart-offer-view__vat__total"
@@ -99,7 +102,7 @@
     ></div>
   </div>
 
-  <div class="cadrart-offer-view__total-with-vat">
+  <div class="cadrart-offer-view__total-with-vat" *ngIf="vat > 0">
     <div class="cadrart-offer-view__total-with-vat__label">{{ 'OFFER.VIEW.TOTALWITHVAT' | translate }}</div>
     <div class="cadrart-offer-view__total-with-vat__total" [innerHTML]="totalWithVat | cadrartPrice"></div>
   </div>

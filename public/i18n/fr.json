@@ -150,6 +150,7 @@
       "LOCATION": "Emplacement",
       "DUEDATE": "Date de fin",
       "STARTDATE": "Date de début",
+      "SUBTOTAL": "Sous-total",
       "TOTAL": "Total",
       "TOTALWITHVAT": "Total TVAC",
       "EDIT": "Modifier",

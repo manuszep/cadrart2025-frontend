@@ -36,7 +36,7 @@ export function sortStrings(a: string, b: string): number {
   return 0;
 }
 
-function isSortable(value: any): boolean {
+function isSortable(value: unknown): boolean {
   return isStringAndNotEmpty(value) || isNumber(value);
 }
 

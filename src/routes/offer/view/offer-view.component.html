@@ -120,7 +120,9 @@
 <cadrart-route-offer-view-print
   *ngIf="$offer | async as offer"
   [offerNumber]="offer.number"
+  [offerDate]="offer.offerDate"
   [clientName]="offer.clientName"
+  [clientAddress]="offer.clientAddress"
   [assignedToName]="offer.assignedToName"
   [vat]="offer.getVat()"
   [reduction]="offer.getReduction()"

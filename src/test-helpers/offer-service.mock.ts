@@ -10,7 +10,7 @@ export class CadrartMockOfferService extends CadrartMockApiService<ICadrartOffer
     return `${entity.id}`;
   }
 
-  getEntities(
+  override getEntities(
     page: number,
     count: number,
     createdAtGt?: string,
