@@ -60,6 +60,8 @@ export class CadrartFieldDateComponent extends CadrartFieldBaseComponent<boolean
     this.control.valueChanges.subscribe(() => {
       this.hasValue.set(this.getHasValue());
     });
+
+    this.hasValue.set(this.getHasValue());
   }
 
   private getHasValue(): boolean {

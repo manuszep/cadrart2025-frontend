@@ -15,14 +15,14 @@ import { CadrartClientService } from '../services/client.service';
 import { CadrartFieldSelect } from '../form-system/select/select.config';
 import { CadrartTeamMemberService } from '../services/team-member.service';
 import { CadrartFieldNumber } from '../form-system/number/number.config';
-import { CadrartFormGroup } from '../form-system/form-group';
+import { CadrartFormGroup, FormConfig } from '../form-system/form-group';
 import { CadrartLocationService } from '../services/location.service';
 import { CadrartArticleService } from '../services/article.service';
 import { numberRound2, PartialDeep } from '../utils';
 
 import { CadrartJobForm } from './job.form';
 
-function getFormConfig(clientService: CadrartClientService, teamMemberService: CadrartTeamMemberService) {
+function getFormConfig(clientService: CadrartClientService, teamMemberService: CadrartTeamMemberService): FormConfig {
   return {
     id: new CadrartFormControl<number | undefined>(undefined),
     number: new CadrartFormControl<string | undefined>(undefined),
@@ -31,7 +31,7 @@ function getFormConfig(clientService: CadrartClientService, teamMemberService: C
       new CadrartFieldText({
         required: true,
         options: clientService.getEntitiesAsOptions(),
-        compareOptionsToValue: (option: CadrartFieldTextOption, value: ICadrartClient) =>
+        compareOptionsToValue: (option: CadrartFieldTextOption, value: ICadrartClient): boolean =>
           (option.value as ICadrartClient).id === value.id
       })
     ),
@@ -201,7 +201,7 @@ export class CadrartOfferForm extends CadrartFormGroup<ICadrartOffer> {
     this.getTotalWithVat().setValue(numberRound2(totalWithVat), { emitEvent: false });
   }
 
-  sendUpdates() {
+  sendUpdates(): void {
     const jobs = this.getJobs();
 
     for (const job of jobs.controls) {
@@ -215,6 +215,8 @@ export class CadrartOfferForm extends CadrartFormGroup<ICadrartOffer> {
     this.updateJobSizes();
     this.updateTasks();
     this.updatePrice();
+
+    this.updateValueAndValidity();
 
     this.sendUpdates();
   }

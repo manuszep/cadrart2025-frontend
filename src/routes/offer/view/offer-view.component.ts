@@ -24,6 +24,9 @@ import { CadrartHeaderService } from '../../../components/header/header.service'
 import { CadrartImageComponent } from '../../../components/image/image.component';
 import { CadrartModalService } from '../../../components/modal/modal.service';
 
+import { CadrartRouteOfferViewDisplayComponent } from './display/display.component';
+import { CadrartRouteOfferViewPrintComponent } from './print/print.component';
+
 @Component({
   selector: 'cadrart-route-offer-view',
   templateUrl: './offer-view.component.html',
@@ -36,7 +39,9 @@ import { CadrartModalService } from '../../../components/modal/modal.service';
     CadrartCardComponent,
     CadrartJobMeasurePipe,
     CadrartAmountPipe,
-    CadrartImageComponent
+    CadrartImageComponent,
+    CadrartRouteOfferViewDisplayComponent,
+    CadrartRouteOfferViewPrintComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

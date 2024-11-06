@@ -1,25 +1,25 @@
-<!--<div class="cadrart-offer-view" *ngIf="$offer | async as offer">
+<div class="cadrart-offer-view">
   <section class="cadrart-offer-view__header">
     <h1>
-      <span [innerHTML]="'OFFER.VIEW.TITLE' | translate : { number: offer.number }"></span>
-      <small [innerHTML]="offer.clientName"></small>
+      <span [innerHTML]="'OFFER.VIEW.TITLE' | translate : { number: offerNumber }"></span>
+      <small [innerHTML]="clientName"></small>
     </h1>
     <dl class="cadrart-offer-view__header__details">
       <div class="cadrart-offer-view__header__details_team-member dl-block">
         <dt>{{ 'OFFER.VIEW.ASSIGNEDTO' | translate }}</dt>
-        <dd>{{ offer.assignedToName }}</dd>
+        <dd>{{ assignedToName }}</dd>
       </div>
       <div class="cadrart-offer-view__header__details_vat dl-block">
         <dt>{{ 'OFFER.VIEW.VAT' | translate }}</dt>
-        <dd [innerHTML]="(offer.adjustedVat ?? offer.client?.vat ?? 21) | cadrartAmount:'%':false"></dd>
+        <dd [innerHTML]="vat | cadrartAmount:'%':false"></dd>
       </div>
       <div class="cadrart-offer-view__header__details_reduction dl-block">
         <dt>{{ 'OFFER.VIEW.REDUCTION' | translate }}</dt>
-        <dd [innerHTML]="(offer.adjustedReduction ?? offer.client?.reduction ?? 0) | cadrartAmount:'%'"></dd>
+        <dd [innerHTML]="reduction | cadrartAmount:'%'"></dd>
       </div>
     </dl>
   </section>
-  <cadrart-card class="cadrart-offer-view__job" *ngFor="let job of offer.jobs">
+  <cadrart-card class="cadrart-offer-view__job" *ngFor="let job of jobs">
     <div cadrartCardTitle class="cadrart-offer-view__job__title">
       <span class="cadrart-offer-view__job__title__count">{{ job.count }}&times;</span>
       <span class="cadrart-offer-view__job__title__description">{{ job.description }}</span>
@@ -88,50 +88,19 @@
 
   <div class="cadrart-offer-view__total">
     <div class="cadrart-offer-view__total__label">{{ 'OFFER.VIEW.TOTAL' | translate }}</div>
-    <div class="cadrart-offer-view__total__total" [innerHTML]="offer.total ?? 0 | cadrartPrice"></div>
+    <div class="cadrart-offer-view__total__total" [innerHTML]="total | cadrartPrice"></div>
   </div>
 
   <div class="cadrart-offer-view__vat">
-    <div class="cadrart-offer-view__vat__label">{{ 'OFFER.VIEW.VAT' | translate }}&nbsp;: <span [innerHTML]="offer.getVat() | cadrartAmount:'%':false"></span></div>
+    <div class="cadrart-offer-view__vat__label">{{ 'OFFER.VIEW.VAT' | translate }}&nbsp;: <span [innerHTML]="vat | cadrartAmount:'%':false"></span></div>
     <div
       class="cadrart-offer-view__vat__total"
-      [innerHTML]="(offer.totalWithVat ?? 0) - (offer.total ?? 0) | cadrartPrice"
+      [innerHTML]="(totalWithVat) - (total) | cadrartPrice"
     ></div>
   </div>
 
   <div class="cadrart-offer-view__total-with-vat">
     <div class="cadrart-offer-view__total-with-vat__label">{{ 'OFFER.VIEW.TOTALWITHVAT' | translate }}</div>
-    <div class="cadrart-offer-view__total-with-vat__total" [innerHTML]="offer.totalWithVat ?? 0 | cadrartPrice"></div>
+    <div class="cadrart-offer-view__total-with-vat__total" [innerHTML]="totalWithVat | cadrartPrice"></div>
   </div>
-</div>-->
-
-<cadrart-route-offer-view-display
-  *ngIf="$offer | async as offer"
-  [offerNumber]="offer.number"
-  [clientName]="offer.clientName"
-  [assignedToName]="offer.assignedToName"
-  [vat]="offer.getVat()"
-  [reduction]="offer.getReduction()"
-  [jobs]="offer.jobs"
-  [total]="offer.total ?? 0"
-  [totalWithVat]="offer.totalWithVat ?? 0"
-  (jobImageClick)="handleJobImageClick($event)"></cadrart-route-offer-view-display>
-
-<cadrart-route-offer-view-print
-  *ngIf="$offer | async as offer"
-  [offerNumber]="offer.number"
-  [clientName]="offer.clientName"
-  [assignedToName]="offer.assignedToName"
-  [vat]="offer.getVat()"
-  [reduction]="offer.getReduction()"
-  [jobs]="offer.jobs"
-  [total]="offer.total ?? 0"
-  [totalWithVat]="offer.totalWithVat ?? 0"></cadrart-route-offer-view-print>
-
-<ng-template #footerTemplate>
-  <div class="cadrart-offer-view__footer">
-    <cadrart-button [color]="'primary'" [icon]="'edit'" (cadrartClick)="handleEditClick()">{{
-      'OFFER.VIEW.EDIT' | translate
-    }}</cadrart-button>
-  </div>
-</ng-template>
+</div>

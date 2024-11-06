@@ -7,12 +7,12 @@ import { CadrartFieldText, CadrartFieldTextOption } from '../form-system/text/te
 import { CadrartArticleService } from '../services/article.service';
 import { CadrartFieldImage } from '../form-system/image/image.config';
 import { CadrartFieldNumber } from '../form-system/number/number.config';
-import { CadrartFormGroup } from '../form-system/form-group';
+import { CadrartFormGroup, FormConfig } from '../form-system/form-group';
 import { applyReduction, numberRound2, PartialDeep } from '../utils';
 
 import { CadrartFormula } from './formula.model';
 
-function getFormConfig(articleService: CadrartArticleService, isChild = false) {
+function getFormConfig(articleService: CadrartArticleService, isChild = false): FormConfig {
   return {
     id: new CadrartFormControl<number | undefined>(undefined),
     article: new CadrartFormControl<ICadrartArticle | undefined>(
@@ -215,7 +215,7 @@ export class CadrartTaskForm extends CadrartFormGroup<ICadrartTask> {
     this._updatePriceSubject.next();
   }
 
-  sendUpdates() {
+  sendUpdates(): void {
     const tasks = this.getChildren();
 
     for (const task of tasks.controls) {

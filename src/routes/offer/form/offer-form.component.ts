@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnDestroy,
+  OnInit,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
@@ -63,7 +64,7 @@ import { PartialDeep } from '../../../utils';
   encapsulation: ViewEncapsulation.None,
   standalone: true
 })
-export class CadrartRouteOfferFormComponent implements AfterViewInit, OnDestroy {
+export class CadrartRouteOfferFormComponent implements OnInit, AfterViewInit, OnDestroy {
   public extendedJob = 0;
   public clientOffers: WritableSignal<ICadrartOffer[]> = signal([]);
   public offerForm?: CadrartOfferForm;
@@ -94,7 +95,9 @@ export class CadrartRouteOfferFormComponent implements AfterViewInit, OnDestroy 
     private readonly articleService: CadrartArticleService,
     private readonly route: ActivatedRoute,
     private readonly router: Router
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.route.paramMap
       .pipe(
         switchMap((params: ParamMap) => {
@@ -131,12 +134,7 @@ export class CadrartRouteOfferFormComponent implements AfterViewInit, OnDestroy 
           this.addJob();
         } else {
           this.offerForm = offer;
-          this.handleModelChange();
         }
-
-        this.offerForm.valueChanges.pipe(takeUntil(this.unsubscribeSubject$), debounceTime(300)).subscribe(() => {
-          this.handleModelChange();
-        });
 
         this.offerForm
           .getUpdateEvents()
@@ -145,6 +143,14 @@ export class CadrartRouteOfferFormComponent implements AfterViewInit, OnDestroy 
             this.total.set(data.total ?? 0);
             this.totalWithVat.set(data.totalWithVat ?? 0);
           });
+
+        this.offerForm.valueChanges.pipe(takeUntil(this.unsubscribeSubject$), debounceTime(300)).subscribe(() => {
+          this.handleModelChange();
+        });
+
+        setTimeout(() => {
+          this.handleModelChange();
+        });
 
         this.cdRef.markForCheck();
       });
@@ -183,7 +189,7 @@ export class CadrartRouteOfferFormComponent implements AfterViewInit, OnDestroy 
     this.cdRef.markForCheck();
   }
 
-  saveClientForm() {
+  saveClientForm(): void {
     this.clientService
       .addEntity(this.clientForm?.getRawValue() as ICadrartClient)
       .subscribe((client: ICadrartClient) => {
@@ -255,7 +261,7 @@ export class CadrartRouteOfferFormComponent implements AfterViewInit, OnDestroy 
   handleModelChange(): void {
     this.offerForm?.updateAll();
     /*this.offerForm?.updatePrice();
-    this.cdRef.markForCheck();*/
+     */
   }
 
   handleJobDuplicate(i: number): void {

@@ -80,15 +80,15 @@ export class CadrartJobFormComponent implements OnInit, OnDestroy {
     return this.jobForm?.get('tasks') as FormArray<CadrartTaskForm>;
   }
 
-  handleDuplicateClick() {
+  handleDuplicateClick(): void {
     this.cadrartDuplicate.emit();
   }
 
-  handleToggleClick() {
+  handleToggleClick(): void {
     this.cadrartToggle.emit();
   }
 
-  handleDeleteClick() {
+  handleDeleteClick(): void {
     this.cadrartDelete.emit();
   }
 

@@ -1,161 +1,17 @@
-@import '../../../styles/variables.scss';
+cadrart-route-offer-view-display {
+  display: block;
+}
 
-.cadrart-offer-view {
-  dt {
-    text-align: right;
-    opacity: 0.5;
+cadrart-route-offer-view-print {
+  display: none;
+}
 
-    &:after {
-      content: " : ";
-      text-wrap: nowrap;
-    }
+@media print {
+  cadrart-route-offer-view-display {
+    display: none;
   }
 
-  dd {
-    margin: 0;
-  }
-
-  &__header {
-    display: flex;
-
-    h1 {
-      line-height: 1.2;
-      flex-grow: 1;
-
-      small {
-        display: block;
-        font-weight: $font-weight;
-        font-size: $font-size-l;
-      }
-    }
-
-    &__details {
-      display: grid;
-      grid-template-columns: repeat(2, auto);
-      grid-gap: 0 10px;
-      margin-top: $spacing-large;
-
-      > div {
-        display: contents;
-      }
-    }
-  }
-
-  &__job {
+  cadrart-route-offer-view-print {
     display: block;
-    margin-top: $spacing-large;
-
-    &__title {
-      display: flex;
-      align-items: center;
-
-      &__count {
-        font-size: $font-size-xl;
-        font-weight: 900;
-        margin-right: $spacing-medium;
-      }
-
-      &__description {
-        font-style: italic;
-        opacity: 0.5;
-        flex-grow: 1;
-      }
-
-      &__image {
-        max-height: 40px;
-
-        img {
-          height: fit-content;
-        }
-      }
-    }
-
-    .cadrart-card__body {
-      flex-direction: column;
-    }
-
-    &__info {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      align-items: flex-start;
-
-      &__size {
-        display: grid;
-        grid-template-columns: repeat(2, auto);
-        grid-gap: 0 10px;
-
-        > div {
-          display: contents;
-        }
-
-        small {
-          opacity: 0.5;
-        }
-      }
-
-      &__details {
-        display: grid;
-        grid-template-columns: repeat(2, auto);
-        grid-gap: 0 10px;
-
-        > div {
-          display: contents;
-        }
-
-        strong {
-          text-align: right;
-        }
-      }
-    }
-
-    &__tasks {
-      margin-top: $spacing-large;
-
-      &__task {
-        display: flex;
-        border-top: $border-width $border-style $color-border;
-        padding: $spacing-medium;
-        width: 100%;
-
-        &__note {
-          font-style: italic;
-          margin-left: $spacing-medium;
-          opacity: 0.5;
-        }
-
-        &__total {
-          flex-grow: 1;
-          text-align: right;
-        }
-      }
-    }
-
-    &__total {
-      display: flex;
-      justify-content: space-between;
-      border-top: $border-width * 4 $border-style $color-border;
-      padding: $spacing-medium;
-      font-weight: 900;
-    }
-  }
-
-  &__total,
-  &__vat,
-  &__total-with-vat {
-    display: flex;
-    justify-content: space-between;
-    margin-top: $spacing-small;
-    font-weight: 900;
-    padding: 0 $spacing-large;
-  }
-
-  &__total {
-    margin-top: $spacing-large;
-  }
-
-  &__footer {
-    display: flex;
-    justify-content: flex-end;
   }
 }

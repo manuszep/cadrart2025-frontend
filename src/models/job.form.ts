@@ -16,7 +16,7 @@ import { CadrartLocationService } from '../services/location.service';
 import { CadrartFieldText } from '../form-system/text/text.config';
 import { CadrartFieldImage } from '../form-system/image/image.config';
 import { CadrartFieldCheckbox } from '../form-system/checkbox/checkbox.config';
-import { CadrartFormGroup } from '../form-system/form-group';
+import { CadrartFormGroup, FormConfig } from '../form-system/form-group';
 import { CadrartArticleService } from '../services/article.service';
 import { numberRound2, PartialDeep } from '../utils';
 import { cadrartGetJobMeasureLabel } from '../pipes/job-measure.pipe';
@@ -25,7 +25,7 @@ import { CadrartFieldDate } from '../form-system/date/date.config';
 import { CadrartTaskForm } from './task.form';
 import { CadrartTask } from './task.model';
 
-function getFormConfig(locationService: CadrartLocationService) {
+function getFormConfig(locationService: CadrartLocationService): FormConfig {
   return {
     id: new CadrartFormControl<number | undefined>(undefined),
     count: new CadrartFormControl(
@@ -328,7 +328,7 @@ export class CadrartJobForm extends CadrartFormGroup<ICadrartJob> {
     this.getTotalWithVat().setValue(numberRound2(totalWithVat * count), { emitEvent: false });
   }
 
-  sendUpdates() {
+  sendUpdates(): void {
     const tasks = this.getTasks();
 
     for (const task of tasks.controls) {

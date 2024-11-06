@@ -89,4 +89,12 @@ export class CadrartOffer extends CadrartEntity<ICadrartOffer> {
 
     return offerVat ?? clientVat;
   }
+
+  public getReduction(): number {
+    const clientReduction = this.client && !isNaN(Number(this.client.reduction)) ? Number(this.client.reduction) : 0;
+    const offerReduction =
+      this.adjustedReduction && !isNaN(Number(this.adjustedReduction)) ? Number(this.adjustedReduction) : 0;
+
+    return offerReduction ?? clientReduction;
+  }
 }
