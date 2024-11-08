@@ -1,6 +1,7 @@
 <div class="cadrart-actions-group">
   <cadrart-button
     *ngIf="deletable"
+    class="cadrart-actions-group__delete"
     [iconOnly]="true"
     icon="delete"
     color="transparent"
@@ -9,6 +10,7 @@
   ></cadrart-button>
   <cadrart-button
     *ngIf="editable"
+    class="cadrart-actions-group__edit"
     [iconOnly]="true"
     icon="edit"
     color="transparent"
@@ -17,6 +19,7 @@
   ></cadrart-button>
   <cadrart-button
     *ngIf="consultable"
+    class="cadrart-actions-group__consult"
     [iconOnly]="true"
     icon="visibility"
     color="transparent"
@@ -25,6 +28,7 @@
   ></cadrart-button>
   <cadrart-button
     *ngIf="duplicatable"
+    class="cadrart-actions-group__duplicate"
     [iconOnly]="true"
     icon="copy_all"
     color="transparent"

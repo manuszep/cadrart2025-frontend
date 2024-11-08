@@ -3,5 +3,11 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "files.exclude": {
+    "**/.angular/cache": true
+  },
+  "search.exclude": {
+    "**/.angular/cache": true
+  }
 }

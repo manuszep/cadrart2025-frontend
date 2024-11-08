@@ -64,7 +64,7 @@ export class CadrartButtonComponent implements OnChanges, OnDestroy {
     }
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     const loadingCls = this.loading ? ' cadrart-button--loading' : '';
     const iconPositionCls = this.iconPosition && this.icon ? ` cadrart-button--icon-${this.iconPosition}` : '';
     const iconOnlyCls = this.iconOnly ? ' cadrart-button--icon-only' : '';
@@ -80,7 +80,7 @@ export class CadrartButtonComponent implements OnChanges, OnDestroy {
     );
   }
 
-  handleClick() {
+  handleClick(): void {
     this.cadrartClick.emit();
   }
 

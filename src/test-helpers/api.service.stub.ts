@@ -50,7 +50,7 @@ export abstract class CadrartMockApiService<T extends ICadrartApiEntity> {
     };
   }
 
-  getEntity(id: string): Observable<T> {
+  getEntity(_id: string): Observable<T> {
     return of(this.mockDataItem as T);
   }
 
@@ -69,27 +69,27 @@ export abstract class CadrartMockApiService<T extends ICadrartApiEntity> {
     });
   }
 
-  updateEntity(id: number, data: T): Observable<T> {
+  updateEntity(_id: number, data: T): Observable<T> {
     return of(data);
   }
 
-  deleteEntity(id: number): Observable<T> {
+  deleteEntity(_id: number): Observable<T> {
     return of(this.mockDataItem as T);
   }
 
-  shouldUpdateFromSocketEvent(operation: 'create' | 'update' | 'delete', name: string): boolean {
+  shouldUpdateFromSocketEvent(_operation: 'create' | 'update' | 'delete', _name: string): boolean {
     return true;
   }
 
-  handleSocketCreate(data: ICadrartSocketCreateEntity<T>): void {
+  handleSocketCreate(_data: ICadrartSocketCreateEntity<T>): void {
     return;
   }
 
-  handleSocketUpdate(data: ICadrartSocketUpdateEntity<T>): void {
+  handleSocketUpdate(_data: ICadrartSocketUpdateEntity<T>): void {
     return;
   }
 
-  handleSocketDelete(data: ICadrartSocketDeleteEntity): void {
+  handleSocketDelete(_data: ICadrartSocketDeleteEntity): void {
     return;
   }
 }

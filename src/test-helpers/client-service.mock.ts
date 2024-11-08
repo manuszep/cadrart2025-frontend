@@ -1,6 +1,6 @@
 import { ICadrartClient } from '@manuszep/cadrart2025-common';
 
-import { CadrartMockApiService } from './api-service.mock';
+import { CadrartMockApiService } from './api.service.stub';
 
 export class CadrartMockClientService extends CadrartMockApiService<ICadrartClient> {
   endpointName = 'offer';

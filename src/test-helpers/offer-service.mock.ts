@@ -1,7 +1,7 @@
 import { ECadrartOfferStatus, ICadrartEntitiesResponse, ICadrartOffer } from '@manuszep/cadrart2025-common';
 import { Observable, of } from 'rxjs';
 
-import { CadrartMockApiService } from './api-service.mock';
+import { CadrartMockApiService } from './api.service.stub';
 
 export class CadrartMockOfferService extends CadrartMockApiService<ICadrartOffer> {
   endpointName = 'offer';
