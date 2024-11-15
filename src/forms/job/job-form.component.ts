@@ -73,9 +73,6 @@ export class CadrartJobFormComponent implements OnInit, OnDestroy {
     this.unsubscribeSubject$.complete();
   }
 
-  @cadrartMemoize({
-    extractUniqueId: () => `CadrartJobFormComponent_getTasksControl`
-  })
   getTasksControl(): FormArray<CadrartTaskForm> {
     return this.jobForm?.get('tasks') as FormArray<CadrartTaskForm>;
   }

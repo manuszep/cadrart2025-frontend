@@ -215,9 +215,7 @@ export class CadrartOfferForm extends CadrartFormGroup<ICadrartOffer> {
     this.updateJobSizes();
     this.updateTasks();
     this.updatePrice();
-
-    this.updateValueAndValidity();
-
+    this.updateValueAndValidity({ emitEvent: false });
     this.sendUpdates();
   }
 }

@@ -24,7 +24,7 @@ export class CadrartLoginService {
   ) {}
 
   isConnected(): Observable<boolean> {
-    const user = sessionStorage.getItem('connectedUser');
+    const user = localStorage.getItem('connectedUser');
 
     if (!user) {
       this.logout();
@@ -71,7 +71,7 @@ export class CadrartLoginService {
         }
 
         this.connectedUser.set(result.user);
-        sessionStorage.setItem('connectedUser', JSON.stringify(result.user));
+        localStorage.setItem('connectedUser', JSON.stringify(result.user));
 
         this.enableInterface();
         this.connected = true;
@@ -86,7 +86,7 @@ export class CadrartLoginService {
     // logout
     this.connectedUser.set(null);
     this.connected = false;
-    sessionStorage.removeItem('connectedUser');
+    localStorage.removeItem('connectedUser');
     this.disableInterface();
   }
 

@@ -260,8 +260,6 @@ export class CadrartRouteOfferFormComponent implements OnInit, AfterViewInit, On
 
   handleModelChange(): void {
     this.offerForm?.updateAll();
-    /*this.offerForm?.updatePrice();
-     */
   }
 
   handleJobDuplicate(i: number): void {

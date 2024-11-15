@@ -49,7 +49,7 @@ export class CadrartFieldTextComponent
   private unsubscribeSubject$ = new Subject<void>();
 
   @HostListener('keyup', ['$event'])
-  public onKeyUp(event: KeyboardEvent) {
+  public onKeyUp(event: KeyboardEvent): void {
     if (event.key === 'ArrowDown') {
       this.highlightedIndex.set(Math.min(this.highlightedIndex() + 1, this.options.value.length - 1));
     }
@@ -112,7 +112,7 @@ export class CadrartFieldTextComponent
     }
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.unsubscribeSubject$.next(void 0);
     this.unsubscribeSubject$.complete();
   }
