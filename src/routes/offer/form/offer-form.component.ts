@@ -134,6 +134,8 @@ export class CadrartRouteOfferFormComponent implements OnInit, AfterViewInit, On
           this.addJob();
         } else {
           this.offerForm = offer;
+          this.offerForm.markAllAsTouched();
+          this.offerForm.markAsDirty();
         }
 
         this.offerForm

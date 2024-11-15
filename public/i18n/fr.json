@@ -31,7 +31,8 @@
       "EMAIL": "L'adresse e-mail n'est pas valide",
       "MINLENGTH": "Ce champ doit contenir au moins {{minlength.requiredLength}} caractères",
       "PASSWORD": "Le mot de passe doit contenir au moins {{minLength}} caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.",
-      "TASKMAX": "Cet article ne peut dépasser {{taskMax}}&nbsp;cm"
+      "TASKMAX": "Cet article ne peut dépasser {{taskMax}}&nbsp;cm",
+      "FUTUREDATE": "La date doit être dans le futur"
     },
     "LOGIN": "Nom d'utilisateur ou mot de passe invalide."
   },

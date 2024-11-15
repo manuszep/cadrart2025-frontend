@@ -23,7 +23,6 @@ import { CadrartFieldComponent } from '../../form-system/field/field.component';
 import { CadrartTaskFormComponent } from '../task/task-form.component';
 import { CadrartJobForm } from '../../models/job.form';
 import { CadrartTaskForm } from '../../models/task.form';
-import { cadrartMemoize } from '../../decorators/memoize.decorator';
 import { PartialDeep } from '../../utils';
 
 @Component({
