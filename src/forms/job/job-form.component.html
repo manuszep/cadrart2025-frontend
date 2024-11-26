@@ -1,6 +1,7 @@
 <form *ngIf="jobForm" [formGroup]="jobForm">
   <cadrart-card
     class="cadrart-job-form"
+    [hasError]="jobForm.status === 'INVALID' && (jobForm.dirty || jobForm.touched)"
     [extended]="extended"
     [managedExtension]="true"
     [duplicatable]="true"

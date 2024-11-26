@@ -1,4 +1,7 @@
-<div class="cadrart-field-wrapper" *ngIf="finalConfig">
+<div
+  class="cadrart-field-wrapper"
+  [class.cadrart-field-wrapper--has-error]="control.errors && (control.dirty || control.touched)"
+  *ngIf="finalConfig">
   <div class="cadrart-field-wrapper__control" [ngSwitch]="finalConfig().componentType">
     <cadrart-field-checkbox
       #fld

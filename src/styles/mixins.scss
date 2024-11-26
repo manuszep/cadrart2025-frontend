@@ -6,9 +6,13 @@
   color: getTextColorFor($color);
 }
 
+@mixin dropShadow($color: #000) {
+  filter: drop-shadow(0 0 16px rgba($color, 0.25));
+}
+
 @mixin panel() {
   background-color: $color-background-l1;
-  box-shadow: $box-shadow;
+  box-shadow: boxShadow();
   border-radius: $border-radius;
   padding: $spacing-medium;
   border: 1px solid rgba(255,255,255,.04);

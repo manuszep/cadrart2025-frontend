@@ -1,6 +1,7 @@
 @use 'sass:math';
 @import '../../styles/mixins.scss';
 @import '../../styles/variables';
+@import '../../styles/functions';
 
 .cadrart-card {
   @include panel();
@@ -39,7 +40,7 @@
   height: 60px;
   z-index: 2;
   border-radius: 50%;
-  box-shadow: $box-shadow;
+  box-shadow: boxShadow();
   overflow: hidden;
 
   img {
@@ -149,4 +150,10 @@
     opacity: 1;
     pointer-events: all;
   }
+}
+
+.cadrart-card--has-error {
+  box-shadow: boxShadow($color-red);
+  border-color: rgba($color-red, .5);
+  background-color: rgba($color-red, .03);
 }

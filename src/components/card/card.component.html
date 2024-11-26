@@ -5,6 +5,7 @@
   [class.cadrart-card--image]="!!image"
   [class.cadrart-card--extended]="extended$()"
   [class.cadrart-card--overlay-active]="showOverlay"
+  [class.cadrart-card--has-error]="hasError"
 >
   <cadrart-image *ngIf="image" class="cadrart-card__image" [name]="image.name" [folder]="image.folder" size="s"></cadrart-image>
 

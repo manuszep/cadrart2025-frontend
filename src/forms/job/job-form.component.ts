@@ -24,6 +24,7 @@ import { CadrartTaskFormComponent } from '../task/task-form.component';
 import { CadrartJobForm } from '../../models/job.form';
 import { CadrartTaskForm } from '../../models/task.form';
 import { PartialDeep } from '../../utils';
+import { CadrartDebugPipe } from '../../pipes/debug.pipe';
 
 @Component({
   selector: 'cadrart-job-form',
@@ -37,7 +38,8 @@ import { PartialDeep } from '../../utils';
     CadrartIconComponent,
     CadrartPricePipe,
     CadrartFieldComponent,
-    CadrartTaskFormComponent
+    CadrartTaskFormComponent,
+    CadrartDebugPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

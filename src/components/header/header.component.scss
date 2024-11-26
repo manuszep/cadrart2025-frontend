@@ -4,7 +4,7 @@ $nav-color: getColor(primary);
 
 .cadrart-header {
   padding: 0 $spacing-medium;
-  box-shadow: inset -1px 0 0 1px $color-border, $box-shadow;
+  box-shadow: inset -1px 0 0 1px $color-border, boxShadow();
   display: flex;
   justify-content: space-between;
   position: relative;

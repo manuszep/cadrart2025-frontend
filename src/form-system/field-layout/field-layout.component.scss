@@ -42,6 +42,10 @@
       appearance: none;
       -moz-appearance: textfield;
 
+      .cadrart-field-wrapper--has-error & {
+        border-bottom-color: rgba($color-red, .75);
+      }
+
       &:-internal-autofill-selected {
         -webkit-box-shadow: 0 0 0 30px $color-background-l1 inset !important;
       }

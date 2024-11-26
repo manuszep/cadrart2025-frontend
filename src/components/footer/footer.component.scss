@@ -1,4 +1,5 @@
 @import "../../styles/variables";
+@import "../../styles/functions";
 
 $nav-color: getColor(primary);
 
@@ -12,5 +13,5 @@ cadrart-footer {
   position: relative;
   z-index: $z-index-footer;
   padding: $spacing-medium $spacing-medium $spacing-medium 85px;
-  box-shadow: inset -1px 0 0 1px $color-border, $box-shadow;
+  box-shadow: inset -1px 0 0 1px $color-border, boxShadow();
 }

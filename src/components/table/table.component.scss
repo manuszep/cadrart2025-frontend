@@ -6,7 +6,7 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 $spacing-small;
-  filter: drop-shadow($drop-shadow);
+  @include dropShadow();
   margin-top: -$spacing-small;
 
   td,

@@ -1,5 +1,6 @@
 @import "../../styles/variables.scss";
 @import "../../styles/mixins.scss";
+@import "../../styles/functions.scss";
 
 cadrart-inspector {
   @media print {
@@ -43,7 +44,7 @@ cadrart-inspector {
   h1 {
     border-bottom: 1px solid rgba(#fff, .1);
     padding-bottom: $spacing-medium;
-    box-shadow: $box-shadow;
+    box-shadow: boxShadow();
     padding: $spacing-medium $spacing-large;
     margin: 0;
     font-size: 18px;
@@ -60,7 +61,7 @@ cadrart-inspector {
     justify-content: space-between;
     border-top: 1px solid rgba(#fff, .1);
     padding-top: 10px;
-    box-shadow: $box-shadow;
+    box-shadow: boxShadow();
     padding: 10px 20px;
   }
 }

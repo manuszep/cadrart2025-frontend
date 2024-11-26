@@ -24,3 +24,7 @@
     @return $color-text-light;
   }
 }
+
+@function boxShadow($color: #000) {
+  @return 0 0 16px rgba($color, 0.2), 0 0 5px rgba($color, 0.2);
+}

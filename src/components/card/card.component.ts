@@ -50,6 +50,7 @@ export class CadrartCardComponent {
   @Input() public inline = false;
   @Input() public compact = false;
   @Input() public managedExtension = true;
+  @Input() public hasError = false;
   @Input() public set extended(value: boolean) {
     if (typeof value !== 'boolean') {
       return;
