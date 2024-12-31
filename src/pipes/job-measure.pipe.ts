@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ECadrartJobMeasureType } from '@manuszep/cadrart2025-common';
 
 export function cadrartGetJobMeasureLabel(value?: ECadrartJobMeasureType): string {
-  return value ? `JOB.MEASURE.${value}` : '';
+  return typeof value !== 'undefined' ? `JOB.MEASURE.${value}` : '';
 }
 
 @Pipe({

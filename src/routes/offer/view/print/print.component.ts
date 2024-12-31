@@ -6,10 +6,9 @@ import { ICadrartJob } from '@manuszep/cadrart2025-common';
 import { CadrartAmountPipe } from '../../../../pipes/amount.pipe';
 import { PartialDeep } from '../../../../utils/types';
 import { CadrartPricePipe } from '../../../../pipes/price.pipe';
+import { CadrartExtractTasksPipe } from '../../../../pipes/extract-tasks.pipe';
 import { CadrartJobMeasurePipe } from '../../../../pipes/job-measure.pipe';
-import { CadrartImageComponent } from '../../../../components/image/image.component';
-import { CadrartButtonComponent } from '../../../../components/button/button.component';
-import { CadrartCardComponent } from '../../../../components/card/card.component';
+import { CadrartJobOrientationPipe } from '../../../../pipes/job-orientation.pipe';
 
 @Component({
   selector: 'cadrart-route-offer-view-print',
@@ -20,10 +19,9 @@ import { CadrartCardComponent } from '../../../../components/card/card.component
     TranslateModule,
     CadrartAmountPipe,
     CadrartPricePipe,
+    CadrartExtractTasksPipe,
     CadrartJobMeasurePipe,
-    CadrartImageComponent,
-    CadrartButtonComponent,
-    CadrartCardComponent
+    CadrartJobOrientationPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

@@ -10,9 +10,17 @@ body {
   @media print {
     background-color: #fff;
     color: #000;
+    padding-top: 1px;
   }
 }
 
 [hidden] {
   display: none !important;
+}
+
+@page { size: auto;  margin: 0mm; }
+
+@page left {
+  size: landscape;
+  page-orientation: rotate-left;
 }

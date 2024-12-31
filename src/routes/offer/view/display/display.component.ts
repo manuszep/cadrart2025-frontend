@@ -7,8 +7,6 @@ import { CadrartAmountPipe } from '../../../../pipes/amount.pipe';
 import { PartialDeep } from '../../../../utils/types';
 import { CadrartPricePipe } from '../../../../pipes/price.pipe';
 import { CadrartJobMeasurePipe } from '../../../../pipes/job-measure.pipe';
-import { CadrartImageComponent } from '../../../../components/image/image.component';
-import { CadrartButtonComponent } from '../../../../components/button/button.component';
 import { CadrartCardComponent } from '../../../../components/card/card.component';
 
 @Component({
@@ -21,8 +19,6 @@ import { CadrartCardComponent } from '../../../../components/card/card.component
     CadrartAmountPipe,
     CadrartPricePipe,
     CadrartJobMeasurePipe,
-    CadrartImageComponent,
-    CadrartButtonComponent,
     CadrartCardComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,6 +1,14 @@
 import { AsyncValidatorFn, ValidatorFn, Validators } from '@angular/forms';
 
-export type ICadrartFieldComponentType = 'checkbox' | 'image' | 'number' | 'orientation' | 'select' | 'text' | 'date';
+export type ICadrartFieldComponentType =
+  | 'checkbox'
+  | 'image'
+  | 'number'
+  | 'orientation'
+  | 'select'
+  | 'text'
+  | 'date'
+  | 'address';
 
 export interface ICadrartFieldConfig {
   required?: boolean;

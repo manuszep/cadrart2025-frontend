@@ -13,12 +13,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { map, Observable } from 'rxjs';
 import { ICadrartOffer } from '@manuszep/cadrart2025-common';
 
-import { CadrartPricePipe } from '../../../pipes/price.pipe';
-import { CadrartAmountPipe } from '../../../pipes/amount.pipe';
 import { CadrartButtonComponent } from '../../../components/button/button.component';
 import { CadrartOffer } from '../../../models/offer.model';
-import { CadrartCardComponent } from '../../../components/card/card.component';
-import { CadrartJobMeasurePipe } from '../../../pipes/job-measure.pipe';
 import { CadrartFooterService } from '../../../components/footer/footer.service';
 import { CadrartHeaderService } from '../../../components/header/header.service';
 import { CadrartImageComponent } from '../../../components/image/image.component';
@@ -34,12 +30,7 @@ import { CadrartRouteOfferViewPrintComponent } from './print/print.component';
   imports: [
     CommonModule,
     TranslateModule,
-    CadrartPricePipe,
     CadrartButtonComponent,
-    CadrartCardComponent,
-    CadrartJobMeasurePipe,
-    CadrartAmountPipe,
-    CadrartImageComponent,
     CadrartRouteOfferViewDisplayComponent,
     CadrartRouteOfferViewPrintComponent
   ],

@@ -1,28 +1,28 @@
-<div class="cadrart-offer-view">
-  <section class="cadrart-offer-view__header">
+<div class="cadrart-offer-view-display">
+  <section class="cadrart-offer-view-display__header">
     <h1>
       <span [innerHTML]="'OFFER.VIEW.TITLE' | translate : { number: offerNumber }"></span>
       <small [innerHTML]="clientName"></small>
     </h1>
-    <dl class="cadrart-offer-view__header__details">
-      <div class="cadrart-offer-view__header__details_team-member dl-block">
+    <dl class="cadrart-offer-view-display__header__details">
+      <div class="cadrart-offer-view-display__header__details_team-member dl-block">
         <dt>{{ 'OFFER.VIEW.ASSIGNEDTO' | translate }}</dt>
         <dd>{{ assignedToName }}</dd>
       </div>
-      <div class="cadrart-offer-view__header__details_vat dl-block">
+      <div class="cadrart-offer-view-display__header__details_vat dl-block">
         <dt>{{ 'OFFER.VIEW.VAT' | translate }}</dt>
         <dd [innerHTML]="vat | cadrartAmount:'%':false"></dd>
       </div>
-      <div class="cadrart-offer-view__header__details_reduction dl-block">
+      <div class="cadrart-offer-view-display__header__details_reduction dl-block">
         <dt>{{ 'OFFER.VIEW.REDUCTION' | translate }}</dt>
         <dd [innerHTML]="reduction | cadrartAmount:'%'"></dd>
       </div>
     </dl>
   </section>
-  <cadrart-card class="cadrart-offer-view__job" *ngFor="let job of jobs">
-    <div class="cadrart-offer-view__job__info">
-      <dl class="cadrart-offer-view__job__info__size">
-        <div class="cadrart-offer-view__job__info__size__glass dl-block">
+  <cadrart-card class="cadrart-offer-view-display__job" *ngFor="let job of jobs">
+    <div class="cadrart-offer-view-display__job__info">
+      <dl class="cadrart-offer-view-display__job__info__size">
+        <div class="cadrart-offer-view-display__job__info__size__glass dl-block">
           <dt>{{ 'OFFER.VIEW.GLASS' | translate }}</dt>
           <dd>
             <span [innerHTML]="job.openingWidth | cadrartAmount:'cm'"></span>
@@ -30,7 +30,7 @@
             <span [innerHTML]="job.openingHeight | cadrartAmount:'cm'"></span>
           </dd>
         </div>
-        <div class="cadrart-offer-view__job__info__size__margins dl-block">
+        <div class="cadrart-offer-view-display__job__info__size__margins dl-block">
           <dt>{{ 'OFFER.VIEW.MARGIN' | translate }}</dt>
           <dd>
             <span [innerHTML]="job.marginWidth | cadrartAmount:'cm'"></span>
@@ -38,7 +38,7 @@
             <span [innerHTML]="job.marginHeight | cadrartAmount:'cm'"></span>
           </dd>
         </div>
-        <div class="cadrart-offer-view__job__info__size__opening dl-block">
+        <div class="cadrart-offer-view-display__job__info__size__opening dl-block">
           <dt>{{ 'OFFER.VIEW.OPENING' | translate }}</dt>
           <dd>
             <span [innerHTML]="job.glassWidth | cadrartAmount:'cm'"></span>
@@ -47,63 +47,63 @@
           </dd>
         </div>
       </dl>
-      <dl class="cadrart-offer-view__job__info__details">
-        <div class="cadrart-offer-view__job__info__details__measure dl-block">
+      <dl class="cadrart-offer-view-display__job__info__details">
+        <div class="cadrart-offer-view-display__job__info__details__measure dl-block">
           <dt>{{ 'OFFER.VIEW.MEASURE' | translate }}</dt>
           <dd>{{ job.measure | cadrartJobMeasure | translate }}</dd>
         </div>
-        <div class="cadrart-offer-view__job__info__details__location dl-block">
+        <div class="cadrart-offer-view-display__job__info__details__location dl-block">
           <dt>{{ 'OFFER.VIEW.LOCATION' | translate }}</dt>
           <dd>{{ job.location?.name ?? '-' }}</dd>
         </div>
-        <div class="cadrart-offer-view__job__info__details__duedate dl-block">
+        <div class="cadrart-offer-view-display__job__info__details__duedate dl-block">
           <dt>{{ 'OFFER.VIEW.DUEDATE' | translate }}</dt>
           <dd>{{ job.dueDate ?? '-' }}</dd>
         </div>
-        <div class="cadrart-offer-view__job__info__details__startdate dl-block">
+        <div class="cadrart-offer-view-display__job__info__details__startdate dl-block">
           <dt>{{ 'OFFER.VIEW.STARTDATE' | translate }}</dt>
           <dd>{{ job.startDate ?? '-' }}</dd>
         </div>
       </dl>
     </div>
 
-    <div class="cadrart-offer-view__job__tasks">
-      <div class="cadrart-offer-view__job__tasks__task" *ngFor="let task of job.tasks">
-        <div class="cadrart-offer-view__job__tasks__task__article">{{ task.article?.name }}</div>
-        <div class="cadrart-offer-view__job__tasks__task__note">{{ task.comment }}</div>
-        <div class="cadrart-offer-view__job__tasks__task__total" [innerHTML]="task.total ?? 0 | cadrartPrice"></div>
+    <div class="cadrart-offer-view-display__job__tasks">
+      <div class="cadrart-offer-view-display__job__tasks__task" *ngFor="let task of job.tasks">
+        <div class="cadrart-offer-view-display__job__tasks__task__article">{{ task.article?.name }}</div>
+        <div class="cadrart-offer-view-display__job__tasks__task__note">{{ task.comment }}</div>
+        <div class="cadrart-offer-view-display__job__tasks__task__total" [innerHTML]="task.total ?? 0 | cadrartPrice"></div>
       </div>
     </div>
 
-    <div class="cadrart-offer-view__job__subtotal" *ngIf="(job.count ?? 1) > 1">
-      <div class="cadrart-offer-view__job__subtotal__label">{{ 'OFFER.VIEW.SUBTOTAL' | translate }}</div>
-      <div class="cadrart-offer-view__job__subtotal__total" [innerHTML]="(job.total ?? 0) / (job.count ?? 1) | cadrartPrice"></div>
+    <div class="cadrart-offer-view-display__job__subtotal" *ngIf="(job.count ?? 1) > 1">
+      <div class="cadrart-offer-view-display__job__subtotal__label">{{ 'OFFER.VIEW.SUBTOTAL' | translate }}</div>
+      <div class="cadrart-offer-view-display__job__subtotal__total" [innerHTML]="(job.total ?? 0) / (job.count ?? 1) | cadrartPrice"></div>
     </div>
 
-    <div class="cadrart-offer-view__job__total">
-      <div class="cadrart-offer-view__job__total__label">
+    <div class="cadrart-offer-view-display__job__total">
+      <div class="cadrart-offer-view-display__job__total__label">
         {{ 'OFFER.VIEW.TOTAL' | translate }}
         <span *ngIf="(job.count ?? 1) > 1">( &times;{{ job.count }} )</span>
       </div>
-      <div class="cadrart-offer-view__job__total__total" [innerHTML]="job.total ?? 0 | cadrartPrice"></div>
+      <div class="cadrart-offer-view-display__job__total__total" [innerHTML]="job.total ?? 0 | cadrartPrice"></div>
     </div>
   </cadrart-card>
 
-  <div class="cadrart-offer-view__total">
-    <div class="cadrart-offer-view__total__label">{{ 'OFFER.VIEW.TOTAL' | translate }}</div>
-    <div class="cadrart-offer-view__total__total" [innerHTML]="total | cadrartPrice"></div>
+  <div class="cadrart-offer-view-display__total">
+    <div class="cadrart-offer-view-display__total__label">{{ 'OFFER.VIEW.TOTAL' | translate }}</div>
+    <div class="cadrart-offer-view-display__total__total" [innerHTML]="total | cadrartPrice"></div>
   </div>
 
-  <div class="cadrart-offer-view__vat" *ngIf="vat > 0">
-    <div class="cadrart-offer-view__vat__label">{{ 'OFFER.VIEW.VAT' | translate }}&nbsp;: <span [innerHTML]="vat | cadrartAmount:'%':false"></span></div>
+  <div class="cadrart-offer-view-display__vat" *ngIf="vat > 0">
+    <div class="cadrart-offer-view-display__vat__label">{{ 'OFFER.VIEW.VAT' | translate }}&nbsp;: <span [innerHTML]="vat | cadrartAmount:'%':false"></span></div>
     <div
-      class="cadrart-offer-view__vat__total"
+      class="cadrart-offer-view-display__vat__total"
       [innerHTML]="(totalWithVat) - (total) | cadrartPrice"
     ></div>
   </div>
 
-  <div class="cadrart-offer-view__total-with-vat" *ngIf="vat > 0">
-    <div class="cadrart-offer-view__total-with-vat__label">{{ 'OFFER.VIEW.TOTALWITHVAT' | translate }}</div>
-    <div class="cadrart-offer-view__total-with-vat__total" [innerHTML]="totalWithVat | cadrartPrice"></div>
+  <div class="cadrart-offer-view-display__total-with-vat" *ngIf="vat > 0">
+    <div class="cadrart-offer-view-display__total-with-vat__label">{{ 'OFFER.VIEW.TOTALWITHVAT' | translate }}</div>
+    <div class="cadrart-offer-view-display__total-with-vat__total" [innerHTML]="totalWithVat | cadrartPrice"></div>
   </div>
 </div>

@@ -1,99 +1,140 @@
-<div class="cadrart-offer-view">
-  <section class="cadrart-offer-view__header">
+<div class="cadrart-offer-view-print">
+  <section class="cadrart-offer-view-print__header">
     <h1>
       <span [innerHTML]="'OFFER.VIEW.TITLE' | translate : { number: offerNumber }"></span>
       <small>{{ offerDate }}</small>
     </h1>
-    <div class="cadrart-offer-view__header__details">
-      <div>{{ clientName }}</div>
+    <div class="cadrart-offer-view-print__header__details">
+      <div class="cadrart-offer-view-print__header__details__client">{{ clientName }}</div>
       <div>{{ clientAddress }}</div>
     </div>
   </section>
-  <cadrart-card class="cadrart-offer-view__job" *ngFor="let job of jobs">
-    <div class="cadrart-offer-view__job__info">
-      <dl class="cadrart-offer-view__job__info__size">
-        <div class="cadrart-offer-view__job__info__size__glass dl-block">
-          <dt>{{ 'OFFER.VIEW.GLASS' | translate }}</dt>
-          <dd>
-            <span [innerHTML]="job.openingWidth | cadrartAmount:'cm'"></span>
-            &times;
-            <span [innerHTML]="job.openingHeight | cadrartAmount:'cm'"></span>
-          </dd>
+  <section>
+    @for (job of jobs; track job.id) {
+      <div class="cadrart-offer-view-print__job">
+        <div class="cadrart-offer-view-print__job__entry">
+          <div class="cadrart-offer-view-print__job__entry__title">
+            {{ job.description }} <small>(
+              <span [innerHTML]="job.openingWidth | cadrartAmount:'cm'"></span>
+              &times;
+              <span [innerHTML]="job.openingHeight | cadrartAmount:'cm'"></span>
+            )</small>
+          </div>
+          <div class="cadrart-offer-view-print__job__entry__count">
+            {{ job.count ?? 1 }}&nbsp;&times;
+          </div>
+          <div class="cadrart-offer-view-print__job__entry__total" [innerHTML]="(job.total ?? 0) / (job.count ?? 1) | cadrartPrice"></div>
+          <div class="cadrart-offer-view-print__job__entry__grand-total" [innerHTML]="job.total ?? 0 | cadrartPrice"></div>
         </div>
-        <div class="cadrart-offer-view__job__info__size__margins dl-block">
-          <dt>{{ 'OFFER.VIEW.MARGIN' | translate }}</dt>
-          <dd>
-            <span [innerHTML]="job.marginWidth | cadrartAmount:'cm'"></span>
-            &times;
-            <span [innerHTML]="job.marginHeight | cadrartAmount:'cm'"></span>
-          </dd>
-        </div>
-        <div class="cadrart-offer-view__job__info__size__opening dl-block">
-          <dt>{{ 'OFFER.VIEW.OPENING' | translate }}</dt>
-          <dd>
-            <span [innerHTML]="job.glassWidth | cadrartAmount:'cm'"></span>
-            &times;
-            <span [innerHTML]="job.glassHeight | cadrartAmount:'cm'"></span>
-          </dd>
-        </div>
-      </dl>
-      <dl class="cadrart-offer-view__job__info__details">
-        <div class="cadrart-offer-view__job__info__details__measure dl-block">
-          <dt>{{ 'OFFER.VIEW.MEASURE' | translate }}</dt>
-          <dd>{{ job.measure | cadrartJobMeasure | translate }}</dd>
-        </div>
-        <div class="cadrart-offer-view__job__info__details__location dl-block">
-          <dt>{{ 'OFFER.VIEW.LOCATION' | translate }}</dt>
-          <dd>{{ job.location?.name ?? '-' }}</dd>
-        </div>
-        <div class="cadrart-offer-view__job__info__details__duedate dl-block">
-          <dt>{{ 'OFFER.VIEW.DUEDATE' | translate }}</dt>
-          <dd>{{ job.dueDate ?? '-' }}</dd>
-        </div>
-        <div class="cadrart-offer-view__job__info__details__startdate dl-block">
-          <dt>{{ 'OFFER.VIEW.STARTDATE' | translate }}</dt>
-          <dd>{{ job.startDate ?? '-' }}</dd>
-        </div>
-      </dl>
-    </div>
 
-    <div class="cadrart-offer-view__job__tasks">
-      <div class="cadrart-offer-view__job__tasks__task" *ngFor="let task of job.tasks">
-        <div class="cadrart-offer-view__job__tasks__task__article">{{ task.article?.name }}</div>
-        <div class="cadrart-offer-view__job__tasks__task__note">{{ task.comment }}</div>
-        <div class="cadrart-offer-view__job__tasks__task__total" [innerHTML]="task.total ?? 0 | cadrartPrice"></div>
+        <!--<div class="cadrart-offer-view-print__job__tasks">
+          <div class="cadrart-offer-view-print__job__tasks__task" *ngFor="let task of job.tasks">
+            <div class="cadrart-offer-view-print__job__tasks__task__article">{{ task.article?.name }}</div>
+            <div class="cadrart-offer-view-print__job__tasks__task__note">{{ task.comment }}</div>
+            <div class="cadrart-offer-view-print__job__tasks__task__total" [innerHTML]="task.total ?? 0 | cadrartPrice"></div>
+          </div>
+        </div>-->
+
+        <!--<div class="cadrart-offer-view-print__job__subtotal" *ngIf="(job.count ?? 1) > 1">
+          <div class="cadrart-offer-view-print__job__subtotal__label">{{ 'OFFER.VIEW.SUBTOTAL' | translate }}</div>
+          <div class="cadrart-offer-view-print__job__subtotal__total" [innerHTML]="(job.total ?? 0) / (job.count ?? 1) | cadrartPrice"></div>
+        </div>-->
       </div>
+    }
+  </section>
+
+  <section class="cadrart-offer-view-print__total">
+    <div class="cadrart-offer-view-print__total__total">
+      <div class="cadrart-offer-view-print__total__total__label">{{ 'OFFER.VIEW.TOTAL' | translate }}</div>
+      <div class="cadrart-offer-view-print__total__total__total" [innerHTML]="total | cadrartPrice"></div>
     </div>
 
-    <div class="cadrart-offer-view__job__subtotal" *ngIf="(job.count ?? 1) > 1">
-      <div class="cadrart-offer-view__job__subtotal__label">{{ 'OFFER.VIEW.SUBTOTAL' | translate }}</div>
-      <div class="cadrart-offer-view__job__subtotal__total" [innerHTML]="(job.total ?? 0) / (job.count ?? 1) | cadrartPrice"></div>
-    </div>
-
-    <div class="cadrart-offer-view__job__total">
-      <div class="cadrart-offer-view__job__total__label">
-        {{ 'OFFER.VIEW.TOTAL' | translate }}
-        <span *ngIf="(job.count ?? 1) > 1">( &times;{{ job.count }} )</span>
+    @if (vat > 0) {
+      <div class="cadrart-offer-view-print__total__vat">
+        <div class="cadrart-offer-view-print__total__vat__label">{{ 'OFFER.VIEW.VAT' | translate }}&nbsp;: <span [innerHTML]="vat | cadrartAmount:'%':false"></span></div>
+        <div
+          class="cadrart-offer-view-print__vat__total"
+          [innerHTML]="(totalWithVat) - (total) | cadrartPrice"
+        ></div>
       </div>
-      <div class="cadrart-offer-view__job__total__total" [innerHTML]="job.total ?? 0 | cadrartPrice"></div>
-    </div>
-  </cadrart-card>
 
-  <div class="cadrart-offer-view__total">
-    <div class="cadrart-offer-view__total__label">{{ 'OFFER.VIEW.TOTAL' | translate }}</div>
-    <div class="cadrart-offer-view__total__total" [innerHTML]="total | cadrartPrice"></div>
-  </div>
+      <div class="cadrart-offer-view-print__total__with-vat">
+        <div class="cadrart-offer-view-print__total__with-vat__label">{{ 'OFFER.VIEW.TOTALWITHVAT' | translate }}</div>
+        <div class="cadrart-offer-view-print__total__with-vat__total" [innerHTML]="totalWithVat | cadrartPrice"></div>
+      </div>
+    }
+  </section>
 
-  <div class="cadrart-offer-view__vat" *ngIf="vat > 0">
-    <div class="cadrart-offer-view__vat__label">{{ 'OFFER.VIEW.VAT' | translate }}&nbsp;: <span [innerHTML]="vat | cadrartAmount:'%':false"></span></div>
-    <div
-      class="cadrart-offer-view__vat__total"
-      [innerHTML]="(totalWithVat) - (total) | cadrartPrice"
-    ></div>
-  </div>
+  <section class="cadrart-offer-view-print__tasks">
+    @let tasks = jobs | cadrartExtractTasks;
 
-  <div class="cadrart-offer-view__total-with-vat" *ngIf="vat > 0">
-    <div class="cadrart-offer-view__total-with-vat__label">{{ 'OFFER.VIEW.TOTALWITHVAT' | translate }}</div>
-    <div class="cadrart-offer-view__total-with-vat__total" [innerHTML]="totalWithVat | cadrartPrice"></div>
-  </div>
+    @if (tasks.assembly && tasks.assembly.length) {
+      <ng-container
+        [ngTemplateOutlet]="tasksList"
+        [ngTemplateOutletContext]="{ $implicit: tasks.assembly, key: 'ASSEMBLY' }"
+      ></ng-container>
+    }
+
+    @if (tasks.cardboard && tasks.cardboard.length) {
+      <ng-container
+        [ngTemplateOutlet]="tasksList"
+        [ngTemplateOutletContext]="{ $implicit: tasks.cardboard, key: 'CARDBOARD' }"
+      ></ng-container>
+    }
+
+    @if (tasks.glass && tasks.glass.length) {
+      <ng-container
+        [ngTemplateOutlet]="tasksList"
+        [ngTemplateOutletContext]="{ $implicit: tasks.glass, key: 'GLASS' }"
+      ></ng-container>
+    }
+
+    @if (tasks.pass && tasks.pass.length) {
+      <ng-container
+        [ngTemplateOutlet]="tasksList"
+        [ngTemplateOutletContext]="{ $implicit: tasks.pass, key: 'PASS' }"
+      ></ng-container>
+    }
+
+    @if (tasks.wood && tasks.wood.length) {
+      <ng-container
+        [ngTemplateOutlet]="tasksList"
+        [ngTemplateOutletContext]="{ $implicit: tasks.wood, key: 'WOOD' }"
+      ></ng-container>
+    }
+  </section>
 </div>
+
+<ng-template #tasksList let-data let-key="key">
+  <table class="cadrart-offer-view-print__tasks__list">
+    <caption>{{ 'OFFER.VIEW.TASKS.' + key + '.TITLE' | translate }}</caption>
+    <thead>
+      <tr>
+        <th>{{ 'OFFER.VIEW.TASKS.PRINT.COUNT' | translate }}</th>
+        <th>{{ 'OFFER.VIEW.TASKS.PRINT.ARTICLE' | translate }}</th>
+        <th>{{ 'OFFER.VIEW.TASKS.PRINT.COMMENT' | translate }}</th>
+        <th>{{ 'OFFER.VIEW.TASKS.PRINT.SIZE' | translate }}</th>
+        <th>{{ 'OFFER.VIEW.TASKS.PRINT.MEASURE' | translate }}</th>
+        <th>{{ 'OFFER.VIEW.TASKS.PRINT.ORIENTATION' | translate }}</th>
+        <th>{{ 'OFFER.VIEW.TASKS.PRINT.LOCATION' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (task of data; track task.id) {
+        <tr>
+          <td>{{ task.count }}&nbsp;&times;</td>
+          <td>{{ task.article }} <small>({{ task.articlePlace }})</small></td>
+          <td>{{ task.comment }}</td>
+          <td>
+            V:&nbsp;{{ task.glassHeight }}&times;{{ task.glassWidth }}<br />
+            M:&nbsp;{{ task.marginHeight }}&times;{{ task.marginWidth }}<br />
+            O:&nbsp;{{ task.openingHeight }}&times;{{ task.openingWidth }}
+          </td>
+          <td>{{ task.measure | cadrartJobMeasure | translate }}</td>
+          <td>{{ task.orientation | cadrartJobOrientation | translate }}</td>
+          <td>{{ task.location }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</ng-template>

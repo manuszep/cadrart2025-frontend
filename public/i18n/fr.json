@@ -151,13 +151,40 @@
       "LOCATION": "Emplacement",
       "DUEDATE": "Date de fin",
       "STARTDATE": "Date de début",
-      "SUBTOTAL": "Sous-total",
+      "SUBTOTAL": "À l'unité",
       "TOTAL": "Total",
       "TOTALWITHVAT": "Total TVAC",
       "EDIT": "Modifier",
       "GLASS": "Verre",
       "MARGIN": "Marge",
-      "OPENING": "Ouverture"
+      "OPENING": "Ouverture",
+      "TASKS": {
+        "ASSEMBLY": {
+          "TITLE": "Assemblage"
+        },
+        "CARDBOARD": {
+          "TITLE": "Carton"
+        },
+        "GLASS": {
+          "TITLE": "Verre"
+        },
+        "PASS": {
+          "TITLE": "Passe-partout"
+        },
+        "WOOD": {
+          "TITLE": "Bois"
+        },
+        "PRINT": {
+          "COUNT": "Qté",
+          "ARTICLE": "Article",
+          "COMMENT": "Commentaire",
+          "DESCRIPTION": "Description",
+          "SIZE": "Taille",
+          "LOCATION": "Emplacement",
+          "MEASURE": "Mesure",
+          "ORIENTATION": "Orientation"
+        }
+      }
     },
     "SAVE": {
       "SUCCESS": "L'offre a été enregistrée avec succès."

@@ -1,5 +1,5 @@
 cadrart-route-offer-view-display {
-  display: block;
+  display: contents;
 }
 
 cadrart-route-offer-view-print {
@@ -7,11 +7,14 @@ cadrart-route-offer-view-print {
 }
 
 @media print {
+  cadrart-route-offer-view {
+    display: contents;
+  }
   cadrart-route-offer-view-display {
     display: none;
   }
 
   cadrart-route-offer-view-print {
-    display: block;
+    display: contents;
   }
 }

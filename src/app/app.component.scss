@@ -4,6 +4,12 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+
+  @media print {
+    margin: 1cm;
+    height: calc(100vh - 2cm - 1px);
+    display: block;
+  }
 }
 
 .cadrart__page {
@@ -12,6 +18,12 @@
   flex-grow: 1;
   height: 0;
   position: relative;
+
+  @media print {
+    margin-top: 1cm;
+    display: block;
+    height: auto;
+  }
 }
 
 .cadrart__content {
@@ -25,6 +37,7 @@
   padding: $spacing-medium $spacing-large $spacing-large $spacing-medium;
 
   @media print {
-    padding: 0 $spacing-medium;
+    padding: 0;
+    display: block;
   }
 }

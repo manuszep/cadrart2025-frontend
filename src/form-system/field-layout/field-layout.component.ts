@@ -15,10 +15,16 @@ import { ICadrartIcon } from '../../components/icon/icon.model';
   imports: [CommonModule, TranslateModule, CadrartIconComponent]
 })
 export class CadrartFieldLayoutComponent {
+  public hasValue = false;
+
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() iconBefore?: ICadrartIcon;
   @Input() iconAfter?: ICadrartIcon;
   @Input() textAfter?: string;
   @Input() disabled = false;
+  @Input()
+  set value(value: unknown) {
+    this.hasValue = !!value;
+  }
 }
