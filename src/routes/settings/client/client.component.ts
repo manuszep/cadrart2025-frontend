@@ -11,10 +11,12 @@ import { CadrartDataConnectorService } from '../../../services/data-connector.se
 import { CadrartClientService } from '../../../services/client.service';
 import { CadrartTableComponent } from '../../../components/table/table.component';
 import { CadrartTableValueFormatterDirective } from '../../../components/table/table-value-formatter.directive';
-import { CadrartFieldComponent } from '../../../form-system/field/field.component';
 import { CadrartClientFormComponent } from '../../../forms/client/client-form.component';
 import { CadrartClientForm } from '../../../models/client.form';
 import { CadrartTagService } from '../../../services/tag.service';
+import { CadrartAddressPipe } from '../../../pipes/cadrart-address.pipe';
+import { CadrartMailPipe } from '../../../pipes/mail.pipe';
+import { CadrartPhonePipe } from '../../../pipes/phone.pipe';
 
 @Component({
   selector: 'cadrart-route-settings-client',
@@ -26,8 +28,10 @@ import { CadrartTagService } from '../../../services/tag.service';
     TranslateModule,
     CadrartTableComponent,
     CadrartTableValueFormatterDirective,
-    CadrartFieldComponent,
-    CadrartClientFormComponent
+    CadrartAddressPipe,
+    CadrartClientFormComponent,
+    CadrartMailPipe,
+    CadrartPhonePipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

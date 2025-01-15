@@ -69,6 +69,16 @@
       [config]="$any(finalConfig())"
       (cadrartBlur)="handleBlur()"
     ></cadrart-field-text>
+
+    <cadrart-field-address
+      #fld
+      *ngSwitchCase="'address'"
+      [name]="formControlName"
+      [form]="form"
+      [control]="$any(control)"
+      [config]="$any(finalConfig())"
+      (cadrartBlur)="handleBlur()"
+    ></cadrart-field-address>
   </div>
   <div *ngIf="control?.errors && (control?.dirty || control?.touched)" class="cadrart-field-wrapper__error">
     {{ control.errors | cadrartFormError }}

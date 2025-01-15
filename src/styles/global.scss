@@ -24,3 +24,17 @@ body {
   size: landscape;
   page-orientation: rotate-left;
 }
+
+a {
+  color: rgba($color-yellow, 70%);
+  transition: color $transition-duration, border-bottom $transition-duration;
+  text-decoration: none;
+  background-size: 1px 1em;
+  border-bottom: 1px solid rgba($color-yellow, 10%);
+  display: inline;
+
+  &:hover {
+    color: $color-yellow;
+    border-bottom: 1px solid rgba($color-yellow, 20%);
+  }
+}

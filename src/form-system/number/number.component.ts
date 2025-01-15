@@ -45,7 +45,7 @@ export class CadrartFieldNumberComponent extends CadrartFieldBaseComponent<numbe
     }
   }
 
-  handleBlur(): void {
+  public handleBlur(): void {
     this.cadrartBlur.emit();
   }
 }

@@ -278,7 +278,21 @@
     },
     "ADDRESS": {
       "LABEL": "Adresse",
-      "PLACEHOLDER": "68 avenue de la chasse, 1040 Etterbeek"
+      "STREET": {
+        "PLACEHOLDER": "Rue"
+      },
+      "NUMBER": {
+        "PLACEHOLDER": "Numéro"
+      },
+      "CITY": {
+        "PLACEHOLDER": "Ville"
+      },
+      "ZIP": {
+        "PLACEHOLDER": "Code postal"
+      },
+      "COUNTRY": {
+        "PLACEHOLDER": "Pays"
+      }
     },
     "MAIL": {
       "LABEL": "E-mail",

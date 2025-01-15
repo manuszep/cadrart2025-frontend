@@ -8,9 +8,9 @@
 .cadrart-data-card__description {
   container-name: body;
 
-  @container body (min-width: 500px) {
+  @container body (min-width: 400px) {
     &__fields {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, auto);
 
       &__field {
         &--extended {
@@ -24,8 +24,12 @@
     display: grid;
     grid-gap: $spacing-small $spacing-large;
     font-size: 14px;
+    grid-template-columns: auto auto;
+    line-height: 1.5;
 
     &__field {
+      display: contents;
+
       &__label {
         font-weight: 600;
         display: inline;

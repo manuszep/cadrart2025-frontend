@@ -1,11 +1,11 @@
 import { CadrartField, ICadrartFieldComponentType, ICadrartFieldConfig } from '../field-config.model';
 
 export interface ICadrartFieldAddressValue {
-  street: string;
-  number: string;
-  city: string;
-  zip: string;
-  country: string;
+  street?: string;
+  number?: string;
+  city?: string;
+  zip?: string;
+  country?: string;
 }
 
 export interface ICadrartFieldAddressConfig extends ICadrartFieldConfig {

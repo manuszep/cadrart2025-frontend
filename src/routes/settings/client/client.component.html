@@ -9,11 +9,13 @@
     (cadrartDelete)="handleDeleteClick($event)"
   >
     <td *cadrartTableValueFormatter="'name'; let entry">{{ entry?.firstName }} {{ entry?.lastName }}</td>
+    <td *cadrartTableValueFormatter="'address'; let entry" [innerHTML]="entry?.address | cadrartAddress"></td>
     <td *cadrartTableValueFormatter="'tag'; let entry">{{ entry?.tag?.name }}</td>
+    <td *cadrartTableValueFormatter="'mail'; let entry" [innerHTML]="entry?.mail | cadrartMail"></td>
     <td *cadrartTableValueFormatter="'phone'; let entry">
-      {{ entry?.phone }}
+      <span [innerHTML]="entry?.phone | cadrartPhone"></span>
       <br *ngIf="entry?.phone && entry?.phone2" />
-      {{ entry?.phone2 }}
+      <span [innerHTML]="entry?.phone2 | cadrartPhone"></span>
     </td>
     <td *cadrartTableValueFormatter="'vat'; let entry">{{ entry?.vat ? entry.vat + '%' : '' }}</td>
   </cadrart-table>

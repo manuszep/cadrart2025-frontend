@@ -1,0 +1,67 @@
+<cadrart-field-layout
+  class="cadrart-field-address"
+  [label]="label"
+  [disabled]="config.disabled">
+  <div class="cadrart-field-address__wrapper">
+    <input
+      class="cadrart-field-address__input cadrart-field-address__input--street"
+      autocomplete="off"
+      type="text"
+      [formControl]="streetControl"
+      name="street"
+      [placeholder]="'FIELD.ADDRESS.STREET.PLACEHOLDER' | translate"
+      [readonly]="config.readonly"
+      [tabindex]="config.tabIndex"
+      (input)="handleInput($event)"
+      (focus)="handleFocus($event)" />
+
+    <input
+      class="cadrart-field-address__input cadrart-field-address__input--number"
+      autocomplete="off"
+      type="text"
+      [formControl]="numberControl"
+      name="street"
+      [placeholder]="'FIELD.ADDRESS.NUMBER.PLACEHOLDER' | translate"
+      [readonly]="config.readonly"
+      [tabindex]="config.tabIndex"
+      (input)="handleInput($event)"
+      (focus)="handleFocus($event)" />
+
+    <input
+      class="cadrart-field-address__input cadrart-field-address__input--city"
+      autocomplete="off"
+      type="text"
+      [formControl]="cityControl"
+      name="city"
+      [placeholder]="'FIELD.ADDRESS.CITY.PLACEHOLDER' | translate"
+      [readonly]="config.readonly"
+      [tabindex]="config.tabIndex"
+      (input)="handleInput($event)"
+      (focus)="handleFocus($event)" />
+
+    <input
+      class="cadrart-field-address__input cadrart-field-address__input--zip"
+      autocomplete="off"
+      type="text"
+      [formControl]="zipControl"
+      name="zip"
+      [placeholder]="'FIELD.ADDRESS.ZIP.PLACEHOLDER' | translate"
+      [readonly]="config.readonly"
+      [tabindex]="config.tabIndex"
+      (input)="handleInput($event)"
+      (focus)="handleFocus($event)" />
+
+    <input
+      class="cadrart-field-address__input cadrart-field-address__input--country"
+      autocomplete="off"
+      type="text"
+      [formControl]="countryControl"
+      name="country"
+      [placeholder]="'FIELD.ADDRESS.COUNTRY.PLACEHOLDER' | translate"
+      [readonly]="config.readonly"
+      [autofocus]="config.autofocus"
+      [tabindex]="config.tabIndex"
+      (input)="handleInput($event)"
+      (focus)="handleFocus($event)" />
+  </div>
+</cadrart-field-layout>

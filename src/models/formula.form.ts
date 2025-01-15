@@ -5,12 +5,12 @@ import { CadrartFormControl } from '../form-system/form-control';
 import { CadrartFieldText } from '../form-system/text/text.config';
 import { CadrartFieldNumber } from '../form-system/number/number.config';
 import { CadrartFieldSelect } from '../form-system/select/select.config';
-import { CadrartFormGroup } from '../form-system/form-group';
+import { CadrartFormGroup, FormConfig } from '../form-system/form-group';
 import { PartialDeep } from '../utils/types';
 
 import { CadrartFormula, ICadrartParsedFormula, ICadrartParsedFormulaStep } from './formula.model';
 
-function getFormulaParsedFormConfig() {
+function getFormulaParsedFormConfig(): FormConfig {
   return {
     id: new CadrartFormControl<number | undefined>(undefined),
     start: new CadrartFormControl('', new CadrartFieldNumber({ required: true, min: 0, max: 999, textAfter: 'm' })),
@@ -38,7 +38,7 @@ export class CadrartParsedFormulaForm extends CadrartFormGroup<ICadrartParsedFor
   }
 }
 
-function getFormulaFormConfig() {
+function getFormulaFormConfig(): FormConfig {
   return {
     id: new CadrartFormControl<number | undefined>(undefined),
     name: new CadrartFormControl('', new CadrartFieldText({ required: true, minLength: 2, maxLength: 50 })),

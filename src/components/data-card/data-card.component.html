@@ -28,9 +28,7 @@
           <div class="cadrart-data-card__description__fields__field__label">
             {{ field.label | translate }}
           </div>
-          <div class="cadrart-data-card__description__fields__field__value">
-            {{ field.value }}
-          </div>
+          <div class="cadrart-data-card__description__fields__field__value" [innerHTML]="field.value"></div>
         </div>
       </div>
     </div>

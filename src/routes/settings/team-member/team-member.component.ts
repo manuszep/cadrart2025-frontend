@@ -12,12 +12,24 @@ import { CadrartDataConnectorService } from '../../../services/data-connector.se
 import { CadrartTeamMemberService } from '../../../services/team-member.service';
 import { CadrartFieldComponent } from '../../../form-system/field/field.component';
 import { CadrartTeamMemberForm } from '../../../models/team-member.form';
+import { CadrartAddressPipe } from '../../../pipes/cadrart-address.pipe';
+import { CadrartMailPipe } from '../../../pipes/mail.pipe';
+import { CadrartPhonePipe } from '../../../pipes/phone.pipe';
 
 @Component({
   selector: 'cadrart-route-settings-team-member',
   templateUrl: './team-member.component.html',
   styleUrls: ['./team-member.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, TranslateModule, CadrartDataCardComponent, CadrartFieldComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    CadrartDataCardComponent,
+    CadrartFieldComponent,
+    CadrartAddressPipe,
+    CadrartMailPipe,
+    CadrartPhonePipe
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true

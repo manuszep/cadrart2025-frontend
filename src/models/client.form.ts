@@ -6,15 +6,16 @@ import { CadrartFieldNumber } from '../form-system/number/number.config';
 import { CadrartFieldText } from '../form-system/text/text.config';
 import { CadrartFieldSelect } from '../form-system/select/select.config';
 import { CadrartTagService } from '../services/tag.service';
-import { CadrartFormGroup } from '../form-system/form-group';
+import { CadrartFormGroup, FormConfig } from '../form-system/form-group';
+import { CadrartFieldAddress } from '../form-system/address/address.config';
 
-function getFormConfig(tagService: CadrartTagService) {
+function getFormConfig(tagService: CadrartTagService): FormConfig {
   return {
     id: new CadrartFormControl<number | undefined>(undefined),
     lastName: new CadrartFormControl('', new CadrartFieldText({ required: true, minLength: 2, maxLength: 50 })),
     firstName: new CadrartFormControl('', new CadrartFieldText({ required: true, minLength: 2, maxLength: 50 })),
     company: new CadrartFormControl('', new CadrartFieldText({ required: false, minLength: 2, maxLength: 50 })),
-    address: new CadrartFormControl('', new CadrartFieldText({ required: false, minLength: 2, maxLength: 255 })),
+    address: new CadrartFormControl('', new CadrartFieldAddress({ required: false })),
     mail: new CadrartFormControl(
       '',
       new CadrartFieldText({ required: false, minLength: 2, maxLength: 255, type: 'email' })

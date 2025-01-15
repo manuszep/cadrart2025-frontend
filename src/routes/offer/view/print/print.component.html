@@ -6,7 +6,7 @@
     </h1>
     <div class="cadrart-offer-view-print__header__details">
       <div class="cadrart-offer-view-print__header__details__client">{{ clientName }}</div>
-      <div>{{ clientAddress }}</div>
+      <div class="cadrart-offer-view-print__header__details__address" [innerHTML]="clientAddress | cadrartAddress"></div>
     </div>
   </section>
   <section>

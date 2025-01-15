@@ -14,9 +14,9 @@ import { CadrartFieldSelect } from '../form-system/select/select.config';
 import { CadrartProviderService } from '../services/provider.service';
 import { CadrartFormulaService } from '../services/formula.service';
 import { CadrartFieldCheckbox } from '../form-system/checkbox/checkbox.config';
-import { CadrartFormGroup } from '../form-system/form-group';
+import { CadrartFormGroup, FormConfig } from '../form-system/form-group';
 
-function getFormConfig(providerService: CadrartProviderService, formulaService: CadrartFormulaService) {
+function getFormConfig(providerService: CadrartProviderService, formulaService: CadrartFormulaService): FormConfig {
   return {
     id: new CadrartFormControl<number | undefined>(undefined),
     name: new CadrartFormControl('', new CadrartFieldText({ required: true, minLength: 2, maxLength: 100 })),

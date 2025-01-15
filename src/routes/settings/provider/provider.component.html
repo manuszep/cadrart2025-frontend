@@ -8,6 +8,8 @@
     (cadrartEdit)="handleEditClick($event)"
     (cadrartDelete)="handleDeleteClick($event)"
   >
+    <td *cadrartTableValueFormatter="'address'; let entry" [innerHTML]="entry?.address | cadrartAddress: false"></td>
+    <td *cadrartTableValueFormatter="'mail'; let entry" [innerHTML]="entry?.mail | cadrartMail"></td>
   </cadrart-table>
 </div>
 

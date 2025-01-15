@@ -9,6 +9,7 @@ import { CadrartPricePipe } from '../../../../pipes/price.pipe';
 import { CadrartExtractTasksPipe } from '../../../../pipes/extract-tasks.pipe';
 import { CadrartJobMeasurePipe } from '../../../../pipes/job-measure.pipe';
 import { CadrartJobOrientationPipe } from '../../../../pipes/job-orientation.pipe';
+import { CadrartAddressPipe } from '../../../../pipes/cadrart-address.pipe';
 
 @Component({
   selector: 'cadrart-route-offer-view-print',
@@ -21,7 +22,8 @@ import { CadrartJobOrientationPipe } from '../../../../pipes/job-orientation.pip
     CadrartPricePipe,
     CadrartExtractTasksPipe,
     CadrartJobMeasurePipe,
-    CadrartJobOrientationPipe
+    CadrartJobOrientationPipe,
+    CadrartAddressPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

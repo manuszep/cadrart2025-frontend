@@ -12,12 +12,24 @@ import { CadrartDataConnectorService } from '../../../services/data-connector.se
 import { CadrartProviderService } from '../../../services/provider.service';
 import { CadrartFieldComponent } from '../../../form-system/field/field.component';
 import { CadrartProviderForm } from '../../../models/provider.form';
+import { CadrartAddressPipe } from '../../../pipes/cadrart-address.pipe';
+import { CadrartTableValueFormatterDirective } from '../../../components/table/table-value-formatter.directive';
+import { CadrartMailPipe } from '../../../pipes/mail.pipe';
 
 @Component({
   selector: 'cadrart-route-settings-provider',
   templateUrl: './provider.component.html',
   styleUrls: ['./provider.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, TranslateModule, CadrartTableComponent, CadrartFieldComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    CadrartTableComponent,
+    CadrartTableValueFormatterDirective,
+    CadrartFieldComponent,
+    CadrartAddressPipe,
+    CadrartMailPipe
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true

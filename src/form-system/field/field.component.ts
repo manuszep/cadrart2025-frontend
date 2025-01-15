@@ -27,6 +27,7 @@ import { CadrartFieldOrientationComponent } from '../orientation/orientation.com
 import { CadrartFieldSelectComponent } from '../select/select.component';
 import { CadrartFieldBaseComponent } from '../field.model';
 import { CadrartFieldDateComponent } from '../date/date.component';
+import { CadrartFieldAddressComponent } from '../address/address.component';
 
 @Component({
   selector: 'cadrart-field',
@@ -44,6 +45,7 @@ import { CadrartFieldDateComponent } from '../date/date.component';
     CadrartFieldOrientationComponent,
     CadrartFieldSelectComponent,
     CadrartFieldTextComponent,
+    CadrartFieldAddressComponent,
     CadrartFormErrorPipe
   ],
   providers: [
@@ -112,17 +114,17 @@ export class CadrartFieldComponent<TValue, TConfig extends ICadrartFieldConfig>
     this.controlElement?.focus();
   }
 
-  registerOnChange(fn: (value: TValue | null) => void) {
+  registerOnChange(fn: (value: TValue | null) => void): void {
     this.onChange = fn;
   }
 
-  writeValue(value: TValue | null) {
+  writeValue(value: TValue | null): void {
     if (value) {
       this.value = value;
     }
   }
 
-  registerOnTouched(fn: () => void) {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
