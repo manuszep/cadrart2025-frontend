@@ -11,7 +11,7 @@ export class CadrartProviderService extends CadrartApiService<ICadrartProvider> 
     return entity.name ?? '';
   }
 
-  override shouldUpdateFromSocketEvent(operation: 'create' | 'update' | 'delete', name: string): boolean {
+  override shouldUpdateFromSocketEvent(_operation: 'create' | 'update' | 'delete', name: string): boolean {
     return name === 'Provider';
   }
 

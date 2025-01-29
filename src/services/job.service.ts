@@ -16,7 +16,7 @@ export class CadrartJobService extends CadrartApiService<ICadrartJob> {
     return `${entity.id}`;
   }
 
-  override shouldUpdateFromSocketEvent(operation: 'create' | 'update' | 'delete', name: string): boolean {
+  override shouldUpdateFromSocketEvent(_operation: 'create' | 'update' | 'delete', name: string): boolean {
     return name === 'Job';
   }
 

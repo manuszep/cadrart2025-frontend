@@ -9,11 +9,11 @@ import { CadrartFooterService } from '../components/footer/footer.service';
 export type IDataConnectorSortAccessor = Record<string, (value: any, key: string) => string | number>;
 
 export type IDataConnectorConfig<T extends ICadrartApiEntity> = {
-  requestor: (page: number, count: number) => Observable<ICadrartEntitiesResponse<T>>;
+  requestor: (page: number, count: number, needle?: string) => Observable<ICadrartEntitiesResponse<T>>;
   accessors: IDataConnectorSortAccessor;
 };
 
-function defaultAccessor(value: any, key: string) {
+function defaultAccessor(value: any, key: string): any {
   return value[key];
 }
 
@@ -29,7 +29,7 @@ export class CadrartDataConnectorService {
   private pageSize$: BehaviorSubject<number> = new BehaviorSubject(20);
   private accessors$: IDataConnectorSortAccessor = {} as IDataConnectorSortAccessor;
   private total$: BehaviorSubject<number> = new BehaviorSubject(0);
-  private requestor: (page: number, count: number) => Observable<ICadrartEntitiesResponse<any>> = () =>
+  private requestor: (page: number, count: number, needle?: string) => Observable<ICadrartEntitiesResponse<any>> = () =>
     new Observable();
 
   private requestorSubscription: Subscription | null = null;
@@ -125,7 +125,7 @@ export class CadrartDataConnectorService {
       this.requestorSubscription.unsubscribe();
     }
 
-    this.requestorSubscription = this.requestor(this.page$.value, this.pageSize$.value).subscribe(
+    this.requestorSubscription = this.requestor(this.page$.value, this.pageSize$.value, this.needle$.value).subscribe(
       (data: ICadrartEntitiesResponse<any>) => {
         this.data$.next(data.entities);
         this.filteredData$.next(data.entities);
@@ -138,7 +138,7 @@ export class CadrartDataConnectorService {
     this.needle$.next('');
     this.sortColumn$.next('');
     this.page$.next(1);
-    this.pageSize$.next(20);
+    this.pageSize$.next(5);
     this.data$.next([]);
     this.filteredData$.next([]);
     this.accessors$ = {} as IDataConnectorSortAccessor;
@@ -151,7 +151,8 @@ export class CadrartDataConnectorService {
 
   setNeedle(needle: string): void {
     this.needle$.next(needle);
-    this.doFilter();
+    this.page$.next(1);
+    this.makeRequest();
   }
 
   setSortColumn(sortColumn: string): void {

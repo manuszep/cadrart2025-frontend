@@ -50,11 +50,12 @@ export abstract class CadrartApiService<T extends ICadrartApiEntity> {
 
   public abstract getName(entity: T): string;
 
-  getEntities(page: number, count: number): Observable<ICadrartEntitiesResponse<T>> {
+  getEntities(page: number, count: number, needle?: string): Observable<ICadrartEntitiesResponse<T>> {
     return (
-      this.cache.makeRequest('get', `${this.endpointName}?page=${page}&count=${count}`) as Observable<
-        ICadrartEntitiesResponse<T>
-      >
+      this.cache.makeRequest(
+        'get',
+        `${this.endpointName}?page=${page}&count=${count}&needle=${needle ?? ''}`
+      ) as Observable<ICadrartEntitiesResponse<T>>
     ).pipe(
       map((response: ICadrartEntitiesResponse<T>) => {
         return response;

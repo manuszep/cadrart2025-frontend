@@ -9,10 +9,12 @@ export class CadrartTeamMemberService extends CadrartApiService<ICadrartTeamMemb
   endpointName = 'team-member';
 
   public getName(entity: ICadrartTeamMember): string {
-    return `${entity.firstName} ${entity.lastName}` ?? '';
+    const value = `${entity.firstName ?? ''} ${entity.lastName ?? ''}`;
+
+    return value !== '' && value !== ' ' ? value : '';
   }
 
-  override shouldUpdateFromSocketEvent(operation: 'create' | 'update' | 'delete', name: string): boolean {
+  override shouldUpdateFromSocketEvent(_operation: 'create' | 'update' | 'delete', name: string): boolean {
     return name === 'TeamMember';
   }
 

@@ -58,7 +58,9 @@ export class CadrartCacheService {
     // If there's no cache for this endpoint, we make the call and write the result to the cache
     if (this.isEndpointCacheEmpty(endpoint) || force) {
       // If the cache does not exist, create it
-      !this.hasEndpointCache(endpoint) && this.setEndpointCache(endpoint, null);
+      if (!this.hasEndpointCache(endpoint)) {
+        this.setEndpointCache(endpoint, null);
+      }
 
       // Initialize HTTP request
       this.http.get(getEndpointUrl(endpoint)).subscribe((data: unknown) => {

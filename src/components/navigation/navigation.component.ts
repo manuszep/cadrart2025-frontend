@@ -8,9 +8,9 @@ import {
   WritableSignal,
   signal
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { NavigationStart, Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject, map, takeUntil } from 'rxjs';
+import { Subject, filter, map, takeUntil } from 'rxjs';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { CadrartClickOutsideDirective } from '../../directives/click-outside.directive';
@@ -48,7 +48,7 @@ export class CadrartNavigationComponent implements OnDestroy {
   public showSearch: WritableSignal<boolean> = signal(false);
   public hasSearchData: WritableSignal<boolean> = signal(true);
 
-  public searchFormConfig = new FormGroup({
+  public searchForm = new FormGroup({
     search: new CadrartFormControl(
       '',
       new CadrartFieldText({
@@ -57,7 +57,7 @@ export class CadrartNavigationComponent implements OnDestroy {
       })
     )
   });
-  public searchStatus$ = this.searchFormConfig.get('search')?.statusChanges;
+  public searchStatus$ = this.searchForm.get('search')?.statusChanges;
 
   private unsubscribeSubject$ = new Subject<void>();
 
@@ -65,16 +65,22 @@ export class CadrartNavigationComponent implements OnDestroy {
 
   constructor(
     private dataConnectorService: CadrartDataConnectorService,
+    private readonly router: Router,
     public readonly service: CadrartNavigationService
   ) {
     this.dataConnectorService.data.pipe(map((data: unknown[]) => this.hasSearchData.set(data.length > 0)));
 
-    this.searchFormConfig
+    this.searchForm
       .get('search')
       ?.valueChanges.pipe(takeUntil(this.unsubscribeSubject$))
       .subscribe((value: string | null) => {
         this.dataConnectorService.setNeedle(value ?? '');
       });
+
+    this.router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe(() => {
+      this.searchForm.get('search')?.setValue('');
+      this.toggled.set(false);
+    });
   }
 
   ngOnDestroy(): void {

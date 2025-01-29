@@ -59,7 +59,7 @@ export abstract class CadrartSettingsPageComponent<
 
     this.data$ = this.dataConnectorService
       .connect({
-        requestor: (page: number, count: number) => this.service.getEntities(page, count),
+        requestor: (page: number, count: number, needle?: string) => this.service.getEntities(page, count, needle),
         accessors: {
           // TODO: Implement accessors
         }
