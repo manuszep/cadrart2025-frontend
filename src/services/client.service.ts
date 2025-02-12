@@ -13,10 +13,12 @@ export class CadrartClientService extends CadrartApiService<ICadrartClient> {
   }
 
   public getName(entity: ICadrartClient): string {
-    return `${entity.firstName} ${entity.lastName}` ?? '';
+    const value = `${entity.firstName ?? ''} ${entity.lastName ?? ''}`;
+
+    return value !== '' && value !== ' ' ? value : '';
   }
 
-  override shouldUpdateFromSocketEvent(operation: 'create' | 'update' | 'delete', name: string): boolean {
+  override shouldUpdateFromSocketEvent(_operation: 'create' | 'update' | 'delete', name: string): boolean {
     return name === 'Client';
   }
 

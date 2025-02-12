@@ -1,8 +1,8 @@
 <div class="cadrart-login">
   <cadrart-card [title]="'LOGIN.TITLE'" [image]="image()">
-    <form class="cadrart-login__form" [formGroup]="loginForm">
-      <cadrart-field formControlName="mail" (cadrartBlur)="handleMailBlur()"></cadrart-field>
-      <cadrart-field formControlName="password"></cadrart-field>
+    <form class="cadrart-login__form" [esfsFormGroup]="loginForm">
+      <esfs-field name="mail" (esfsBlur)="handleMailBlur()"></esfs-field>
+      <esfs-field name="password"></esfs-field>
       <cadrart-button type="submit" (cadrartClick)="handleSubmit()">{{ 'LOGIN.SUBMIT' | translate }}</cadrart-button>
     </form>
 

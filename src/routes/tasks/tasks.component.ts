@@ -21,7 +21,7 @@ import { CadrartButtonComponent } from '../../components/button/button.component
 })
 export class CadrartRouteTasksComponent implements OnDestroy {
   public tasks?: Observable<CadrartExtendedTask[]>;
-  public trackBy = (index: number, item: CadrartExtendedTask) => item.id;
+  public trackBy = (_index: number, item: CadrartExtendedTask): number | undefined => item.id;
 
   private unsubscribeSubject$ = new Subject<void>();
 
@@ -29,10 +29,10 @@ export class CadrartRouteTasksComponent implements OnDestroy {
     private readonly service: CadrartTaskService,
     private readonly dataConnectorService: CadrartDataConnectorService
   ) {
-    this.connect(this.filterConnection.bind(this));
+    this.connect();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.unsubscribeSubject$.next(void 0);
     this.unsubscribeSubject$.complete();
   }
@@ -41,10 +41,10 @@ export class CadrartRouteTasksComponent implements OnDestroy {
     return this.service.getEntities(page, count);
   }
 
-  connect(method: (page: number, count: number) => Observable<ICadrartEntitiesResponse<ICadrartExtendedTask>>): void {
+  connect(): void {
     this.tasks = this.dataConnectorService
       .connect({
-        requestor: method,
+        requestor: (page: number, count: number) => this.service.getEntities(page, count),
         accessors: {
           // TODO: Implement accessors
         }

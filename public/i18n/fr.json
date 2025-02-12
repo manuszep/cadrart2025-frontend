@@ -262,7 +262,7 @@
       "ADD": "Ajouter"
     },
     "SEARCH": {
-      "PLACEHOLDER": "Recherche"
+      "PH": "Recherche"
     },
     "NAME": {
       "LABEL": "Nom",
@@ -295,8 +295,8 @@
       }
     },
     "MAIL": {
-      "LABEL": "E-mail",
-      "PLACEHOLDER": "stanislas.drzemala@gmail.com"
+      "Q": "E-mail",
+      "PH": "stanislas.drzemala@gmail.com"
     },
     "PHONE": {
       "LABEL": "Téléphone",

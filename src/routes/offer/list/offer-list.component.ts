@@ -36,7 +36,7 @@ import { CadrartFiltersComponent } from '../../../components/filters/filters.com
 export class CadrartRouteOfferListComponent implements OnDestroy {
   public statuses = ECadrartOfferStatus;
   public offers?: Observable<CadrartOffer[]>;
-  public trackBy = (index: number, item: CadrartOffer) => item.id;
+  public trackBy = (_index: number, item: CadrartOffer): number | undefined => item.id;
   public filtersConfig: ICadrartFiltersConfig = [
     {
       key: 'period',
@@ -101,7 +101,7 @@ export class CadrartRouteOfferListComponent implements OnDestroy {
       );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.unsubscribeSubject$.next(void 0);
     this.unsubscribeSubject$.complete();
   }

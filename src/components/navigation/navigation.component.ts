@@ -8,18 +8,20 @@ import {
   WritableSignal,
   signal
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { NavigationStart, Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject, map, takeUntil } from 'rxjs';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Subject, filter, map, takeUntil } from 'rxjs';
+import {
+  EsfsFieldComponent,
+  EsfsFormControlText,
+  EsfsFormGroup,
+  EsfsFormGroupDirective
+} from '@manuszep/es-form-system';
 
 import { CadrartClickOutsideDirective } from '../../directives/click-outside.directive';
 import { CadrartDataConnectorService } from '../../services/data-connector.service';
 import { CadrartButtonComponent } from '../button/button.component';
 import { CadrartIconComponent } from '../icon/icon.component';
-import { CadrartFormControl } from '../../form-system/form-control';
-import { CadrartFieldText } from '../../form-system/text/text.config';
-import { CadrartFieldComponent } from '../../form-system/field/field.component';
 import { cadrartVersion } from '../../version';
 
 import { CadrartNavigationService } from './navigation.service';
@@ -30,13 +32,13 @@ import { CadrartNavigationService } from './navigation.service';
   styleUrls: ['./navigation.component.scss'],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     TranslateModule,
     CadrartButtonComponent,
     RouterLink,
     CadrartClickOutsideDirective,
     CadrartIconComponent,
-    CadrartFieldComponent
+    EsfsFieldComponent,
+    EsfsFormGroupDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -48,33 +50,42 @@ export class CadrartNavigationComponent implements OnDestroy {
   public showSearch: WritableSignal<boolean> = signal(false);
   public hasSearchData: WritableSignal<boolean> = signal(true);
 
-  public searchFormConfig = new FormGroup({
-    search: new CadrartFormControl(
-      '',
-      new CadrartFieldText({
+  public searchForm = new EsfsFormGroup(
+    {
+      search: new EsfsFormControlText('', {
         label: false,
-        updateOn: 'change'
+        updateOn: 'change',
+        required: false
       })
-    )
-  });
-  public searchStatus$ = this.searchFormConfig.get('search')?.statusChanges;
+    },
+    {},
+    'FIELD',
+    false
+  );
+  public searchStatus$ = this.searchForm.get('search')?.statusChanges;
 
   private unsubscribeSubject$ = new Subject<void>();
 
-  @ViewChild('searchField', { static: true }) searchField?: CadrartFieldComponent<string, CadrartFieldText>;
+  @ViewChild('searchField', { static: true }) searchField?: EsfsFieldComponent<string>;
 
   constructor(
     private dataConnectorService: CadrartDataConnectorService,
-    public readonly service: CadrartNavigationService
+    public readonly service: CadrartNavigationService,
+    private readonly router: Router
   ) {
     this.dataConnectorService.data.pipe(map((data: unknown[]) => this.hasSearchData.set(data.length > 0)));
 
-    this.searchFormConfig
+    this.searchForm
       .get('search')
       ?.valueChanges.pipe(takeUntil(this.unsubscribeSubject$))
       .subscribe((value: string | null) => {
         this.dataConnectorService.setNeedle(value ?? '');
       });
+
+    this.router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe(() => {
+      this.searchForm.get('search')?.setValue('');
+      this.toggled.set(false);
+    });
   }
 
   ngOnDestroy(): void {
@@ -92,6 +103,6 @@ export class CadrartNavigationComponent implements OnDestroy {
 
   handleSearchClick(): void {
     this.showSearch.set(!this.showSearch());
-    this.searchField?.focus();
+    //this.searchField?.focus();
   }
 }
