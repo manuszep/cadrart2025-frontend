@@ -1,27 +1,40 @@
-import { AbstractControlOptions } from '@angular/forms';
 import { ICadrartTeamMember } from '@manuszep/cadrart2025-common';
+import {
+  EsfsFormControl,
+  EsfsFormControlAddress,
+  EsfsFormControlText,
+  EsfsFormGroup,
+  IEsfsFormGroupConfig,
+  IEsfsFormGroupOptions
+} from '@manuszep/es-form-system';
 
-import { CadrartFormControl } from '../form-system/form-control';
-import { CadrartFormGroup, FormConfig } from '../form-system/form-group';
-import { CadrartFieldText } from '../form-system/text/text.config';
-import { CadrartFieldImage } from '../form-system/image/image.config';
-import { CadrartFieldAddress } from '../form-system/address/address.config';
+import { CadrartFormControlImage } from '../components/form-control-image/form-control-image.component';
+import { PartialDeep } from '../utils';
 
-function getTeamMemberFormConfig(): FormConfig {
+function getTeamMemberFormConfig(): IEsfsFormGroupConfig {
   return {
-    id: new CadrartFormControl<number | undefined>(undefined),
-    firstName: new CadrartFormControl('', new CadrartFieldText({ required: true, minLength: 2, maxLength: 50 })),
-    lastName: new CadrartFormControl('', new CadrartFieldText({ required: true, minLength: 2, maxLength: 50 })),
-    address: new CadrartFormControl('', new CadrartFieldAddress({})),
-    mail: new CadrartFormControl('', new CadrartFieldText({ maxLength: 150, type: 'email', required: true })),
-    phone: new CadrartFormControl('', new CadrartFieldText({ maxLength: 20, type: 'tel' })),
-    image: new CadrartFormControl('', new CadrartFieldImage({ required: false, folder: 'team-member' })),
-    password: new CadrartFormControl('', new CadrartFieldText({ type: 'password', autocomplete: false }))
+    id: new EsfsFormControl<number | undefined>(undefined),
+    firstName: new EsfsFormControlText('', { required: true, minLength: 2, maxLength: 50 }),
+    lastName: new EsfsFormControlText('', { required: true, minLength: 2, maxLength: 50 }),
+    address: new EsfsFormControlAddress({}),
+    mail: new EsfsFormControlText('', { maxLength: 150, type: 'email', required: true }),
+    phone: new EsfsFormControlText('', { maxLength: 20, type: 'tel', required: false }),
+    image: new CadrartFormControlImage('', { required: false, folder: 'team-member' }),
+    password: new EsfsFormControlText('', { type: 'password', autocomplete: false })
   };
 }
 
-export class CadrartTeamMemberForm extends CadrartFormGroup<ICadrartTeamMember> {
-  constructor(entity?: ICadrartTeamMember, options: AbstractControlOptions = { updateOn: 'change' }) {
-    super(getTeamMemberFormConfig(), entity ?? {}, options);
+export class CadrartTeamMemberForm extends EsfsFormGroup<ICadrartTeamMember> {
+  constructor(entity?: ICadrartTeamMember, options: IEsfsFormGroupOptions = { updateOn: 'change' }) {
+    super(getTeamMemberFormConfig(), options, 'FIELD', false, entity ?? {});
+  }
+
+  public override getRawValue(): PartialDeep<ICadrartTeamMember> {
+    const data = super.getRawValue();
+
+    return {
+      ...data,
+      address: JSON.stringify(data.address ?? {})
+    };
   }
 }

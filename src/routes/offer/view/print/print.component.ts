@@ -1,7 +1,7 @@
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { ICadrartJob } from '@manuszep/cadrart2025-common';
+import { CommonModule } from '@angular/common';
 
 import { CadrartAmountPipe } from '../../../../pipes/amount.pipe';
 import { PartialDeep } from '../../../../utils/types';

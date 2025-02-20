@@ -1,3 +1,5 @@
 <div class="formula-tag">
-  <span class="formula-tag__step" *ngFor="let part of formulaParts" [innerHtml]="part"></span>
+  @for (part of formulaParts; track part) {
+    <span class="formula-tag__step" [innerHtml]="part"></span>
+  }
 </div>

@@ -1,24 +1,28 @@
-<div class="cadrart-providers" *ngIf="data$ | async as data">
-  <cadrart-table
-    [data]="data"
-    [keys]="['name', 'address', 'vat', 'iban', 'mail']"
-    [trackBy]="identify"
-    [getItemName]="getItemName"
-    [consultable]="false"
-    (cadrartEdit)="handleEditClick($event)"
-    (cadrartDelete)="handleDeleteClick($event)"
-  >
-    <td *cadrartTableValueFormatter="'address'; let entry" [innerHTML]="entry?.address | cadrartAddress: false"></td>
-    <td *cadrartTableValueFormatter="'mail'; let entry" [innerHTML]="entry?.mail | cadrartMail"></td>
-  </cadrart-table>
-</div>
+@if (data$ | async; as data) {
+  <div class="cadrart-providers">
+    <cadrart-table
+      [data]="data"
+      [keys]="['name', 'address', 'vat', 'iban', 'mail']"
+      [trackBy]="identify"
+      [getItemName]="getItemName"
+      [consultable]="false"
+      (cadrartEdit)="handleEditClick($event)"
+      (cadrartDelete)="handleDeleteClick($event)"
+      >
+      <td *cadrartTableValueFormatter="'address'; let entry" [innerHTML]="entry?.address | cadrartAddress: false"></td>
+      <td *cadrartTableValueFormatter="'mail'; let entry" [innerHTML]="entry?.mail | cadrartMail"></td>
+    </cadrart-table>
+  </div>
+}
 
 <ng-template #formTemplate>
-  <form *ngIf="entityFormGroup" [formGroup]="entityFormGroup">
-    <cadrart-field formControlName="name"></cadrart-field>
-    <cadrart-field formControlName="address"></cadrart-field>
-    <cadrart-field formControlName="vat"></cadrart-field>
-    <cadrart-field formControlName="iban"></cadrart-field>
-    <cadrart-field formControlName="mail"></cadrart-field>
-  </form>
+  @if (entityFormGroup) {
+    <form [esfsFormGroup]="entityFormGroup">
+      <esfs-field name="name"></esfs-field>
+      <esfs-field name="address"></esfs-field>
+      <esfs-field name="vat"></esfs-field>
+      <esfs-field name="iban"></esfs-field>
+      <esfs-field name="mail"></esfs-field>
+    </form>
+  }
 </ng-template>

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,7 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { CadrartActionsGroupComponent } from '../actions-group/actions-group.component';
 import { CadrartButtonComponent } from '../button/button.component';
-import { CadrartIconComponent } from '../icon/icon.component';
 import { cadrartAnimationSlideInOut } from '../../utils/animation';
 import { ICadrartImageParams } from '../image/image.model';
 import { CadrartImageComponent } from '../image/image.component';
@@ -22,14 +20,7 @@ import { CadrartImageComponent } from '../image/image.component';
   selector: 'cadrart-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    CadrartButtonComponent,
-    CadrartIconComponent,
-    CadrartActionsGroupComponent,
-    CadrartImageComponent
-  ],
+  imports: [TranslateModule, CadrartButtonComponent, CadrartActionsGroupComponent, CadrartImageComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true,

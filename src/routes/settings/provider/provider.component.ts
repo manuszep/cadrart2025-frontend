@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ICadrartProvider } from '@manuszep/cadrart2025-common';
+import { EsfsFieldComponent, EsfsFormGroupDirective } from '@manuszep/es-form-system';
 
 import { CadrartHeaderService } from '../../../components/header/header.service';
 import { CadrartInspectorService } from '../../../components/inspector/inspector.service';
@@ -10,7 +11,6 @@ import { CadrartSettingsPageComponent } from '../../../components/settings-page/
 import { CadrartTableComponent } from '../../../components/table/table.component';
 import { CadrartDataConnectorService } from '../../../services/data-connector.service';
 import { CadrartProviderService } from '../../../services/provider.service';
-import { CadrartFieldComponent } from '../../../form-system/field/field.component';
 import { CadrartProviderForm } from '../../../models/provider.form';
 import { CadrartAddressPipe } from '../../../pipes/cadrart-address.pipe';
 import { CadrartTableValueFormatterDirective } from '../../../components/table/table-value-formatter.directive';
@@ -26,9 +26,10 @@ import { CadrartMailPipe } from '../../../pipes/mail.pipe';
     TranslateModule,
     CadrartTableComponent,
     CadrartTableValueFormatterDirective,
-    CadrartFieldComponent,
     CadrartAddressPipe,
-    CadrartMailPipe
+    CadrartMailPipe,
+    EsfsFieldComponent,
+    EsfsFormGroupDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

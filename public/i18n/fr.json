@@ -25,17 +25,6 @@
       "BACK": "Fermer"
     }
   },
-  "ERROR": {
-    "VALIDATION": {
-      "REQUIRED": "Ce champ est requis",
-      "EMAIL": "L'adresse e-mail n'est pas valide",
-      "MINLENGTH": "Ce champ doit contenir au moins {{minlength.requiredLength}} caractères",
-      "PASSWORD": "Le mot de passe doit contenir au moins {{minLength}} caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.",
-      "TASKMAX": "Cet article ne peut dépasser {{taskMax}}&nbsp;cm",
-      "FUTUREDATE": "La date doit être dans le futur"
-    },
-    "LOGIN": "Nom d'utilisateur ou mot de passe invalide."
-  },
   "ALERT": {
     "DELETE_CONFIRMATION": {
       "TITLE": "Supprimer {{name}} ?",
@@ -253,9 +242,28 @@
       "3": "Ouverture"
     }
   },
+  "ERROR": {
+    "VALIDATION": {
+      "REQUIRED": "Ce champ est requis",
+      "EMAIL": "L'adresse e-mail n'est pas valide",
+      "MINLENGTH": "Ce champ doit contenir au moins {{minlength.requiredLength}} caractères",
+      "PASSWORD": "Le mot de passe doit contenir au moins {{minLength}} caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.",
+      "TASKMAX": "Cet article ne peut dépasser {{taskMax}}&nbsp;cm",
+      "FUTUREDATE": "La date doit être dans le futur"
+    },
+    "LOGIN": "Nom d'utilisateur ou mot de passe invalide."
+  },
   "FIELD": {
+    "ERROR": {
+      "REQUIRED": "Ce champ est requis",
+      "EMAIL": "L'adresse e-mail n'est pas valide",
+      "MINLENGTH": "Ce champ doit contenir au moins {{minlength.requiredLength}} caractères",
+      "PASSWORD": "Le mot de passe doit contenir au moins {{minLength}} caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.",
+      "TASKMAX": "Cet article ne peut dépasser {{taskMax}}&nbsp;cm",
+      "FUTUREDATE": "La date doit être dans le futur"
+    },
     "SELECT": {
-      "PLACEHOLDER": "Choisir..."
+      "PH": "Choisir..."
     },
     "ACTION": {
       "REMOVE": "Supprimer",
@@ -265,33 +273,33 @@
       "PH": "Recherche"
     },
     "NAME": {
-      "LABEL": "Nom",
-      "PLACEHOLDER": "Nom"
+      "Q": "Nom",
+      "PH": "Nom"
     },
     "FIRSTNAME": {
-      "LABEL": "Prénom",
-      "PLACEHOLDER": "Stanislas"
+      "Q": "Prénom",
+      "PH": "Stanislas"
     },
     "LASTNAME": {
-      "LABEL": "Nom",
-      "PLACEHOLDER": "Drzemala"
+      "Q": "Nom",
+      "PH": "Drzemala"
     },
     "ADDRESS": {
-      "LABEL": "Adresse",
+      "Q": "Adresse",
       "STREET": {
-        "PLACEHOLDER": "Rue"
+        "PH": "Rue"
       },
       "NUMBER": {
-        "PLACEHOLDER": "Numéro"
+        "PH": "Numéro"
       },
       "CITY": {
-        "PLACEHOLDER": "Ville"
+        "PH": "Ville"
       },
       "ZIP": {
-        "PLACEHOLDER": "Code postal"
+        "PH": "Code postal"
       },
       "COUNTRY": {
-        "PLACEHOLDER": "Pays"
+        "PH": "Pays"
       }
     },
     "MAIL": {
@@ -299,155 +307,402 @@
       "PH": "stanislas.drzemala@gmail.com"
     },
     "PHONE": {
-      "LABEL": "Téléphone",
-      "PLACEHOLDER": "0475 12 34 56"
+      "Q": "Téléphone",
+      "PH": "0475 12 34 56"
     },
     "PHONE2": {
-      "LABEL": "Téléphone 2",
-      "PLACEHOLDER": "0475 12 34 56"
+      "Q": "Téléphone 2",
+      "PH": "0475 12 34 56"
     },
     "IMAGE": {
-      "LABEL": "Photo",
-      "PLACEHOLDER": "Choisir une photo"
+      "Q": "Photo",
+      "PH": "Choisir une photo"
     },
     "PASSWORD": {
-      "LABEL": "Mot de passe",
-      "PLACEHOLDER": "Pas 123456 !"
+      "Q": "Mot de passe",
+      "PH": "Pas 123456 !"
     },
     "START": {
-      "LABEL": "Début",
-      "PLACEHOLDER": "Début"
+      "Q": "Début",
+      "PH": "Début",
+      "TA": "cm"
     },
     "OPERATION": {
-      "LABEL": "Opération",
-      "PLACEHOLDER": "Opération"
+      "Q": "Opération",
+      "PH": "Opération"
     },
     "AMOUNT": {
-      "LABEL": "Quantité",
-      "PLACEHOLDER": "Quantité"
+      "Q": "Quantité",
+      "PH": "Quantité"
     },
     "COMPANY": {
-      "LABEL": "Société",
-      "PLACEHOLDER": "Société"
+      "Q": "Société",
+      "PH": "Société"
     },
     "VAT": {
-      "LABEL": "TVA",
-      "PLACEHOLDER": "TVA"
+      "Q": "TVA",
+      "PH": "TVA"
     },
     "REDUCTION": {
-      "LABEL": "Réduction",
-      "PLACEHOLDER": "Réduction"
+      "Q": "Réduction",
+      "PH": "Réduction"
     },
     "TAG": {
-      "LABEL": "Tag",
-      "PLACEHOLDER": "Tag"
+      "Q": "Tag",
+      "PH": "Tag"
     },
     "PLACE": {
-      "LABEL": "Emplacement",
-      "PLACEHOLDER": "Emplacement"
+      "Q": "Emplacement",
+      "PH": "Emplacement"
     },
     "BUYPRICE": {
-      "LABEL": "Prix d'achat",
-      "PLACEHOLDER": "Prix d'achat"
+      "Q": "Prix d'achat",
+      "PH": "Prix d'achat"
     },
     "SELLPRICE": {
-      "LABEL": "Prix de vente",
-      "PLACEHOLDER": "Prix de vente"
+      "Q": "Prix de vente",
+      "PH": "Prix de vente"
     },
     "GETPRICEMETHOD": {
-      "LABEL": "Calcul",
-      "PLACEHOLDER": "Calcul"
+      "Q": "Calcul",
+      "PH": "Calcul"
     },
     "FAMILY": {
-      "LABEL": "Famille",
-      "PLACEHOLDER": "Famille"
+      "Q": "Famille",
+      "PH": "Famille"
     },
     "PROVIDER": {
-      "LABEL": "Fournisseur",
-      "PLACEHOLDER": "Fournisseur"
+      "Q": "Fournisseur",
+      "PH": "Fournisseur"
     },
     "PROVIDERREF": {
-      "LABEL": "Référence fournisseur",
-      "PLACEHOLDER": "Référence fournisseur"
+      "Q": "Référence fournisseur",
+      "PH": "Référence fournisseur"
     },
     "FORMULA": {
-      "LABEL": "Formule",
-      "PLACEHOLDER": "Formule"
+      "Q": "Formule",
+      "PH": "Formule"
     },
     "MAXLENGTH": {
-      "LABEL": "Longueur max",
-      "PLACEHOLDER": "Longueur max"
+      "Q": "Longueur max",
+      "PH": "Longueur max",
+      "TA": "cm"
     },
     "MAXWIDTH": {
-      "LABEL": "Largeur max",
-      "PLACEHOLDER": "Largeur max"
+      "Q": "Largeur max",
+      "PH": "Largeur max",
+      "TA": "cm"
     },
     "COMBINE": {
-      "LABEL": "Combinable",
-      "PLACEHOLDER": "Combinable"
+      "Q": "Combinable",
+      "PH": "Combinable"
     },
     "MAXREDUCTION": {
-      "LABEL": "Réduction max",
-      "PLACEHOLDER": "Réduction max"
+      "Q": "Réduction max",
+      "PH": "Réduction max"
     },
     "CLIENT": {
-      "LABEL": "Client",
-      "PLACEHOLDER": "Client"
+      "Q": "Client",
+      "PH": "Client"
     },
     "ASSIGNEDTO": {
-      "LABEL": "Responsable",
-      "PLACEHOLDER": "Responsable"
+      "Q": "Responsable",
+      "PH": "Responsable"
     },
     "STATUS": {
-      "LABEL": "Statut",
-      "PLACEHOLDER": "Statut"
+      "Q": "Statut",
+      "PH": "Statut"
     },
     "ADJUSTEDVAT": {
-      "LABEL": "TVA ajustée",
-      "PLACEHOLDER": "TVA ajustée"
+      "Q": "TVA ajustée",
+      "PH": "TVA ajustée"
     },
     "ADJUSTEDREDUCTION": {
-      "LABEL": "Réduction",
-      "PLACEHOLDER": "Réduction"
+      "Q": "Réduction",
+      "PH": "Réduction"
     },
     "ORIENTATION": {
-      "LABEL": "Orientation",
-      "PLACEHOLDER": "Orientation"
+      "Q": "Orientation",
+      "PH": "Orientation"
     },
     "DESCRIPTION": {
-      "LABEL": "Description",
-      "PLACEHOLDER": "Description"
+      "Q": "Description",
+      "PH": "Description"
     },
     "ARTICLE": {
-      "LABEL": "Article",
-      "PLACEHOLDER": "Article"
+      "Q": "Article",
+      "PH": "Article"
     },
     "MEASURE": {
-      "LABEL": "Mesure",
-      "PLACEHOLDER": "Mesure"
+      "Q": "Mesure",
+      "PH": "Mesure"
     },
     "LOCATION": {
-      "LABEL": "Emplacement",
-      "PLACEHOLDER": "Emplacement"
+      "Q": "Emplacement",
+      "PH": "Emplacement"
     },
     "DUEDATE": {
-      "LABEL": "Date d'échéance",
-      "PLACEHOLDER": "Date d'échéance"
+      "Q": "Date d'échéance",
+      "PH": "Date d'échéance"
     },
     "STARTDATE": {
-      "LABEL": "Date de début",
-      "PLACEHOLDER": "Date de début"
+      "Q": "Date de début",
+      "PH": "Date de début"
     },
     "COMMENT": {
-      "LABEL": "Commentaire",
-      "PLACEHOLDER": "Commentaire"
+      "Q": "Commentaire",
+      "PH": "Commentaire"
     },
     "IBAN": {
-      "LABEL": "Iban"
+      "Q": "Iban"
     }
   },
   "LOGIN": {
     "TITLE": "Connexion",
     "SUBMIT": "Se connecter"
+  },
+  "COUNTRY": {
+    "AF": "Afghanistan",
+    "AX": "Îles Åland",
+    "AL": "Albanie",
+    "DZ": "Algérie",
+    "AS": "Samoa américaines",
+    "AD": "Andorre",
+    "AO": "Angola",
+    "AI": "Anguilla",
+    "AQ": "Antarctique",
+    "AG": "Antigua-et-Barbuda",
+    "AR": "Argentine",
+    "AM": "Arménie",
+    "AW": "Aruba",
+    "AU": "Australie",
+    "AT": "Autriche",
+    "AZ": "Azerbaïdjan",
+    "BS": "Bahamas",
+    "BH": "Bahreïn",
+    "BD": "Bangladesh",
+    "BB": "Barbade",
+    "BY": "Biélorussie",
+    "BE": "Belgique",
+    "BZ": "Belize",
+    "BJ": "Bénin",
+    "BM": "Bermudes",
+    "BT": "Bhoutan",
+    "BO": "Bolivie",
+    "BA": "Bosnie-Herzégovine",
+    "BW": "Botswana",
+    "BR": "Brésil",
+    "IO": "Territoire britannique de l'océan Indien",
+    "BN": "Brunei",
+    "BG": "Bulgarie",
+    "BF": "Burkina Faso",
+    "BI": "Burundi",
+    "KH": "Cambodge",
+    "CM": "Cameroun",
+    "CA": "Canada",
+    "CV": "Cap-Vert",
+    "KY": "Îles Caïmans",
+    "CF": "République centrafricaine",
+    "TD": "Tchad",
+    "CL": "Chili",
+    "CN": "Chine",
+    "CX": "Île Christmas",
+    "CC": "Îles Cocos",
+    "CO": "Colombie",
+    "KM": "Comores",
+    "CG": "Congo",
+    "CD": "République démocratique du Congo",
+    "CK": "Îles Cook",
+    "CR": "Costa Rica",
+    "CI": "Côte d'Ivoire",
+    "HR": "Croatie",
+    "CU": "Cuba",
+    "CY": "Chypre",
+    "CZ": "République tchèque",
+    "DK": "Danemark",
+    "DJ": "Djibouti",
+    "DM": "Dominique",
+    "DO": "République dominicaine",
+    "EC": "Équateur",
+    "EG": "Égypte",
+    "SV": "Salvador",
+    "GQ": "Guinée équatoriale",
+    "ER": "Érythrée",
+    "EE": "Estonie",
+    "ET": "Éthiopie",
+    "FK": "Îles Malouines",
+    "FO": "Îles Féroé",
+    "FJ": "Fidji",
+    "FI": "Finlande",
+    "FR": "France",
+    "GF": "Guyane française",
+    "PF": "Polynésie française",
+    "GA": "Gabon",
+    "GM": "Gambie",
+    "GE": "Géorgie",
+    "DE": "Allemagne",
+    "GH": "Ghana",
+    "GI": "Gibraltar",
+    "GR": "Grèce",
+    "GL": "Groenland",
+    "GD": "Grenade",
+    "GP": "Guadeloupe",
+    "GU": "Guam",
+    "GT": "Guatemala",
+    "GG": "Guernesey",
+    "GN": "Guinée",
+    "GW": "Guinée-Bissau",
+    "GY": "Guyana",
+    "HT": "Haïti",
+    "VA": "Vatican",
+    "HN": "Honduras",
+    "HK": "Hong Kong",
+    "HU": "Hongrie",
+    "IS": "Islande",
+    "IN": "Inde",
+    "ID": "Indonésie",
+    "IR": "Iran",
+    "IQ": "Irak",
+    "IE": "Irlande",
+    "IM": "Île de Man",
+    "IL": "Israël",
+    "IT": "Italie",
+    "JM": "Jamaïque",
+    "JP": "Japon",
+    "JE": "Jersey",
+    "JO": "Jordanie",
+    "KZ": "Kazakhstan",
+    "KE": "Kenya",
+    "KI": "Kiribati",
+    "KP": "Corée du Nord",
+    "KR": "Corée du Sud",
+    "KW": "Koweït",
+    "KG": "Kirghizistan",
+    "LA": "Laos",
+    "LV": "Lettonie",
+    "LB": "Liban",
+    "LS": "Lesotho",
+    "LR": "Libéria",
+    "LY": "Libye",
+    "LI": "Liechtenstein",
+    "LT": "Lituanie",
+    "LU": "Luxembourg",
+    "MO": "Macao",
+    "MK": "Macédoine",
+    "MG": "Madagascar",
+    "MW": "Malawi",
+    "MY": "Malaisie",
+    "MV": "Maldives",
+    "ML": "Mali",
+    "MT": "Malte",
+    "MH": "Îles Marshall",
+    "MQ": "Martinique",
+    "MR": "Mauritanie",
+    "MU": "Maurice",
+    "YT": "Mayotte",
+    "MX": "Mexique",
+    "FM": "Micronésie",
+    "MD": "Moldavie",
+    "MC": "Monaco",
+    "MN": "Mongolie",
+    "ME": "Monténégro",
+    "MS": "Montserrat",
+    "MA": "Maroc",
+    "MZ": "Mozambique",
+    "MM": "Myanmar",
+    "NA": "Namibie",
+    "NR": "Nauru",
+    "NP": "Népal",
+    "NL": "Pays-Bas",
+    "AN": "Antilles néerlandaises",
+    "NC": "Nouvelle-Calédonie",
+    "NZ": "Nouvelle-Zélande",
+    "NI": "Nicaragua",
+    "NE": "Niger",
+    "NG": "Nigeria",
+    "NU": "Niue",
+    "NF": "Île Norfolk",
+    "MP": "Îles Mariannes du Nord",
+    "NO": "Norvège",
+    "OM": "Oman",
+    "PK": "Pakistan",
+    "PW": "Palaos",
+    "PS": "Palestine",
+    "PA": "Panama",
+    "PG": "Papouasie-Nouvelle-Guinée",
+    "PY": "Paraguay",
+    "PE": "Pérou",
+    "PH": "Philippines",
+    "PN": "Pitcairn",
+    "PL": "Pologne",
+    "PT": "Portugal",
+    "PR": "Porto Rico",
+    "QA": "Qatar",
+    "RO": "Roumanie",
+    "RU": "Russie",
+    "RW": "Rwanda",
+    "RE": "Réunion",
+    "BL": "Saint-Barthélemy",
+    "SH": "Sainte-Hélène",
+    "KN": "Saint-Kitts-et-Nevis",
+    "LC": "Sainte-Lucie",
+    "MF": "Saint-Martin",
+    "PM": "Saint-Pierre-et-Miquelon",
+    "VC": "Saint-Vincent-et-les-Grenadines",
+    "WS": "Samoa",
+    "SM": "Saint-Marin",
+    "ST": "Sao Tomé-et-Principe",
+    "SA": "Arabie saoudite",
+    "SN": "Sénégal",
+    "RS": "Serbie",
+    "SC": "Seychelles",
+    "SL": "Sierra Leone",
+    "SG": "Singapour",
+    "SK": "Slovaquie",
+    "SI": "Slovénie",
+    "SB": "Îles Salomon",
+    "SO": "Somalie",
+    "ZA": "Afrique du Sud",
+    "SS": "Soudan du Sud",
+    "GS": "Géorgie du Sud-et-les Îles Sandwich du Sud",
+    "ES": "Espagne",
+    "LK": "Sri Lanka",
+    "SD": "Soudan",
+    "SR": "Suriname",
+    "SJ": "Svalbard et Jan Mayen",
+    "SZ": "Eswatini",
+    "SE": "Suède",
+    "CH": "Suisse",
+    "SY": "Syrie",
+    "TW": "Taïwan",
+    "TJ": "Tadjikistan",
+    "TZ": "Tanzanie",
+    "TH": "Thaïlande",
+    "TL": "Timor oriental",
+    "TG": "Togo",
+    "TK": "Tokelau",
+    "TO": "Tonga",
+    "TT": "Trinité-et-Tobago",
+    "TN": "Tunisie",
+    "TR": "Turquie",
+    "TM": "Turkménistan",
+    "TC": "Îles Turques-et-Caïques",
+    "TV": "Tuvalu",
+    "UG": "Ouganda",
+    "UA": "Ukraine",
+    "AE": "Émirats arabes unis",
+    "GB": "Royaume-Uni",
+    "US": "États-Unis",
+    "UY": "Uruguay",
+    "UZ": "Ouzbékistan",
+    "VU": "Vanuatu",
+    "VE": "Venezuela",
+    "VN": "Viêt Nam",
+    "VG": "Îles Vierges britanniques",
+    "VI": "Îles Vierges des États-Unis",
+    "WF": "Wallis-et-Futuna",
+    "YE": "Yémen",
+    "ZM": "Zambie",
+    "ZW": "Zimbabwe"
   }
 }

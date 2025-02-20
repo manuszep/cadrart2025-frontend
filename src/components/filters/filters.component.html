@@ -1,13 +1,14 @@
 <div class="cadrart-filters">
-  <div *ngFor="let filter of config" class="cadrart-filters__filter">
-    @if (filter.type === 'toggle') {
-    <cadrart-button-toggle
-      [label]="filter.label"
-      [items]="filter.config"
-      [outline]="true"
-      [value]="filter.value"
-      (cadrartChange)="handleFilterChange($event, filter)"
-    ></cadrart-button-toggle>
-    }
-  </div>
+  @for (filter of config; track $index) {
+    <div class="cadrart-filters__filter">
+      @if (filter.type === 'toggle') {
+        <cadrart-button-toggle
+          [label]="filter.label"
+          [items]="filter.config"
+          [outline]="true"
+          [value]="filter.value"
+          (cadrartChange)="handleFilterChange($event, filter)" ></cadrart-button-toggle>
+      }
+    </div>
+  }
 </div>

@@ -7,7 +7,6 @@ import {
   WritableSignal,
   signal
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { catchError, of } from 'rxjs';
 import { ICadrartLoginDto } from '@manuszep/cadrart2025-common';
@@ -28,14 +27,7 @@ import { ICadrartImageParams } from '../../components/image/image.model';
   selector: 'cadrart-route-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    CadrartCardComponent,
-    CadrartButtonComponent,
-    EsfsFieldComponent,
-    EsfsFormGroupDirective
-  ],
+  imports: [TranslateModule, CadrartCardComponent, CadrartButtonComponent, EsfsFieldComponent, EsfsFormGroupDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true

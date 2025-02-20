@@ -1,5 +1,4 @@
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { ICadrartJob } from '@manuszep/cadrart2025-common';
 
@@ -13,14 +12,7 @@ import { CadrartCardComponent } from '../../../../components/card/card.component
   selector: 'cadrart-route-offer-view-display',
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.scss'],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    CadrartAmountPipe,
-    CadrartPricePipe,
-    CadrartJobMeasurePipe,
-    CadrartCardComponent
-  ],
+  imports: [TranslateModule, CadrartAmountPipe, CadrartPricePipe, CadrartJobMeasurePipe, CadrartCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true

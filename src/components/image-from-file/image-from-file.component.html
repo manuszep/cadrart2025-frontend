@@ -1,27 +1,32 @@
 <div class="cadrart-image-from-file">
-  <label [class.cadrart-image-from-file__input--hidden]="capturedImage()" class="cadrart-image-from-file__input" for="cadrartImageUpload">
+  <label
+    [class.cadrart-image-from-file__input--hidden]="capturedImage()"
+    class="cadrart-image-from-file__input"
+    for="cadrartImageUpload">
     <cadrart-button color="primary" icon="upload" [color]="'secondary'">
       <input id="cadrartImageUpload" type="file" name="image" (change)="handleLoadFile($event)" />
       {{ 'IMAGE.CAPTURE.UPLOADFILE' | translate }}
     </cadrart-button>
   </label>
 
-  <img *ngIf="capturedImage()" [src]="capturedImage()" />
+  @if (capturedImage()) {
+    <img [src]="capturedImage()" />
+  }
 
   <div class="cadrart-image-from-file__actions">
-    <cadrart-button mat-button color="neutral" (click)="handleCancel()">{{
-      'IMAGE.CAPTURE.CANCEL' | translate
-    }}</cadrart-button>
-
     <cadrart-button
-      *ngIf="capturedImage()"
-      color="danger"
-      [outline]="true"
-      (click)="handleClear()"
-      >{{ 'IMAGE.CAPTURE.CLEAR' | translate }}</cadrart-button>
+      color="neutral"
+      (click)="handleCancel()">{{ 'IMAGE.CAPTURE.CANCEL' | translate }}</cadrart-button>
 
-    <cadrart-button *ngIf="capturedImage()" color="primary" (click)="handleCaptureSave()">{{
-      'IMAGE.CAPTURE.SAVE' | translate
-    }}</cadrart-button>
+    @if (capturedImage()) {
+      <cadrart-button
+        color="danger"
+        [outline]="true"
+        (click)="handleClear()">{{ 'IMAGE.CAPTURE.CLEAR' | translate }}</cadrart-button>
+
+      <cadrart-button
+        color="primary"
+        (click)="handleCaptureSave()">{{ 'IMAGE.CAPTURE.SAVE' | translate }}</cadrart-button>
+    }
   </div>
 </div>

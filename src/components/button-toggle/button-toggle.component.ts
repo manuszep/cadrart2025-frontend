@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -10,7 +10,7 @@ import { ICadrartButtonToggleItem } from './button-toggle.model';
   selector: 'cadrart-button-toggle',
   templateUrl: './button-toggle.component.html',
   styleUrls: ['./button-toggle.component.scss'],
-  imports: [CommonModule, TranslateModule, CadrartButtonComponent],
+  imports: [TranslateModule, CadrartButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true

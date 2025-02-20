@@ -1,12 +1,14 @@
 <div class="cadrart-alerts">
-  <cadrart-card
-    [class]="'cadrart-alerts__alert cadrart-alerts__alert--' + alert.type"
-    [@inOutAnimation]
-    *ngFor="let alert of service.alerts(); trackBy: identifyAlert"
-    [inline]="true"
-    [compact]="true"
-  >
-    <cadrart-icon *ngIf="alert.icon" [name]="alert.icon"></cadrart-icon>
-    <div class="cadrart-alerts__alert__text" [innerHTML]="alert.message | translate"></div>
-  </cadrart-card>
+  @for (alert of service.alerts(); track alert.id) {
+    <cadrart-card
+      [class]="'cadrart-alerts__alert cadrart-alerts__alert--' + alert.type"
+      [@inOutAnimation]
+      [inline]="true"
+      [compact]="true">
+      @if (alert.icon) {
+        <cadrart-icon [name]="alert.icon"></cadrart-icon>
+      }
+      <div class="cadrart-alerts__alert__text" [innerHTML]="alert.message | translate"></div>
+    </cadrart-card>
+  }
 </div>

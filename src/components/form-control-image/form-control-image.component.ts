@@ -1,80 +1,65 @@
-import { Subject, takeUntil } from 'rxjs';
-
+import { TranslateModule } from '@ngx-translate/core';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  OnDestroy,
   Output,
   TemplateRef,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { EsfsFieldComponentBase } from '@manuszep/es-form-system';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ICadrartFileResponse } from '@manuszep/cadrart2025-common';
 
-import { CadrartButtonComponent } from '../../components/button/button.component';
-import { CadrartModalService } from '../../components/modal/modal.service';
-import { CadrartFieldBaseComponent } from '../field.model';
+import { CadrartButtonComponent } from '../button/button.component';
+import { CadrartTooltipService } from '../tooltip/tooltip.service';
 import { CadrartFieldImagePathPipe } from '../../pipes/image.pipe';
-import { CadrartTooltipComponent } from '../../components/tooltip/tooltip.component';
-import { CadrartImageCaptureComponent } from '../../components/image-capture/image-capture.component';
-import { CadrartImageFromFileComponent } from '../../components/image-from-file/image-from-file.component';
+import { CadrartModalService } from '../modal/modal.service';
+import { CadrartImageCaptureComponent } from '../image-capture/image-capture.component';
 import { CadrartFileService } from '../../services/file.service';
-import { CadrartAlertService } from '../../components/alert/alert.service';
-import { CadrartImageComponent } from '../../components/image/image.component';
-import { CadrartTooltipService } from '../../components/tooltip/tooltip.service';
+import { CadrartAlertService } from '../alert/alert.service';
+import { CadrartImageComponent } from '../image/image.component';
+import { CadrartImageFromFileComponent } from '../image-from-file/image-from-file.component';
 
-import { CadrartFieldImage } from './image.config';
+import { CadrartFormControlImageBase } from './form-control-image.model';
+
+export class CadrartFormControlImage extends CadrartFormControlImageBase {
+  override fieldComponent = CadrartFormControlImageComponent;
+}
 
 @Component({
-  selector: 'cadrart-field-image',
-  templateUrl: './image.component.html',
-  styleUrls: ['./image.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+  selector: 'cadrart-form-control-image',
+  templateUrl: './form-control-image.component.html',
+  styleUrl: './form-control-image.component.scss',
   standalone: true,
-  imports: [TranslateModule, CadrartButtonComponent, CadrartFieldImagePathPipe, CadrartTooltipComponent]
+  imports: [TranslateModule, CadrartButtonComponent, CadrartFieldImagePathPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
-export class CadrartFieldImageComponent
-  extends CadrartFieldBaseComponent<string, CadrartFieldImage>
-  implements OnDestroy
-{
-  public label?: string;
-
-  private readonly destroy$ = new Subject<void>();
+export class CadrartFormControlImageComponent extends EsfsFieldComponentBase<string | null, CadrartFormControlImage> {
+  @ViewChild('tooltipTemplate', { static: true }) tooltipTemplate?: TemplateRef<unknown>;
 
   @Output() captureAction = new EventEmitter<File>();
   @Output() cancelAction = new EventEmitter<void>();
   @Output() deleteAction = new EventEmitter<void>();
 
-  @ViewChild('tooltipTemplate', { static: true }) tooltipTemplate?: TemplateRef<unknown>;
-
   constructor(
-    private readonly modalService: CadrartModalService,
     private readonly tooltipService: CadrartTooltipService,
+    private readonly cdRef: ChangeDetectorRef,
+    private readonly modalService: CadrartModalService,
     private readonly fileService: CadrartFileService,
-    private readonly alertService: CadrartAlertService,
-    private readonly cdRef: ChangeDetectorRef
+    private readonly alertService: CadrartAlertService
   ) {
-    super();
+    super(cdRef);
 
-    this.cancelAction.pipe(takeUntil(this.destroy$)).subscribe(() => this.modalService.closeModal());
-    this.captureAction.pipe(takeUntil(this.destroy$)).subscribe((value) => this.save(value));
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  protected override setup(): void {
-    this.label = this.config?.label ? `FIELD.${this.name.toUpperCase()}.LABEL` : ``;
+    this.cancelAction.pipe(takeUntilDestroyed()).subscribe(() => this.modalService.closeModal());
+    this.captureAction.pipe(takeUntilDestroyed()).subscribe((value) => this.save(value));
   }
 
   private save(value: File): void {
-    this.fileService.upload(value, 'test.jpg', this.config.folder ?? 'default').subscribe({
+    this.fileService.upload(value, 'test.jpg', this.control.folder() ?? 'default').subscribe({
       next: (res: ICadrartFileResponse) => {
         if (res.statusCode === 200) {
           this.control.setValue(res.file);
@@ -127,7 +112,7 @@ export class CadrartFieldImageComponent
       content: CadrartImageComponent,
       contentInputs: {
         name: value,
-        folder: this.config.folder,
+        folder: this.control.folder(),
         size: 'l'
       }
     });
@@ -168,7 +153,7 @@ export class CadrartFieldImageComponent
       return;
     }
 
-    this.fileService.delete(this.config.folder ?? 'default', value).subscribe();
+    this.fileService.delete(this.control.folder() ?? 'default', value).subscribe();
 
     this.control.setValue(null);
   }

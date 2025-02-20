@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { Observable, Subject, Subscription, map, startWith, take, takeUntil } from 'rxjs';
 import { ICadrartApiEntity } from '@manuszep/cadrart2025-common';
+import { EsfsFormGroup } from '@manuszep/es-form-system';
 
 import { CadrartApiService } from '../../services/api.service';
 import { CadrartDataConnectorService } from '../../services/data-connector.service';
@@ -32,7 +33,7 @@ import { CadrartFormGroup } from '../../form-system/form-group';
 })
 export abstract class CadrartSettingsPageComponent<
   TEntity extends ICadrartApiEntity,
-  TFormGroup extends CadrartFormGroup<TEntity>
+  TFormGroup extends CadrartFormGroup<TEntity> | EsfsFormGroup<TEntity>
 > implements OnDestroy
 {
   protected unsubscribeSubject$ = new Subject<void>();

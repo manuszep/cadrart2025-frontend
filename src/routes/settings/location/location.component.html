@@ -1,23 +1,28 @@
-<div class="cadrart-locations" *ngIf="data$ | async as data">
-  <div class="cadrart-locations__list">
-    <cadrart-data-card
-      *ngFor="let location of data; trackBy: identify"
-      @existanceAnimation
-      [title]="getItemName(location)"
-      [consultable]="true"
-      [editable]="true"
-      [deletable]="true"
-      [consultable]="false"
-      [inline]="true"
-      [compact]="true"
-      (cadrartEdit)="handleEditClick(location)"
-      (cadrartDelete)="handleDeleteClick(location)"
-    ></cadrart-data-card>
+@if (data$ | async; as data) {
+  <div class="cadrart-locations">
+    <div class="cadrart-locations__list">
+      @for (location of data; track identify($index, location)) {
+        <cadrart-data-card
+          @existanceAnimation
+          [title]="getItemName(location)"
+          [consultable]="true"
+          [editable]="true"
+          [deletable]="true"
+          [consultable]="false"
+          [inline]="true"
+          [compact]="true"
+          (cadrartEdit)="handleEditClick(location)"
+          (cadrartDelete)="handleDeleteClick(location)"
+        ></cadrart-data-card>
+      }
+    </div>
   </div>
-</div>
+}
 
 <ng-template #formTemplate>
-  <form *ngIf="entityFormGroup" [formGroup]="entityFormGroup">
-    <cadrart-field formControlName="name"></cadrart-field>
-  </form>
+  @if (entityFormGroup) {
+    <form [esfsFormGroup]="entityFormGroup">
+      <esfs-field name="name"></esfs-field>
+    </form>
+  }
 </ng-template>

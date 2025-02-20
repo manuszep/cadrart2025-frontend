@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { CadrartButtonToggleComponent } from '../button-toggle/button-toggle.component';
 
@@ -9,7 +8,7 @@ import { ICadrartFilterConfig, ICadrartFilterEvent, ICadrartFiltersConfig } from
   selector: 'cadrart-filters',
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss'],
-  imports: [CommonModule, CadrartButtonToggleComponent],
+  imports: [CadrartButtonToggleComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true
@@ -20,7 +19,7 @@ export class CadrartFiltersComponent {
 
   constructor() {}
 
-  handleFilterChange(value: string | number, item: ICadrartFilterConfig) {
+  handleFilterChange(value: string | number, item: ICadrartFilterConfig): void {
     this.cadrartChange.emit({
       key: item.key,
       value

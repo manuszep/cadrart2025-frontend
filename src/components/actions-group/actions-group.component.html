@@ -1,47 +1,47 @@
 <div class="cadrart-actions-group">
-  <cadrart-button
-    *ngIf="deletable"
-    class="cadrart-actions-group__delete"
-    [iconOnly]="true"
-    icon="delete"
-    color="transparent"
-    hoverColor="danger"
-    (cadrartClick)="handleDeleteClick()"
-  ></cadrart-button>
-  <cadrart-button
-    *ngIf="editable"
-    class="cadrart-actions-group__edit"
-    [iconOnly]="true"
-    icon="edit"
-    color="transparent"
-    hoverColor="secondary"
-    (cadrartClick)="handleEditClick()"
-  ></cadrart-button>
-  <cadrart-button
-    *ngIf="consultable"
-    class="cadrart-actions-group__consult"
-    [iconOnly]="true"
-    icon="visibility"
-    color="transparent"
-    hoverColor="info"
-    (cadrartClick)="handleConsultClick()"
-  ></cadrart-button>
-  <cadrart-button
-    *ngIf="duplicatable"
-    class="cadrart-actions-group__duplicate"
-    [iconOnly]="true"
-    icon="copy_all"
-    color="transparent"
-    hoverColor="info"
-    (cadrartClick)="handleDuplicateClick()"
-  ></cadrart-button>
-  <cadrart-button
-    class="cadrart-actions-group__extend"
-    *ngIf="extendable"
-    [iconOnly]="true"
-    [icon]="extended ? 'unfold_less' : 'unfold_more'"
-    color="transparent"
-    hoverColor="info"
-    (cadrartClick)="handleToggleClick()"
-  ></cadrart-button>
+  @if (deletable) {
+    <cadrart-button
+      class="cadrart-actions-group__delete"
+      [iconOnly]="true"
+      icon="delete"
+      color="transparent"
+      hoverColor="danger"
+      (cadrartClick)="handleDeleteClick()"></cadrart-button>
+  }
+  @if (editable) {
+    <cadrart-button
+      class="cadrart-actions-group__edit"
+      [iconOnly]="true"
+      icon="edit"
+      color="transparent"
+      hoverColor="secondary"
+      (cadrartClick)="handleEditClick()"></cadrart-button>
+  }
+  @if (consultable) {
+    <cadrart-button
+      class="cadrart-actions-group__consult"
+      [iconOnly]="true"
+      icon="visibility"
+      color="transparent"
+      hoverColor="info"
+      (cadrartClick)="handleConsultClick()"></cadrart-button>
+  }
+  @if (duplicatable) {
+    <cadrart-button
+      class="cadrart-actions-group__duplicate"
+      [iconOnly]="true"
+      icon="copy_all"
+      color="transparent"
+      hoverColor="info"
+      (cadrartClick)="handleDuplicateClick()"></cadrart-button>
+  }
+  @if (extendable) {
+    <cadrart-button
+      class="cadrart-actions-group__extend"
+      [iconOnly]="true"
+      [icon]="extended ? 'unfold_less' : 'unfold_more'"
+      color="transparent"
+      hoverColor="info"
+      (cadrartClick)="handleToggleClick()"></cadrart-button>
+  }
 </div>

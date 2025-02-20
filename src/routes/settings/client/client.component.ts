@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ICadrartClient } from '@manuszep/cadrart2025-common';
 
 import { CadrartHeaderService } from '../../../components/header/header.service';
@@ -24,7 +23,6 @@ import { CadrartPhonePipe } from '../../../pipes/phone.pipe';
   styleUrls: ['./client.component.scss'],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     TranslateModule,
     CadrartTableComponent,
     CadrartTableValueFormatterDirective,

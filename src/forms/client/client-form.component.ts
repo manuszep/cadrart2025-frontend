@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { EsfsFieldComponent, EsfsFormGroupDirective } from '@manuszep/es-form-system';
 
-import { CadrartFieldComponent } from '../../form-system/field/field.component';
+import { CadrartClientForm } from '../../models/client.form';
 
 @Component({
   selector: 'cadrart-client-form',
@@ -9,8 +9,8 @@ import { CadrartFieldComponent } from '../../form-system/field/field.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [ReactiveFormsModule, CadrartFieldComponent]
+  imports: [EsfsFieldComponent, EsfsFormGroupDirective]
 })
 export class CadrartClientFormComponent {
-  @Input({ required: true }) entityFormGroup!: FormGroup;
+  @Input({ required: true }) entityFormGroup!: CadrartClientForm;
 }

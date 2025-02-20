@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -37,7 +37,6 @@ import { CadrartFieldAddressComponent } from '../address/address.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    CommonModule,
     CadrartFieldCheckboxComponent,
     CadrartFieldDateComponent,
     CadrartFieldImageComponent,
@@ -47,7 +46,7 @@ import { CadrartFieldAddressComponent } from '../address/address.component';
     CadrartFieldTextComponent,
     CadrartFieldAddressComponent,
     CadrartFormErrorPipe
-  ],
+],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

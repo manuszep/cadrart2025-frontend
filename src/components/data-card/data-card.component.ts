@@ -7,7 +7,6 @@ import { CadrartClickOutsideDirective } from '../../directives/click-outside.dir
 import { cadrartAnimationSlideInOut } from '../../utils/animation';
 import { CadrartButtonComponent } from '../button/button.component';
 import { CadrartCardComponent } from '../card/card.component';
-import { CadrartIconComponent } from '../icon/icon.component';
 import { ICadrartImageParams } from '../image/image.model';
 
 export type ICadrartDataCardField = { label: string; value?: string | null; extend?: boolean };
@@ -17,14 +16,7 @@ export type ICadrartDataCardFields = ICadrartDataCardField[];
   selector: 'cadrart-data-card',
   templateUrl: './data-card.component.html',
   styleUrls: ['./data-card.component.scss'],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    CadrartCardComponent,
-    CadrartButtonComponent,
-    CadrartIconComponent,
-    CadrartClickOutsideDirective
-  ],
+  imports: [CommonModule, TranslateModule, CadrartCardComponent, CadrartButtonComponent, CadrartClickOutsideDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true,

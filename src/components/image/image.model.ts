@@ -1,4 +1,4 @@
-export type ICadrartImageFolder = 'job' | 'task' | 'team-member';
+export type ICadrartImageFolder = 'job' | 'task' | 'team-member' | 'default';
 
 export type ICadrartImageSize = 's' | 'm' | 'l' | 'o';
 

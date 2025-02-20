@@ -63,7 +63,7 @@ export abstract class CadrartApiService<T extends ICadrartApiEntity> {
     );
   }
 
-  getEntitiesAsOptions(): Observable<{ label: string; value: unknown }[]> {
+  getEntitiesAsOptions(): Observable<{ label: string; value: T }[]> {
     return this.getEntities(1, 1000).pipe(
       map((response: ICadrartEntitiesResponse<T>) => {
         return response.entities.map((entity: T) => this.mapEntityForOption(entity));

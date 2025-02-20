@@ -1,21 +1,20 @@
-<div class="cadrart-field-image">
-  <div class="cadrart-field-image__input">
+<div class="cadrart-form-control-image">
+  <div class="cadrart-form-control-image__input">
     @if (!control.value) {
-      <cadrart-button [iconOnly]="!label" icon="image" (click)="handleTooltipClick($event)">
-        {{ label ?? '' | translate }}
+      <cadrart-button [iconOnly]="!control.label()" icon="image" (click)="handleTooltipClick($event)">
+        {{ control.label() ? label() : '' | translate }}
       </cadrart-button>
     }
     @if (control.value && control.value !== '') {
       <img
-        [src]="control.value | cadrartFieldImagePathPipe : config.folder : 's'"
-        (click)="handleTooltipClick($event)"
-        />
+        [src]="control.value | cadrartFieldImagePathPipe : control.folder() : 's'"
+        (click)="handleTooltipClick($event)" />
     }
   </div>
 </div>
 
 <ng-template #tooltipTemplate>
-  <div class="cadrart-field-image__input__actions" tooltipContent>
+  <div class="cadrart-form-control-image__input__actions" tooltipContent>
     <cadrart-button [disabled]="!!control.value" color="success" [outline]="true" [iconOnly]="true" icon="camera_alt" (cadrartClick)="handleWebcamClick()">
       {{ 'IMAGE.CAPTURE' | translate }}
     </cadrart-button>

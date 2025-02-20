@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -24,22 +23,19 @@ import { CadrartTaskFormComponent } from '../task/task-form.component';
 import { CadrartJobForm } from '../../models/job.form';
 import { CadrartTaskForm } from '../../models/task.form';
 import { PartialDeep } from '../../utils';
-import { CadrartDebugPipe } from '../../pipes/debug.pipe';
 
 @Component({
   selector: 'cadrart-job-form',
   templateUrl: './job-form.component.html',
   styleUrls: ['./job-form.component.scss'],
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     TranslateModule,
     CadrartCardComponent,
     CadrartIconComponent,
     CadrartPricePipe,
     CadrartFieldComponent,
-    CadrartTaskFormComponent,
-    CadrartDebugPipe
+    CadrartTaskFormComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

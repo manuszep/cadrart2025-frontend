@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 import { CadrartButtonComponent } from '../../components/button/button.component';
@@ -13,7 +13,7 @@ import { CadrartFieldOrientation } from './orientation.config';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, CadrartButtonComponent]
+  imports: [CadrartButtonComponent]
 })
 export class CadrartFieldOrientationComponent extends CadrartFieldBaseComponent<number, CadrartFieldOrientation> {
   handleClick(): void {

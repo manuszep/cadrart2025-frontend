@@ -10,7 +10,6 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CadrartAlertService } from '../alert/alert.service';
@@ -23,7 +22,7 @@ import { CadrartButtonComponent } from '../button/button.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, CadrartButtonComponent, TranslateModule]
+  imports: [CadrartButtonComponent, TranslateModule]
 })
 export class CadrartImageCaptureComponent implements AfterViewInit, OnDestroy {
   @Output() public cadrartCapture: EventEmitter<File> = new EventEmitter<File>();

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -29,13 +29,12 @@ import { CadrartFieldDate } from './date.config';
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
     CadrartFieldLayoutComponent,
     CadrartControlValueTransformerDirective
-  ]
+]
 })
 export class CadrartFieldDateComponent extends CadrartFieldBaseComponent<boolean, CadrartFieldDate> {
   public label?: string;

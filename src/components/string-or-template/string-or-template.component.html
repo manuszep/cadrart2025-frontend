@@ -1,3 +1,9 @@
-<ng-container *ngIf="contentAsTemplate" [ngTemplateOutlet]="contentAsTemplate"></ng-container>
-<div *ngIf="contentAsString" [innerHtml]="contentAsString | translate"></div>
-<cadrart-dynamic-component *ngIf="contentAsComponent" [component]="contentAsComponent" [inputs]="inputs" [outputs]="outputs"></cadrart-dynamic-component>
+@if (contentAsTemplate) {
+  <ng-container [ngTemplateOutlet]="contentAsTemplate"></ng-container>
+}
+@if (contentAsString) {
+  <div [innerHtml]="contentAsString | translate"></div>
+}
+@if (contentAsComponent) {
+  <cadrart-dynamic-component [component]="contentAsComponent" [inputs]="inputs" [outputs]="outputs"></cadrart-dynamic-component>
+}

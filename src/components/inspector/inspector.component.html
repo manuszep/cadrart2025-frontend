@@ -3,38 +3,38 @@
     class="cadrart-inspector"
     [class.cadrart-inspector--toggled]="service.toggled()"
     cadrartClickOutside
-    (cadrartClickOutside)="handleClickOut()"
-  >
+    (cadrartClickOutside)="handleClickOut()">
     <div class="cadrart-inspector__panel">
-      <h1 *ngIf="service.title()">{{ service.title() || '' | translate }}</h1>
+      @if (service.title()) {
+        <h1>{{ service.title() || '' | translate }}</h1>
+      }
+
       <div class="cadrart-inspector__content">
-        <cadrart-string-or-template
-          *ngIf="service.content()"
-          [content]="service.content() || ''"
-        ></cadrart-string-or-template>
+        @if (service.content()) {
+          <cadrart-string-or-template [content]="service.content() || ''"></cadrart-string-or-template>
+        }
       </div>
       <div class="cadrart-inspector__actions">
-        <cadrart-button
-          *ngIf="service.toggled()"
-          color="secondary"
-          [outline]="true"
-          hotKey="Escape"
-          tag="Escape"
-          class="cadrart-inspector__actions__close"
-          [tabIndex]="service.toggled() ? 0 : -1"
-          (cadrartClick)="handleCloseClick()"
-          >{{ 'INSPECTOR.BUTTON.BACK' | translate }}</cadrart-button
-        >
-        <cadrart-button
-          *ngIf="service.actionLabel() && service.toggled()"
-          class="cadrart-inspector__actions__submit"
-          hotKey="Alt.Enter"
-          tag="Alt+Enter"
-          [disabled]="!!(service.actionDisabled() | async)"
-          [tabIndex]="service.toggled() ? 0 : -1"
-          (cadrartClick)="handleSubmitClick()"
-          >{{ service.actionLabel() || '' | translate }}</cadrart-button
-        >
+        @if (service.toggled()) {
+          <cadrart-button
+            color="secondary"
+            [outline]="true"
+            hotKey="Escape"
+            tag="Escape"
+            class="cadrart-inspector__actions__close"
+            [tabIndex]="service.toggled() ? 0 : -1"
+            (cadrartClick)="handleCloseClick()">{{ 'INSPECTOR.BUTTON.BACK' | translate }}</cadrart-button>
+
+            @if (service.actionLabel()) {
+              <cadrart-button
+                class="cadrart-inspector__actions__submit"
+                hotKey="Alt.Enter"
+                tag="Alt+Enter"
+                [disabled]="!!(service.actionDisabled() | async)"
+                [tabIndex]="service.toggled() ? 0 : -1"
+                (cadrartClick)="handleSubmitClick()">{{ service.actionLabel() || '' | translate }}</cadrart-button>
+            }
+        }
       </div>
     </div>
   </section>

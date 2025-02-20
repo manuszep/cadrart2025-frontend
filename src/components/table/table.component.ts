@@ -21,7 +21,6 @@ import { CadrartIconComponent } from '../icon/icon.component';
 import { CadrartConcatPipe } from '../../pipes/concat.pipe';
 
 import { CadrartTableValueFormatterDirective } from './table-value-formatter.directive';
-import { CadrartTableGetEntryNamePipe } from './table.pipe';
 
 @Component({
   selector: 'cadrart-table',
@@ -31,12 +30,10 @@ import { CadrartTableGetEntryNamePipe } from './table.pipe';
     CommonModule,
     CadrartActionsGroupComponent,
     CadrartIconComponent,
-    CadrartTableValueFormatterDirective,
     CadrartButtonComponent,
     TranslateModule,
     CadrartClickOutsideDirective,
-    CadrartConcatPipe,
-    CadrartTableGetEntryNamePipe
+    CadrartConcatPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -88,7 +85,7 @@ export class CadrartTableComponent<TData> {
   }
 
   identify(index: number, item: TData): any {
-    return item;
+    return this.trackBy ? this.trackBy(index, item) : this.getItemName(item);
   }
 
   handleDeleteCancelClick(): void {

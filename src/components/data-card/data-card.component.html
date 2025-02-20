@@ -14,42 +14,45 @@
     (cadrartAction)="handleActionClick()"
     (cadrartDelete)="handleDeleteClick()"
     (cadrartEdit)="handleEditClick()"
-    (cadrartConsult)="handleConsultClick()"
-  >
+    (cadrartConsult)="handleConsultClick()">
     <div class="cadrart-data-card__description">
       <ng-content></ng-content>
 
-      <div *ngIf="fields" class="cadrart-data-card__description__fields">
-        <div
-          *ngFor="let field of fields"
-          class="cadrart-data-card__description__fields__field"
-          [class.cadrart-data-card__description__fields__field--extended]="!!field.extend"
-        >
-          <div class="cadrart-data-card__description__fields__field__label">
-            {{ field.label | translate }}
+      @if (fields) {
+        <div class="cadrart-data-card__description__fields">
+          @for (field of fields; track $index) {
+            <div
+            class="cadrart-data-card__description__fields__field"
+            [class.cadrart-data-card__description__fields__field--extended]="!!field.extend">
+            <div class="cadrart-data-card__description__fields__field__label">
+              {{ field.label | translate }}
+            </div>
+            <div class="cadrart-data-card__description__fields__field__value" [innerHTML]="field.value"></div>
           </div>
-          <div class="cadrart-data-card__description__fields__field__value" [innerHTML]="field.value"></div>
+          }
         </div>
-      </div>
+      }
     </div>
 
     <div extended class="cadrart-data-card__description">
       <ng-content select="[extendedDescription]"></ng-content>
 
-      <div *ngIf="extendedFields" class="cadrart-data-card__description__fields">
-        <div
-          *ngFor="let field of extendedFields"
-          class="cadrart-data-card__description__fields__field"
-          [class.cadrart-data-card__description__fields__field--extended]="!!field.extend"
-        >
-          <div class="cadrart-data-card__description__fields__field__label">
-            {{ field.label | translate }}
-          </div>
-          <div class="cadrart-data-card__description__fields__field__value">
-            {{ field.value }}
-          </div>
+      @if (extendedFields) {
+        <div class="cadrart-data-card__description__fields">
+          @for (field of extendedFields; track $index) {
+            <div
+              class="cadrart-data-card__description__fields__field"
+              [class.cadrart-data-card__description__fields__field--extended]="!!field.extend">
+              <div class="cadrart-data-card__description__fields__field__label">
+                {{ field.label | translate }}
+              </div>
+              <div class="cadrart-data-card__description__fields__field__value">
+                {{ field.value }}
+              </div>
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
 
     <div overlay class="cadrart-data-card__delete-overlay">
@@ -66,17 +69,13 @@
             [iconOnly]="inline"
             icon="cancel"
             color="neutral"
-            (cadrartClick)="handleDeleteCancelClick()"
-            >{{ 'ALERT.DELETE_CONFIRMATION.CANCEL' | translate }}</cadrart-button
-          >
+            (cadrartClick)="handleDeleteCancelClick()">{{ 'ALERT.DELETE_CONFIRMATION.CANCEL' | translate }}</cadrart-button>
           <cadrart-button
             [outline]="true"
             [iconOnly]="inline"
             icon="delete"
             color="danger"
-            (cadrartClick)="handleDeleteConfirmClick()"
-            >{{ 'ALERT.DELETE_CONFIRMATION.CONFIRM' | translate }}</cadrart-button
-          >
+            (cadrartClick)="handleDeleteConfirmClick()">{{ 'ALERT.DELETE_CONFIRMATION.CONFIRM' | translate }}</cadrart-button>
         </div>
       </div>
     </div>

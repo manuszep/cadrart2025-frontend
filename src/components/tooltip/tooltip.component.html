@@ -9,12 +9,12 @@
   <div class="cadrart-tooltip__arrow">
     <ng-content></ng-content>
     <div class="cadrart-tooltip__content">
-      <cadrart-string-or-template
-          *ngIf="service.content()"
+      @if (service.content()) {
+        <cadrart-string-or-template
           [content]="service.content() || ''"
           [inputs]="service.contentInputs()"
-          [outputs]="service.contentOutputs()"
-        ></cadrart-string-or-template>
+          [outputs]="service.contentOutputs()"></cadrart-string-or-template>
+      }
     </div>
   </div>
 </div>

@@ -1,46 +1,45 @@
 <section
   class="cadrart-modal"
   [class.cadrart-modal--open]="service.open()"
-  [class.cadrart-modal--fullScreen]="service.fullScreen()"
->
+  [class.cadrart-modal--fullScreen]="service.fullScreen()">
   <div class="cadrart-modal__panel">
-    <h1 *ngIf="service.title()">{{ service.title() || '' | translate }}</h1>
+    @if (service.title()) {
+      <h1>{{ service.title() || '' | translate }}</h1>
+    }
     <div class="cadrart-modal__panel__content">
-      <cadrart-string-or-template
-        *ngIf="service.content()"
-        [content]="service.content() || ''"
-        [inputs]="service.contentInputs()"
-        [outputs]="service.contentOutputs()"
-      ></cadrart-string-or-template>
+      @if (service.content()) {
+        <cadrart-string-or-template
+          [content]="service.content() || ''"
+          [inputs]="service.contentInputs()"
+          [outputs]="service.contentOutputs()"></cadrart-string-or-template>
+      }
     </div>
-    <div class="cadrart-modal__panel__actions" *ngIf="service.actionSecondaryLabel() || service.actionLabel()">
-      <cadrart-button
-        *ngIf="service.actionSecondaryLabel()"
-        [disabled]="!!service.actionSecondaryDisabled()"
-        color="secondary"
-        [outline]="true"
-        class="cadrart-modal__panel__actions__close"
-        [tabIndex]="service.open() ? 0 : -1"
-        (click)="handleSecondaryClick()"
-        >{{ 'MODAL.BUTTON.BACK' | translate }}</cadrart-button
-      >
-      <cadrart-button
-        *ngIf="service.actionLabel()"
-        class="cadrart-modal__panel__actions__submit"
-        [disabled]="!!(service.actionDisabled() | async)"
-        [tabIndex]="service.open() ? 0 : -1"
-        (click)="handleSubmitClick()"
-        >{{ service.actionLabel() || '' | translate }}</cadrart-button
-      >
-    </div>
-    <cadrart-button
-      class="cadrart-modal__panel__close"
-      [tabIndex]="-1"
-      color="danger"
-      (click)="handleCloseClick()"
-      icon="close"
-      [iconOnly]="true"
-      >{{ 'MODAL.BUTTON.CLOSE' | translate }}</cadrart-button
-    >
-  </div>
-</section>
+    @if (service.actionSecondaryLabel() || service.actionLabel()) {
+      <div class="cadrart-modal__panel__actions">
+        @if (service.actionSecondaryLabel()) {
+          <cadrart-button
+            [disabled]="!!service.actionSecondaryDisabled()"
+            color="secondary"
+            [outline]="true"
+            class="cadrart-modal__panel__actions__close"
+            [tabIndex]="service.open() ? 0 : -1"
+            (click)="handleSecondaryClick()">{{ 'MODAL.BUTTON.BACK' | translate }}</cadrart-button>
+          }
+          @if (service.actionLabel()) {
+            <cadrart-button
+              class="cadrart-modal__panel__actions__submit"
+              [disabled]="!!(service.actionDisabled() | async)"
+              [tabIndex]="service.open() ? 0 : -1"
+              (click)="handleSubmitClick()">{{ service.actionLabel() || '' | translate }}</cadrart-button>
+            }
+          </div>
+        }
+        <cadrart-button
+          class="cadrart-modal__panel__close"
+          [tabIndex]="-1"
+          color="danger"
+          (click)="handleCloseClick()"
+          icon="close"
+          [iconOnly]="true">{{ 'MODAL.BUTTON.CLOSE' | translate }}</cadrart-button>
+        </div>
+      </section>

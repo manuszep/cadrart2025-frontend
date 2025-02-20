@@ -4,12 +4,16 @@ import { provideRouter } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { SocketIoModule } from 'ngx-socket-io';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { HttpLoaderFactory } from '../main';
 import { environment } from '../environments/environment';
 import { CadrartAuthInterceptor } from '../interceptors/http.interceptor';
 
 import { cadrartRoutes } from './app.routes';
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http, 'i18n/');
+}
 
 const host = window.location.hostname;
 const prot = window.location.protocol;

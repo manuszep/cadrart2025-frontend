@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 
 import { CadrartButtonComponent } from '../button/button.component';
 import { CadrartStringOrTemplateComponent } from '../string-or-template/string-or-template.component';

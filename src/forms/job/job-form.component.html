@@ -1,144 +1,140 @@
-<form *ngIf="jobForm" [formGroup]="jobForm">
-  <cadrart-card
-    class="cadrart-job-form"
-    [hasError]="jobForm.status === 'INVALID' && (jobForm.dirty || jobForm.touched)"
-    [extended]="extended"
-    [managedExtension]="true"
-    [duplicatable]="true"
-    [deletable]="deletable"
-    (cadrartDuplicate)="handleDuplicateClick()"
-    (cadrartToggle)="handleToggleClick()"
-    (cadrartDelete)="handleDeleteClick()"
-  >
-    <div cadrartCardTitle class="cadrart-job-form__title">
-      <cadrart-field
-        class="cadrart-job-form__title__item cadrart-job-form__title__count"
-        formControlName="count"
-      ></cadrart-field>
-      <cadrart-icon class="cadrart-job-form__title__item cadrart-job-form__title__times" name="close"></cadrart-icon>
-      <cadrart-field
-        class="cadrart-job-form__title__item cadrart-job-form__title__image"
-        formControlName="image"
-      ></cadrart-field>
-      <cadrart-field
-        class="cadrart-job-form__title__item cadrart-job-form__title__orientation"
-        formControlName="orientation"
-      ></cadrart-field>
-      <cadrart-field
-        class="cadrart-job-form__title__item cadrart-job-form__title__description"
-        formControlName="description"
-      ></cadrart-field>
-      <div
-        class="cadrart-job-form__title__item cadrart-job-form__title__price"
-        [innerHTML]="total() | cadrartPrice"
-      ></div>
-    </div>
-
-    <div cadrartCartExtended>
-      <div class="cadrart-job-form__details">
-        <table class="cadrart-job-form__details__size">
+@if (jobForm) {
+  <form [formGroup]="jobForm">
+    <cadrart-card
+      class="cadrart-job-form"
+      [hasError]="jobForm.status === 'INVALID' && (jobForm.dirty || jobForm.touched)"
+      [extended]="extended"
+      [managedExtension]="true"
+      [duplicatable]="true"
+      [deletable]="deletable"
+      (cadrartDuplicate)="handleDuplicateClick()"
+      (cadrartToggle)="handleToggleClick()"
+      (cadrartDelete)="handleDeleteClick()">
+      <div cadrartCardTitle class="cadrart-job-form__title">
+        <cadrart-field
+          class="cadrart-job-form__title__item cadrart-job-form__title__count"
+          formControlName="count"></cadrart-field>
+        <cadrart-icon class="cadrart-job-form__title__item cadrart-job-form__title__times" name="close"></cadrart-icon>
+        <cadrart-field
+          class="cadrart-job-form__title__item cadrart-job-form__title__image"
+          formControlName="image"></cadrart-field>
+        <cadrart-field
+          class="cadrart-job-form__title__item cadrart-job-form__title__orientation"
+          formControlName="orientation"></cadrart-field>
+        <cadrart-field
+          class="cadrart-job-form__title__item cadrart-job-form__title__description"
+          formControlName="description"></cadrart-field>
+        <div
+          class="cadrart-job-form__title__item cadrart-job-form__title__price"
+          [innerHTML]="total() | cadrartPrice"></div>
+      </div>
+      <div cadrartCartExtended>
+        <div class="cadrart-job-form__details">
+          <table class="cadrart-job-form__details__size">
+            <thead>
+              <tr>
+                <th></th>
+                <th>{{ 'OFFER.FORM.AUTO' | translate }}</th>
+                <th>{{ 'OFFER.FORM.WIDTH' | translate }}</th>
+                <th></th>
+                <th>{{ 'OFFER.FORM.HEIGHT' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="cadrart-job-form__details__size__opening">
+                <th>{{ 'OFFER.FORM.OPENING' | translate }}</th>
+                <td>
+                  <fieldset [disabled]="autoValue() === 'opening'">
+                    <cadrart-field formControlName="autoOpening" (change)="handleAutoOpeningChange()"></cadrart-field>
+                  </fieldset>
+                </td>
+                <td>
+                  <fieldset [disabled]="autoValue() === 'opening'">
+                    <cadrart-field formControlName="openingWidth"></cadrart-field>
+                  </fieldset>
+                </td>
+                <td>&times;</td>
+                <td>
+                  <fieldset [disabled]="autoValue() === 'opening'">
+                    <cadrart-field formControlName="openingHeight"></cadrart-field>
+                  </fieldset>
+                </td>
+              </tr>
+              <tr class="cadrart-job-form__details__size__margin">
+                <th>{{ 'OFFER.FORM.MARGIN' | translate }}</th>
+                <td>
+                  <fieldset [disabled]="autoValue() === 'margin'">
+                    <cadrart-field formControlName="autoMargin" (change)="handleAutoMarginChange()"></cadrart-field>
+                  </fieldset>
+                </td>
+                <td>
+                  <fieldset [disabled]="autoValue() === 'margin'">
+                    <cadrart-field formControlName="marginWidth"></cadrart-field>
+                  </fieldset>
+                </td>
+                <td>&times;</td>
+                <td>
+                  <fieldset [disabled]="autoValue() === 'margin'">
+                    <cadrart-field formControlName="marginHeight"></cadrart-field>
+                  </fieldset>
+                </td>
+              </tr>
+              <tr class="cadrart-job-form__details__size__glass">
+                <th>{{ 'OFFER.FORM.GLASS' | translate }}</th>
+                <td>
+                  <fieldset [disabled]="autoValue() === 'glass'">
+                    <cadrart-field formControlName="autoGlass" (change)="handleAutoGlassChange()"></cadrart-field>
+                  </fieldset>
+                </td>
+                <td>
+                  <fieldset [disabled]="autoValue() === 'glass'">
+                    <cadrart-field formControlName="glassWidth"></cadrart-field>
+                  </fieldset>
+                </td>
+                <td>&times;</td>
+                <td>
+                  <fieldset [disabled]="autoValue() === 'glass'">
+                    <cadrart-field formControlName="glassHeight"></cadrart-field>
+                  </fieldset>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="cadrart-job-form__details__extras">
+            <cadrart-field formControlName="measure"></cadrart-field>
+            <cadrart-field formControlName="location"></cadrart-field>
+            <cadrart-field formControlName="dueDate"></cadrart-field>
+            <cadrart-field formControlName="startDate"></cadrart-field>
+          </div>
+        </div>
+        <table class="cadrart-job-form__tasks">
           <thead>
             <tr>
-              <th></th>
-              <th>{{ 'OFFER.FORM.AUTO' | translate }}</th>
-              <th>{{ 'OFFER.FORM.WIDTH' | translate }}</th>
-              <th></th>
-              <th>{{ 'OFFER.FORM.HEIGHT' | translate }}</th>
+              <th class="cadrart-job-form__tasks__indent"></th>
+              <th class="cadrart-job-form__tasks__article">Article</th>
+              <th class="cadrart-job-form__tasks__subarticle"></th>
+              <th class="cadrart-job-form__tasks__comment">Note</th>
+              <th class="cadrart-job-form__tasks__image">Image</th>
+              <th class="cadrart-job-form__tasks__price">Prix <small>HTVA</small></th>
+              <th class="cadrart-job-form__tasks__price">Prix <small>TVAC</small></th>
             </tr>
           </thead>
           <tbody>
-            <tr class="cadrart-job-form__details__size__opening">
-              <th>{{ 'OFFER.FORM.OPENING' | translate }}</th>
-              <td>
-                <fieldset [disabled]="autoValue() === 'opening'">
-                  <cadrart-field formControlName="autoOpening" (change)="handleAutoOpeningChange()"></cadrart-field>
-                </fieldset>
-              </td>
-              <td>
-                <fieldset [disabled]="autoValue() === 'opening'">
-                  <cadrart-field formControlName="openingWidth"></cadrart-field>
-                </fieldset>
-              </td>
-              <td>&times;</td>
-              <td>
-                <fieldset [disabled]="autoValue() === 'opening'">
-                  <cadrart-field formControlName="openingHeight"></cadrart-field>
-                </fieldset>
-              </td>
-            </tr>
-            <tr class="cadrart-job-form__details__size__margin">
-              <th>{{ 'OFFER.FORM.MARGIN' | translate }}</th>
-              <td>
-                <fieldset [disabled]="autoValue() === 'margin'">
-                  <cadrart-field formControlName="autoMargin" (change)="handleAutoMarginChange()"></cadrart-field>
-                </fieldset>
-              </td>
-              <td>
-                <fieldset [disabled]="autoValue() === 'margin'">
-                  <cadrart-field formControlName="marginWidth"></cadrart-field>
-                </fieldset>
-              </td>
-              <td>&times;</td>
-              <td>
-                <fieldset [disabled]="autoValue() === 'margin'">
-                  <cadrart-field formControlName="marginHeight"></cadrart-field>
-                </fieldset>
-              </td>
-            </tr>
-            <tr class="cadrart-job-form__details__size__glass">
-              <th>{{ 'OFFER.FORM.GLASS' | translate }}</th>
-              <td>
-                <fieldset [disabled]="autoValue() === 'glass'">
-                  <cadrart-field formControlName="autoGlass" (change)="handleAutoGlassChange()"></cadrart-field>
-                </fieldset>
-              </td>
-              <td>
-                <fieldset [disabled]="autoValue() === 'glass'">
-                  <cadrart-field formControlName="glassWidth"></cadrart-field>
-                </fieldset>
-              </td>
-              <td>&times;</td>
-              <td>
-                <fieldset [disabled]="autoValue() === 'glass'">
-                  <cadrart-field formControlName="glassHeight"></cadrart-field>
-                </fieldset>
-              </td>
-            </tr>
+            @if (getTasksControl(); as tasksControl) {
+              <ng-container formArrayName="tasks">
+                @for (taskForm of tasksControl.controls; track taskForm; let i = $index) {
+                  <cadrart-task-form
+                    [taskForm]="taskForm"
+                    [canDelete]="i < tasksControl.controls.length - 1"
+                    (cadrartAddSubTask)="handleAddSubTask(i)"
+                    (cadrartDelete)="handleDeleteTask(i)"
+                  ></cadrart-task-form>
+                }
+              </ng-container>
+            }
           </tbody>
         </table>
-        <div class="cadrart-job-form__details__extras">
-          <cadrart-field formControlName="measure"></cadrart-field>
-          <cadrart-field formControlName="location"></cadrart-field>
-          <cadrart-field formControlName="dueDate"></cadrart-field>
-          <cadrart-field formControlName="startDate"></cadrart-field>
-        </div>
       </div>
-
-      <table class="cadrart-job-form__tasks">
-        <thead>
-          <tr>
-            <th class="cadrart-job-form__tasks__indent"></th>
-            <th class="cadrart-job-form__tasks__article">Article</th>
-            <th class="cadrart-job-form__tasks__subarticle"></th>
-            <th class="cadrart-job-form__tasks__comment">Note</th>
-            <th class="cadrart-job-form__tasks__image">Image</th>
-            <th class="cadrart-job-form__tasks__price">Prix <small>HTVA</small></th>
-            <th class="cadrart-job-form__tasks__price">Prix <small>TVAC</small></th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container formArrayName="tasks" *ngIf="getTasksControl() as tasksControl">
-            <ng-container *ngFor="let taskForm of tasksControl.controls; let i = index">
-              <cadrart-task-form
-                [taskForm]="taskForm"
-                [canDelete]="i < tasksControl.controls.length - 1"
-                (cadrartAddSubTask)="handleAddSubTask(i)"
-                (cadrartDelete)="handleDeleteTask(i)"
-              ></cadrart-task-form>
-            </ng-container>
-          </ng-container>
-        </tbody>
-      </table>
-    </div>
-  </cadrart-card>
-</form>
+    </cadrart-card>
+  </form>
+}

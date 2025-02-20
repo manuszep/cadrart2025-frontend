@@ -10,7 +10,7 @@ export class CadrartClickOutsideDirective {
   constructor(private elementRef: ElementRef) {}
 
   @HostListener('document:click', ['$event.target'])
-  public onClick(target: unknown) {
+  public onClick(target: unknown): void {
     const clickedInside = this.elementRef.nativeElement.contains(target);
 
     if (!clickedInside) {

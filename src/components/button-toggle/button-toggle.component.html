@@ -1,13 +1,17 @@
 <div class="cadrart-button-toggle">
-  <label *ngIf="label">{{ label | translate }}</label>
+  @if (label) {
+    <label>{{ label | translate }}</label>
+  }
+
   <div class="cadrart-button-toggle__group">
-    <cadrart-button
-      *ngFor="let item of items"
-      class="cadrart-button-toggle__button"
-      [color]="value === item.value ? 'primary' : 'neutral'"
-      [outline]="outline"
-      (cadrartClick)="handleClick(item)"
-      >{{ item.label | translate }}</cadrart-button
-    >
+    @for (item of items; track $index) {
+      <cadrart-button
+        class="cadrart-button-toggle__button"
+        [color]="value === item.value ? 'primary' : 'neutral'"
+        [outline]="outline"
+        (cadrartClick)="handleClick(item)">
+        {{ item.label | translate }}
+      </cadrart-button>
+    }
   </div>
 </div>

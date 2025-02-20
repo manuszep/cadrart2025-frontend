@@ -1,26 +1,29 @@
 <div class="cadrart-image-capture">
-  <video [class.cadrart-image-capture__video--hidden]="capturedImage()" #video autoplay muted></video>
+  <video #video [class.cadrart-image-capture__video--hidden]="capturedImage()" autoplay muted></video>
   <canvas #canvas></canvas>
-  <img *ngIf="capturedImage()" [src]="capturedImage()" />
+
+  @if (capturedImage()) {
+    <img [src]="capturedImage()" />
+  }
 
   <div class="cadrart-image-capture__actions">
-    <cadrart-button mat-button color="neutral" (click)="handleCancel()">{{
-      'IMAGE.CAPTURE.CANCEL' | translate
-    }}</cadrart-button>
-
     <cadrart-button
-      *ngIf="capturedImage()"
-      color="danger"
-      [outline]="true"
-      (click)="handleClear()"
-      >{{ 'IMAGE.CAPTURE.CLEAR' | translate }}</cadrart-button
-    >
-    <cadrart-button *ngIf="capturedImage()" color="primary" (click)="handleCaptureSave()">{{
-      'IMAGE.CAPTURE.SAVE' | translate
-    }}</cadrart-button>
+      color="neutral"
+      (click)="handleCancel()">{{ 'IMAGE.CAPTURE.CANCEL' | translate }}</cadrart-button>
 
-    <cadrart-button *ngIf="!capturedImage()" color="primary" (click)="handleCaptureCapture()">{{
-      'IMAGE.CAPTURE.CAPTURE' | translate
-    }}</cadrart-button>
+    @if (capturedImage()) {
+      <cadrart-button
+        color="danger"
+        [outline]="true"
+        (click)="handleClear()">{{ 'IMAGE.CAPTURE.CLEAR' | translate }}</cadrart-button>
+
+      <cadrart-button
+        color="primary"
+        (click)="handleCaptureSave()">{{ 'IMAGE.CAPTURE.SAVE' | translate }}</cadrart-button>
+    } @else {
+      <cadrart-button
+        color="primary"
+        (click)="handleCaptureCapture()">{{ 'IMAGE.CAPTURE.CAPTURE' | translate }}</cadrart-button>
+    }
   </div>
 </div>

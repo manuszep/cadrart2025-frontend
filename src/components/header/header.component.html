@@ -6,22 +6,30 @@
     </picture>
   </div>
   <ng-container>
-    <div class="cadrart-header__nav" *ngIf="service.navigation().length">
-      <a *ngFor="let nav of service.navigation()" [routerLink]="nav.path" routerLinkActive="active" tabindex="-1">{{
-        nav.label
-      }}</a>
-    </div>
+    @if (service.navigation().length) {
+      <div class="cadrart-header__nav">
+        @for (nav of service.navigation(); track nav.path) {
+          <a [routerLink]="nav.path" routerLinkActive="active" tabindex="-1">{{ nav.label }}</a>
+        }
+      </div>
+    }
   </ng-container>
-  <div class="cadrart-header__actions" *ngIf="service.action()">
-    <cadrart-button
-      [icon]="service.action()?.icon ?? null"
-      [tag]="service.action()?.tag ?? null"
-      [hotKey]="service.action()?.hotkey"
-      [outline]="true"
-      [tabIndex]="-1"
-      (cadrartClick)="handleActionClick()">
-      <span>{{ 'HEADER.' + (service.action()?.label ?? 'ADD') | translate }}</span>
-    </cadrart-button>
-  </div>
-  <cadrart-image class="cadrart-header__actions__user" [name]="loginService.connectedUser()?.image ?? 'default'" folder="team-member" size="s"></cadrart-image>
+  @if (service.action()) {
+    <div class="cadrart-header__actions">
+      <cadrart-button
+        [icon]="service.action()?.icon ?? null"
+        [tag]="service.action()?.tag ?? null"
+        [hotKey]="service.action()?.hotkey"
+        [outline]="true"
+        [tabIndex]="-1"
+        (cadrartClick)="handleActionClick()">
+        <span>{{ 'HEADER.' + (service.action()?.label ?? 'ADD') | translate }}</span>
+      </cadrart-button>
+    </div>
+  }
+  <cadrart-image
+    class="cadrart-header__actions__user"
+    [name]="loginService.connectedUser()?.image ?? 'default'"
+    folder="team-member"
+    size="s"></cadrart-image>
 </header>

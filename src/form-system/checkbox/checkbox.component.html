@@ -12,7 +12,9 @@
         <cadrart-icon name="check" ></cadrart-icon>
       </span>
 
-      <span *ngIf="label">{{ label | translate }}</span>
+      @if (label) {
+        <span>{{ label | translate }}</span>
+      }
     </label>
   </div>
 </div>

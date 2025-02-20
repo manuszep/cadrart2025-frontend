@@ -29,7 +29,7 @@ export class CadrartInspectorService {
     return this._actionEvent$.asObservable();
   }
 
-  showInspector(config: ICadrartInspectorConfig) {
+  showInspector(config: ICadrartInspectorConfig): void {
     this.toggled.set(true);
     this.title.set(config.title);
     this.content.set(config.content);

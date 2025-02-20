@@ -1,44 +1,50 @@
-<div class="cadrart-team-members" *ngIf="data$ | async as data">
-  <div class="cadrart-team-members__list">
-    <cadrart-data-card
-      *ngFor="let tm of data; trackBy: identify"
-      @existanceAnimation
+@if (data$ | async; as data) {
+  <div class="cadrart-team-members">
+    <div class="cadrart-team-members__list">
+      @for (tm of data; track identify($index, tm)) {
+        <cadrart-data-card
+          @existanceAnimation
       [image]="{
         name: tm.image !== '' ? tm.image : 'default',
         folder: 'team-member'
       }"
-      [title]="getItemName(tm)"
-      [consultable]="false"
-      [editable]="true"
-      [deletable]="true"
+          [title]="getItemName(tm)"
+          [consultable]="false"
+          [editable]="true"
+          [deletable]="true"
       [fields]="[
         {
-          label: 'FIELD.MAIL.LABEL' | translate,
+          label: 'FIELD.MAIL.Q' | translate,
           value: tm.mail | cadrartMail
         },
         {
-          label: 'FIELD.PHONE.LABEL' | translate,
+          label: 'FIELD.PHONE.Q' | translate,
           value: tm.phone | cadrartPhone
         },
         {
-          label: 'FIELD.ADDRESS.LABEL' | translate,
+          label: 'FIELD.ADDRESS.Q' | translate,
           value: tm.address | cadrartAddress,
           extend: true
         }
       ]"
-      (cadrartEdit)="handleEditClick(tm)"
-    ></cadrart-data-card>
+        (cadrartEdit)="handleEditClick(tm)"
+        (cadrartDelete)="handleDeleteClick(tm)"
+      ></cadrart-data-card>
+    }
   </div>
 </div>
+}
 
 <ng-template #formTemplate>
-  <form *ngIf="entityFormGroup" [formGroup]="entityFormGroup">
-    <cadrart-field formControlName="firstName"></cadrart-field>
-    <cadrart-field formControlName="lastName"></cadrart-field>
-    <cadrart-field formControlName="address"></cadrart-field>
-    <cadrart-field formControlName="mail"></cadrart-field>
-    <cadrart-field formControlName="phone"></cadrart-field>
-    <cadrart-field formControlName="image"></cadrart-field>
-    <cadrart-field formControlName="password"></cadrart-field>
-  </form>
+  @if (entityFormGroup) {
+    <form [esfsFormGroup]="entityFormGroup">
+      <esfs-field name="firstName"></esfs-field>
+      <esfs-field name="lastName"></esfs-field>
+      <esfs-field name="address"></esfs-field>
+      <esfs-field name="mail"></esfs-field>
+      <esfs-field name="phone"></esfs-field>
+      <esfs-field name="image"></esfs-field>
+      <esfs-field name="password"></esfs-field>
+    </form>
+  }
 </ng-template>

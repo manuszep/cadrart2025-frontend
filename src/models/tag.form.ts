@@ -1,19 +1,21 @@
-import { AbstractControlOptions } from '@angular/forms';
 import { ICadrartTag } from '@manuszep/cadrart2025-common';
+import {
+  EsfsFormControl,
+  EsfsFormControlText,
+  EsfsFormGroup,
+  IEsfsFormGroupConfig,
+  IEsfsFormGroupOptions
+} from '@manuszep/es-form-system';
 
-import { CadrartFormControl } from '../form-system/form-control';
-import { CadrartFormGroup, FormConfig } from '../form-system/form-group';
-import { CadrartFieldText } from '../form-system/text/text.config';
-
-function getTagFormConfig(): FormConfig {
+function getTagFormConfig(): IEsfsFormGroupConfig {
   return {
-    id: new CadrartFormControl<number | undefined>(undefined),
-    name: new CadrartFormControl('', new CadrartFieldText({ required: true, minLength: 2, maxLength: 50 }))
+    id: new EsfsFormControl<number | undefined>(undefined),
+    name: new EsfsFormControlText('', { required: true, minLength: 2, maxLength: 50 })
   };
 }
 
-export class CadrartTagForm extends CadrartFormGroup<ICadrartTag> {
-  constructor(entity?: ICadrartTag, options: AbstractControlOptions = { updateOn: 'change' }) {
-    super(getTagFormConfig(), entity ?? {}, options);
+export class CadrartTagForm extends EsfsFormGroup<ICadrartTag> {
+  constructor(entity?: ICadrartTag, options: IEsfsFormGroupOptions = { updateOn: 'change' }) {
+    super(getTagFormConfig(), options, 'FIELD', false, entity ?? {});
   }
 }

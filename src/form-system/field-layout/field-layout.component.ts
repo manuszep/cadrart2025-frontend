@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
+
 
 import { CadrartIconComponent } from '../../components/icon/icon.component';
 import { ICadrartIcon } from '../../components/icon/icon.model';
@@ -12,7 +12,7 @@ import { ICadrartIcon } from '../../components/icon/icon.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, TranslateModule, CadrartIconComponent]
+  imports: [TranslateModule, CadrartIconComponent]
 })
 export class CadrartFieldLayoutComponent {
   public hasValue = false;

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TranslateModule } from '@ngx-translate/core';
@@ -7,13 +6,12 @@ import { CadrartIconComponent } from '../icon/icon.component';
 import { CadrartCardComponent } from '../card/card.component';
 
 import { CadrartAlertService } from './alert.service';
-import { ICadrartAlert } from './alert.model';
 
 @Component({
   selector: 'cadrart-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
-  imports: [CommonModule, CadrartIconComponent, CadrartCardComponent, TranslateModule],
+  imports: [CadrartIconComponent, CadrartCardComponent, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true,
@@ -32,8 +30,4 @@ import { ICadrartAlert } from './alert.model';
 })
 export class CadrartAlertComponent {
   constructor(public readonly service: CadrartAlertService) {}
-
-  identifyAlert(index: number, alert: ICadrartAlert): number {
-    return alert.id;
-  }
 }

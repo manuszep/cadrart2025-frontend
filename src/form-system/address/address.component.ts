@@ -1,5 +1,5 @@
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -19,7 +19,7 @@ import { CadrartFieldAddress } from './address.config';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslateModule, CadrartFieldLayoutComponent]
+  imports: [ReactiveFormsModule, TranslateModule, CadrartFieldLayoutComponent]
 })
 export class CadrartFieldAddressComponent
   extends CadrartFieldBaseComponent<string, CadrartFieldAddress>

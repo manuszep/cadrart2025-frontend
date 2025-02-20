@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ECadrartArticlePriceMethod, ICadrartArticle } from '@manuszep/cadrart2025-common';
+import { EsfsFieldComponent, EsfsFormGroupDirective } from '@manuszep/es-form-system';
 
 import { CadrartHeaderService } from '../../../components/header/header.service';
 import { CadrartInspectorService } from '../../../components/inspector/inspector.service';
@@ -13,7 +13,6 @@ import { CadrartTableComponent } from '../../../components/table/table.component
 import { CadrartTableValueFormatterDirective } from '../../../components/table/table-value-formatter.directive';
 import { CadrartIconComponent } from '../../../components/icon/icon.component';
 import { CadrartFormulaTagComponent } from '../../../components/formula-tag/formula-tag.component';
-import { CadrartFieldComponent } from '../../../form-system/field/field.component';
 import { CadrartArticleForm } from '../../../models/article.form';
 import { CadrartProviderService } from '../../../services/provider.service';
 import { CadrartFormulaService } from '../../../services/formula.service';
@@ -24,13 +23,13 @@ import { CadrartFormulaService } from '../../../services/formula.service';
   styleUrls: ['./article.component.scss'],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     TranslateModule,
     CadrartTableComponent,
     CadrartTableValueFormatterDirective,
     CadrartIconComponent,
     CadrartFormulaTagComponent,
-    CadrartFieldComponent
+    EsfsFieldComponent,
+    EsfsFormGroupDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

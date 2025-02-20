@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 
 import { CadrartButtonComponent } from '../button/button.component';
@@ -7,7 +7,7 @@ import { CadrartButtonComponent } from '../button/button.component';
   selector: 'cadrart-actions-group',
   templateUrl: './actions-group.component.html',
   styleUrls: ['./actions-group.component.scss'],
-  imports: [CommonModule, CadrartButtonComponent],
+  imports: [CadrartButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true

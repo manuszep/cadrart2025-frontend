@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,7 +15,7 @@ import { CadrartFieldCheckbox } from './checkbox.config';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, CadrartIconComponent]
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule, CadrartIconComponent]
 })
 export class CadrartFieldCheckboxComponent extends CadrartFieldBaseComponent<boolean, CadrartFieldCheckbox> {
   public label?: string;

@@ -3,8 +3,7 @@
     class="cadrart__navigation"
     [class.cadrart__navigation--toggled]="service.enabled() && toggled()"
     [class.cadrart__navigation--disabled]="!service.enabled()"
-    (cadrartClickOutside)="service.enabled() ? handleClickOutside() : null"
-  >
+    (cadrartClickOutside)="service.enabled() ? handleClickOutside() : null">
     <ul class="cadrart__navigation__pages">
       <li class="cadrart__navigation__pages__item">
         <cadrart-button
@@ -16,9 +15,7 @@
           [grow]="true"
           justify="left"
           [tabIndex]="-1"
-          [routerLink]="'/tasks'"
-          >{{ 'NAVIGATION.PAGES.TASKS' | translate }}</cadrart-button
-        >
+          [routerLink]="'/tasks'">{{ 'NAVIGATION.PAGES.TASKS' | translate }}</cadrart-button>
       </li>
       <li class="cadrart__navigation__pages__item">
         <cadrart-button
@@ -30,9 +27,7 @@
           [grow]="true"
           justify="left"
           [tabIndex]="-1"
-          [routerLink]="'/offers'"
-          >{{ 'NAVIGATION.PAGES.OFFERS' | translate }}</cadrart-button
-        >
+          [routerLink]="'/offers'">{{ 'NAVIGATION.PAGES.OFFERS' | translate }}</cadrart-button>
       </li>
       <li class="cadrart__navigation__pages__item">
         <cadrart-button
@@ -44,9 +39,7 @@
           [grow]="true"
           justify="left"
           [tabIndex]="-1"
-          [routerLink]="'/stock'"
-          >{{ 'NAVIGATION.PAGES.STOCK' | translate }}</cadrart-button
-        >
+          [routerLink]="'/stock'">{{ 'NAVIGATION.PAGES.STOCK' | translate }}</cadrart-button>
       </li>
       <li class="cadrart__navigation__pages__item">
         <cadrart-button
@@ -58,9 +51,7 @@
           [grow]="true"
           justify="left"
           [tabIndex]="-1"
-          [routerLink]="'/settings/articles'"
-          >{{ 'NAVIGATION.PAGES.SETTINGS' | translate }}</cadrart-button
-        >
+          [routerLink]="'/settings/articles'">{{ 'NAVIGATION.PAGES.SETTINGS' | translate }}</cadrart-button>
       </li>
     </ul>
     <ul class="cadrart__navigation__actions">
@@ -72,14 +63,11 @@
           [grow]="true"
           justify="left"
           [tabIndex]="-1"
-          [routerLink]="'offer/new'"
-          >{{ 'NAVIGATION.ACTIONS.NEW_OFFER' | translate }}</cadrart-button
-        >
+          [routerLink]="'offer/new'">{{ 'NAVIGATION.ACTIONS.NEW_OFFER' | translate }}</cadrart-button>
       </li>
       <li
         class="cadrart__navigation__actions__item cadrart__navigation__actions__item--search"
-        [class.active]="showSearch()"
-      >
+        [class.active]="showSearch()">
         <cadrart-button
           icon="search"
           [iconOnly]="!service.enabled() || !toggled()"
@@ -87,22 +75,18 @@
           justify="left"
           [disabled]="!service.enabled() || !hasSearchData()"
           [tabIndex]="-1"
-          (cadrartClick)="handleSearchClick()"
-          >{{ 'NAVIGATION.ACTIONS.SEARCH' | translate }}</cadrart-button
-        >
+          (cadrartClick)="handleSearchClick()">{{ 'NAVIGATION.ACTIONS.SEARCH' | translate }}</cadrart-button>
         <div
           [esfsFormGroup]="searchForm"
           class="cadrart__navigation__actions__item__search-box"
-          [class.cadrart__navigation__actions__item__search-box--active]="showSearch()"
-        >
+          [class.cadrart__navigation__actions__item__search-box--active]="showSearch()">
           <esfs-field #searchField name="search"></esfs-field>
           <cadrart-button
             icon="search"
             [iconOnly]="true"
             color="transparent"
             hoverColor="primary"
-            [disabled]="!service.enabled() || (searchStatus$ | async) !== 'VALID'"
-          ></cadrart-button>
+            [disabled]="!service.enabled() || (searchStatus$ | async) !== 'VALID'"></cadrart-button>
         </div>
       </li>
     </ul>
@@ -110,8 +94,7 @@
       class="cadrart__navigation__toggle"
       name="double_arrow"
       (click)="service.enabled() ? handleMenuToggleClick() : null"
-      tabindex="-1"
-    ></cadrart-icon>
+      tabindex="-1"></cadrart-icon>
     <small>{{ appVersion }}</small>
   </nav>
 </ng-container>

@@ -1,8 +1,9 @@
 .cadrart-formulas__form__formulas {
   display: flex;
-  align-items: baseline;
+  align-items: center;
 
-  cadrart-field {
+  esfs-field {
+    display: block;
     margin-right: 5px;
     flex-grow: 1;
   }

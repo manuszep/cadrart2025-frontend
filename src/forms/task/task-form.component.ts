@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -29,7 +29,6 @@ import { CadrartTaskForm } from '../../models/task.form';
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.scss'],
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     TranslateModule,
     CadrartIconComponent,
@@ -38,7 +37,7 @@ import { CadrartTaskForm } from '../../models/task.form';
     CadrartFieldComponent,
     CadrartFormErrorPipe,
     CadrartActionsGroupComponent
-  ],
+],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true

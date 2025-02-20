@@ -1,86 +1,93 @@
-<div
-  class="cadrart-field-wrapper"
-  [class.cadrart-field-wrapper--has-error]="control.errors && (control.dirty || control.touched)"
-  *ngIf="finalConfig">
-  <div class="cadrart-field-wrapper__control" [ngSwitch]="finalConfig().componentType">
-    <cadrart-field-checkbox
-      #fld
-      *ngSwitchCase="'checkbox'"
-      [name]="formControlName"
-      [form]="form"
-      [control]="$any(control)"
-      [config]="$any(finalConfig())"
-    ></cadrart-field-checkbox>
-
-    <cadrart-field-date
-      #fld
-      *ngSwitchCase="'date'"
-      [name]="formControlName"
-      [form]="form"
-      [control]="$any(control)"
-      [config]="$any(finalConfig())"
-    ></cadrart-field-date>
-
-    <cadrart-field-image
-      #fld
-      *ngSwitchCase="'image'"
-      [name]="formControlName"
-      [form]="form"
-      [control]="$any(control)"
-      [config]="$any(finalConfig())"
-    ></cadrart-field-image>
-
-    <cadrart-field-number
-      #fld
-      *ngSwitchCase="'number'"
-      [name]="formControlName"
-      [form]="form"
-      [control]="$any(control)"
-      [config]="$any(finalConfig())"
-      (cadrartBlur)="handleBlur()"
-    ></cadrart-field-number>
-
-    <cadrart-field-orientation
-      #fld
-      *ngSwitchCase="'orientation'"
-      [name]="formControlName"
-      [form]="form"
-      [control]="$any(control)"
-      [config]="$any(finalConfig())"
-    ></cadrart-field-orientation>
-
-    <cadrart-field-select
-      #fld
-      *ngSwitchCase="'select'"
-      [name]="formControlName"
-      [form]="form"
-      [control]="$any(control)"
-      [config]="$any(finalConfig())"
-      (cadrartBlur)="handleBlur()"
-      (cadrartChange)="handleChange($event)"
-    ></cadrart-field-select>
-
-    <cadrart-field-text
-      #fld
-      *ngSwitchCase="'text'"
-      [name]="formControlName"
-      [form]="form"
-      [control]="$any(control)"
-      [config]="$any(finalConfig())"
-      (cadrartBlur)="handleBlur()"
-    ></cadrart-field-text>
-
-    <cadrart-field-address
-      #fld
-      *ngSwitchCase="'address'"
-      [name]="formControlName"
-      [form]="form"
-      [control]="$any(control)"
-      [config]="$any(finalConfig())"
-      (cadrartBlur)="handleBlur()"
-    ></cadrart-field-address>
+@if (finalConfig()) {
+  <div
+    class="cadrart-field-wrapper"
+    [class.cadrart-field-wrapper--has-error]="control.errors && (control.dirty || control.touched)"
+    >
+    <div class="cadrart-field-wrapper__control">
+      @switch (finalConfig().componentType) {
+        @case ('checkbox') {
+          <cadrart-field-checkbox
+            #fld
+            [name]="formControlName"
+            [form]="form"
+            [control]="$any(control)"
+            [config]="$any(finalConfig())"
+          ></cadrart-field-checkbox>
+        }
+        @case ('date') {
+          <cadrart-field-date
+            #fld
+            [name]="formControlName"
+            [form]="form"
+            [control]="$any(control)"
+            [config]="$any(finalConfig())"
+          ></cadrart-field-date>
+        }
+        @case ('image') {
+          <cadrart-field-image
+            #fld
+            [name]="formControlName"
+            [form]="form"
+            [control]="$any(control)"
+            [config]="$any(finalConfig())"
+          ></cadrart-field-image>
+        }
+        @case ('number') {
+          <cadrart-field-number
+            #fld
+            [name]="formControlName"
+            [form]="form"
+            [control]="$any(control)"
+            [config]="$any(finalConfig())"
+            (cadrartBlur)="handleBlur()"
+          ></cadrart-field-number>
+        }
+        @case ('orientation') {
+          <cadrart-field-orientation
+            #fld
+            [name]="formControlName"
+            [form]="form"
+            [control]="$any(control)"
+            [config]="$any(finalConfig())"
+          ></cadrart-field-orientation>
+        }
+        @case ('select') {
+          <cadrart-field-select
+            #fld
+            [name]="formControlName"
+            [form]="form"
+            [control]="$any(control)"
+            [config]="$any(finalConfig())"
+            (cadrartBlur)="handleBlur()"
+            (cadrartChange)="handleChange($event)"
+          ></cadrart-field-select>
+        }
+        @case ('text') {
+          <cadrart-field-text
+            #fld
+            [name]="formControlName"
+            [form]="form"
+            [control]="$any(control)"
+            [config]="$any(finalConfig())"
+            (cadrartBlur)="handleBlur()"
+          ></cadrart-field-text>
+        }
+        @case ('address') {
+          <cadrart-field-address
+            #fld
+            [name]="formControlName"
+            [form]="form"
+            [control]="$any(control)"
+            [config]="$any(finalConfig())"
+            (cadrartBlur)="handleBlur()"
+          ></cadrart-field-address>
+        }
+      }
+    </div>
+    @if (control?.errors && (control?.dirty || control?.touched)) {
+      <div class="cadrart-field-wrapper__error">
+        {{ control.errors | cadrartFormError }}
+      </div>
+    }
   </div>
-  <div *ngIf="control?.errors && (control?.dirty || control?.touched)" class="cadrart-field-wrapper__error">
-    {{ control.errors | cadrartFormError }}
-  </div>
-</div>
+}

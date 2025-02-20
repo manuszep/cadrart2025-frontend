@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -19,8 +19,6 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ECadrartOfferStatus, ICadrartClient, ICadrartJob, ICadrartOffer } from '@manuszep/cadrart2025-common';
 
 import { CadrartButtonComponent } from '../../../components/button/button.component';
-import { CadrartCardComponent } from '../../../components/card/card.component';
-import { CadrartIconComponent } from '../../../components/icon/icon.component';
 import { CadrartPricePipe } from '../../../pipes/price.pipe';
 import { CadrartFieldComponent } from '../../../form-system/field/field.component';
 import { CadrartOfferService } from '../../../services/offer.service';
@@ -48,18 +46,15 @@ import { PartialDeep } from '../../../utils';
   templateUrl: './offer-form.component.html',
   styleUrls: ['./offer-form.component.scss'],
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     TranslateModule,
-    CadrartCardComponent,
-    CadrartIconComponent,
     CadrartButtonComponent,
     CadrartPricePipe,
     CadrartFieldComponent,
     CadrartClientFormComponent,
     CadrartJobFormComponent,
     CadrartOfferHistoryComponent
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, signal, ViewEncapsulation } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -11,7 +10,7 @@ import { CadrartButtonComponent } from '../button/button.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, CadrartButtonComponent, TranslateModule]
+  imports: [CadrartButtonComponent, TranslateModule]
 })
 export class CadrartImageFromFileComponent {
   @Output() public cadrartCapture: EventEmitter<File> = new EventEmitter<File>();
@@ -23,7 +22,7 @@ export class CadrartImageFromFileComponent {
   private file: File | null = null;
 
   constructor() {
-    this.reader.onload = () => {
+    this.reader.onload = (): void => {
       this.capturedImage.set(this.reader.result as string);
     };
   }

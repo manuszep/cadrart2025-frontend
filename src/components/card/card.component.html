@@ -5,18 +5,24 @@
   [class.cadrart-card--image]="!!image"
   [class.cadrart-card--extended]="extended$()"
   [class.cadrart-card--overlay-active]="showOverlay"
-  [class.cadrart-card--has-error]="hasError"
->
-  <cadrart-image *ngIf="image" class="cadrart-card__image" [name]="image.name" [folder]="image.folder" size="s"></cadrart-image>
+  [class.cadrart-card--has-error]="hasError">
+  @if (image) {
+    <cadrart-image class="cadrart-card__image" [name]="image.name" [folder]="image.folder" size="s"></cadrart-image>
+  }
 
   <div class="cadrart-card__header">
     <div class="cadrart-card__header__wrapper">
-      <h1 *ngIf="title" class="cadrart-card__header__title">
-        {{ title | translate }}
-        <span *ngIf="subtitle" class="cadrart-card__header__title__subtitle">
-          {{ subtitle | translate }}
-        </span>
-      </h1>
+      @if (title) {
+        <h1 class="cadrart-card__header__title">
+          {{ title | translate }}
+          @if (subtitle) {
+            <span class="cadrart-card__header__title__subtitle">
+              {{ subtitle | translate }}
+            </span>
+          }
+        </h1>
+      }
+
       <ng-content select="[cadrartCardTitle]"></ng-content>
     </div>
   </div>
@@ -29,9 +35,11 @@
     <ng-content select="[cadrartCartExtended]"></ng-content>
   </div>
 
-  <div *ngIf="action" class="cadrart-card__footer">
-    <cadrart-button (cadrartClick)="handleActionClick()">{{ action | translate }}</cadrart-button>
-  </div>
+  @if (action) {
+    <div class="cadrart-card__footer">
+      <cadrart-button (cadrartClick)="handleActionClick()">{{ action | translate }}</cadrart-button>
+    </div>
+  }
 
   <div class="cadrart-card__actions">
     <cadrart-actions-group
@@ -45,8 +53,7 @@
       (cadrartEdit)="handleEditClick()"
       (cadrartConsult)="handleConsultClick()"
       (cadrartDuplicate)="handleDuplicateClick()"
-      (cadrartToggleExtend)="handleExtendClick()"
-    ></cadrart-actions-group>
+      (cadrartToggleExtend)="handleExtendClick()"></cadrart-actions-group>
   </div>
 
   <div class="cadrart-card__overlay">

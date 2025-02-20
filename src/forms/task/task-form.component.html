@@ -1,39 +1,51 @@
-<div style="display: contents" *ngIf="taskForm" [formGroup]="taskForm">
-  <tr class="cadrart-task-form" [class.cadrart-task-form--error]="taskForm.errors !== null">
-    <td *ngIf="isChild">
-      <cadrart-icon name="subdirectory_arrow_right"></cadrart-icon>
-    </td>
-    <td [colSpan]="isChild ? 1 : 2" class="cadrart-task-form__article">
-      <cadrart-field formControlName="article"></cadrart-field>
-    </td>
-    <td *ngIf="!taskForm.value.subTask" class="cadrart-task-form__subarticle">
-      <cadrart-button *ngIf="!isChild" [iconOnly]="true" icon="add_link" (cadrartClick)="handleAddSubTask()"></cadrart-button>
-    </td>
-    <td class="cadrart-task-form__comment">
-      <cadrart-field formControlName="comment"></cadrart-field>
-    </td>
-    <td class="cadrart-task-form__image">
-      <cadrart-field formControlName="image"></cadrart-field>
-    </td>
-    <td class="cadrart-task-form__price" [innerHTML]="total() | cadrartPrice"></td>
-    <td class="cadrart-task-form__price" [innerHTML]="totalWithVat() | cadrartPrice"></td>
-    <td class="cadrart-task-form__actions">
-      <cadrart-actions-group
-        *ngIf="canDelete"
-        [deletable]="true"
-        [editable]="false"
-        [consultable]="false"
-        (cadrartDelete)="handleDelete()"
-      ></cadrart-actions-group>
-    </td>
-  </tr>
-  <tr *ngIf="taskForm.errors !== null">
-    <td colspan="7" class="cadrart-task-form__error" [innerHTML]="taskForm.errors | cadrartFormError"></td>
-  </tr>
-
-  <ng-container formArrayName="children" *ngIf="getSubTasksControl() as subTasksControl">
-    <ng-container *ngFor="let subTaskForm of subTasksControl.controls; let i = index">
-      <cadrart-task-form [taskForm]="subTaskForm" [canDelete]="true" [isChild]="true"></cadrart-task-form>
-    </ng-container>
-  </ng-container>
-</div>
+@if (taskForm) {
+  <div style="display: contents" [formGroup]="taskForm">
+    <tr class="cadrart-task-form" [class.cadrart-task-form--error]="taskForm.errors !== null">
+      @if (isChild) {
+        <td>
+          <cadrart-icon name="subdirectory_arrow_right"></cadrart-icon>
+        </td>
+      }
+      <td [colSpan]="isChild ? 1 : 2" class="cadrart-task-form__article">
+        <cadrart-field formControlName="article"></cadrart-field>
+      </td>
+      @if (!taskForm.value.subTask) {
+        <td class="cadrart-task-form__subarticle">
+          @if (!isChild) {
+            <cadrart-button [iconOnly]="true" icon="add_link" (cadrartClick)="handleAddSubTask()"></cadrart-button>
+          }
+        </td>
+      }
+      <td class="cadrart-task-form__comment">
+        <cadrart-field formControlName="comment"></cadrart-field>
+      </td>
+      <td class="cadrart-task-form__image">
+        <cadrart-field formControlName="image"></cadrart-field>
+      </td>
+      <td class="cadrart-task-form__price" [innerHTML]="total() | cadrartPrice"></td>
+      <td class="cadrart-task-form__price" [innerHTML]="totalWithVat() | cadrartPrice"></td>
+      <td class="cadrart-task-form__actions">
+        @if (canDelete) {
+          <cadrart-actions-group
+            [deletable]="true"
+            [editable]="false"
+            [consultable]="false"
+            (cadrartDelete)="handleDelete()"
+          ></cadrart-actions-group>
+        }
+      </td>
+    </tr>
+    @if (taskForm.errors !== null) {
+      <tr>
+        <td colspan="7" class="cadrart-task-form__error" [innerHTML]="taskForm.errors | cadrartFormError"></td>
+      </tr>
+    }
+    @if (getSubTasksControl(); as subTasksControl) {
+      <ng-container formArrayName="children">
+        @for (subTaskForm of subTasksControl.controls; track subTaskForm; let i = $index) {
+          <cadrart-task-form [taskForm]="subTaskForm" [canDelete]="true" [isChild]="true"></cadrart-task-form>
+        }
+      </ng-container>
+    }
+  </div>
+}

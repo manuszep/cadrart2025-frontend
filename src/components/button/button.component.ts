@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -20,7 +19,7 @@ import { ICadrartColor, ICadrartSize } from '../../styles/styles.model';
   selector: 'cadrart-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
-  imports: [CommonModule, CadrartIconComponent],
+  imports: [CadrartIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true
@@ -109,11 +108,11 @@ export class CadrartButtonComponent implements OnChanges, OnDestroy {
     const specialKeys = ['enter', 'escape', 'space', 'tab'];
     const lastKey = parts[parts.length - 1].toLowerCase();
 
-    if (specialKeys.includes(lastKey) && e.code.toLowerCase() === lastKey) {
+    if (specialKeys.includes(lastKey) && e.code && e.code.toLowerCase() === lastKey) {
       this.cadrartClick.emit();
     }
 
-    if (e.code.toLowerCase() === `key${lastKey}`) {
+    if (e.code && e.code.toLowerCase() === `key${lastKey}`) {
       this.cadrartClick.emit();
     }
   }

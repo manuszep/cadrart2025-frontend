@@ -1,73 +1,95 @@
-<div class="cadrart-articles" *ngIf="data$ | async as data">
-  <cadrart-table
-    [data]="data"
-    [keys]="['namePlace', 'buySellPrice', 'type', 'maxReduction', 'provider', 'formula', 'maxSize', 'combine']"
-    [trackBy]="identify"
-    [getItemName]="getItemName"
-    [consultable]="false"
-    (cadrartEdit)="handleEditClick($event)"
-    (cadrartDelete)="handleDeleteClick($event)"
-  >
-    <td *cadrartTableValueFormatter="'namePlace'; let entry">
-      {{ entry.name }}<br *ngIf="entry.place" />{{ entry.place }}
-    </td>
-    <td *cadrartTableValueFormatter="'buySellPrice'; let entry">
-      {{ entry?.buyPrice }}&nbsp;&euro; <cadrart-icon name="arrow_right"></cadrart-icon>
-      {{ entry?.sellPrice }}&nbsp;&euro;
-    </td>
-    <td *cadrartTableValueFormatter="'getPriceMethod'; let entry">
-      {{ entry.getPriceMethod }}
-    </td>
-    <td *cadrartTableValueFormatter="'type'; let entry">
-      {{ 'ARTICLE.FAMILY.' + entry.family | translate }}
-      <br />
-      {{ 'ARTICLE.PRICEMETHOD.' + entry.getPriceMethod | translate }}
-    </td>
-    <td *cadrartTableValueFormatter="'maxReduction'; let entry">{{ entry.maxReduction }}&nbsp;&percnt;</td>
-    <td *cadrartTableValueFormatter="'provider'; let entry">
-      {{ entry.provider?.name }}
-      <br *ngIf="entry.provider && entry.providerRef" />
-      <small>{{ entry.providerRef }}</small>
-    </td>
-    <td *cadrartTableValueFormatter="'formula'; let entry">
-      <small>{{ entry.formula?.name }}</small>
-      <br />
-      <cadrart-formula-tag [fomula]="entry.formula?.formula"></cadrart-formula-tag>
-    </td>
-    <td class="cadrart-table__body__maxSize" *cadrartTableValueFormatter="'maxSize'; let entry">
-      <span *ngIf="entry.maxLength">{{ entry.maxLength }}</span>
-      <cadrart-icon *ngIf="!entry.maxLength" name="all_inclusive"></cadrart-icon>
-      &times;
-      <span *ngIf="entry.maxWidth">{{ entry.maxWidth }}</span>
-      <cadrart-icon *ngIf="!entry.maxWidth" name="all_inclusive"></cadrart-icon>
-    </td>
-    <td class="cadrart-table__body__combine" *cadrartTableValueFormatter="'combine'; let entry">
-      <cadrart-icon *ngIf="entry.combine" name="check"></cadrart-icon>
-      <cadrart-icon *ngIf="!entry.combine" name="close"></cadrart-icon>
-    </td>
-  </cadrart-table>
-</div>
+@if (data$ | async; as data) {
+  <div class="cadrart-articles">
+    <cadrart-table
+      [data]="data"
+      [keys]="['namePlace', 'buySellPrice', 'type', 'maxReduction', 'provider', 'formula', 'maxSize', 'combine']"
+      [trackBy]="identify"
+      [getItemName]="getItemName"
+      [consultable]="false"
+      (cadrartEdit)="handleEditClick($event)"
+      (cadrartDelete)="handleDeleteClick($event)"
+      >
+      <td *cadrartTableValueFormatter="'namePlace'; let entry">
+        {{ entry.name }}@if (entry.place) {
+        <br />
+        }{{ entry.place }}
+      </td>
+      <td *cadrartTableValueFormatter="'buySellPrice'; let entry">
+        {{ entry?.buyPrice }}&nbsp;&euro; <cadrart-icon name="arrow_right"></cadrart-icon>
+        {{ entry?.sellPrice }}&nbsp;&euro;
+      </td>
+      <td *cadrartTableValueFormatter="'getPriceMethod'; let entry">
+        {{ entry.getPriceMethod }}
+      </td>
+      <td *cadrartTableValueFormatter="'type'; let entry">
+        {{ 'ARTICLE.FAMILY.' + entry.family | translate }}
+        <br />
+        {{ 'ARTICLE.PRICEMETHOD.' + entry.getPriceMethod | translate }}
+      </td>
+      <td *cadrartTableValueFormatter="'maxReduction'; let entry">{{ entry.maxReduction }}&nbsp;&percnt;</td>
+      <td *cadrartTableValueFormatter="'provider'; let entry">
+        {{ entry.provider?.name }}
+        @if (entry.provider && entry.providerRef) {
+          <br />
+        }
+        <small>{{ entry.providerRef }}</small>
+      </td>
+      <td *cadrartTableValueFormatter="'formula'; let entry">
+        <small>{{ entry.formula?.name }}</small>
+        <br />
+        <cadrart-formula-tag [fomula]="entry.formula?.formula"></cadrart-formula-tag>
+      </td>
+      <td class="cadrart-table__body__maxSize" *cadrartTableValueFormatter="'maxSize'; let entry">
+        @if (entry.maxLength) {
+          <span>{{ entry.maxLength }}</span>
+        }
+        @if (!entry.maxLength) {
+          <cadrart-icon name="all_inclusive"></cadrart-icon>
+        }
+        &times;
+        @if (entry.maxWidth) {
+          <span>{{ entry.maxWidth }}</span>
+        }
+        @if (!entry.maxWidth) {
+          <cadrart-icon name="all_inclusive"></cadrart-icon>
+        }
+      </td>
+      <td class="cadrart-table__body__combine" *cadrartTableValueFormatter="'combine'; let entry">
+        @if (entry.combine) {
+          <cadrart-icon name="check"></cadrart-icon>
+        }
+        @if (!entry.combine) {
+          <cadrart-icon name="close"></cadrart-icon>
+        }
+      </td>
+    </cadrart-table>
+  </div>
+}
 
 <ng-template #formTemplate>
-  <form *ngIf="entityFormGroup" [formGroup]="entityFormGroup">
-    <cadrart-field formControlName="name"></cadrart-field>
-    <cadrart-field formControlName="place"></cadrart-field>
-    <cadrart-field formControlName="buyPrice"></cadrart-field>
-    <cadrart-field formControlName="sellPrice"></cadrart-field>
-    <cadrart-field formControlName="getPriceMethod" (cadrartChange)="handlePriceMethodChange($event)"></cadrart-field>
-    <cadrart-field formControlName="family"></cadrart-field>
-    <cadrart-field formControlName="maxReduction"></cadrart-field>
-    <cadrart-field formControlName="provider"></cadrart-field>
-    <cadrart-field formControlName="providerRef"></cadrart-field>
-    <cadrart-field formControlName="formula"></cadrart-field>
-    <cadrart-field
-      formControlName="maxLength"
-      *ngIf="entityFormGroup.get('getPriceMethod')?.value === 0 || entityFormGroup.get('getPriceMethod')?.value === 1"
-    ></cadrart-field>
-    <cadrart-field
-      formControlName="maxWidth"
-      *ngIf="entityFormGroup.get('getPriceMethod')?.value === 1"
-    ></cadrart-field>
-    <cadrart-field formControlName="combine"></cadrart-field>
-  </form>
+  @if (entityFormGroup) {
+    <form [esfsFormGroup]="entityFormGroup">
+      <esfs-field name="name"></esfs-field>
+      <esfs-field name="place"></esfs-field>
+      <esfs-field name="buyPrice"></esfs-field>
+      <esfs-field name="sellPrice"></esfs-field>
+      <esfs-field name="getPriceMethod" (esfsChange)="handlePriceMethodChange($event)"></esfs-field>
+      <esfs-field name="family"></esfs-field>
+      <esfs-field name="maxReduction"></esfs-field>
+      <esfs-field name="provider"></esfs-field>
+      <esfs-field name="providerRef"></esfs-field>
+      <esfs-field name="formula"></esfs-field>
+      @if (entityFormGroup.get('getPriceMethod')?.value === 0 || entityFormGroup.get('getPriceMethod')?.value === 1) {
+        <esfs-field
+          name="maxLength"
+        ></esfs-field>
+      }
+      @if (entityFormGroup.get('getPriceMethod')?.value === 1) {
+        <esfs-field
+          name="maxWidth"
+        ></esfs-field>
+      }
+      <esfs-field name="combine"></esfs-field>
+    </form>
+  }
 </ng-template>

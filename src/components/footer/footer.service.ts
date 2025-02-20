@@ -16,7 +16,7 @@ export class CadrartFooterService {
     return this._paginate$.asObservable();
   }
 
-  showFooter(content: TemplateRef<any>) {
+  showFooter(content: TemplateRef<any>): void {
     this._content$.next(content);
   }
 

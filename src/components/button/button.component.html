@@ -4,8 +4,17 @@
   [disabled]="disabled"
   [tabindex]="tabIndex"
   (click)="handleClick()">
-  <cadrart-icon *ngIf="icon && iconPosition === 'left'" [name]="icon || 'question_mark'"></cadrart-icon>
+  @if (icon && iconPosition === 'left') {
+    <cadrart-icon [name]="icon || 'question_mark'"></cadrart-icon>
+  }
+
   <div class="cadrart-button__content"><ng-content></ng-content></div>
-  <cadrart-icon *ngIf="icon && iconPosition === 'right'" [name]="icon || 'question_mark'"></cadrart-icon>
-  <small *ngIf="tag">{{ tag }}</small>
+
+  @if (icon && iconPosition === 'right') {
+    <cadrart-icon [name]="icon || 'question_mark'"></cadrart-icon>
+  }
+
+  @if (tag) {
+    <small>{{ tag }}</small>
+  }
 </button>

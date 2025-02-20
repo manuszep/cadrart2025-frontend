@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,7 +16,7 @@ import { CadrartFieldNumber } from './number.config';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslateModule, CadrartIconComponent, CadrartFieldLayoutComponent]
+  imports: [ReactiveFormsModule, TranslateModule, CadrartIconComponent, CadrartFieldLayoutComponent]
 })
 export class CadrartFieldNumberComponent extends CadrartFieldBaseComponent<number, CadrartFieldNumber> {
   public label?: string;

@@ -1,51 +1,52 @@
 import { ICadrartClient, ICadrartTag } from '@manuszep/cadrart2025-common';
-import { AbstractControlOptions } from '@angular/forms';
+import {
+  EsfsFormControl,
+  EsfsFormControlAddress,
+  EsfsFormControlDropdown,
+  EsfsFormControlNumber,
+  EsfsFormControlText,
+  EsfsFormGroup,
+  IEsfsFormGroupConfig,
+  IEsfsFormGroupOptions
+} from '@manuszep/es-form-system';
 
-import { CadrartFormControl } from '../form-system/form-control';
-import { CadrartFieldNumber } from '../form-system/number/number.config';
-import { CadrartFieldText } from '../form-system/text/text.config';
-import { CadrartFieldSelect } from '../form-system/select/select.config';
 import { CadrartTagService } from '../services/tag.service';
-import { CadrartFormGroup, FormConfig } from '../form-system/form-group';
-import { CadrartFieldAddress } from '../form-system/address/address.config';
+import { PartialDeep } from '../utils';
 
-function getFormConfig(tagService: CadrartTagService): FormConfig {
+function getFormConfig(tagService: CadrartTagService): IEsfsFormGroupConfig {
   return {
-    id: new CadrartFormControl<number | undefined>(undefined),
-    lastName: new CadrartFormControl('', new CadrartFieldText({ required: true, minLength: 2, maxLength: 50 })),
-    firstName: new CadrartFormControl('', new CadrartFieldText({ required: true, minLength: 2, maxLength: 50 })),
-    company: new CadrartFormControl('', new CadrartFieldText({ required: false, minLength: 2, maxLength: 50 })),
-    address: new CadrartFormControl('', new CadrartFieldAddress({ required: false })),
-    mail: new CadrartFormControl(
-      '',
-      new CadrartFieldText({ required: false, minLength: 2, maxLength: 255, type: 'email' })
-    ),
-    phone: new CadrartFormControl(
-      '',
-      new CadrartFieldText({ required: false, minLength: 2, maxLength: 20, type: 'tel' })
-    ),
-    phone2: new CadrartFormControl(
-      '',
-      new CadrartFieldText({ required: false, minLength: 2, maxLength: 20, type: 'tel' })
-    ),
-    vat: new CadrartFormControl(21, new CadrartFieldNumber({ required: true })),
-    tag: new CadrartFormControl<ICadrartTag | undefined>(
-      undefined,
-      new CadrartFieldSelect({ required: false, options: tagService.getEntitiesAsOptions() })
-    ),
-    reduction: new CadrartFormControl(
-      0,
-      new CadrartFieldNumber({ required: true, min: 0, max: 100, iconAfter: 'percent' })
-    )
+    id: new EsfsFormControl<number | undefined>(undefined),
+    lastName: new EsfsFormControlText('', { required: true, minLength: 2, maxLength: 50 }),
+    firstName: new EsfsFormControlText('', { required: true, minLength: 2, maxLength: 50 }),
+    company: new EsfsFormControlText('', { required: false, minLength: 2, maxLength: 50 }),
+    address: new EsfsFormControlAddress({ country: 'BE' }),
+    mail: new EsfsFormControlText('', { required: false, minLength: 2, maxLength: 255, type: 'email' }),
+    phone: new EsfsFormControlText('', { required: false, minLength: 2, maxLength: 20, type: 'tel' }),
+    phone2: new EsfsFormControlText('', { required: false, minLength: 2, maxLength: 20, type: 'tel' }),
+    vat: new EsfsFormControlNumber(21, { required: true }),
+    tag: new EsfsFormControlDropdown<ICadrartTag | undefined>(undefined, {
+      required: false,
+      options: tagService.getEntitiesAsOptions()
+    }),
+    reduction: new EsfsFormControlNumber(0, { required: true, min: 0, max: 100, iconAfter: 'percent' })
   };
 }
 
-export class CadrartClientForm extends CadrartFormGroup<ICadrartClient> {
+export class CadrartClientForm extends EsfsFormGroup<ICadrartClient> {
   constructor(
     tagService: CadrartTagService,
     entity?: ICadrartClient,
-    options: AbstractControlOptions = { updateOn: 'change' }
+    options: IEsfsFormGroupOptions = { updateOn: 'change' }
   ) {
-    super(getFormConfig(tagService), entity ?? {}, options);
+    super(getFormConfig(tagService), options, 'FIELD', false, entity ?? {});
+  }
+
+  public override getRawValue(): PartialDeep<ICadrartClient> {
+    const data = super.getRawValue();
+
+    return {
+      ...data,
+      address: JSON.stringify(data.address ?? {})
+    };
   }
 }
