@@ -16,7 +16,6 @@ import { CadrartDataConnectorService } from '../../services/data-connector.servi
 import { cadrartAnimationFlipInX, cadrartAnimationFlipOutX } from '../../utils/animation';
 import { CadrartHeaderService } from '../header/header.service';
 import { CadrartInspectorService } from '../inspector/inspector.service';
-import { CadrartFormGroup } from '../../form-system/form-group';
 
 @Component({
   selector: 'cadrart-settings-page-component',
@@ -33,7 +32,7 @@ import { CadrartFormGroup } from '../../form-system/form-group';
 })
 export abstract class CadrartSettingsPageComponent<
   TEntity extends ICadrartApiEntity,
-  TFormGroup extends CadrartFormGroup<TEntity> | EsfsFormGroup<TEntity>
+  TFormGroup extends EsfsFormGroup<TEntity> | EsfsFormGroup<TEntity>
 > implements OnDestroy
 {
   protected unsubscribeSubject$ = new Subject<void>();

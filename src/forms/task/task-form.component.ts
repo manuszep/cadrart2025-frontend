@@ -19,7 +19,7 @@ import { CadrartActionsGroupComponent } from '../../components/actions-group/act
 import { CadrartIconComponent } from '../../components/icon/icon.component';
 import { CadrartButtonComponent } from '../../components/button/button.component';
 import { CadrartPricePipe } from '../../pipes/price.pipe';
-import { CadrartFormErrorPipe } from '../../form-system/error.pipe';
+import { CadrartFormErrorPipe } from '../../pipes/error.pipe';
 import { CadrartTaskForm } from '../../models/task.form';
 
 @Component({

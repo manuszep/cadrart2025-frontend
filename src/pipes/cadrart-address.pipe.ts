@@ -1,22 +1,21 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { IEsfsFormControlAddressValue } from '@manuszep/es-form-system';
 
-import { ICadrartFieldAddressValue } from '../form-system/address/address.config';
-
-export function parseJsonValue(value: string | null): ICadrartFieldAddressValue {
+export function parseJsonValue(value: string | null): IEsfsFormControlAddressValue {
   if (!value) {
-    return {} as ICadrartFieldAddressValue;
+    return {} as IEsfsFormControlAddressValue;
   }
 
   try {
-    const parsed = JSON.parse(value) as ICadrartFieldAddressValue;
+    const parsed = JSON.parse(value) as IEsfsFormControlAddressValue;
 
     if (parsed && typeof parsed === 'object') {
       return parsed;
     }
 
-    return {} as ICadrartFieldAddressValue;
+    return {} as IEsfsFormControlAddressValue;
   } catch (_e) {
-    return {} as ICadrartFieldAddressValue;
+    return {} as IEsfsFormControlAddressValue;
   }
 }
 

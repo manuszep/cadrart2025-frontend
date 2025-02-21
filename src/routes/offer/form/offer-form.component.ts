@@ -19,7 +19,6 @@ import { EsfsFieldComponent, EsfsFormArray, EsfsFormGroupDirective } from '@manu
 
 import { CadrartButtonComponent } from '../../../components/button/button.component';
 import { CadrartPricePipe } from '../../../pipes/price.pipe';
-import { CadrartFieldComponent } from '../../../form-system/field/field.component';
 import { CadrartOfferService } from '../../../services/offer.service';
 import { CadrartInspectorService } from '../../../components/inspector/inspector.service';
 import { CadrartClientFormComponent } from '../../../forms/client/client-form.component';
