@@ -12,13 +12,12 @@ import {
 } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ICadrartJob } from '@manuszep/cadrart2025-common';
-import { FormArray, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { EsfsFieldComponent, EsfsFormArray, EsfsFormGroupDirective } from '@manuszep/es-form-system';
 
 import { CadrartCardComponent } from '../../components/card/card.component';
 import { CadrartIconComponent } from '../../components/icon/icon.component';
 import { CadrartPricePipe } from '../../pipes/price.pipe';
-import { CadrartFieldComponent } from '../../form-system/field/field.component';
 import { CadrartTaskFormComponent } from '../task/task-form.component';
 import { CadrartJobForm } from '../../models/job.form';
 import { CadrartTaskForm } from '../../models/task.form';
@@ -29,13 +28,13 @@ import { PartialDeep } from '../../utils';
   templateUrl: './job-form.component.html',
   styleUrls: ['./job-form.component.scss'],
   imports: [
-    ReactiveFormsModule,
     TranslateModule,
     CadrartCardComponent,
     CadrartIconComponent,
     CadrartPricePipe,
-    CadrartFieldComponent,
-    CadrartTaskFormComponent
+    EsfsFieldComponent,
+    CadrartTaskFormComponent,
+    EsfsFormGroupDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -70,8 +69,8 @@ export class CadrartJobFormComponent implements OnInit, OnDestroy {
     this.unsubscribeSubject$.complete();
   }
 
-  getTasksControl(): FormArray<CadrartTaskForm> {
-    return this.jobForm?.get('tasks') as FormArray<CadrartTaskForm>;
+  getTasksControl(): EsfsFormArray<CadrartTaskForm> {
+    return this.jobForm?.get('tasks') as EsfsFormArray<CadrartTaskForm>;
   }
 
   handleDuplicateClick(): void {

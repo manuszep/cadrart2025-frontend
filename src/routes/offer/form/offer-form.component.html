@@ -1,5 +1,5 @@
 @if (offerForm) {
-  <form class="cadrart-offer-form" [formGroup]="offerForm">
+  <form class="cadrart-offer-form" [esfsFormGroup]="offerForm">
     <div class="cadrart-offer-form__main">
       <div class="cadrart-offer-form__main__section cadrart-offer-form__main__section--1">
         @if (!offerId) {
@@ -9,7 +9,7 @@
           <h1 [innerHTML]="'OFFER.FORM.TITLE' | translate : { number: offerForm.getNumber().value }"></h1>
         }
         <div class="cadrart-offer-form__client-field">
-          <cadrart-field formControlName="client" (onChange)="handleModelChange()"></cadrart-field>
+          <esfs-field name="client" (onChange)="handleModelChange()"></esfs-field>
           <cadrart-button icon="add_circle_outline" [iconOnly]="true" (cadrartClick)="handleAddClient()"></cadrart-button>
           <cadrart-button
             icon="history"
@@ -17,11 +17,11 @@
             [disabled]="!this.offerForm.get('client')?.value"
             (cadrartClick)="handleClientHistoryClick()"></cadrart-button>
         </div>
-        <cadrart-field formControlName="assignedTo"></cadrart-field>
+        <esfs-field name="assignedTo"></esfs-field>
       </div>
       <div class="cadrart-offer-form__main__section cadrart-offer-form__main__section--2">
-        <cadrart-field formControlName="adjustedVat" (change)="handleModelChange()"></cadrart-field>
-        <cadrart-field formControlName="adjustedReduction" (change)="handleModelChange()"></cadrart-field>
+        <esfs-field name="adjustedVat" (change)="handleModelChange()"></esfs-field>
+        <esfs-field name="adjustedReduction" (change)="handleModelChange()"></esfs-field>
       </div>
     </div>
     <div #jobs class="cadrart-offer-form__jobs">

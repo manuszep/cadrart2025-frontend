@@ -20,7 +20,7 @@
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
     "@manuszep/cadrart2025-common": "^1.0.2",
-    "@manuszep/es-form-system": "^0.0.5",
+    "@manuszep/es-form-system": "^0.0.6",
     "@ngx-translate/http-loader": "^8.0.0",
     "ngx-socket-io": "^4.7.0",
     "rxjs": "~7.8.0",

@@ -1,5 +1,5 @@
 @if (jobForm) {
-  <form [formGroup]="jobForm">
+  <form [esfsFormGroup]="jobForm">
     <cadrart-card
       class="cadrart-job-form"
       [hasError]="jobForm.status === 'INVALID' && (jobForm.dirty || jobForm.touched)"
@@ -11,19 +11,19 @@
       (cadrartToggle)="handleToggleClick()"
       (cadrartDelete)="handleDeleteClick()">
       <div cadrartCardTitle class="cadrart-job-form__title">
-        <cadrart-field
+        <esfs-field
           class="cadrart-job-form__title__item cadrart-job-form__title__count"
-          formControlName="count"></cadrart-field>
+          name="count"></esfs-field>
         <cadrart-icon class="cadrart-job-form__title__item cadrart-job-form__title__times" name="close"></cadrart-icon>
-        <cadrart-field
+        <esfs-field
           class="cadrart-job-form__title__item cadrart-job-form__title__image"
-          formControlName="image"></cadrart-field>
-        <cadrart-field
+          name="image"></esfs-field>
+        <esfs-field
           class="cadrart-job-form__title__item cadrart-job-form__title__orientation"
-          formControlName="orientation"></cadrart-field>
-        <cadrart-field
+          name="orientation"></esfs-field>
+        <esfs-field
           class="cadrart-job-form__title__item cadrart-job-form__title__description"
-          formControlName="description"></cadrart-field>
+          name="description"></esfs-field>
         <div
           class="cadrart-job-form__title__item cadrart-job-form__title__price"
           [innerHTML]="total() | cadrartPrice"></div>
@@ -45,18 +45,18 @@
                 <th>{{ 'OFFER.FORM.OPENING' | translate }}</th>
                 <td>
                   <fieldset [disabled]="autoValue() === 'opening'">
-                    <cadrart-field formControlName="autoOpening" (change)="handleAutoOpeningChange()"></cadrart-field>
+                    <esfs-field name="autoOpening" (change)="handleAutoOpeningChange()"></esfs-field>
                   </fieldset>
                 </td>
                 <td>
                   <fieldset [disabled]="autoValue() === 'opening'">
-                    <cadrart-field formControlName="openingWidth"></cadrart-field>
+                    <esfs-field name="openingWidth"></esfs-field>
                   </fieldset>
                 </td>
                 <td>&times;</td>
                 <td>
                   <fieldset [disabled]="autoValue() === 'opening'">
-                    <cadrart-field formControlName="openingHeight"></cadrart-field>
+                    <esfs-field name="openingHeight"></esfs-field>
                   </fieldset>
                 </td>
               </tr>
@@ -64,18 +64,18 @@
                 <th>{{ 'OFFER.FORM.MARGIN' | translate }}</th>
                 <td>
                   <fieldset [disabled]="autoValue() === 'margin'">
-                    <cadrart-field formControlName="autoMargin" (change)="handleAutoMarginChange()"></cadrart-field>
+                    <esfs-field name="autoMargin" (change)="handleAutoMarginChange()"></esfs-field>
                   </fieldset>
                 </td>
                 <td>
                   <fieldset [disabled]="autoValue() === 'margin'">
-                    <cadrart-field formControlName="marginWidth"></cadrart-field>
+                    <esfs-field name="marginWidth"></esfs-field>
                   </fieldset>
                 </td>
                 <td>&times;</td>
                 <td>
                   <fieldset [disabled]="autoValue() === 'margin'">
-                    <cadrart-field formControlName="marginHeight"></cadrart-field>
+                    <esfs-field name="marginHeight"></esfs-field>
                   </fieldset>
                 </td>
               </tr>
@@ -83,28 +83,28 @@
                 <th>{{ 'OFFER.FORM.GLASS' | translate }}</th>
                 <td>
                   <fieldset [disabled]="autoValue() === 'glass'">
-                    <cadrart-field formControlName="autoGlass" (change)="handleAutoGlassChange()"></cadrart-field>
+                    <esfs-field name="autoGlass" (change)="handleAutoGlassChange()"></esfs-field>
                   </fieldset>
                 </td>
                 <td>
                   <fieldset [disabled]="autoValue() === 'glass'">
-                    <cadrart-field formControlName="glassWidth"></cadrart-field>
+                    <esfs-field name="glassWidth"></esfs-field>
                   </fieldset>
                 </td>
                 <td>&times;</td>
                 <td>
                   <fieldset [disabled]="autoValue() === 'glass'">
-                    <cadrart-field formControlName="glassHeight"></cadrart-field>
+                    <esfs-field name="glassHeight"></esfs-field>
                   </fieldset>
                 </td>
               </tr>
             </tbody>
           </table>
           <div class="cadrart-job-form__details__extras">
-            <cadrart-field formControlName="measure"></cadrart-field>
-            <cadrart-field formControlName="location"></cadrart-field>
-            <cadrart-field formControlName="dueDate"></cadrart-field>
-            <cadrart-field formControlName="startDate"></cadrart-field>
+            <esfs-field name="measure"></esfs-field>
+            <esfs-field name="location"></esfs-field>
+            <esfs-field name="dueDate"></esfs-field>
+            <esfs-field name="startDate"></esfs-field>
           </div>
         </div>
         <table class="cadrart-job-form__tasks">

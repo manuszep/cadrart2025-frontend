@@ -1,4 +1,3 @@
-import { AbstractControlOptions, FormArray } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import {
   ECadrartJobMeasureType,
@@ -7,158 +6,134 @@ import {
   ICadrartLocation,
   ICadrartTask
 } from '@manuszep/cadrart2025-common';
+import {
+  EsfsFormArray,
+  EsfsFormControl,
+  EsfsFormControlCheckbox,
+  EsfsFormControlDate,
+  EsfsFormControlDropdown,
+  EsfsFormControlNumber,
+  EsfsFormControlText,
+  EsfsFormGroup,
+  IEsfsFormGroupConfig,
+  IEsfsFormGroupOptions
+} from '@manuszep/es-form-system';
 
-import { CadrartFormControl } from '../form-system/form-control';
-import { CadrartFieldNumber } from '../form-system/number/number.config';
-import { CadrartFieldOrientation } from '../form-system/orientation/orientation.config';
-import { CadrartFieldSelect } from '../form-system/select/select.config';
 import { CadrartLocationService } from '../services/location.service';
-import { CadrartFieldText } from '../form-system/text/text.config';
-import { CadrartFieldImage } from '../form-system/image/image.config';
-import { CadrartFieldCheckbox } from '../form-system/checkbox/checkbox.config';
-import { CadrartFormGroup, FormConfig } from '../form-system/form-group';
 import { CadrartArticleService } from '../services/article.service';
 import { numberRound2, PartialDeep } from '../utils';
 import { cadrartGetJobMeasureLabel } from '../pipes/job-measure.pipe';
-import { CadrartFieldDate } from '../form-system/date/date.config';
+import { CadrartFormControlOrientation } from '../components/form-control-orientation/form-control-orientation.component';
+import { CadrartFormControlImage } from '../components/form-control-image/form-control-image.component';
 
 import { CadrartTaskForm } from './task.form';
 import { CadrartTask } from './task.model';
 
-function getFormConfig(locationService: CadrartLocationService): FormConfig {
+function getFormConfig(locationService: CadrartLocationService): IEsfsFormGroupConfig {
   return {
-    id: new CadrartFormControl<number | undefined>(undefined),
-    count: new CadrartFormControl(
-      1,
-      new CadrartFieldNumber({ required: true, min: 0, label: false, placeholder: false })
-    ),
-    orientation: new CadrartFormControl(
-      ECadrartJobOrientation.VERTICAL,
-      new CadrartFieldOrientation({
-        required: true
-      })
-    ),
-    measure: new CadrartFormControl(
-      ECadrartJobMeasureType.MEASURE_OPENING,
-      new CadrartFieldSelect({
-        required: true,
-        placeholder: false,
-        options: [
-          {
-            label: cadrartGetJobMeasureLabel(ECadrartJobMeasureType.MEASURE_APPROX),
-            value: ECadrartJobMeasureType.MEASURE_APPROX
-          },
-          {
-            label: cadrartGetJobMeasureLabel(ECadrartJobMeasureType.MEASURE_EXTERIOR),
-            value: ECadrartJobMeasureType.MEASURE_EXTERIOR
-          },
-          {
-            label: cadrartGetJobMeasureLabel(ECadrartJobMeasureType.MEASURE_GLASS),
-            value: ECadrartJobMeasureType.MEASURE_GLASS
-          },
-          {
-            label: cadrartGetJobMeasureLabel(ECadrartJobMeasureType.MEASURE_OPENING),
-            value: ECadrartJobMeasureType.MEASURE_OPENING
-          }
-        ]
-      })
-    ),
-    location: new CadrartFormControl<ICadrartLocation | undefined>(
-      undefined,
-      new CadrartFieldSelect({
-        options: locationService.getEntitiesAsOptions()
-      })
-    ),
-    dueDate: new CadrartFormControl('', new CadrartFieldDate({ required: false, future: true })),
-    startDate: new CadrartFormControl('', new CadrartFieldDate({ required: false })),
-    openingWidth: new CadrartFormControl(
-      0,
-      new CadrartFieldNumber({
-        required: true,
-        label: false,
-        placeholder: false,
-        min: 0,
-        textAfter: 'cm',
-        updateOn: 'change'
-      })
-    ),
-    openingHeight: new CadrartFormControl(
-      0,
-      new CadrartFieldNumber({
-        required: true,
-        label: false,
-        placeholder: false,
-        min: 0,
-        textAfter: 'cm',
-        updateOn: 'change'
-      })
-    ),
-    marginWidth: new CadrartFormControl(
-      0,
-      new CadrartFieldNumber({
-        required: true,
-        label: false,
-        placeholder: false,
-        min: 0,
-        textAfter: 'cm',
-        updateOn: 'change'
-      })
-    ),
-    marginHeight: new CadrartFormControl(
-      0,
-      new CadrartFieldNumber({
-        required: true,
-        label: false,
-        placeholder: false,
-        min: 0,
-        textAfter: 'cm',
-        updateOn: 'change'
-      })
-    ),
-    glassWidth: new CadrartFormControl(
-      0,
-      new CadrartFieldNumber({
-        required: true,
-        label: false,
-        placeholder: false,
-        min: 0,
-        textAfter: 'cm',
-        updateOn: 'change'
-      })
-    ),
-    glassHeight: new CadrartFormControl(
-      0,
-      new CadrartFieldNumber({
-        required: true,
-        label: false,
-        placeholder: false,
-        min: 0,
-        textAfter: 'cm',
-        updateOn: 'change'
-      })
-    ),
-    tasks: new FormArray<CadrartTaskForm>([]),
-    description: new CadrartFormControl('', new CadrartFieldText({ required: false, maxLength: 255 })),
-    image: new CadrartFormControl('', new CadrartFieldImage({ required: false, folder: 'job' })),
-    autoMargin: new CadrartFormControl(false, new CadrartFieldCheckbox({ label: false, tabIndex: 1 })),
-    autoOpening: new CadrartFormControl(false, new CadrartFieldCheckbox({ label: false, tabIndex: 1 })),
-    autoGlass: new CadrartFormControl(true, new CadrartFieldCheckbox({ label: false, tabIndex: 1 })),
-    total: new CadrartFormControl<number>(0),
-    totalBeforeReduction: new CadrartFormControl<number>(0),
-    totalWithVat: new CadrartFormControl<number>(0)
+    id: new EsfsFormControl<number | undefined>(undefined),
+    count: new EsfsFormControlNumber(1, { required: true, min: 0, label: false, placeholder: false }),
+    orientation: new CadrartFormControlOrientation(ECadrartJobOrientation.VERTICAL, {
+      required: true
+    }),
+    measure: new EsfsFormControlDropdown(ECadrartJobMeasureType.MEASURE_OPENING, {
+      required: true,
+      placeholder: false,
+      options: [
+        {
+          label: cadrartGetJobMeasureLabel(ECadrartJobMeasureType.MEASURE_APPROX),
+          value: ECadrartJobMeasureType.MEASURE_APPROX
+        },
+        {
+          label: cadrartGetJobMeasureLabel(ECadrartJobMeasureType.MEASURE_EXTERIOR),
+          value: ECadrartJobMeasureType.MEASURE_EXTERIOR
+        },
+        {
+          label: cadrartGetJobMeasureLabel(ECadrartJobMeasureType.MEASURE_GLASS),
+          value: ECadrartJobMeasureType.MEASURE_GLASS
+        },
+        {
+          label: cadrartGetJobMeasureLabel(ECadrartJobMeasureType.MEASURE_OPENING),
+          value: ECadrartJobMeasureType.MEASURE_OPENING
+        }
+      ]
+    }),
+    location: new EsfsFormControlDropdown<ICadrartLocation | undefined>(undefined, {
+      options: locationService.getEntitiesAsOptions(),
+      required: false
+    }),
+    dueDate: new EsfsFormControlDate('', { required: false, future: true }),
+    startDate: new EsfsFormControlDate('', { required: false }),
+    openingWidth: new EsfsFormControlNumber(0, {
+      required: true,
+      label: false,
+      placeholder: false,
+      min: 0,
+      textAfter: true,
+      updateOn: 'change'
+    }),
+    openingHeight: new EsfsFormControlNumber(0, {
+      required: true,
+      label: false,
+      placeholder: false,
+      min: 0,
+      textAfter: true,
+      updateOn: 'change'
+    }),
+    marginWidth: new EsfsFormControlNumber(0, {
+      required: true,
+      label: false,
+      placeholder: false,
+      min: 0,
+      textAfter: true,
+      updateOn: 'change'
+    }),
+    marginHeight: new EsfsFormControlNumber(0, {
+      required: true,
+      label: false,
+      placeholder: false,
+      min: 0,
+      textAfter: true,
+      updateOn: 'change'
+    }),
+    glassWidth: new EsfsFormControlNumber(0, {
+      required: true,
+      label: false,
+      placeholder: false,
+      min: 0,
+      textAfter: true,
+      updateOn: 'change'
+    }),
+    glassHeight: new EsfsFormControlNumber(0, {
+      required: true,
+      label: false,
+      placeholder: false,
+      min: 0,
+      textAfter: true,
+      updateOn: 'change'
+    }),
+    tasks: new EsfsFormArray<CadrartTaskForm>([]),
+    description: new EsfsFormControlText('', { required: false, maxLength: 255 }),
+    image: new CadrartFormControlImage('', { required: false, folder: 'job' }),
+    autoMargin: new EsfsFormControlCheckbox(false, { label: false, tabIndex: 1, required: false }),
+    autoOpening: new EsfsFormControlCheckbox(false, { label: false, tabIndex: 1, required: false }),
+    autoGlass: new EsfsFormControlCheckbox(true, { label: false, tabIndex: 1, required: false }),
+    total: new EsfsFormControl<number>(0),
+    totalBeforeReduction: new EsfsFormControl<number>(0),
+    totalWithVat: new EsfsFormControl<number>(0)
   };
 }
 
-export class CadrartJobForm extends CadrartFormGroup<ICadrartJob> {
+export class CadrartJobForm extends EsfsFormGroup<ICadrartJob> {
   private $updateEvents: Subject<PartialDeep<ICadrartJob>> = new Subject();
 
   constructor(
     locationService: CadrartLocationService,
     private readonly articleService: CadrartArticleService,
     entity?: ICadrartJob,
-    options: AbstractControlOptions = { updateOn: 'change' }
+    options: IEsfsFormGroupOptions = { updateOn: 'change' }
   ) {
-    super(getFormConfig(locationService), entity ?? {}, options);
+    super(getFormConfig(locationService), options, 'FIELD', false, entity ?? {});
 
     if (entity && entity.tasks) {
       for (const task of entity.tasks) {
@@ -175,92 +150,92 @@ export class CadrartJobForm extends CadrartFormGroup<ICadrartJob> {
     return this.$updateEvents.asObservable();
   }
 
-  getCount(): CadrartFormControl<number> {
-    return this.get('count') as CadrartFormControl<number>;
+  getCount(): EsfsFormControl<number> {
+    return this.get('count') as EsfsFormControl<number>;
   }
 
-  getOrientation(): CadrartFormControl<ECadrartJobOrientation> {
-    return this.get('orientation') as CadrartFormControl<ECadrartJobOrientation>;
+  getOrientation(): EsfsFormControl<ECadrartJobOrientation> {
+    return this.get('orientation') as EsfsFormControl<ECadrartJobOrientation>;
   }
 
-  getMeasure(): CadrartFormControl<ECadrartJobMeasureType> {
-    return this.get('measure') as CadrartFormControl<ECadrartJobMeasureType>;
+  getMeasure(): EsfsFormControl<ECadrartJobMeasureType> {
+    return this.get('measure') as EsfsFormControl<ECadrartJobMeasureType>;
   }
 
-  getLocation(): CadrartFormControl<ICadrartLocation | undefined> {
-    return this.get('location') as CadrartFormControl<ICadrartLocation | undefined>;
+  getLocation(): EsfsFormControl<ICadrartLocation | undefined> {
+    return this.get('location') as EsfsFormControl<ICadrartLocation | undefined>;
   }
 
-  getDueDate(): CadrartFormControl<string> {
-    return this.get('dueDate') as CadrartFormControl<string>;
+  getDueDate(): EsfsFormControl<string> {
+    return this.get('dueDate') as EsfsFormControl<string>;
   }
 
-  getStartDate(): CadrartFormControl<string> {
-    return this.get('startDate') as CadrartFormControl<string>;
+  getStartDate(): EsfsFormControl<string> {
+    return this.get('startDate') as EsfsFormControl<string>;
   }
 
-  getOpeningWidth(): CadrartFormControl<number> {
-    return this.get('openingWidth') as CadrartFormControl<number>;
+  getOpeningWidth(): EsfsFormControl<number> {
+    return this.get('openingWidth') as EsfsFormControl<number>;
   }
 
-  getOpeningHeight(): CadrartFormControl<number> {
-    return this.get('openingHeight') as CadrartFormControl<number>;
+  getOpeningHeight(): EsfsFormControl<number> {
+    return this.get('openingHeight') as EsfsFormControl<number>;
   }
 
-  getMarginWidth(): CadrartFormControl<number> {
-    return this.get('marginWidth') as CadrartFormControl<number>;
+  getMarginWidth(): EsfsFormControl<number> {
+    return this.get('marginWidth') as EsfsFormControl<number>;
   }
 
-  getMarginHeight(): CadrartFormControl<number> {
-    return this.get('marginHeight') as CadrartFormControl<number>;
+  getMarginHeight(): EsfsFormControl<number> {
+    return this.get('marginHeight') as EsfsFormControl<number>;
   }
 
-  getGlassWidth(): CadrartFormControl<number> {
-    return this.get('glassWidth') as CadrartFormControl<number>;
+  getGlassWidth(): EsfsFormControl<number> {
+    return this.get('glassWidth') as EsfsFormControl<number>;
   }
 
-  getGlassHeight(): CadrartFormControl<number> {
-    return this.get('glassHeight') as CadrartFormControl<number>;
+  getGlassHeight(): EsfsFormControl<number> {
+    return this.get('glassHeight') as EsfsFormControl<number>;
   }
 
-  getTasks(): FormArray<CadrartTaskForm> {
-    return this.get('tasks') as FormArray<CadrartTaskForm>;
+  getTasks(): EsfsFormArray<CadrartTaskForm> {
+    return this.get('tasks') as EsfsFormArray<CadrartTaskForm>;
   }
 
-  getDescription(): CadrartFormControl<string> {
-    return this.get('description') as CadrartFormControl<string>;
+  getDescription(): EsfsFormControl<string> {
+    return this.get('description') as EsfsFormControl<string>;
   }
 
-  getImage(): CadrartFormControl<string> {
-    return this.get('image') as CadrartFormControl<string>;
+  getImage(): EsfsFormControl<string> {
+    return this.get('image') as EsfsFormControl<string>;
   }
 
-  getAutoMargin(): CadrartFormControl<boolean> {
-    return this.get('autoMargin') as CadrartFormControl<boolean>;
+  getAutoMargin(): EsfsFormControl<boolean> {
+    return this.get('autoMargin') as EsfsFormControl<boolean>;
   }
 
-  getAutoOpening(): CadrartFormControl<boolean> {
-    return this.get('autoOpening') as CadrartFormControl<boolean>;
+  getAutoOpening(): EsfsFormControl<boolean> {
+    return this.get('autoOpening') as EsfsFormControl<boolean>;
   }
 
-  getAutoGlass(): CadrartFormControl<boolean> {
-    return this.get('autoGlass') as CadrartFormControl<boolean>;
+  getAutoGlass(): EsfsFormControl<boolean> {
+    return this.get('autoGlass') as EsfsFormControl<boolean>;
   }
 
-  getTotal(): CadrartFormControl<number> {
-    return this.get('total') as CadrartFormControl<number>;
+  getTotal(): EsfsFormControl<number> {
+    return this.get('total') as EsfsFormControl<number>;
   }
 
-  getTotalBeforeReduction(): CadrartFormControl<number> {
-    return this.get('totalBeforeReduction') as CadrartFormControl<number>;
+  getTotalBeforeReduction(): EsfsFormControl<number> {
+    return this.get('totalBeforeReduction') as EsfsFormControl<number>;
   }
 
-  getTotalWithVat(): CadrartFormControl<number> {
-    return this.get('totalWithVat') as CadrartFormControl<number>;
+  getTotalWithVat(): EsfsFormControl<number> {
+    return this.get('totalWithVat') as EsfsFormControl<number>;
   }
 
   public addTask(task?: ICadrartTask): void {
-    (this.get('tasks') as FormArray<CadrartTaskForm>).push(new CadrartTaskForm(this.articleService, task), {
+    (this.get('tasks') as EsfsFormArray<CadrartTaskForm>).push(new CadrartTaskForm(this.articleService, task), {
       emitEvent: false
     });
   }

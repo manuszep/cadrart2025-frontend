@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -12,15 +11,14 @@ import {
   WritableSignal,
   signal
 } from '@angular/core';
-import { FormArray, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
+import { EsfsFieldComponent, EsfsFormArray, EsfsFormGroupDirective } from '@manuszep/es-form-system';
 
 import { CadrartActionsGroupComponent } from '../../components/actions-group/actions-group.component';
 import { CadrartIconComponent } from '../../components/icon/icon.component';
 import { CadrartButtonComponent } from '../../components/button/button.component';
 import { CadrartPricePipe } from '../../pipes/price.pipe';
-import { CadrartFieldComponent } from '../../form-system/field/field.component';
 import { CadrartFormErrorPipe } from '../../form-system/error.pipe';
 import { CadrartTaskForm } from '../../models/task.form';
 
@@ -29,15 +27,15 @@ import { CadrartTaskForm } from '../../models/task.form';
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.scss'],
   imports: [
-    ReactiveFormsModule,
     TranslateModule,
     CadrartIconComponent,
     CadrartButtonComponent,
     CadrartPricePipe,
-    CadrartFieldComponent,
+    EsfsFieldComponent,
     CadrartFormErrorPipe,
-    CadrartActionsGroupComponent
-],
+    CadrartActionsGroupComponent,
+    EsfsFormGroupDirective
+  ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
@@ -70,8 +68,8 @@ export class CadrartTaskFormComponent implements OnInit, OnDestroy {
     this.unsubscribeSubject$.complete();
   }
 
-  public getSubTasksControl(): FormArray<CadrartTaskForm> {
-    return this.taskForm?.get('children') as FormArray<CadrartTaskForm>;
+  public getSubTasksControl(): EsfsFormArray<CadrartTaskForm> {
+    return this.taskForm?.get('children') as EsfsFormArray<CadrartTaskForm>;
   }
 
   public handleChange(): void {

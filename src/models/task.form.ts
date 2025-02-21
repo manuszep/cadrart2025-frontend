@@ -1,42 +1,50 @@
-import { AbstractControl, AbstractControlOptions, FormArray, ValidationErrors } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { ECadrartArticlePriceMethod, ICadrartArticle, ICadrartTask } from '@manuszep/cadrart2025-common';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import {
+  EsfsFormArray,
+  EsfsFormControl,
+  EsfsFormControlDropdown,
+  EsfsFormControlNumber,
+  EsfsFormControlText,
+  EsfsFormGroup,
+  IEsfsDropdownOption,
+  IEsfsFormGroupConfig,
+  IEsfsFormGroupOptions
+} from '@manuszep/es-form-system';
 
-import { CadrartFormControl } from '../form-system/form-control';
-import { CadrartFieldText, CadrartFieldTextOption } from '../form-system/text/text.config';
 import { CadrartArticleService } from '../services/article.service';
-import { CadrartFieldImage } from '../form-system/image/image.config';
-import { CadrartFieldNumber } from '../form-system/number/number.config';
-import { CadrartFormGroup, FormConfig } from '../form-system/form-group';
 import { applyReduction, numberRound2, PartialDeep } from '../utils';
+import { CadrartFormControlImage } from '../components/form-control-image/form-control-image.component';
 
 import { CadrartFormula } from './formula.model';
 
-function getFormConfig(articleService: CadrartArticleService, isChild = false): FormConfig {
+function getFormConfig(articleService: CadrartArticleService, isChild = false): IEsfsFormGroupConfig {
   return {
-    id: new CadrartFormControl<number | undefined>(undefined),
-    article: new CadrartFormControl<ICadrartArticle | undefined>(
-      undefined,
-      new CadrartFieldText({
-        required: false,
-        label: false,
-        options: isChild ? articleService.getCombinableAsOptions() : articleService.getEntitiesAsOptions(),
-        compareOptionsToValue: (option: CadrartFieldTextOption, value: ICadrartArticle) => value.name === option.label
-      })
-    ),
-    comment: new CadrartFormControl('', new CadrartFieldText({ required: false, label: false })),
-    image: new CadrartFormControl('', new CadrartFieldImage({ required: false, folder: 'task' })),
-    doneCount: new CadrartFormControl(0, new CadrartFieldNumber({ required: true })),
-    parent: new CadrartFormControl<ICadrartTask | undefined>(undefined),
-    children: new FormArray<CadrartTaskForm>([]),
-    isChild: new CadrartFormControl<boolean>(isChild),
-    total: new CadrartFormControl<number>(0),
-    totalBeforeReduction: new CadrartFormControl<number>(0),
-    totalWithVat: new CadrartFormControl<number>(0)
+    id: new EsfsFormControl<number | undefined>(undefined),
+    article: new EsfsFormControlDropdown<ICadrartArticle | undefined>(undefined, {
+      required: false,
+      searchable: true,
+      label: false,
+      options: isChild ? articleService.getCombinableAsOptions() : articleService.getEntitiesAsOptions(),
+      compareOptionsToValue: (
+        option: IEsfsDropdownOption<ICadrartArticle | undefined>,
+        value: ICadrartArticle | undefined
+      ) => value?.name === option.label
+    }),
+    comment: new EsfsFormControlText('', { required: false, label: false }),
+    image: new CadrartFormControlImage('', { required: false, folder: 'task' }),
+    doneCount: new EsfsFormControlNumber(0, { required: true }),
+    parent: new EsfsFormControl<ICadrartTask | undefined>(undefined),
+    children: new EsfsFormArray<CadrartTaskForm>([]),
+    isChild: new EsfsFormControl<boolean>(isChild),
+    total: new EsfsFormControl<number>(0),
+    totalBeforeReduction: new EsfsFormControl<number>(0),
+    totalWithVat: new EsfsFormControl<number>(0)
   };
 }
 
-export class CadrartTaskForm extends CadrartFormGroup<ICadrartTask> {
+export class CadrartTaskForm extends EsfsFormGroup<ICadrartTask> {
   private _subTasksTotal = 0;
   private _subTasksTotalBeforeReduction = 0;
   private _subTasksTotalWithVat = 0;
@@ -49,9 +57,9 @@ export class CadrartTaskForm extends CadrartFormGroup<ICadrartTask> {
     private readonly articleService: CadrartArticleService,
     entity?: ICadrartTask,
     isChild = false,
-    options: AbstractControlOptions = { updateOn: 'change' }
+    options: IEsfsFormGroupOptions = { updateOn: 'change' }
   ) {
-    super(getFormConfig(articleService, isChild), entity ?? {}, options);
+    super(getFormConfig(articleService, isChild), options, 'FIELD', false, entity ?? {});
 
     this.setValidators((control: AbstractControl<any, any>): ValidationErrors | null => {
       const article = control.get('article')?.value as ICadrartArticle | undefined;
@@ -117,44 +125,44 @@ export class CadrartTaskForm extends CadrartFormGroup<ICadrartTask> {
     return this._updatePriceSubject.asObservable();
   }
 
-  getArticle(): CadrartFormControl<ICadrartArticle | undefined> {
-    return this.get('article') as CadrartFormControl<ICadrartArticle | undefined>;
+  getArticle(): EsfsFormControl<ICadrartArticle | undefined> {
+    return this.get('article') as EsfsFormControl<ICadrartArticle | undefined>;
   }
 
-  getComment(): CadrartFormControl<string> {
-    return this.get('comment') as CadrartFormControl<string>;
+  getComment(): EsfsFormControl<string> {
+    return this.get('comment') as EsfsFormControl<string>;
   }
 
-  getImage(): CadrartFormControl<string> {
-    return this.get('image') as CadrartFormControl<string>;
+  getImage(): EsfsFormControl<string> {
+    return this.get('image') as EsfsFormControl<string>;
   }
 
-  getDoneCount(): CadrartFormControl<number> {
-    return this.get('doneCount') as CadrartFormControl<number>;
+  getDoneCount(): EsfsFormControl<number> {
+    return this.get('doneCount') as EsfsFormControl<number>;
   }
 
-  getParent(): CadrartFormControl<ICadrartTask | undefined> {
-    return this.get('parent') as CadrartFormControl<ICadrartTask | undefined>;
+  getParent(): EsfsFormControl<ICadrartTask | undefined> {
+    return this.get('parent') as EsfsFormControl<ICadrartTask | undefined>;
   }
 
-  getChildren(): FormArray<CadrartTaskForm> {
-    return this.get('children') as FormArray<CadrartTaskForm>;
+  getChildren(): EsfsFormArray<CadrartTaskForm> {
+    return this.get('children') as EsfsFormArray<CadrartTaskForm>;
   }
 
-  getIsChild(): CadrartFormControl<boolean> {
-    return this.get('isChild') as CadrartFormControl<boolean>;
+  getIsChild(): EsfsFormControl<boolean> {
+    return this.get('isChild') as EsfsFormControl<boolean>;
   }
 
-  getTotal(): CadrartFormControl<number> {
-    return this.get('total') as CadrartFormControl<number>;
+  getTotal(): EsfsFormControl<number> {
+    return this.get('total') as EsfsFormControl<number>;
   }
 
-  getTotalBeforeReduction(): CadrartFormControl<number> {
-    return this.get('totalBeforeReduction') as CadrartFormControl<number>;
+  getTotalBeforeReduction(): EsfsFormControl<number> {
+    return this.get('totalBeforeReduction') as EsfsFormControl<number>;
   }
 
-  getTotalWithVat(): CadrartFormControl<number> {
-    return this.get('totalWithVat') as CadrartFormControl<number>;
+  getTotalWithVat(): EsfsFormControl<number> {
+    return this.get('totalWithVat') as EsfsFormControl<number>;
   }
 
   getSubTasksTotal(): number {
@@ -170,7 +178,7 @@ export class CadrartTaskForm extends CadrartFormGroup<ICadrartTask> {
   }
 
   public addSubTask(task?: ICadrartTask): void {
-    (this.get('children') as FormArray<CadrartTaskForm>).push(new CadrartTaskForm(this.articleService, task, true));
+    (this.get('children') as EsfsFormArray<CadrartTaskForm>).push(new CadrartTaskForm(this.articleService, task, true));
   }
 
   updatePrice(length: number, area: number, reduction = 0, vat = 21): void {

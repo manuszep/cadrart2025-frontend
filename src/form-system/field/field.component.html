@@ -84,7 +84,7 @@
         }
       }
     </div>
-    @if (control?.errors && (control?.dirty || control?.touched)) {
+    @if (control.errors && (control.dirty || control.touched)) {
       <div class="cadrart-field-wrapper__error">
         {{ control.errors | cadrartFormError }}
       </div>

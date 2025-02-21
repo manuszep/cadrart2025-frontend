@@ -1,4 +1,3 @@
-
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -12,11 +11,11 @@ import {
   WritableSignal,
   signal
 } from '@angular/core';
-import { FormArray, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, Subscription, debounceTime, map, of, startWith, switchMap, take, takeUntil } from 'rxjs';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ECadrartOfferStatus, ICadrartClient, ICadrartJob, ICadrartOffer } from '@manuszep/cadrart2025-common';
+import { EsfsFieldComponent, EsfsFormArray, EsfsFormGroupDirective } from '@manuszep/es-form-system';
 
 import { CadrartButtonComponent } from '../../../components/button/button.component';
 import { CadrartPricePipe } from '../../../pipes/price.pipe';
@@ -46,15 +45,15 @@ import { PartialDeep } from '../../../utils';
   templateUrl: './offer-form.component.html',
   styleUrls: ['./offer-form.component.scss'],
   imports: [
-    ReactiveFormsModule,
     TranslateModule,
     CadrartButtonComponent,
     CadrartPricePipe,
-    CadrartFieldComponent,
+    EsfsFieldComponent,
     CadrartClientFormComponent,
     CadrartJobFormComponent,
-    CadrartOfferHistoryComponent
-],
+    CadrartOfferHistoryComponent,
+    EsfsFormGroupDirective
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true
@@ -176,8 +175,8 @@ export class CadrartRouteOfferFormComponent implements OnInit, AfterViewInit, On
     this.headerService.clearNavigation();
   }
 
-  getjobsControl(): FormArray<CadrartJobForm> {
-    return this.offerForm?.get('jobs') as FormArray<CadrartJobForm>;
+  getjobsControl(): EsfsFormArray<CadrartJobForm> {
+    return this.offerForm?.get('jobs') as EsfsFormArray<CadrartJobForm>;
   }
 
   addJob(job?: ICadrartJob): void {

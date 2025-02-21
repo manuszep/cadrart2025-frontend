@@ -455,6 +455,24 @@
     },
     "IBAN": {
       "Q": "Iban"
+    },
+    "OPENINGWIDTH": {
+      "TA": "cm"
+    },
+    "OPENINGHEIGHT": {
+      "TA": "cm"
+    },
+    "MARGINWIDTH": {
+      "TA": "cm"
+    },
+    "MARGINHEIGHT": {
+      "TA": "cm"
+    },
+    "GLASSWIDTH": {
+      "TA": "cm"
+    },
+    "GLASSHEIGHT": {
+      "TA": "cm"
     }
   },
   "LOGIN": {

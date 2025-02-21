@@ -1,18 +1,14 @@
-import { signal, WritableSignal } from '@angular/core';
 import { ValidatorFn } from '@angular/forms';
+import { ECadrartJobOrientation } from '@manuszep/cadrart2025-common';
 import { EsfsFormControl, IEsfsSignalConfigToSimpleConfig } from '@manuszep/es-form-system';
 
-import { ICadrartImageFolder } from '../image/image.model';
+export type ICadrartFormControlOrientationConfig = Partial<
+  IEsfsSignalConfigToSimpleConfig<CadrartFormControlOrientationBase>
+>;
 
-export type ICadrartFormControlImageConfig = Partial<IEsfsSignalConfigToSimpleConfig<CadrartFormControlImageBase>>;
-
-export class CadrartFormControlImageBase extends EsfsFormControl<string | null> {
-  public override label: WritableSignal<string | boolean> = signal(false);
-  showLabel: WritableSignal<boolean> = signal<boolean>(false);
-  folder: WritableSignal<ICadrartImageFolder> = signal<ICadrartImageFolder>('default');
-
-  constructor(value: string | null, config?: ICadrartFormControlImageConfig) {
-    super(value, config ?? {});
+export class CadrartFormControlOrientationBase extends EsfsFormControl<ECadrartJobOrientation> {
+  constructor(value: ECadrartJobOrientation, config?: ICadrartFormControlOrientationConfig) {
+    super(value ?? ECadrartJobOrientation.VERTICAL, config ?? {});
 
     this.setupValidators();
     this.updateConfig(config);

@@ -7,65 +7,64 @@ import {
   ICadrartTeamMember
 } from '@manuszep/cadrart2025-common';
 import { Observable, Subject } from 'rxjs';
-import { AbstractControlOptions, FormArray } from '@angular/forms';
+import {
+  EsfsFormArray,
+  EsfsFormControl,
+  EsfsFormControlDropdown,
+  EsfsFormControlNumber,
+  EsfsFormGroup,
+  IEsfsDropdownOption,
+  IEsfsFormGroupConfig,
+  IEsfsFormGroupOptions
+} from '@manuszep/es-form-system';
 
-import { CadrartFormControl } from '../form-system/form-control';
-import { CadrartFieldText, CadrartFieldTextOption } from '../form-system/text/text.config';
 import { CadrartClientService } from '../services/client.service';
-import { CadrartFieldSelect } from '../form-system/select/select.config';
 import { CadrartTeamMemberService } from '../services/team-member.service';
-import { CadrartFieldNumber } from '../form-system/number/number.config';
-import { CadrartFormGroup, FormConfig } from '../form-system/form-group';
 import { CadrartLocationService } from '../services/location.service';
 import { CadrartArticleService } from '../services/article.service';
 import { numberRound2, PartialDeep } from '../utils';
 
 import { CadrartJobForm } from './job.form';
 
-function getFormConfig(clientService: CadrartClientService, teamMemberService: CadrartTeamMemberService): FormConfig {
+function getFormConfig(
+  clientService: CadrartClientService,
+  teamMemberService: CadrartTeamMemberService
+): IEsfsFormGroupConfig {
   return {
-    id: new CadrartFormControl<number | undefined>(undefined),
-    number: new CadrartFormControl<string | undefined>(undefined),
-    client: new CadrartFormControl<ICadrartClient | undefined>(
-      undefined,
-      new CadrartFieldText({
-        required: true,
-        options: clientService.getEntitiesAsOptions(),
-        compareOptionsToValue: (option: CadrartFieldTextOption, value: ICadrartClient): boolean =>
-          (option.value as ICadrartClient).id === value.id
-      })
-    ),
-    assignedTo: new CadrartFormControl<ICadrartTeamMember | undefined>(
-      undefined,
-      new CadrartFieldSelect({ required: true, options: teamMemberService.getEntitiesAsOptions() })
-    ),
-    status: new CadrartFormControl<ECadrartOfferStatus>(
-      ECadrartOfferStatus.STATUS_CREATED,
-      new CadrartFieldSelect({
-        required: true,
-        options: [
-          { label: `OFFER.STATUS.${ECadrartOfferStatus.STATUS_CREATED}`, value: ECadrartOfferStatus.STATUS_CREATED },
-          { label: `OFFER.STATUS.${ECadrartOfferStatus.STATUS_DONE}`, value: ECadrartOfferStatus.STATUS_DONE },
-          { label: `OFFER.STATUS.${ECadrartOfferStatus.STATUS_STARTED}`, value: ECadrartOfferStatus.STATUS_STARTED }
-        ]
-      })
-    ),
-    adjustedReduction: new CadrartFormControl<number | undefined>(
-      undefined,
-      new CadrartFieldNumber({ required: false, min: 0, max: 100 })
-    ),
-    adjustedVat: new CadrartFormControl<number | undefined>(
-      undefined,
-      new CadrartFieldNumber({ required: false, min: 0, max: 100 })
-    ),
-    jobs: new FormArray<CadrartJobForm>([]),
-    total: new CadrartFormControl<number>(0),
-    totalBeforeReduction: new CadrartFormControl<number>(0),
-    totalWithVat: new CadrartFormControl<number>(0)
+    id: new EsfsFormControl<number | undefined>(undefined),
+    number: new EsfsFormControl<string | undefined>(undefined),
+    client: new EsfsFormControlDropdown<ICadrartClient | undefined>(undefined, {
+      required: true,
+      searchable: true,
+      options: clientService.getEntitiesAsOptions(),
+      compareOptionsToValue: (
+        option: IEsfsDropdownOption<ICadrartClient | undefined>,
+        value: ICadrartClient | undefined
+      ): boolean => (option.value as ICadrartClient).id === value?.id
+    }),
+    assignedTo: new EsfsFormControlDropdown<ICadrartTeamMember | undefined>(undefined, {
+      required: true,
+      searchable: true,
+      options: teamMemberService.getEntitiesAsOptions()
+    }),
+    status: new EsfsFormControlDropdown<ECadrartOfferStatus>(ECadrartOfferStatus.STATUS_CREATED, {
+      required: true,
+      options: [
+        { label: `OFFER.STATUS.${ECadrartOfferStatus.STATUS_CREATED}`, value: ECadrartOfferStatus.STATUS_CREATED },
+        { label: `OFFER.STATUS.${ECadrartOfferStatus.STATUS_DONE}`, value: ECadrartOfferStatus.STATUS_DONE },
+        { label: `OFFER.STATUS.${ECadrartOfferStatus.STATUS_STARTED}`, value: ECadrartOfferStatus.STATUS_STARTED }
+      ]
+    }),
+    adjustedReduction: new EsfsFormControlNumber(null, { required: false, min: 0, max: 100 }),
+    adjustedVat: new EsfsFormControlNumber(null, { required: false, min: 0, max: 100 }),
+    jobs: new EsfsFormArray<CadrartJobForm>([]),
+    total: new EsfsFormControl<number>(0),
+    totalBeforeReduction: new EsfsFormControl<number>(0),
+    totalWithVat: new EsfsFormControl<number>(0)
   };
 }
 
-export class CadrartOfferForm extends CadrartFormGroup<ICadrartOffer> {
+export class CadrartOfferForm extends EsfsFormGroup<ICadrartOffer> {
   private $updateEvents: Subject<PartialDeep<ICadrartOffer>> = new Subject();
 
   constructor(
@@ -74,9 +73,9 @@ export class CadrartOfferForm extends CadrartFormGroup<ICadrartOffer> {
     private readonly locationService: CadrartLocationService,
     private readonly articleService: CadrartArticleService,
     entity?: ICadrartOffer,
-    options: AbstractControlOptions = { updateOn: 'change' }
+    options: IEsfsFormGroupOptions = { updateOn: 'change' }
   ) {
-    super(getFormConfig(clientService, teamMemberService), entity ?? {}, options);
+    super(getFormConfig(clientService, teamMemberService), options, 'FIELD', false, entity ?? {});
 
     if (entity && entity.jobs) {
       for (const job of entity.jobs) {
@@ -89,44 +88,44 @@ export class CadrartOfferForm extends CadrartFormGroup<ICadrartOffer> {
     return this.$updateEvents.asObservable();
   }
 
-  getNumber(): CadrartFormControl<string | undefined> {
-    return this.get('number') as CadrartFormControl<string | undefined>;
+  getNumber(): EsfsFormControl<string | undefined> {
+    return this.get('number') as EsfsFormControl<string | undefined>;
   }
 
-  getClient(): CadrartFormControl<ICadrartClient | undefined> {
-    return this.get('client') as CadrartFormControl<ICadrartClient | undefined>;
+  getClient(): EsfsFormControl<ICadrartClient | undefined> {
+    return this.get('client') as EsfsFormControl<ICadrartClient | undefined>;
   }
 
-  getAssignedTo(): CadrartFormControl<ICadrartTeamMember | undefined> {
-    return this.get('assignedTo') as CadrartFormControl<ICadrartTeamMember | undefined>;
+  getAssignedTo(): EsfsFormControl<ICadrartTeamMember | undefined> {
+    return this.get('assignedTo') as EsfsFormControl<ICadrartTeamMember | undefined>;
   }
 
-  getStatus(): CadrartFormControl<ECadrartOfferStatus> {
-    return this.get('status') as CadrartFormControl<ECadrartOfferStatus>;
+  getStatus(): EsfsFormControl<ECadrartOfferStatus> {
+    return this.get('status') as EsfsFormControl<ECadrartOfferStatus>;
   }
 
-  getAdjustedReduction(): CadrartFormControl<number | undefined> {
-    return this.get('adjustedReduction') as CadrartFormControl<number | undefined>;
+  getAdjustedReduction(): EsfsFormControl<number | undefined> {
+    return this.get('adjustedReduction') as EsfsFormControl<number | undefined>;
   }
 
-  getAdjustedVat(): CadrartFormControl<number | undefined> {
-    return this.get('adjustedVat') as CadrartFormControl<number | undefined>;
+  getAdjustedVat(): EsfsFormControl<number | undefined> {
+    return this.get('adjustedVat') as EsfsFormControl<number | undefined>;
   }
 
-  getJobs(): FormArray<CadrartJobForm> {
-    return this.get('jobs') as FormArray<CadrartJobForm>;
+  getJobs(): EsfsFormArray<CadrartJobForm> {
+    return this.get('jobs') as EsfsFormArray<CadrartJobForm>;
   }
 
-  getTotal(): CadrartFormControl<number> {
-    return this.get('total') as CadrartFormControl<number>;
+  getTotal(): EsfsFormControl<number> {
+    return this.get('total') as EsfsFormControl<number>;
   }
 
-  getTotalBeforeReduction(): CadrartFormControl<number> {
-    return this.get('totalBeforeReduction') as CadrartFormControl<number>;
+  getTotalBeforeReduction(): EsfsFormControl<number> {
+    return this.get('totalBeforeReduction') as EsfsFormControl<number>;
   }
 
-  getTotalWithVat(): CadrartFormControl<number> {
-    return this.get('totalWithVat') as CadrartFormControl<number>;
+  getTotalWithVat(): EsfsFormControl<number> {
+    return this.get('totalWithVat') as EsfsFormControl<number>;
   }
 
   addJob(job?: ICadrartJob): void {

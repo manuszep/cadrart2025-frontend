@@ -40,7 +40,7 @@ export class CadrartArticleService extends CadrartApiService<ICadrartArticle> {
     );
   }
 
-  getCombinableAsOptions(): Observable<{ label: string; value: unknown }[]> {
+  getCombinableAsOptions(): Observable<{ label: string; value: ICadrartArticle }[]> {
     return this.getCombinable().pipe(
       map((entities: ICadrartArticle[]) => {
         return entities.map((entity: ICadrartArticle) => this.mapEntityForOption(entity));
