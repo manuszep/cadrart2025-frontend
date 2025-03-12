@@ -71,4 +71,80 @@ describe('CadrartAlertComponent', () => {
     expect(iconElement).toBeTruthy();
     expect(iconElement.componentInstance.name).toBe('check');
   });
+
+  it('should add multiple alerts', () => {
+    service.add({ type: 'success', message: 'First Alert' });
+    service.add({ type: 'danger', message: 'Second Alert' });
+    fixture.detectChanges();
+
+    const alertElements = fixture.debugElement.queryAll(By.css('.cadrart-alerts__alert'));
+    expect(alertElements.length).toBe(2);
+    expect(alertElements[0].nativeElement.textContent).toContain('First Alert');
+    expect(alertElements[1].nativeElement.textContent).toContain('Second Alert');
+  });
+
+  it('should remove specific alert by id', () => {
+    const id1 = service.add({ type: 'success', message: 'First Alert' });
+    service.add({ type: 'danger', message: 'Second Alert' });
+    fixture.detectChanges();
+
+    service.remove(id1);
+    fixture.detectChanges();
+
+    const alertElements = fixture.debugElement.queryAll(By.css('.cadrart-alerts__alert'));
+    expect(alertElements.length).toBe(1);
+    expect(alertElements[0].nativeElement.textContent).toContain('Second Alert');
+  });
+
+  it('should handle alerts with no TTL', fakeAsync(() => {
+    service.add({ type: 'success', message: 'Persistent Alert', ttl: undefined });
+    fixture.detectChanges();
+
+    let alertElements = fixture.debugElement.queryAll(By.css('.cadrart-alerts__alert'));
+    expect(alertElements.length).toBe(1);
+
+    tick(2000); // Default TTL
+    fixture.detectChanges();
+    flush();
+
+    alertElements = fixture.debugElement.queryAll(By.css('.cadrart-alerts__alert'));
+    expect(alertElements.length).toBe(1); // Alert should still be present
+  }));
+
+  it('should handle alerts with custom TTL', fakeAsync(() => {
+    service.add({ type: 'success', message: 'Short-lived Alert', ttl: 500 });
+    fixture.detectChanges();
+
+    let alertElements = fixture.debugElement.queryAll(By.css('.cadrart-alerts__alert'));
+    expect(alertElements.length).toBe(1);
+
+    tick(500);
+    fixture.detectChanges();
+    flush();
+
+    alertElements = fixture.debugElement.queryAll(By.css('.cadrart-alerts__alert'));
+    expect(alertElements.length).toBe(0);
+  }));
+
+  it('should display alerts in the correct order', () => {
+    service.add({ type: 'success', message: 'First Alert' });
+    service.add({ type: 'danger', message: 'Second Alert' });
+    fixture.detectChanges();
+
+    const alertElements = fixture.debugElement.queryAll(By.css('.cadrart-alerts__alert'));
+    expect(alertElements.length).toBe(2);
+    expect(alertElements[0].nativeElement.textContent).toContain('First Alert');
+    expect(alertElements[1].nativeElement.textContent).toContain('Second Alert');
+  });
+
+  it('should handle alerts with the same message', () => {
+    service.add({ type: 'success', message: 'Duplicate Alert' });
+    service.add({ type: 'danger', message: 'Duplicate Alert' });
+    fixture.detectChanges();
+
+    const alertElements = fixture.debugElement.queryAll(By.css('.cadrart-alerts__alert'));
+    expect(alertElements.length).toBe(2);
+    expect(alertElements[0].nativeElement.textContent).toContain('Duplicate Alert');
+    expect(alertElements[1].nativeElement.textContent).toContain('Duplicate Alert');
+  });
 });

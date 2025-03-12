@@ -1,4 +1,3 @@
-
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -21,15 +20,17 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
-export class CadrartDynamicComponentComponent implements AfterViewInit, OnDestroy {
-  private _inputs: Record<string, unknown> = {};
+export class CadrartDynamicComponentComponent<T extends Record<string, unknown> = Record<string, unknown>>
+  implements AfterViewInit, OnDestroy
+{
+  private _inputs: Partial<T> = {};
 
-  @Input() component!: Type<unknown>;
-  @Input() set inputs(inputs: Record<string, unknown> | undefined) {
+  @Input() component!: Type<T>;
+  @Input() set inputs(inputs: Partial<T> | undefined) {
     this._inputs = inputs || {};
     this.updateComponent();
   }
-  @Input() outputs?: Record<string, EventEmitter<any>> = {};
+  @Input() outputs?: Record<string, EventEmitter<unknown>> = {};
 
   @ViewChild('dynamic', { read: ViewContainerRef }) private viewRef!: ViewContainerRef;
 
@@ -44,15 +45,21 @@ export class CadrartDynamicComponentComponent implements AfterViewInit, OnDestro
 
     this.viewRef.clear();
 
-    const componentRef = this.viewRef.createComponent<unknown>(this.component);
+    const componentRef = this.viewRef.createComponent<T>(this.component);
 
     for (const [key, value] of Object.entries(this._inputs || {})) {
-      (componentRef.instance as any)[key] = value;
+      componentRef.instance[key as keyof T] = value as T[keyof T];
     }
 
     for (const [key, value] of Object.entries(this.outputs || {})) {
-      if ((componentRef.instance as any)[key] && (componentRef.instance as any)[key].subscribe) {
-        this.subscriptions.push((componentRef.instance as any)[key].subscribe((e: unknown) => value.emit(e)));
+      const instance = componentRef.instance;
+      const prop = instance[key as keyof T];
+      if (prop && typeof prop === 'object' && 'subscribe' in prop) {
+        this.subscriptions.push(
+          (prop as { subscribe: (callback: (event: unknown) => void) => Subscription }).subscribe((e: unknown) =>
+            value.emit(e)
+          )
+        );
       }
     }
 

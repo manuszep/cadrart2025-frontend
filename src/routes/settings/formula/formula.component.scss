@@ -1,10 +1,14 @@
 .cadrart-formulas__form__formulas {
   display: flex;
-  align-items: center;
+  align-items: baseline;
 
   esfs-field {
     display: block;
     margin-right: 5px;
     flex-grow: 1;
+  }
+
+  &__operation {
+    min-width: 50px;
   }
 }

@@ -97,4 +97,60 @@ describe('CadrartActionsGroupComponent', () => {
     expect(duplicateButton).toBeNull();
     expect(toggleButton).toBeNull();
   });
+
+  it('should not emit edit event if not editable', () => {
+    component.editable = false;
+    spyOn(component.cadrartEdit, 'emit');
+    component.handleEditClick();
+    expect(component.cadrartEdit.emit).not.toHaveBeenCalled();
+  });
+
+  it('should not emit delete event if not deletable', () => {
+    component.deletable = false;
+    spyOn(component.cadrartDelete, 'emit');
+    component.handleDeleteClick();
+    expect(component.cadrartDelete.emit).not.toHaveBeenCalled();
+  });
+
+  it('should not emit consult event if not consultable', () => {
+    component.consultable = false;
+    spyOn(component.cadrartConsult, 'emit');
+    component.handleConsultClick();
+    expect(component.cadrartConsult.emit).not.toHaveBeenCalled();
+  });
+
+  it('should not emit duplicate event if not duplicatable', () => {
+    component.duplicatable = false;
+    spyOn(component.cadrartDuplicate, 'emit');
+    component.handleDuplicateClick();
+    expect(component.cadrartDuplicate.emit).not.toHaveBeenCalled();
+  });
+
+  it('should not emit toggle extend event if not extendable', () => {
+    component.extendable = false;
+    spyOn(component.cadrartToggleExtend, 'emit');
+    component.handleToggleClick();
+    expect(component.cadrartToggleExtend.emit).not.toHaveBeenCalled();
+  });
+
+  it('should toggle extended state when handleToggleClick is called', () => {
+    component.extended = false;
+    component.handleToggleClick();
+    expect(component.extended).toBeTrue();
+    component.handleToggleClick();
+    expect(component.extended).toBeFalse();
+  });
+
+  it('should display the correct icon for the toggle button based on extended state', () => {
+    component.extendable = true;
+    component.extended = false;
+    fixture.detectChanges();
+    let toggleButton = fixture.debugElement.query(By.css('.cadrart-actions-group__extend'));
+    expect(toggleButton.nativeElement.getAttribute('icon')).toBe('unfold_more');
+
+    component.extended = true;
+    fixture.detectChanges();
+    toggleButton = fixture.debugElement.query(By.css('.cadrart-actions-group__extend'));
+    expect(toggleButton.nativeElement.getAttribute('icon')).toBe('unfold_less');
+  });
 });
