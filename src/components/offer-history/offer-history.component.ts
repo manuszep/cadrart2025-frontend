@@ -11,8 +11,7 @@ import { CadrartPricePipe } from '../../pipes/price.pipe';
   styleUrls: ['./offer-history.component.scss'],
   imports: [CadrartButtonComponent, CadrartDatePipe, CadrartPricePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartOfferHistoryComponent {
   @Input() offers: ICadrartOffer[] = [];

@@ -1,4 +1,3 @@
-
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,8 +14,7 @@ import { CadrartHeaderService } from './header.service';
   styleUrls: ['./header.component.scss'],
   imports: [RouterLink, RouterLinkActive, CadrartButtonComponent, TranslateModule, CadrartImageComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartHeaderComponent {
   constructor(public readonly service: CadrartHeaderService, public readonly loginService: CadrartLoginService) {}

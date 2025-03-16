@@ -30,8 +30,7 @@ import { CadrartPhonePipe } from '../../../pipes/phone.pipe';
     EsfsFieldComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteSettingsTeamMemberComponent extends CadrartSettingsPageComponent<
   ICadrartTeamMember,

@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'cadrartPhone',
-  standalone: true
+  name: 'cadrartPhone'
 })
 export class CadrartPhonePipe implements PipeTransform {
   transform(phone?: string): string {

@@ -37,8 +37,7 @@ import { PartialDeep } from '../../utils';
     EsfsFormGroupDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartJobFormComponent implements OnInit, OnDestroy {
   @Input() public deletable = false;

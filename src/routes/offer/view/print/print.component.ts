@@ -26,8 +26,7 @@ import { CadrartAddressPipe } from '../../../../pipes/cadrart-address.pipe';
     CadrartAddressPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteOfferViewPrintComponent {
   @Input({ required: true }) offerNumber!: string | null;

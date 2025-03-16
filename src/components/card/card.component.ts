@@ -23,7 +23,6 @@ import { CadrartImageComponent } from '../image/image.component';
   imports: [TranslateModule, CadrartButtonComponent, CadrartActionsGroupComponent, CadrartImageComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   animations: cadrartAnimationSlideInOut
 })
 export class CadrartCardComponent {

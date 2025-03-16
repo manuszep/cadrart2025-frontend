@@ -29,8 +29,7 @@ import { ICadrartImageParams } from '../../components/image/image.model';
   styleUrls: ['./login.component.scss'],
   imports: [TranslateModule, CadrartCardComponent, CadrartButtonComponent, EsfsFieldComponent, EsfsFormGroupDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteLoginComponent {
   public loginForm: EsfsFormGroup = new EsfsFormGroup(

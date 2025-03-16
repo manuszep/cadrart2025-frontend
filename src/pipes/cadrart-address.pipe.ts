@@ -20,8 +20,7 @@ export function parseJsonValue(value: string | null): IEsfsFormControlAddressVal
 }
 
 @Pipe({
-  name: 'cadrartAddress',
-  standalone: true
+  name: 'cadrartAddress'
 })
 export class CadrartAddressPipe implements PipeTransform {
   transform(value: string | undefined, breaks = true): string {

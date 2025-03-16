@@ -9,7 +9,6 @@ import { CadrartButtonComponent } from '../button/button.component';
   styleUrls: ['./image-from-file.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [CadrartButtonComponent, TranslateModule]
 })
 export class CadrartImageFromFileComponent {

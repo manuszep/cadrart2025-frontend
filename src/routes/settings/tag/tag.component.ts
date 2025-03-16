@@ -26,8 +26,7 @@ import { CadrartTagForm } from '../../../models/tag.form';
     EsfsFormGroupDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteSettingsTagComponent extends CadrartSettingsPageComponent<ICadrartTag, CadrartTagForm> {
   constructor(

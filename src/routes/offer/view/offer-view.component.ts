@@ -35,8 +35,7 @@ import { CadrartRouteOfferViewPrintComponent } from './print/print.component';
     CadrartRouteOfferViewPrintComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteOfferViewComponent implements AfterViewInit, OnDestroy {
   public $offer: Observable<CadrartOffer>;

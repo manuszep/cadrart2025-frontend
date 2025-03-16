@@ -1,6 +1,6 @@
 @use 'sass:math';
-@import '../../styles/mixins.scss';
-@import '../../styles/variables';
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/variables' as *;
 
 .cadrart-table {
   width: 100%;

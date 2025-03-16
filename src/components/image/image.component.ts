@@ -10,7 +10,6 @@ import { ICadrartImageFolder, ICadrartImageSize } from './image.model';
   styleUrls: ['./image.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [CadrartFieldImagePathPipe]
 })
 export class CadrartImageComponent {

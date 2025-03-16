@@ -1,4 +1,3 @@
-
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 
 import { CadrartButtonComponent } from '../button/button.component';
@@ -9,8 +8,7 @@ import { CadrartButtonComponent } from '../button/button.component';
   styleUrls: ['./actions-group.component.scss'],
   imports: [CadrartButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartActionsGroupComponent {
   @Input() public editable = false;

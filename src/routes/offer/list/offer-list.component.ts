@@ -30,8 +30,7 @@ import { CadrartFiltersComponent } from '../../../components/filters/filters.com
     CadrartFiltersComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteOfferListComponent implements OnDestroy {
   public statuses = ECadrartOfferStatus;

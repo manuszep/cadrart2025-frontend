@@ -14,7 +14,6 @@ export class CadrartFormControlOrientation extends CadrartFormControlOrientation
   selector: 'cadrart-form-control-orientation',
   templateUrl: './form-control-orientation.component.html',
   styleUrl: './form-control-orientation.component.scss',
-  standalone: true,
   imports: [CadrartButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

@@ -14,8 +14,7 @@ import { CadrartTableValueFormatterDirective } from '../../../components/table/t
   styleUrls: [],
   imports: [CommonModule, CadrartTableComponent, CadrartTableValueFormatterDirective, CadrartButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteTasksCardboardComponent {
   private readonly parentComponent = inject(CadrartRouteTasksComponent);

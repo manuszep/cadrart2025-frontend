@@ -14,7 +14,6 @@ import { CadrartAlertService } from './alert.service';
   imports: [CadrartIconComponent, CadrartCardComponent, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   animations: [
     trigger('inOutAnimation', [
       transition(':enter', [

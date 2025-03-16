@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'cadrartDebug',
-  standalone: true
+  name: 'cadrartDebug'
 })
 export class CadrartDebugPipe implements PipeTransform {
   transform(value?: any): void {

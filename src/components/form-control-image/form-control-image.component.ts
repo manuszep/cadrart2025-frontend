@@ -33,7 +33,6 @@ export class CadrartFormControlImage extends CadrartFormControlImageBase {
   selector: 'cadrart-form-control-image',
   templateUrl: './form-control-image.component.html',
   styleUrl: './form-control-image.component.scss',
-  standalone: true,
   imports: [TranslateModule, CadrartButtonComponent, CadrartFieldImagePathPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

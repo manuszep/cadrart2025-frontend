@@ -37,8 +37,7 @@ import { CadrartTaskForm } from '../../models/task.form';
     EsfsFormGroupDirective
   ],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CadrartTaskFormComponent implements OnInit, OnDestroy {
   @Input({ required: true }) public taskForm?: CadrartTaskForm;

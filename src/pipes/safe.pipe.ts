@@ -2,8 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 
 @Pipe({
-  name: 'cadrartSafe',
-  standalone: true
+  name: 'cadrartSafe'
 })
 export class CadrartSafePipe implements PipeTransform {
   constructor(protected _sanitizer: DomSanitizer) {}

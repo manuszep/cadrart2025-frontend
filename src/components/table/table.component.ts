@@ -37,7 +37,6 @@ import { CadrartTableValueFormatterDirective } from './table-value-formatter.dir
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   animations: [
     trigger('existanceAnimation', [
       transition(':enter', useAnimation(cadrartAnimationFlipInX(0.75))),

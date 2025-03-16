@@ -4,8 +4,7 @@ import { environment } from '../environments/environment';
 import { ICadrartImageFolder, ICadrartImageSize } from '../components/image/image.model';
 
 @Pipe({
-  name: 'cadrartFieldImagePathPipe',
-  standalone: true
+  name: 'cadrartFieldImagePathPipe'
 })
 export class CadrartFieldImagePathPipe implements PipeTransform {
   transform(value: string | null | undefined, folder?: ICadrartImageFolder, size: ICadrartImageSize = 'm'): string {

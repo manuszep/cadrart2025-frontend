@@ -8,7 +8,6 @@ import { CadrartClientForm } from '../../models/client.form';
   templateUrl: './client-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [EsfsFieldComponent, EsfsFormGroupDirective]
 })
 export class CadrartClientFormComponent {

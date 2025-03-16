@@ -14,8 +14,7 @@ import { CadrartCardComponent } from '../../../../components/card/card.component
   styleUrls: ['./display.component.scss'],
   imports: [TranslateModule, CadrartAmountPipe, CadrartPricePipe, CadrartJobMeasurePipe, CadrartCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteOfferViewDisplayComponent {
   @Input({ required: true }) offerNumber!: string | null;

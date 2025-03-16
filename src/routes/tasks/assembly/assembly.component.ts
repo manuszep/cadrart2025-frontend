@@ -21,8 +21,7 @@ import { CadrartTableValueFormatterDirective } from '../../../components/table/t
     TranslateModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteTasksAssemblyComponent {
   private readonly parentComponent = inject(CadrartRouteTasksComponent);

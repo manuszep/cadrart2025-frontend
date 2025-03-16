@@ -13,8 +13,7 @@ import { CadrartModalService } from './modal.service';
   styleUrls: ['./modal.component.scss'],
   imports: [CommonModule, TranslateModule, CadrartButtonComponent, CadrartStringOrTemplateComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartModalComponent {
   constructor(public readonly service: CadrartModalService) {}

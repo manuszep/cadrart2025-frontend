@@ -1,4 +1,3 @@
-
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,8 +10,7 @@ import { CadrartHeaderService } from '../../components/header/header.service';
   styleUrls: ['./settings.component.scss'],
   imports: [RouterModule, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteSettingsComponent implements OnDestroy {
   constructor(private readonly headerService: CadrartHeaderService) {

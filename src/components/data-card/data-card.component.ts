@@ -19,7 +19,6 @@ export type ICadrartDataCardFields = ICadrartDataCardField[];
   imports: [CommonModule, TranslateModule, CadrartCardComponent, CadrartButtonComponent, CadrartClickOutsideDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   animations: cadrartAnimationSlideInOut
 })
 export class CadrartDataCardComponent {

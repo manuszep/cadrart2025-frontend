@@ -1,6 +1,6 @@
-@import '../../styles/variables';
-@import "../../styles/functions";
-@import '../../styles/mixins.scss';
+@use '../../styles/variables' as *;
+@use "../../styles/functions" as *;
+@use '../../styles/mixins.scss' as *;
 
 $tooltip-shadow: drop-shadow(0px 0px .5px rgba(255, 255, 255, .25))
 drop-shadow(0px 1px .5px rgba(255, 255, 255, .1))

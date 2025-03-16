@@ -6,8 +6,7 @@ export function cadrartGetJobMeasureLabel(value?: ECadrartJobMeasureType): strin
 }
 
 @Pipe({
-  name: 'cadrartJobMeasure',
-  standalone: true
+  name: 'cadrartJobMeasure'
 })
 export class CadrartJobMeasurePipe implements PipeTransform {
   transform(value?: ECadrartJobMeasureType): string {

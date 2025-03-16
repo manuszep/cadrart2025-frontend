@@ -8,18 +8,15 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
 import { CadrartDataConnectorService } from '../../services/data-connector.service';
 import { CadrartExtendedTask } from '../../models/extended-task.model';
 import { CadrartTaskService } from '../../services/task.service';
-import { CadrartTableValueFormatterDirective } from '../../components/table/table-value-formatter.directive';
-import { CadrartButtonComponent } from '../../components/button/button.component';
 import { CadrartHeaderService } from '../../components/header/header.service';
 
 @Component({
   selector: 'cadrart-route-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
-  imports: [CommonModule, CadrartTableValueFormatterDirective, CadrartButtonComponent, RouterModule],
+  imports: [CommonModule, RouterModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteTasksComponent implements OnDestroy {
   public tasks: Observable<Record<ECadrartArticleFamily, CadrartExtendedTask[]>>;

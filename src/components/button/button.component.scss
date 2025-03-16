@@ -1,11 +1,12 @@
 @use "sass:math";
-@import "../../styles/variables";
-@import "../../styles/functions";
+@use "sass:color";
+@use "../../styles/variables" as *;
+@use "../../styles/functions" as *;
 
 @mixin cadrartButtonHoverColor($color) {
   &:not([disabled]):hover {
     box-shadow: inset 0 0 0 1px transparent, 0 0 10px 1px rgba(getColor($color), .5);
-    background-color: lighten(getColor($color), 15%);
+    background-color: color.adjust(getColor($color), $lightness: 15%);
     color: getTextColorFor($color);
   }
 }
@@ -15,12 +16,12 @@
   color: getTextColorFor($color);
 
   small {
-    background-color: darken(getColor($color), 30%);
-    color: isColorDark(darken(getColor($color), 30%));
+    background-color: color.adjust(getColor($color), $lightness: -30%);
+    color: isColorDark(color.adjust(getColor($color), $lightness: -30%));
   }
 
   &:disabled {
-    background-color: desaturate(getColor($color), 70);
+    background-color: color.scale(getColor($color), $saturation: -70%);
   }
 
   &.cadrart-button--outline {
@@ -29,8 +30,8 @@
     background-color: transparent;
 
     &:disabled {
-      color: desaturate(getColor($color), 70);
-      box-shadow: inset 0 0 0 1px desaturate(getColor($color), 70);
+      color: color.scale(getColor($color), $saturation: -70%);
+      box-shadow: inset 0 0 0 1px color.scale(getColor($color), $saturation: -70%);
     }
 
     &:not([disabled]):hover {

@@ -1,14 +1,14 @@
 @use 'sass:math';
-@import '../../styles/mixins.scss';
-@import '../../styles/variables';
-@import '../../styles/functions';
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/variables' as *;
+@use '../../styles/functions' as *;
 
 .cadrart-card {
-  @include panel();
   position: relative;
   display: flex;
   flex-direction: column;
   margin-bottom: $spacing-medium;
+  @include panel();
 
   &.cadrart-card--inline {
     flex-direction: row;

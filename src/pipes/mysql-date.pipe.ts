@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'cadrartMysqlDate',
-  standalone: true
+  name: 'cadrartMysqlDate'
 })
 export class CadrartMysqlDatePipe implements PipeTransform {
   transform(value: string): string {

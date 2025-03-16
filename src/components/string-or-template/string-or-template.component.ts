@@ -18,8 +18,7 @@ import { CadrartDynamicComponentComponent } from '../dynamic-component/dynamic-c
   styleUrls: ['string-or-template.component.scss'],
   imports: [CommonModule, TranslateModule, CadrartDynamicComponentComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartStringOrTemplateComponent {
   contentAsString?: string;

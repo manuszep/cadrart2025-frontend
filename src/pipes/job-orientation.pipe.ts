@@ -6,8 +6,7 @@ export function cadrartGetJobOrientationLabel(value?: ECadrartJobOrientation): s
 }
 
 @Pipe({
-  name: 'cadrartJobOrientation',
-  standalone: true
+  name: 'cadrartJobOrientation'
 })
 export class CadrartJobOrientationPipe implements PipeTransform {
   transform(value?: ECadrartJobOrientation): string {

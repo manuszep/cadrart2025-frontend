@@ -17,8 +17,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './dynamic-component.component.html',
   styleUrls: ['./dynamic-component.component.scss'],
   imports: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CadrartDynamicComponentComponent<T extends Record<string, unknown> = Record<string, unknown>>
   implements AfterViewInit, OnDestroy

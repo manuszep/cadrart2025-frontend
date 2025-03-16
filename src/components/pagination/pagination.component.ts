@@ -12,8 +12,7 @@ import { CadrartButtonComponent } from '../button/button.component';
   styleUrls: ['./pagination.component.scss'],
   imports: [CommonModule, TranslateModule, CadrartButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartPaginationComponent implements OnDestroy {
   private unsubscribeSubject$ = new Subject<void>();

@@ -32,8 +32,7 @@ import { CadrartPhonePipe } from '../../../pipes/phone.pipe';
     CadrartPhonePipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteSettingsClientComponent extends CadrartSettingsPageComponent<
   ICadrartClient,

@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'cadrartMail',
-  standalone: true
+  name: 'cadrartMail'
 })
 export class CadrartMailPipe implements PipeTransform {
   transform(mail?: string): string {

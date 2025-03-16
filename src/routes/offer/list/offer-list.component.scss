@@ -1,5 +1,6 @@
 @use 'sass:math';
-@import '../../../styles/mixins';
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
 
 .cadrart-offers {
   .cadrart-table__header__status {

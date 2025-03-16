@@ -1,5 +1,5 @@
-@import "./functions";
-@import "./variables";
+@use "./functions" as *;
+@use "./variables" as *;
 
 @mixin backgroundColor($color) {
   background-color: getColor($color);

@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@use '../../styles/variables.scss' as *;
 
 $maxContentWidth: calc(100vw - ($spacing-large * 2));
 $maxContentHeight: calc(100vh - ($spacing-large * 2));

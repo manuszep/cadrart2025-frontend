@@ -30,8 +30,7 @@ import { CadrartFormulaForm, ICadrartFormulaParsedForm } from '../../../models/f
     EsfsFormGroupDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteSettingsFormulaComponent extends CadrartSettingsPageComponent<
   ICadrartFormula,

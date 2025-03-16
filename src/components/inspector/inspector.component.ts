@@ -20,8 +20,7 @@ import { CadrartInspectorService } from './inspector.service';
     CadrartClickOutsideDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartInspectorComponent {
   constructor(public readonly service: CadrartInspectorService) {}

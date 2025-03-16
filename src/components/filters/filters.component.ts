@@ -10,8 +10,7 @@ import { ICadrartFilterConfig, ICadrartFilterEvent, ICadrartFiltersConfig } from
   styleUrls: ['./filters.component.scss'],
   imports: [CadrartButtonToggleComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartFiltersComponent {
   @Input({ required: true }) config!: ICadrartFiltersConfig;

@@ -12,8 +12,7 @@ export function cadrartGetAmountAsHtml(value: number, unit = '', forceDecimal = 
 }
 
 @Pipe({
-  name: 'cadrartAmount',
-  standalone: true
+  name: 'cadrartAmount'
 })
 export class CadrartAmountPipe implements PipeTransform {
   transform(value?: number, unit = '', forceDecimal = true, vat = 0): string {

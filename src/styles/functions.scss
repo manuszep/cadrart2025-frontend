@@ -1,18 +1,20 @@
-@import "./variables";
+@use "./variables" as *;
+@use "sass:map";
+@use "sass:color";
 
 @function getColor($color) {
-  @return map-get(map-get($colors-map, $color), background);
+  @return map.get(map.get($colors-map, $color), background);
 }
 
 @function getTextColorFor($color) {
-  @return map-get(map-get($colors-map, $color), text);
+  @return map.get(map.get($colors-map, $color), text);
 }
 
 @function isColorDark($color) {
   // Parse RGB by isolating each color
-  $red: red( $color );
-  $green: green( $color );
-  $blue: blue( $color );
+  $red: color.channel($color, "red", $space: rgb);
+  $green: color.channel($color, "green", $space: rgb);
+  $blue: color.channel($color, "blue", $space: rgb);
   // Compute the perceptive luminance, keeping
   // in mind that the human eye favors green.
   $l: 1 - calc(( 0.299 * $red + 0.587 * $green + 0.114 * $blue ) / 255);

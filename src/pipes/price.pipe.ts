@@ -3,8 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { cadrartGetAmountAsHtml } from './amount.pipe';
 
 @Pipe({
-  name: 'cadrartPrice',
-  standalone: true
+  name: 'cadrartPrice'
 })
 export class CadrartPricePipe implements PipeTransform {
   transform(value: number, vat = 0): string {

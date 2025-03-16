@@ -21,8 +21,7 @@ import { ICadrartColor, ICadrartSize } from '../../styles/styles.model';
   styleUrls: ['./button.component.scss'],
   imports: [CadrartIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartButtonComponent implements OnChanges, OnDestroy {
   private _hotKeyHandler?: () => void;

@@ -32,8 +32,7 @@ import { CadrartMailPipe } from '../../../pipes/mail.pipe';
     EsfsFormGroupDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteSettingsProviderComponent extends CadrartSettingsPageComponent<
   ICadrartProvider,

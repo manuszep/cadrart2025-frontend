@@ -1,6 +1,6 @@
-@import "../../styles/variables.scss";
-@import "../../styles/mixins.scss";
-@import "../../styles/functions.scss";
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+@use "../../styles/functions.scss" as *;
 
 cadrart-inspector {
   @media print {
@@ -27,7 +27,6 @@ cadrart-inspector {
   }
 
   &__panel {
-    @include panel();
     padding: 0;
     flex-grow: 1;
     height: 100%;
@@ -39,6 +38,7 @@ cadrart-inspector {
     position: relative;
     backdrop-filter: blur($backdrop-blur);
     pointer-events: all;
+    @include panel();
   }
 
   h1 {

@@ -1,4 +1,5 @@
-@import '../../styles/functions';
+@use '../../styles/functions' as *;
+@use '../../styles/variables' as *;
 
 $nav-color: getColor(primary);
 

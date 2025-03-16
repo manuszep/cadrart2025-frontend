@@ -1,4 +1,3 @@
-
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -12,8 +11,7 @@ import { ICadrartButtonToggleItem } from './button-toggle.model';
   styleUrls: ['./button-toggle.component.scss'],
   imports: [TranslateModule, CadrartButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartButtonToggleComponent {
   @Input() public label?: string;

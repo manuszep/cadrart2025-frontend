@@ -13,7 +13,6 @@ import { CadrartVersionService } from '../services/version.service';
 
 @Component({
   selector: 'cadrart-root',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterOutlet,

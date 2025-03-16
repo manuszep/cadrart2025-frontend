@@ -22,9 +22,9 @@ export class CadrartCacheService {
   public deleteSocket: Observable<ICadrartSocketDeleteEntity>;
 
   constructor(private readonly http: HttpClient, private socket: Socket) {
-    this.createSocket = this.socket.fromEvent<ICadrartSocketCreateEntity<any>>('create');
-    this.updateSocket = this.socket.fromEvent<ICadrartSocketUpdateEntity<any>>('update');
-    this.deleteSocket = this.socket.fromEvent<ICadrartSocketDeleteEntity>('delete');
+    this.createSocket = this.socket.fromEvent<ICadrartSocketCreateEntity<any>, string>('create');
+    this.updateSocket = this.socket.fromEvent<ICadrartSocketUpdateEntity<any>, string>('update');
+    this.deleteSocket = this.socket.fromEvent<ICadrartSocketDeleteEntity, string>('delete');
   }
 
   private setEndpointCache(endpoint: string, data: unknown): void {

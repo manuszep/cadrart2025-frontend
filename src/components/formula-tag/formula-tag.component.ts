@@ -7,8 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./formula-tag.component.scss'],
   imports: [TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartFormulaTagComponent {
   public formulaParts: string[] = [];

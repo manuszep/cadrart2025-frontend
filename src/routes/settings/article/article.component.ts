@@ -32,8 +32,7 @@ import { CadrartFormulaService } from '../../../services/formula.service';
     EsfsFormGroupDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteSettingsArticleComponent extends CadrartSettingsPageComponent<
   ICadrartArticle,

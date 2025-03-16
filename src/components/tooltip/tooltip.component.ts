@@ -11,8 +11,7 @@ import { CadrartTooltipService } from './tooltip.service';
   styleUrls: ['./tooltip.component.scss'],
   imports: [CadrartStringOrTemplateComponent, CadrartClickOutsideDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartTooltipComponent {
   constructor(public readonly service: CadrartTooltipService) {}

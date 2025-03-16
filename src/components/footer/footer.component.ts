@@ -13,8 +13,7 @@ import { CadrartFooterService } from './footer.service';
   styleUrls: ['./footer.component.scss'],
   imports: [CommonModule, CadrartStringOrTemplateComponent, CadrartPaginationComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartFooterComponent {
   public templateData: Observable<{

@@ -3,8 +3,7 @@ import { ValidationErrors } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Pipe({
-  name: 'cadrartFormError',
-  standalone: true
+  name: 'cadrartFormError'
 })
 export class CadrartFormErrorPipe implements PipeTransform {
   constructor(private readonly translateService: TranslateService) {}

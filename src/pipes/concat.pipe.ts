@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'cadrartConcatPipe',
-  standalone: true
+  name: 'cadrartConcatPipe'
 })
 export class CadrartConcatPipe implements PipeTransform {
   transform(strings: (string | number | symbol)[]): string {

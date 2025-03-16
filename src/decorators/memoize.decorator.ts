@@ -13,7 +13,12 @@ export type ICadrartMemoizeDecorator = (target: unknown, propertyKey: string, de
 
 export function cadrartMemoize(args: Omit<ICadrartMemoizePayload, 'doUseWeakMap'>): ICadrartMemoizeDecorator;
 export function cadrartMemoize(args: Omit<ICadrartMemoizePayload, 'clearCacheTimeout'>): ICadrartMemoizeDecorator;
-export function cadrartMemoize({ extractUniqueId, clearCacheTimeout, doUseWeakMap, debugReporter }: ICadrartMemoizePayload): ICadrartMemoizeDecorator {
+export function cadrartMemoize({
+  extractUniqueId,
+  clearCacheTimeout,
+  doUseWeakMap,
+  debugReporter
+}: ICadrartMemoizePayload): ICadrartMemoizeDecorator {
   return (target: unknown, propertyKey: string, descriptor: PropertyDescriptor): void => {
     let cacheTeardownTimer: ReturnType<typeof setTimeout>;
 

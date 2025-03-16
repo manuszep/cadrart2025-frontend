@@ -54,8 +54,7 @@ import { PartialDeep } from '../../../utils';
     EsfsFormGroupDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true
+  encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteOfferFormComponent implements OnInit, AfterViewInit, OnDestroy {
   public extendedJob = 0;

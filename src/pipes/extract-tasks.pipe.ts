@@ -44,8 +44,7 @@ const mapping: Record<ECadrartArticleFamily, keyof ICadrartExtractedTasks> = {
 };
 
 @Pipe({
-  name: 'cadrartExtractTasks',
-  standalone: true
+  name: 'cadrartExtractTasks'
 })
 export class CadrartExtractTasksPipe implements PipeTransform {
   transform(jobs: PartialDeep<ICadrartJob[]> | null): ICadrartExtractedTasks {
