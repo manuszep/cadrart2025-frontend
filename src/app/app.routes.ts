@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { cadrartSettingsRoutes } from '../routes/settings/settings.routes';
 import { cadrartAuthGuard } from '../guards/guard.service';
 import { CadrartRouteOfferViewResolver } from '../routes/offer/view/offer-view.resolver';
+import { cadrartTasksRoutes } from '../routes/tasks/tasks.routes';
 
 export const cadrartRoutes: Routes = [
   {
@@ -53,6 +54,7 @@ export const cadrartRoutes: Routes = [
   {
     path: 'tasks',
     loadComponent: () => import('../routes/tasks/tasks.component').then((m) => m.CadrartRouteTasksComponent),
+    children: cadrartTasksRoutes,
     canActivate: [cadrartAuthGuard],
     canActivateChild: [cadrartAuthGuard]
   }

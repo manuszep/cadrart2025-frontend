@@ -237,9 +237,13 @@
     },
     "MEASURE": {
       "0": "Verre",
+      "0_SHORT": "V",
       "1": "Extérieur",
+      "1_SHORT": "E",
       "2": "Approximatif",
-      "3": "Ouverture"
+      "2_SHORT": "A",
+      "3": "Ouverture",
+      "3_SHORT": "O"
     }
   },
   "ERROR": {

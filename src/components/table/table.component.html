@@ -22,7 +22,7 @@
           @for (key of keys; track $index) {
             <ng-container
               [ngTemplateOutlet]="getTemplateOutlet(key) || defaultContent"
-              [ngTemplateOutletContext]="{ $implicit: $any(entry), key: [key] }"></ng-container>
+              [ngTemplateOutletContext]="{ $implicit: entry, key: [key] }"></ng-container>
           }
           @if (deletable || editable || consultable) {
             <td class="cadrart-table__row__actions">
