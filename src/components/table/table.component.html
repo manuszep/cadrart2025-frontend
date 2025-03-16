@@ -4,7 +4,7 @@
       <tr>
         @for (key of keys; track $index) {
           <th [ngClass]="['cadrart-table__header__', key] | cadrartConcatPipe">
-            {{ headerPrefix + '.HEADER.' + $any(key) | uppercase | translate }}
+            <span [innerHTML]="headerPrefix + '.HEADER.' + $any(key) | uppercase | translate"></span>
             <cadrart-icon name="arrow_drop_up"></cadrart-icon>
           </th>
         }

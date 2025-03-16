@@ -726,5 +726,22 @@
     "YE": "Yémen",
     "ZM": "Zambie",
     "ZW": "Zimbabwe"
+  },
+  "TASKS": {
+    "LIST": {
+      "HEADER": {
+        "CLIENT": "Client",
+        "DIMENSIONS": "Dimensions",
+        "MEASURE": "Mesure",
+        "ARTICLE": "Article",
+        "COMMENT": "Commentaire",
+        "ARTICLES": "Articles",
+        "ACTIONS": "Actions",
+        "QUANTITY": "Qté.",
+        "JOBIMAGE": "Job",
+        "TASKIMAGE": "Task",
+        "DUEDATE": "&Eacute;chéance"
+      }
+    }
   }
 }

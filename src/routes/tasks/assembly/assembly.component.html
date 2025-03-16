@@ -3,8 +3,8 @@
   <div class="cadrart-extended-task">
     <cadrart-table
       [data]="data"
-      [keys]="['client', 'dimensions', 'measure', 'article', 'comment', 'articles', 'actions']"
-      headerPrefix="TASKS_LIST"
+      [keys]="['client', 'dimensions', 'measure', 'article', 'comment', 'articles', 'quantity', 'jobImage', 'taskImage', 'dueDate', 'actions']"
+      headerPrefix="TASKS.LIST"
       [trackBy]="trackBy"
       [consultable]="false"
       [deletable]="false"
@@ -32,16 +32,21 @@
       <td *cadrartTableValueFormatter="'comment'; let entry">{{ entry.taskComment }}</td>
       <td *cadrartTableValueFormatter="'articles'; let entry">
         <ul>
-          <li *ngFor="let subTask of getAllTasksForJob(data, entry.jobId)" [class.task__list__task__articles__article--done]="subTask.jobCount === subTask.taskDoneCount">
-            {{ subTask.articleName }}
-            <br *ngIf="subTask.articleParentId">
-            <small *ngIf="subTask.articleParentId">({{ getParentArticleName(data, subTask.articleParentId)}})</small>
+          <li *ngFor="let jobTask of getAllTasksForJob(data, entry.jobId)" [class.task__list__task__articles__article--done]="jobTask.jobCount === jobTask.taskDoneCount">
+            {{ jobTask.articleName }}
+            <br *ngIf="jobTask.taskParentId">
+            <small *ngIf="jobTask.taskParentId">({{ getParentArticleName(data, jobTask.taskParentId)}})</small>
           </li>
         </ul>
       </td>
+      <td *cadrartTableValueFormatter="'quantity'; let entry">{{ entry.jobCount - entry.taskDoneCount }}</td>
+      <td *cadrartTableValueFormatter="'jobImage'; let entry">jobImage</td>
+      <td *cadrartTableValueFormatter="'taskImage'; let entry">taskImage</td>
+      <td *cadrartTableValueFormatter="'dueDate'; let entry">{{ entry.jobDueDate }}</td>
       <td *cadrartTableValueFormatter="'actions'">
         <cadrart-button [iconOnly]="true" icon="block" color="secondary" [outline]="true"></cadrart-button>
         <cadrart-button [iconOnly]="true" icon="play_circle" color="info" [outline]="true"></cadrart-button>
+        <cadrart-button [iconOnly]="true" icon="production_quantity_limits" color="danger" [outline]="true"></cadrart-button>
       </td>
     </cadrart-table>
   </div>
