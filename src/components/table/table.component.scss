@@ -18,6 +18,14 @@
     width: max-content;
   }
 
+  &__header {
+    &__group {
+      display: flex;
+      gap: $spacing-small;
+      justify-content: flex-end;
+    }
+  }
+
   thead th {
     font-size: 14px;
   }

@@ -3,7 +3,7 @@
   <div class="cadrart-tasks cadrart-tasks--assembly">
     <cadrart-table
       [data]="data"
-      [keys]="['client', 'dimensions', 'measure', 'article', 'comment', 'articles', 'quantity', 'jobImage', 'taskImage', 'dueDate', 'actions']"
+      [keys]="['quantity', 'dimensions', 'measure', 'article', 'comment', 'articles', 'jobImage', 'taskImage', 'dueDate', 'actions']"
       headerPrefix="TASKS.LIST"
       [trackBy]="trackBy"
       [consultable]="false"
@@ -13,7 +13,7 @@
       (cadrartEdit)="handleEditClick($event)"
       (cadrartDelete)="handleDeleteClick($event)"
       >
-      <td *cadrartTableValueFormatter="'client'; let entry">{{ entry.clientFirstName }} {{ entry.clientLastName }}</td>
+      <td *cadrartTableValueFormatter="'quantity'; let entry">{{ entry.taskDoneCount }} / {{ entry.jobCount }}</td>
       <td *cadrartTableValueFormatter="'dimensions'; let entry">
         <cadrart-job-sizes
           [openingWidth]="entry.jobOpeningWidth"
@@ -43,12 +43,20 @@
           </li>
         </ul>
       </td>
-      <td *cadrartTableValueFormatter="'quantity'; let entry">{{ entry.jobCount - entry.taskDoneCount }}</td>
-      <td *cadrartTableValueFormatter="'jobImage'; let entry">jobImage</td>
-      <td *cadrartTableValueFormatter="'taskImage'; let entry">taskImage</td>
+      <td *cadrartTableValueFormatter="'jobImage'; let entry">
+        @if (entry.jobImage) {
+          <cadrart-image [name]="entry.jobImage" folder="job" size="s" alt="Job Image"></cadrart-image>
+        }
+      </td>
+      <td *cadrartTableValueFormatter="'taskImage'; let entry">
+        @if (entry.taskImage) {
+          <cadrart-image [name]="entry.taskImage" folder="task" size="s" alt="Task Image"></cadrart-image>
+        }
+      </td>
       <td *cadrartTableValueFormatter="'dueDate'; let entry">{{ entry.jobDueDate | cadrartDate }}</td>
       <td class="cadrart-tasks__actions" *cadrartTableValueFormatter="'actions'">
         <div class="cadrart-tasks__actions__group">
+          <cadrart-button [iconOnly]="true" icon="open_in_full" color="neutral" [outline]="true"></cadrart-button>
           <cadrart-button [iconOnly]="true" icon="block" color="secondary" [outline]="true"></cadrart-button>
           <cadrart-button [iconOnly]="true" icon="play_circle" color="info" [outline]="true"></cadrart-button>
           <cadrart-button [iconOnly]="true" icon="production_quantity_limits" color="danger" [outline]="true"></cadrart-button>

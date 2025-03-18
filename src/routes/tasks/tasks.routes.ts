@@ -12,6 +12,11 @@ export const cadrartTasksRoutes: Routes = [
     path: '',
     component: CadrartRouteTasksComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'wood',
+        pathMatch: 'full'
+      },
       { path: 'wood', component: CadrartRouteTasksWoodComponent },
       { path: 'cardboard', component: CadrartRouteTasksCardboardComponent },
       { path: 'glass', component: CadrartRouteTasksGlassComponent },

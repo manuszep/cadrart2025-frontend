@@ -17,6 +17,6 @@ export class CadrartTaskService extends CadrartApiService<ICadrartExtendedTask> 
   }
 
   override shouldUpdateFromSocketEvent(_operation: 'create' | 'update' | 'delete', name: string): boolean {
-    return name === 'Task';
+    return name === 'Task' || name === 'Offer';
   }
 }
