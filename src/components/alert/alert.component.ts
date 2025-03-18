@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, inject } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -28,5 +28,5 @@ import { CadrartAlertService } from './alert.service';
   ]
 })
 export class CadrartAlertComponent {
-  constructor(public readonly service: CadrartAlertService) {}
+  public readonly service = inject(CadrartAlertService);
 }
