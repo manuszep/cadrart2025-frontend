@@ -1,5 +1,5 @@
 <div class="cadrart-actions-group">
-  @if (deletable) {
+  @if (deletable()) {
     <cadrart-button
       class="cadrart-actions-group__delete"
       [iconOnly]="true"
@@ -8,7 +8,7 @@
       hoverColor="danger"
       (cadrartClick)="handleDeleteClick()"></cadrart-button>
   }
-  @if (editable) {
+  @if (editable()) {
     <cadrart-button
       class="cadrart-actions-group__edit"
       [iconOnly]="true"
@@ -17,7 +17,7 @@
       hoverColor="secondary"
       (cadrartClick)="handleEditClick()"></cadrart-button>
   }
-  @if (consultable) {
+  @if (consultable()) {
     <cadrart-button
       class="cadrart-actions-group__consult"
       [iconOnly]="true"
@@ -26,7 +26,7 @@
       hoverColor="info"
       (cadrartClick)="handleConsultClick()"></cadrart-button>
   }
-  @if (duplicatable) {
+  @if (duplicatable()) {
     <cadrart-button
       class="cadrart-actions-group__duplicate"
       [iconOnly]="true"
@@ -35,11 +35,11 @@
       hoverColor="info"
       (cadrartClick)="handleDuplicateClick()"></cadrart-button>
   }
-  @if (extendable) {
+  @if (extendable()) {
     <cadrart-button
       class="cadrart-actions-group__extend"
       [iconOnly]="true"
-      [icon]="extended ? 'unfold_less' : 'unfold_more'"
+      [icon]="extended() ? 'unfold_less' : 'unfold_more'"
       color="transparent"
       hoverColor="info"
       (cadrartClick)="handleToggleClick()"></cadrart-button>

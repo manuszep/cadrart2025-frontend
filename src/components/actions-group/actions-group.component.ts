@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output, ViewEncapsulation } from '@angular/core';
 
 import { CadrartButtonComponent } from '../button/button.component';
 
@@ -11,18 +11,18 @@ import { CadrartButtonComponent } from '../button/button.component';
   encapsulation: ViewEncapsulation.None
 })
 export class CadrartActionsGroupComponent {
-  @Input() public editable = false;
-  @Input() public deletable = false;
-  @Input() public consultable = false;
-  @Input() public duplicatable = false;
-  @Input() public extendable = false;
-  @Input() public extended = false;
+  public editable = input<boolean>(false);
+  public deletable = input<boolean>(false);
+  public consultable = input<boolean>(false);
+  public duplicatable = input<boolean>(false);
+  public extendable = input<boolean>(false);
+  public extended = input<boolean>(false);
 
-  @Output() public readonly cadrartEdit = new EventEmitter<void>();
-  @Output() public readonly cadrartDelete = new EventEmitter<void>();
-  @Output() public readonly cadrartConsult = new EventEmitter<void>();
-  @Output() public readonly cadrartDuplicate = new EventEmitter<void>();
-  @Output() public readonly cadrartToggleExtend = new EventEmitter<void>();
+  public readonly cadrartEdit = output<void>();
+  public readonly cadrartDelete = output<void>();
+  public readonly cadrartConsult = output<void>();
+  public readonly cadrartDuplicate = output<void>();
+  public readonly cadrartToggleExtend = output<void>();
 
   handleEditClick(): void {
     this.cadrartEdit.emit();
