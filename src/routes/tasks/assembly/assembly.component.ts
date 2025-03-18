@@ -8,6 +8,8 @@ import { CadrartRouteTasksComponent } from '../tasks.component';
 import { CadrartTableComponent } from '../../../components/table/table.component';
 import { CadrartButtonComponent } from '../../../components/button/button.component';
 import { CadrartTableValueFormatterDirective } from '../../../components/table/table-value-formatter.directive';
+import { CadrartDatePipe } from '../../../pipes/date.pipe';
+import { CadrartJobSizesComponent } from '../../../components/job-sizes/job-sizes.component';
 
 @Component({
   selector: 'cadrart-route-tasks-assembly',
@@ -18,7 +20,9 @@ import { CadrartTableValueFormatterDirective } from '../../../components/table/t
     CadrartTableComponent,
     CadrartTableValueFormatterDirective,
     CadrartButtonComponent,
-    TranslateModule
+    TranslateModule,
+    CadrartDatePipe,
+    CadrartJobSizesComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

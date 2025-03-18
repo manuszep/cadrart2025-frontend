@@ -1,0 +1,11 @@
+@use '../../styles/variables.scss' as *;
+
+.cadrart-tasks {
+  &__actions {
+    &__group {
+      display: flex;
+      gap: $spacing-small;
+      justify-content: flex-end;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 @let data = tasks | async;
 @if (data) {
-  <div class="cadrart-extended-task">
+  <div class="cadrart-tasks cadrart-tasks--assembly">
     <cadrart-table
       [data]="data"
       [keys]="['client', 'dimensions', 'measure', 'article', 'comment', 'articles', 'quantity', 'jobImage', 'taskImage', 'dueDate', 'actions']"
@@ -15,9 +15,13 @@
       >
       <td *cadrartTableValueFormatter="'client'; let entry">{{ entry.clientFirstName }} {{ entry.clientLastName }}</td>
       <td *cadrartTableValueFormatter="'dimensions'; let entry">
-        {{ entry.jobOpeningWidth }} x {{ entry.jobOpeningHeight }}<br />
-          {{ entry.jobMarginWidth }} x {{ entry.jobMarginHeight }}<br />
-          {{ entry.jobGlassWidth }} x {{ entry.jobGlassHeight }}
+        <cadrart-job-sizes
+          [openingWidth]="entry.jobOpeningWidth"
+          [openingHeight]="entry.jobOpeningHeight"
+          [marginWidth]="entry.jobMarginWidth"
+          [marginHeight]="entry.jobMarginHeight"
+          [glassWidth]="entry.jobGlassWidth"
+          [glassHeight]="entry.jobGlassHeight"></cadrart-job-sizes>
       </td>
       <td *cadrartTableValueFormatter="'measure'; let entry">{{ 'JOB.MEASURE.' + entry.jobMeasure + '_SHORT' | translate }}</td>
       <td *cadrartTableValueFormatter="'article'; let entry">
@@ -42,11 +46,13 @@
       <td *cadrartTableValueFormatter="'quantity'; let entry">{{ entry.jobCount - entry.taskDoneCount }}</td>
       <td *cadrartTableValueFormatter="'jobImage'; let entry">jobImage</td>
       <td *cadrartTableValueFormatter="'taskImage'; let entry">taskImage</td>
-      <td *cadrartTableValueFormatter="'dueDate'; let entry">{{ entry.jobDueDate }}</td>
-      <td *cadrartTableValueFormatter="'actions'">
-        <cadrart-button [iconOnly]="true" icon="block" color="secondary" [outline]="true"></cadrart-button>
-        <cadrart-button [iconOnly]="true" icon="play_circle" color="info" [outline]="true"></cadrart-button>
-        <cadrart-button [iconOnly]="true" icon="production_quantity_limits" color="danger" [outline]="true"></cadrart-button>
+      <td *cadrartTableValueFormatter="'dueDate'; let entry">{{ entry.jobDueDate | cadrartDate }}</td>
+      <td class="cadrart-tasks__actions" *cadrartTableValueFormatter="'actions'">
+        <div class="cadrart-tasks__actions__group">
+          <cadrart-button [iconOnly]="true" icon="block" color="secondary" [outline]="true"></cadrart-button>
+          <cadrart-button [iconOnly]="true" icon="play_circle" color="info" [outline]="true"></cadrart-button>
+          <cadrart-button [iconOnly]="true" icon="production_quantity_limits" color="danger" [outline]="true"></cadrart-button>
+        </div>
       </td>
     </cadrart-table>
   </div>
