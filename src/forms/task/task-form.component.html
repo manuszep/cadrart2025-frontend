@@ -43,7 +43,7 @@
     @if (getSubTasksControl(); as subTasksControl) {
       <ng-container formArrayName="children">
         @for (subTaskForm of subTasksControl.controls; track subTaskForm; let i = $index) {
-          <cadrart-task-form [taskForm]="subTaskForm" [canDelete]="true" [isChild]="true"></cadrart-task-form>
+          <cadrart-task-form [taskForm]="subTaskForm" [canDelete]="true" [isChild]="true" (cadrartDelete)="handleSubTaskDelete(i)"></cadrart-task-form>
         }
       </ng-container>
     }

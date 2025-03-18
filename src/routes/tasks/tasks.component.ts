@@ -23,7 +23,7 @@ export class CadrartRouteTasksComponent implements OnDestroy {
   public trackBy = (_index: number, item: CadrartExtendedTask): number | undefined => item.id;
 
   private readonly service = inject(CadrartTaskService);
-  private readonly dataConnectorService = inject(CadrartDataConnectorService);
+  private readonly dataConnectorService = inject(CadrartDataConnectorService<ICadrartExtendedTask>);
   private readonly headerService = inject(CadrartHeaderService);
   private readonly route = inject(ActivatedRoute);
 
@@ -94,9 +94,5 @@ export class CadrartRouteTasksComponent implements OnDestroy {
 
   handleDeleteClick(task: CadrartExtendedTask): void {
     console.log(task);
-  }
-
-  log(data: any): void {
-    console.log(data);
   }
 }

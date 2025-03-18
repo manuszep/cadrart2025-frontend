@@ -82,4 +82,8 @@ export class CadrartTaskFormComponent implements OnInit, OnDestroy {
   handleDelete(): void {
     this.cadrartDelete.emit();
   }
+
+  handleSubTaskDelete(index: number): void {
+    this.getSubTasksControl().removeAt(index);
+  }
 }

@@ -1,13 +1,7 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  TemplateRef,
-  ViewChild,
-  ViewEncapsulation
-} from '@angular/core';
-import { Observable, Subject, Subscription, map, startWith, take, takeUntil } from 'rxjs';
+import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable, Subscription, map, startWith, take } from 'rxjs';
 import { ICadrartApiEntity } from '@manuszep/cadrart2025-common';
 import { EsfsFormGroup } from '@manuszep/es-form-system';
 
@@ -33,9 +27,7 @@ import { CadrartInspectorService } from '../inspector/inspector.service';
 export abstract class CadrartSettingsPageComponent<
   TEntity extends ICadrartApiEntity,
   TFormGroup extends EsfsFormGroup<TEntity> | EsfsFormGroup<TEntity>
-> implements OnDestroy
-{
-  protected unsubscribeSubject$ = new Subject<void>();
+> {
   protected inspectorSubscription?: Subscription;
 
   public entityFormGroup?: TFormGroup;
@@ -46,14 +38,14 @@ export abstract class CadrartSettingsPageComponent<
   @ViewChild('formTemplate', { static: true }) formTemplate?: TemplateRef<unknown>;
 
   constructor(
-    protected readonly dataConnectorService: CadrartDataConnectorService,
+    protected readonly dataConnectorService: CadrartDataConnectorService<TEntity>,
     protected readonly headerService: CadrartHeaderService,
     protected readonly inspectorService: CadrartInspectorService,
     protected readonly service: CadrartApiService<TEntity>
   ) {
     this.getItemName = this.service.getName;
 
-    this.headerService.actionEvent$.pipe(takeUntil(this.unsubscribeSubject$)).subscribe(() => {
+    this.headerService.actionEvent$.pipe(takeUntilDestroyed()).subscribe(() => {
       this.handleNewClick();
     });
 
@@ -64,12 +56,7 @@ export abstract class CadrartSettingsPageComponent<
           // TODO: Implement accessors
         }
       })
-      .pipe(takeUntil(this.unsubscribeSubject$));
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribeSubject$.next(void 0);
-    this.unsubscribeSubject$.complete();
+      .pipe(takeUntilDestroyed());
   }
 
   identify(_index: number, item: TEntity): number | undefined {

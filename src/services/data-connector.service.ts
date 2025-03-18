@@ -6,31 +6,37 @@ import { ICadrartApiEntity, ICadrartEntitiesResponse } from '@manuszep/cadrart20
 import { sortStringOrNumbers } from '../utils';
 import { CadrartFooterService } from '../components/footer/footer.service';
 
-export type IDataConnectorSortAccessor = Record<string, (value: any, key: string) => string | number>;
+export type IDataConnectorSortAccessor<TModel extends ICadrartApiEntity = ICadrartApiEntity> = Record<
+  string,
+  (value: TModel, key: string) => string | number
+>;
 
 export type IDataConnectorConfig<T extends ICadrartApiEntity> = {
   requestor: (page: number, count: number, needle?: string) => Observable<ICadrartEntitiesResponse<T>>;
   accessors: IDataConnectorSortAccessor;
 };
 
-function defaultAccessor(value: any, key: string): any {
+function defaultAccessor<TModel extends ICadrartApiEntity = ICadrartApiEntity>(
+  value: TModel,
+  key: keyof TModel
+): TModel[keyof TModel] {
   return value[key];
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class CadrartDataConnectorService {
-  private data$: BehaviorSubject<any[]> = new BehaviorSubject([] as any[]);
-  private filteredData$: BehaviorSubject<any[]> = new BehaviorSubject([] as any[]);
+export class CadrartDataConnectorService<TData extends ICadrartApiEntity = ICadrartApiEntity> {
+  private data$: BehaviorSubject<TData[]> = new BehaviorSubject([] as TData[]);
+  private filteredData$: BehaviorSubject<TData[]> = new BehaviorSubject([] as TData[]);
   private needle$: BehaviorSubject<string> = new BehaviorSubject('');
   private sortColumn$: BehaviorSubject<string | ''> = new BehaviorSubject('');
   private page$: BehaviorSubject<number> = new BehaviorSubject(1);
   private pageSize$: BehaviorSubject<number> = new BehaviorSubject(20);
   private accessors$: IDataConnectorSortAccessor = {} as IDataConnectorSortAccessor;
   private total$: BehaviorSubject<number> = new BehaviorSubject(0);
-  private requestor: (page: number, count: number, needle?: string) => Observable<ICadrartEntitiesResponse<any>> = () =>
-    new Observable();
+  private requestor: (page: number, count: number, needle?: string) => Observable<ICadrartEntitiesResponse<TData>> =
+    () => new Observable();
 
   private requestorSubscription: Subscription | null = null;
 
@@ -55,7 +61,7 @@ export class CadrartDataConnectorService {
     });
   }
 
-  public get data(): Observable<any[]> {
+  public get data(): Observable<TData[]> {
     return this.filteredData$.asObservable();
   }
 
@@ -107,7 +113,7 @@ export class CadrartDataConnectorService {
     this.makeRequest();
   }
 
-  connect<T extends ICadrartApiEntity>(config: IDataConnectorConfig<T>): Observable<T[]> {
+  connect(config: IDataConnectorConfig<TData>): Observable<TData[]> {
     const { requestor, accessors } = config;
 
     this.requestor = requestor;
@@ -126,7 +132,7 @@ export class CadrartDataConnectorService {
     }
 
     this.requestorSubscription = this.requestor(this.page$.value, this.pageSize$.value, this.needle$.value).subscribe(
-      (data: ICadrartEntitiesResponse<any>) => {
+      (data: ICadrartEntitiesResponse<TData>) => {
         this.data$.next(data.entities);
         this.filteredData$.next(data.entities);
         this.total$.next(data.total);
@@ -138,7 +144,7 @@ export class CadrartDataConnectorService {
     this.needle$.next('');
     this.sortColumn$.next('');
     this.page$.next(1);
-    this.pageSize$.next(5);
+    this.pageSize$.next(20);
     this.data$.next([]);
     this.filteredData$.next([]);
     this.accessors$ = {} as IDataConnectorSortAccessor;
@@ -160,12 +166,12 @@ export class CadrartDataConnectorService {
     this.doFilter();
   }
 
-  private doSearch(data: any[]): any[] {
+  private doSearch(data: TData[]): TData[] {
     if (this.needle$.value === '') {
       return data;
     }
 
-    return data.filter((item: any) => {
+    return data.filter((item: TData) => {
       /*const values = Object.keys(item).map((k: string) => {
         return this.accessors$[k] ? this.accessors$[k](item, k) : item[k];
       });
@@ -188,15 +194,15 @@ export class CadrartDataConnectorService {
     });
   }
 
-  private doSort(data: any[]): any[] {
+  private doSort(data: TData[]): TData[] {
     const sortValue = this.sortColumn$.value;
 
     if (sortValue === '') {
       return data;
     }
 
-    return data.sort((a: any, b: any) => {
-      const accessor = this.accessors$[sortValue] || defaultAccessor;
+    return data.sort((a: TData, b: TData) => {
+      const accessor = this.accessors$[sortValue] || defaultAccessor<TData>;
       const valA = accessor(a, sortValue);
       const valB = accessor(b, sortValue);
 

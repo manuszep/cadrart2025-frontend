@@ -37,7 +37,7 @@ export class CadrartRouteSettingsFormulaComponent extends CadrartSettingsPageCom
   CadrartFormulaForm
 > {
   constructor(
-    protected override readonly dataConnectorService: CadrartDataConnectorService,
+    protected override readonly dataConnectorService: CadrartDataConnectorService<ICadrartFormula>,
     protected override readonly headerService: CadrartHeaderService,
     protected override readonly inspectorService: CadrartInspectorService,
     protected override readonly service: CadrartFormulaService

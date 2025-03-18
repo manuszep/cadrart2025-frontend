@@ -33,7 +33,7 @@ export class CadrartRouteSettingsLocationComponent extends CadrartSettingsPageCo
   CadrartLocationForm
 > {
   constructor(
-    protected override readonly dataConnectorService: CadrartDataConnectorService,
+    protected override readonly dataConnectorService: CadrartDataConnectorService<ICadrartLocation>,
     protected override readonly headerService: CadrartHeaderService,
     protected override readonly inspectorService: CadrartInspectorService,
     protected override readonly service: CadrartLocationService

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { Observable, Subject, map, take, takeUntil } from 'rxjs';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, ViewEncapsulation } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable, map, take } from 'rxjs';
 import { ECadrartOfferStatus, ICadrartEntitiesResponse, ICadrartOffer } from '@manuszep/cadrart2025-common';
 import { Router } from '@angular/router';
 
@@ -32,7 +33,7 @@ import { CadrartFiltersComponent } from '../../../components/filters/filters.com
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class CadrartRouteOfferListComponent implements OnDestroy {
+export class CadrartRouteOfferListComponent {
   public statuses = ECadrartOfferStatus;
   public offers?: Observable<CadrartOffer[]>;
   public trackBy = (_index: number, item: CadrartOffer): number | undefined => item.id;
@@ -62,20 +63,19 @@ export class CadrartRouteOfferListComponent implements OnDestroy {
     }
   ];
 
-  private unsubscribeSubject$ = new Subject<void>();
-
   private filters: {
     start?: string;
     end?: string;
     status?: ECadrartOfferStatus;
   } = {};
 
-  constructor(
-    public readonly service: CadrartOfferService,
-    protected readonly dataConnectorService: CadrartDataConnectorService,
-    private readonly router: Router,
-    private readonly alertService: CadrartAlertService
-  ) {
+  public readonly service = inject(CadrartOfferService);
+  private readonly destroyRef = inject(DestroyRef);
+  protected readonly dataConnectorService = inject(CadrartDataConnectorService<ICadrartOffer>);
+  private readonly router = inject(Router);
+  private readonly alertService = inject(CadrartAlertService);
+
+  constructor() {
     this.handleFilterPeriodChange('all');
     this.handleFilterStatusChange('all');
 
@@ -95,14 +95,9 @@ export class CadrartRouteOfferListComponent implements OnDestroy {
         }
       })
       .pipe(
-        takeUntil(this.unsubscribeSubject$),
+        takeUntilDestroyed(this.destroyRef),
         map((offers: ICadrartOffer[]) => offers.map((entry: ICadrartOffer) => new CadrartOffer(entry)))
       );
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribeSubject$.next(void 0);
-    this.unsubscribeSubject$.complete();
   }
 
   saveEntity(entry: CadrartOffer): void {
@@ -165,6 +160,7 @@ export class CadrartRouteOfferListComponent implements OnDestroy {
       this.handleFilterStatusChange(e.value as ECadrartOfferStatus | 'all');
     }
 
+    // TODO: Filtering should be updated without using connect
     this.connect((page: number, count: number) =>
       this.service.getEntities(page, count, this.filters.start, this.filters.end, this.filters.status)
     );

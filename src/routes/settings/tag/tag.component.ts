@@ -30,7 +30,7 @@ import { CadrartTagForm } from '../../../models/tag.form';
 })
 export class CadrartRouteSettingsTagComponent extends CadrartSettingsPageComponent<ICadrartTag, CadrartTagForm> {
   constructor(
-    protected override readonly dataConnectorService: CadrartDataConnectorService,
+    protected override readonly dataConnectorService: CadrartDataConnectorService<ICadrartTag>,
     protected override readonly headerService: CadrartHeaderService,
     protected override readonly inspectorService: CadrartInspectorService,
     protected override readonly service: CadrartTagService

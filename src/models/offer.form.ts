@@ -221,4 +221,23 @@ export class CadrartOfferForm extends EsfsFormGroup<ICadrartOffer> {
     this.updateValueAndValidity({ emitEvent: false });
     this.sendUpdates();
   }
+
+  override getRawValue(): ICadrartOffer {
+    const data: ICadrartOffer = super.getRawValue();
+
+    // Remove empty jobs and tasks
+    data.jobs = data.jobs.filter((job: ICadrartJob) => {
+      if (!job.tasks || job.tasks.length < 1) {
+        return false;
+      }
+
+      job.tasks = job.tasks.filter((task: ICadrartTask) => {
+        return task.article !== null && task.article !== undefined;
+      });
+
+      return job?.tasks?.length > 0;
+    });
+
+    return data;
+  }
 }

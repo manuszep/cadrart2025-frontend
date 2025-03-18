@@ -39,7 +39,7 @@ export class CadrartRouteSettingsArticleComponent extends CadrartSettingsPageCom
   CadrartArticleForm
 > {
   constructor(
-    protected override readonly dataConnectorService: CadrartDataConnectorService,
+    protected override readonly dataConnectorService: CadrartDataConnectorService<ICadrartArticle>,
     protected override readonly headerService: CadrartHeaderService,
     protected override readonly inspectorService: CadrartInspectorService,
     protected override readonly service: CadrartArticleService,

@@ -37,7 +37,7 @@ export class CadrartRouteSettingsTeamMemberComponent extends CadrartSettingsPage
   CadrartTeamMemberForm
 > {
   constructor(
-    protected override readonly dataConnectorService: CadrartDataConnectorService,
+    protected override readonly dataConnectorService: CadrartDataConnectorService<ICadrartTeamMember>,
     protected override readonly headerService: CadrartHeaderService,
     protected override readonly inspectorService: CadrartInspectorService,
     protected override readonly service: CadrartTeamMemberService
