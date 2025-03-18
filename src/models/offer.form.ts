@@ -45,7 +45,11 @@ function getFormConfig(
     assignedTo: new EsfsFormControlDropdown<ICadrartTeamMember | undefined>(undefined, {
       required: true,
       searchable: true,
-      options: teamMemberService.getEntitiesAsOptions()
+      options: teamMemberService.getEntitiesAsOptions(),
+      compareOptionsToValue: (
+        option: IEsfsDropdownOption<ICadrartTeamMember | undefined>,
+        value: ICadrartClient | undefined
+      ): boolean => (option.value as ICadrartTeamMember).id === value?.id
     }),
     status: new EsfsFormControlDropdown<ECadrartOfferStatus>(ECadrartOfferStatus.STATUS_CREATED, {
       required: true,
