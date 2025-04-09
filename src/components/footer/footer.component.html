@@ -1,12 +1,10 @@
-@let data = templateData | async;
-
-@if (data) {
-  <div class="cadrart-footer" [class.cadrart-footer--toggled]="!!data.content">
-    @if (data.paginate) {
+@if (service.paginate() || service.content()) {
+  <div class="cadrart-footer" [class.cadrart-footer--toggled]="!!service.content()">
+    @if (service.paginate()) {
       <cadrart-pagination ></cadrart-pagination>
     }
-    @if (data.content) {
-      <cadrart-string-or-template [content]="data.content || ''"></cadrart-string-or-template>
+    @if (service.content()) {
+      <cadrart-string-or-template [content]="service.content() || ''"></cadrart-string-or-template>
     }
   </div>
 }

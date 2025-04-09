@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ECadrartArticleFamily } from '@manuszep/cadrart2025-common';
 
-import { CadrartExtendedTask } from '../../../models/extended-task.model';
-import { CadrartRouteTasksComponent } from '../tasks.component';
 import { CadrartTableComponent } from '../../../components/table/table.component';
 import { CadrartButtonComponent } from '../../../components/button/button.component';
 import { CadrartTableValueFormatterDirective } from '../../../components/table/table-value-formatter.directive';
+import { CadrartRouteTasksBaseComponent } from '../task.component.base';
 
 @Component({
   selector: 'cadrart-route-tasks-cardboard',
@@ -16,21 +15,11 @@ import { CadrartTableValueFormatterDirective } from '../../../components/table/t
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class CadrartRouteTasksCardboardComponent {
-  private readonly parentComponent = inject(CadrartRouteTasksComponent);
-  public tasks = this.parentComponent.getTasksForCategory(ECadrartArticleFamily.CARDBOARD);
+export class CadrartRouteTasksCardboardComponent extends CadrartRouteTasksBaseComponent {
+  protected family = ECadrartArticleFamily.CARDBOARD;
 
-  public trackBy = (_index: number, item: CadrartExtendedTask): number | undefined => item.id;
-
-  handleConsultClick(task: CadrartExtendedTask): void {
-    console.log(task);
-  }
-
-  handleEditClick(task: CadrartExtendedTask): void {
-    console.log(task);
-  }
-
-  handleDeleteClick(task: CadrartExtendedTask): void {
-    console.log(task);
+  constructor() {
+    super();
+    this.init();
   }
 }

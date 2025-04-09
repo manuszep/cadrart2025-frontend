@@ -181,7 +181,7 @@ export class CadrartTaskForm extends EsfsFormGroup<ICadrartTask> {
     (this.get('children') as EsfsFormArray<CadrartTaskForm>).push(new CadrartTaskForm(this.articleService, task, true));
   }
 
-  updatePrice(length: number, area: number, reduction = 0, vat = 21): void {
+  updatePrice(length: number, biggestLength: number, area: number, reduction = 0, vat = 21): void {
     const article = this.getArticle().value;
 
     if (!article) {
@@ -204,10 +204,10 @@ export class CadrartTaskForm extends EsfsFormGroup<ICadrartTask> {
         ? area
         : 1;
     const sellPrice = article.sellPrice ?? 0;
-    const finalPrice = formula ? formula.apply(sellPrice, multiplier) : sellPrice * multiplier;
+    const finalPrice = formula ? formula.apply(sellPrice, multiplier, biggestLength) : sellPrice * multiplier;
 
     for (const subTask of children) {
-      subTask.updatePrice(length, area, reduction, vat);
+      subTask.updatePrice(length, biggestLength, area, reduction, vat);
 
       this._subTasksTotal += numberRound2(subTask.getTotal().value ?? 0);
       this._subTasksTotalBeforeReduction += numberRound2(subTask.getTotalBeforeReduction().value ?? 0);

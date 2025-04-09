@@ -6,7 +6,7 @@ export abstract class CadrartEntity<TEntity extends ICadrartApiEntity> {
   protected _data: PartialDeep<TEntity> = {} as PartialDeep<TEntity>;
 
   constructor(data: PartialDeep<TEntity> = {} as PartialDeep<TEntity>) {
-    this._data = data;
+    this._data = data === null ? ({} as PartialDeep<TEntity>) : data;
   }
 
   public get id(): number | undefined {

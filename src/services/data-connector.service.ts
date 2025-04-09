@@ -14,6 +14,7 @@ export type IDataConnectorSortAccessor<TModel extends ICadrartApiEntity = ICadra
 export type IDataConnectorConfig<T extends ICadrartApiEntity> = {
   requestor: (page: number, count: number, needle?: string) => Observable<ICadrartEntitiesResponse<T>>;
   accessors: IDataConnectorSortAccessor;
+  showPagination?: boolean;
 };
 
 function defaultAccessor<TModel extends ICadrartApiEntity = ICadrartApiEntity>(
@@ -121,7 +122,9 @@ export class CadrartDataConnectorService<TData extends ICadrartApiEntity = ICadr
 
     this.makeRequest();
 
-    this.footerService.enablePagination();
+    if (typeof config.showPagination === 'undefined' || config.showPagination) {
+      this.footerService.enablePagination();
+    }
 
     return this.filteredData$.asObservable();
   }

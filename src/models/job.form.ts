@@ -281,6 +281,7 @@ export class CadrartJobForm extends EsfsFormGroup<ICadrartJob> {
     const width = (this.getGlassWidth().value ?? 0) / 100;
     const height = (this.getGlassHeight().value ?? 0) / 100;
     const lengthSize = (width + height) * 2;
+    const biggestLength = Math.max(width, height);
     const areaSize = width * height;
     const count = this.getCount().value ?? 1;
     let total = 0;
@@ -288,7 +289,7 @@ export class CadrartJobForm extends EsfsFormGroup<ICadrartJob> {
     let totalWithVat = 0;
 
     for (const task of tasks.controls || []) {
-      task.updatePrice(lengthSize, areaSize, reduction, vat);
+      task.updatePrice(lengthSize, biggestLength, areaSize, reduction, vat);
 
       total += numberRound2(task.getTotal().value ?? 0);
       total += numberRound2(task.getSubTasksTotal() ?? 0);

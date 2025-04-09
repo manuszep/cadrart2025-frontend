@@ -27,20 +27,26 @@
       <td *cadrartTableValueFormatter="'article'; let entry">
         <div>
           {{ entry.articleName }}
-          @if (entry.articleParentId) {
+          @if (entry.parent) {
+            test
             <br />
-            <small>({{ getParentArticleName(data, entry.articleParentId)}})</small>
+            <small>({{ entry.parent.articleName }})</small>
           }
         </div>
       </td>
       <td *cadrartTableValueFormatter="'comment'; let entry">{{ entry.taskComment }}</td>
       <td *cadrartTableValueFormatter="'articles'; let entry">
         <ul>
-          <li *ngFor="let jobTask of getAllTasksForJob(data, entry.jobId)" [class.task__list__task__articles__article--done]="jobTask.jobCount === jobTask.taskDoneCount">
-            {{ jobTask.articleName }}
-            <br *ngIf="jobTask.taskParentId">
-            <small *ngIf="jobTask.taskParentId">({{ getParentArticleName(data, jobTask.taskParentId)}})</small>
-          </li>
+          @for (jobTask of entry.jobTasks; track jobTask.id) {
+
+            <li [class.task__list__task__articles__article--done]="jobTask.jobCount === jobTask.taskDoneCount">
+              {{ jobTask.articleName }}
+              @if (jobTask.parent && jobTask.parent?.articleName) {
+                <br />
+                <small>({{ jobTask.parent.articleName}})</small>
+              }
+            </li>
+          }
         </ul>
       </td>
       <td *cadrartTableValueFormatter="'jobImage'; let entry">

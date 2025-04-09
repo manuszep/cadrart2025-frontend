@@ -2,11 +2,21 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ICadrartTeamMember, ICadrartEntityResponse } from '@manuszep/cadrart2025-common';
 
+import { CadrartAlertService } from '../components/alert/alert.service';
+
 import { CadrartApiService } from './api.service';
+import { CadrartCacheService } from './cache.service';
 
 @Injectable({ providedIn: 'root' })
 export class CadrartTeamMemberService extends CadrartApiService<ICadrartTeamMember> {
   endpointName = 'team-member';
+
+  constructor(
+    protected override readonly cache: CadrartCacheService,
+    protected override readonly alertService: CadrartAlertService
+  ) {
+    super(cache, alertService);
+  }
 
   public getName(entity: ICadrartTeamMember): string {
     const value = `${entity.firstName ?? ''} ${entity.lastName ?? ''}`;

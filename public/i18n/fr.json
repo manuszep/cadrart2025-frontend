@@ -247,6 +247,11 @@
     }
   },
   "ERROR": {
+    "API": {
+      "FORMULA": {
+        "DELETE": "Impossible de supprimer la formule car elle est utilisée par un ou plusieurs articles."
+      }
+    },
     "VALIDATION": {
       "REQUIRED": "Ce champ est requis",
       "EMAIL": "L'adresse e-mail n'est pas valide",

@@ -53,7 +53,7 @@ export class CadrartFormula extends CadrartEntity<ICadrartFormula> {
     return parsedFormula;
   }
 
-  apply(price: number, multiplier: number): number {
+  apply(price: number, multiplier: number, threshold: number): number {
     if (this.formula === null) {
       return price * multiplier;
     }
@@ -69,7 +69,7 @@ export class CadrartFormula extends CadrartEntity<ICadrartFormula> {
         finalOperation = `${step.operation}${step.amount}`;
       }
 
-      if (step.start <= multiplier && step.start > activeLimit) {
+      if (step.start <= threshold && step.start > activeLimit) {
         activeLimit = step.start;
         activeOperation = `${step.operation}${step.amount}`;
       }

@@ -2,6 +2,8 @@ import { map, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ICadrartArticle, ICadrartEntitiesResponse } from '@manuszep/cadrart2025-common';
 
+import { CadrartAlertService } from '../components/alert/alert.service';
+
 import { CadrartApiService } from './api.service';
 import { CadrartCacheService } from './cache.service';
 
@@ -9,8 +11,11 @@ import { CadrartCacheService } from './cache.service';
 export class CadrartArticleService extends CadrartApiService<ICadrartArticle> {
   endpointName = 'article';
 
-  constructor(protected override readonly cache: CadrartCacheService) {
-    super(cache);
+  constructor(
+    protected override readonly cache: CadrartCacheService,
+    protected override readonly alertService: CadrartAlertService
+  ) {
+    super(cache, alertService);
   }
 
   public getName(entity: ICadrartArticle): string {

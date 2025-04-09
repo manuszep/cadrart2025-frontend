@@ -1,4 +1,4 @@
-import { ICadrartExtendedTask } from '@manuszep/cadrart2025-common';
+import { ICadrartExtendedTask, PartialDeep } from '@manuszep/cadrart2025-common';
 
 import { CadrartEntity } from './api.model';
 
@@ -19,12 +19,24 @@ export class CadrartExtendedTask extends CadrartEntity<ICadrartExtendedTask> {
     return this._data.taskDoneCount ?? null;
   }
 
-  get taskParentId(): number | null {
-    return this._data.taskParentId ?? null;
+  get parent(): number | CadrartExtendedTask | null {
+    if (typeof this._data.parent === 'number') {
+      return this._data.parent;
+    }
+
+    return new CadrartExtendedTask(this._data.parent);
   }
 
   get jobId(): number | null {
     return this._data.jobId ?? null;
+  }
+
+  get jobTasks(): CadrartExtendedTask[] | null {
+    if (Array.isArray(this._data.jobTasks)) {
+      return this._data.jobTasks.map((task) => new CadrartExtendedTask(task));
+    }
+
+    return [];
   }
 
   get jobCount(): number | null {

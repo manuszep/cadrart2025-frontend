@@ -8,6 +8,16 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { environment } from '../environments/environment';
 import { CadrartAuthInterceptor } from '../interceptors/http.interceptor';
+import { CadrartArticleService } from '../services/article.service';
+import { CadrartClientService } from '../services/client.service';
+import { CadrartFormulaService } from '../services/formula.service';
+import { CadrartJobService } from '../services/job.service';
+import { CadrartLocationService } from '../services/location.service';
+import { CadrartOfferService } from '../services/offer.service';
+import { CadrartProviderService } from '../services/provider.service';
+import { CadrartTagService } from '../services/tag.service';
+import { CadrartTaskService } from '../services/task.service';
+import { CadrartTeamMemberService } from '../services/team-member.service';
 
 import { cadrartRoutes } from './app.routes';
 
@@ -38,6 +48,16 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     importProvidersFrom(SocketIoModule.forRoot({ url: `${prot}//${host}:${port}`, options: { path: '/ws' } })),
-    interceptors
+    interceptors,
+    CadrartArticleService,
+    CadrartClientService,
+    CadrartFormulaService,
+    CadrartJobService,
+    CadrartLocationService,
+    CadrartOfferService,
+    CadrartProviderService,
+    CadrartTagService,
+    CadrartTaskService,
+    CadrartTeamMemberService
   ]
 };

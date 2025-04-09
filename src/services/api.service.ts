@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpContext, HttpHeaders, HttpParams } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import {
   ICadrartApiEntity,
   ICadrartEntitiesResponse,
@@ -9,6 +9,8 @@ import {
   ICadrartSocketDeleteEntity,
   ICadrartSocketUpdateEntity
 } from '@manuszep/cadrart2025-common';
+
+import { CadrartAlertService } from '../components/alert/alert.service';
 
 import { CadrartCacheService } from './cache.service';
 
@@ -34,7 +36,7 @@ export type ICadrartRequestOptions = {
 export abstract class CadrartApiService<T extends ICadrartApiEntity> {
   abstract endpointName: string;
 
-  constructor(protected readonly cache: CadrartCacheService) {
+  constructor(protected readonly cache: CadrartCacheService, protected readonly alertService: CadrartAlertService) {
     this.cache.createSocket.subscribe((data: ICadrartSocketCreateEntity<T>) => {
       this.handleSocketCreate(data);
     });
@@ -117,7 +119,19 @@ export abstract class CadrartApiService<T extends ICadrartApiEntity> {
       this.cache.makeRequest('delete', `${this.endpointName}/${id}`) as Observable<ICadrartEntityResponse<T>>
     ).pipe(
       map((response: ICadrartEntityResponse<T>) => {
+        console.log(response);
+
         return response.entity;
+      }),
+      catchError((error) => {
+        this.alertService.add({
+          message: error.error.message,
+          type: 'danger',
+          icon: 'error',
+          ttl: 3000
+        });
+
+        return of(error) as Observable<T>;
       })
     );
   }
