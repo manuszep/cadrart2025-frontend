@@ -1,3 +1,16 @@
+@let inline = inline$();
+@let title = title$();
+@let subtitle = subtitle$();
+@let image = image$();
+@let action = action$();
+@let editable = editable$();
+@let deletable = deletable$();
+@let consultable = consultable$();
+@let compact = compact$();
+@let fields = fields$();
+@let extendedFields = extendedFields$();
+@let deleting = deleting$();
+
 <div class="cadrart-data-card" [class.cadrart-data-card--inline]="inline">
   <cadrart-card
     [title]="title"
@@ -7,7 +20,7 @@
     [editable]="editable"
     [deletable]="deletable"
     [consultable]="consultable"
-    [showOverlay]="(deleting$ | async) ?? false"
+    [showOverlay]="deleting ?? false"
     [inline]="inline"
     [compact]="compact"
     (cadrartClickOutside)="handleClickOutside()"

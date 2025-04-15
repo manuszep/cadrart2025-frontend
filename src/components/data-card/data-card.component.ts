@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, input, output, signal } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { BehaviorSubject } from 'rxjs';
 
 import { CadrartClickOutsideDirective } from '../../directives/click-outside.directive';
 import { cadrartAnimationSlideInOut } from '../../utils/animation';
@@ -22,57 +21,57 @@ export type ICadrartDataCardFields = ICadrartDataCardField[];
   animations: cadrartAnimationSlideInOut
 })
 export class CadrartDataCardComponent {
-  public extended$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public deleting$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public extended$ = signal<boolean>(false);
+  public deleting$ = signal<boolean>(false);
 
-  @Input() public id?: number | string;
-  @Input() public image?: ICadrartImageParams;
-  @Input() public title?: string;
-  @Input() public subtitle?: string;
-  @Input() public fields?: ICadrartDataCardFields;
-  @Input() public extendedFields?: ICadrartDataCardFields;
-  @Input() public action?: string;
-  @Input() public editable = false;
-  @Input() public deletable = false;
-  @Input() public consultable = false;
-  @Input() public inline = false;
-  @Input() public compact = false;
+  public id$ = input<number | string>(undefined, { alias: 'id' });
+  public image$ = input<ICadrartImageParams>(undefined, { alias: 'image' });
+  public title$ = input<string>(undefined, { alias: 'title' });
+  public subtitle$ = input<string>(undefined, { alias: 'subtitle' });
+  public fields$ = input<ICadrartDataCardFields>(undefined, { alias: 'fields' });
+  public extendedFields$ = input<ICadrartDataCardFields>(undefined, { alias: 'extendedFields' });
+  public action$ = input<string>(undefined, { alias: 'action' });
+  public editable$ = input<boolean>(false, { alias: 'editable' });
+  public deletable$ = input<boolean>(false, { alias: 'deletable' });
+  public consultable$ = input<boolean>(false, { alias: 'consultable' });
+  public inline$ = input<boolean>(false, { alias: 'inline' });
+  public compact$ = input<boolean>(false, { alias: 'compact' });
 
-  @Output() public readonly cadrartAction = new EventEmitter<number | string | undefined>();
-  @Output() public readonly cadrartEdit = new EventEmitter<number | string | undefined>();
-  @Output() public readonly cadrartDelete = new EventEmitter<number | string | undefined>();
-  @Output() public readonly cadrartConsult = new EventEmitter<number | string | undefined>();
+  public cadrartAction = output<number | string | undefined>();
+  public cadrartEdit = output<number | string | undefined>();
+  public cadrartDelete = output<number | string | undefined>();
+  public cadrartConsult = output<number | string | undefined>();
 
   handleExtendClick(): void {
-    this.extended$.next(!this.extended$.value);
+    this.extended$.update((value: boolean) => !value);
   }
 
   handleActionClick(): void {
-    this.cadrartAction.emit(this.id);
+    this.cadrartAction.emit(this.id$());
   }
 
   handleEditClick(): void {
-    this.cadrartEdit.emit(this.id);
+    this.cadrartEdit.emit(this.id$());
   }
 
   handleDeleteClick(): void {
-    this.deleting$.next(true);
+    this.deleting$.set(true);
   }
 
   handleConsultClick(): void {
-    this.cadrartConsult.emit(this.id);
+    this.cadrartConsult.emit(this.id$());
   }
 
   handleDeleteCancelClick(): void {
-    this.deleting$.next(false);
+    this.deleting$.set(false);
   }
 
   handleDeleteConfirmClick(): void {
-    this.cadrartDelete.emit(this.id);
-    this.deleting$.next(false);
+    this.cadrartDelete.emit(this.id$());
+    this.deleting$.set(false);
   }
 
   handleClickOutside(): void {
-    this.deleting$.next(false);
+    this.deleting$.set(false);
   }
 }
