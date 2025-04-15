@@ -1,19 +1,19 @@
-@let labelValue = label();
-@let itemsValue = items();
-@let valueValue = value();
-@let outlineValue = outline();
+@let label = label$();
+@let items = items$();
+@let value = value$();
+@let outline = outline$();
 
 <div class="cadrart-button-toggle">
-  @if (labelValue) {
-    <label>{{ labelValue | translate }}</label>
+  @if (label) {
+    <label>{{ label | translate }}</label>
   }
 
   <div class="cadrart-button-toggle__group">
-    @for (item of itemsValue; track $index) {
+    @for (item of items; track $index) {
       <cadrart-button
         class="cadrart-button-toggle__button"
-        [color]="valueValue === item.value ? 'primary' : 'neutral'"
-        [outline]="outlineValue"
+        [color]="value === item.value ? 'primary' : 'neutral'"
+        [outline]="outline"
         (cadrartClick)="handleClick(item)">
         {{ item.label | translate }}
       </cadrart-button>

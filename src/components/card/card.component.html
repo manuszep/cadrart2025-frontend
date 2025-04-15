@@ -1,9 +1,23 @@
+@let compact = compact$();
+@let inline = inline$();
+@let image = image$();
+@let extended = extended$();
+@let showOverlay = showOverlay$();
+@let hasError = hasError$();
+@let title = title$();
+@let subtitle = subtitle$();
+@let action = action$();
+@let deletable = deletable$();
+@let editable = editable$();
+@let consultable = consultable$();
+@let duplicatable = duplicatable$();
+
 <div
   class="cadrart-card"
   [class.cadrart-card--compact]="compact"
   [class.cadrart-card--inline]="!!inline"
   [class.cadrart-card--image]="!!image"
-  [class.cadrart-card--extended]="extended$()"
+  [class.cadrart-card--extended]="extended"
   [class.cadrart-card--overlay-active]="showOverlay"
   [class.cadrart-card--has-error]="hasError">
   @if (image) {

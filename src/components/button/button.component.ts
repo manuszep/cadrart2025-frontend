@@ -25,32 +25,32 @@ import { ICadrartColor, ICadrartSize } from '../../styles/styles.model';
 export class CadrartButtonComponent implements OnDestroy {
   private _hotKeyHandler?: () => void;
 
-  public type = input<'button' | 'submit' | 'reset'>('button');
-  public disabled = input(false);
-  public loading = input(false);
-  public icon = input<ICadrartIcon | null>(null);
-  public iconPosition = input<'left' | 'right'>('left');
-  public iconOnly = input(false);
-  public size = input<ICadrartSize>('medium');
-  public color = input<ICadrartColor>('primary');
-  public hoverColor = input<ICadrartColor | null>(null);
-  public outline = input(false);
-  public grow = input(false);
-  public tag = input<string | null>(null);
-  public justify = input<'left' | 'center' | 'right'>('center');
-  public tabIndex = input(0);
-  public hotKey = input<string | undefined | null>(null);
+  public type$ = input<'button' | 'submit' | 'reset'>('button', { alias: 'type' });
+  public disabled$ = input(false, { alias: 'disabled' });
+  public loading$ = input(false, { alias: 'loading' });
+  public icon$ = input<ICadrartIcon | null>(null, { alias: 'icon' });
+  public iconPosition$ = input<'left' | 'right'>('left', { alias: 'iconPosition' });
+  public iconOnly$ = input(false, { alias: 'iconOnly' });
+  public size$ = input<ICadrartSize>('medium', { alias: 'size' });
+  public color$ = input<ICadrartColor>('primary', { alias: 'color' });
+  public hoverColor$ = input<ICadrartColor | null>(null, { alias: 'hoverColor' });
+  public outline$ = input(false, { alias: 'outline' });
+  public grow$ = input(false, { alias: 'grow' });
+  public tag$ = input<string | null>(null, { alias: 'tag' });
+  public justify$ = input<'left' | 'center' | 'right'>('center', { alias: 'justify' });
+  public tabIndex$ = input(0, { alias: 'tabIndex' });
+  public hotKey$ = input<string | undefined | null>(null, { alias: 'hotKey' });
 
-  public cls = computed(() => {
-    const loadingCls = this.loading() ? ' cadrart-button--loading' : '';
-    const iconPositionCls = this.iconPosition() && this.icon() ? ` cadrart-button--icon-${this.iconPosition()}` : '';
-    const iconOnlyCls = this.iconOnly() ? ' cadrart-button--icon-only' : '';
-    const sizeCls = this.size() ? ` cadrart-button--${this.size()}` : '';
-    const colorCls = this.color() ? ` cadrart-button--${this.color()}` : '';
-    const outlineCls = this.outline() ? ' cadrart-button--outline' : '';
-    const growCls = this.grow() ? ' cadrart-button--grow' : '';
-    const justifyCls = this.justify() ? ` cadrart-button--justify-${this.justify()}` : '';
-    const hoverColorCls = this.hoverColor() ? ` cadrart-button--hover-${this.hoverColor()}` : '';
+  public cls$ = computed(() => {
+    const loadingCls = this.loading$() ? ' cadrart-button--loading' : '';
+    const iconPositionCls = this.iconPosition$() && this.icon$() ? ` cadrart-button--icon-${this.iconPosition$()}` : '';
+    const iconOnlyCls = this.iconOnly$() ? ' cadrart-button--icon-only' : '';
+    const sizeCls = this.size$() ? ` cadrart-button--${this.size$()}` : '';
+    const colorCls = this.color$() ? ` cadrart-button--${this.color$()}` : '';
+    const outlineCls = this.outline$() ? ' cadrart-button--outline' : '';
+    const growCls = this.grow$() ? ' cadrart-button--grow' : '';
+    const justifyCls = this.justify$() ? ` cadrart-button--justify-${this.justify$()}` : '';
+    const hoverColorCls = this.hoverColor$() ? ` cadrart-button--hover-${this.hoverColor$()}` : '';
 
     return `cadrart-button${loadingCls}${iconPositionCls}${iconOnlyCls}${sizeCls}${colorCls}${outlineCls}${growCls}${justifyCls}${hoverColorCls}`;
   });
@@ -59,7 +59,7 @@ export class CadrartButtonComponent implements OnDestroy {
 
   constructor(private readonly renderer: Renderer2) {
     effect(() => {
-      const key = this.hotKey();
+      const key = this.hotKey$();
 
       if (this._hotKeyHandler) {
         this._hotKeyHandler();
@@ -84,7 +84,7 @@ export class CadrartButtonComponent implements OnDestroy {
   }
 
   handleHotKey(e: KeyboardEvent, key: string): void {
-    if (this.disabled()) {
+    if (this.disabled$()) {
       return;
     }
 

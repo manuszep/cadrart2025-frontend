@@ -11,12 +11,12 @@ import { CadrartButtonComponent } from '../button/button.component';
   encapsulation: ViewEncapsulation.None
 })
 export class CadrartActionsGroupComponent {
-  public editable = input<boolean>(false);
-  public deletable = input<boolean>(false);
-  public consultable = input<boolean>(false);
-  public duplicatable = input<boolean>(false);
-  public extendable = input<boolean>(false);
-  public extended = input<boolean>(false);
+  public editable$ = input<boolean>(false, { alias: 'editable' });
+  public deletable$ = input<boolean>(false, { alias: 'deletable' });
+  public consultable$ = input<boolean>(false, { alias: 'consultable' });
+  public duplicatable$ = input<boolean>(false, { alias: 'duplicatable' });
+  public extendable$ = input<boolean>(false, { alias: 'extendable' });
+  public extended$ = input<boolean>(false, { alias: 'extended' });
 
   public readonly cadrartEdit = output<void>();
   public readonly cadrartDelete = output<void>();

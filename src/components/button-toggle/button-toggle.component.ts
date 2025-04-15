@@ -14,15 +14,15 @@ import { ICadrartButtonToggleItem } from './button-toggle.model';
   encapsulation: ViewEncapsulation.None
 })
 export class CadrartButtonToggleComponent {
-  public label = input<string>();
-  public items = input<ICadrartButtonToggleItem[]>([]);
-  public outline = input(false);
-  public value = model<string | number>('');
+  public label$ = input<string>(undefined, { alias: 'label' });
+  public items$ = input<ICadrartButtonToggleItem[]>([], { alias: 'items' });
+  public outline$ = input(false, { alias: 'outline' });
+  public value$ = model<string | number>('', { alias: 'value' });
 
   public cadrartChange = output<string | number>();
 
   handleClick(item: ICadrartButtonToggleItem): void {
-    this.value.set(item.value);
+    this.value$.set(item.value);
 
     this.cadrartChange.emit(item.value);
   }

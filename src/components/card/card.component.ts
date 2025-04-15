@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  ViewEncapsulation,
-  WritableSignal,
-  signal
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, input, model, output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CadrartActionsGroupComponent } from '../actions-group/actions-group.component';
@@ -26,44 +17,36 @@ import { CadrartImageComponent } from '../image/image.component';
   animations: cadrartAnimationSlideInOut
 })
 export class CadrartCardComponent {
-  public extended$: WritableSignal<boolean> = signal(false);
+  public title$ = input<string>(undefined, { alias: 'title' });
+  public subtitle$ = input<string>(undefined, { alias: 'subtitle' });
+  public image$ = input<ICadrartImageParams>(undefined, { alias: 'image' });
+  public action$ = input<string>(undefined, { alias: 'action' });
+  public editable$ = input(false, { alias: 'editable' });
+  public deletable$ = input(false, { alias: 'deletable' });
+  public consultable$ = input(false, { alias: 'consultable' });
+  public duplicatable$ = input(false, { alias: 'duplicatable' });
+  public showOverlay$ = input(false, { alias: 'showOverlay' });
+  public inline$ = input(false, { alias: 'inline' });
+  public compact$ = input(false, { alias: 'compact' });
+  public managedExtension$ = input(true, { alias: 'managedExtension' });
+  public hasError$ = input(false, { alias: 'hasError' });
+  public extended$ = model<boolean>(false, { alias: 'extended' });
 
-  @Input() public title?: string;
-  @Input() public subtitle?: string;
-  @Input() public image?: ICadrartImageParams;
-  @Input() public action?: string;
-  @Input() public editable = false;
-  @Input() public deletable = false;
-  @Input() public consultable = false;
-  @Input() public duplicatable = false;
-  @Input() public showOverlay = false;
-  @Input() public inline = false;
-  @Input() public compact = false;
-  @Input() public managedExtension = true;
-  @Input() public hasError = false;
-  @Input() public set extended(value: boolean) {
-    if (typeof value !== 'boolean') {
-      return;
-    }
-
-    this.extended$.set(value);
-  }
-
-  @Output() public readonly cadrartAction = new EventEmitter<void>();
-  @Output() public readonly cadrartEdit = new EventEmitter<void>();
-  @Output() public readonly cadrartDelete = new EventEmitter<void>();
-  @Output() public readonly cadrartConsult = new EventEmitter<void>();
-  @Output() public readonly cadrartDuplicate = new EventEmitter<void>();
-  @Output() public readonly cadrartToggle = new EventEmitter<void>();
+  public cadrartAction = output<void>();
+  public cadrartEdit = output<void>();
+  public cadrartDelete = output<void>();
+  public cadrartConsult = output<void>();
+  public cadrartDuplicate = output<void>();
+  public cadrartToggle = output<void>();
 
   handleExtendClick(): void {
     this.cadrartToggle.emit();
 
-    if (this.managedExtension) {
+    if (this.managedExtension$()) {
       return;
     }
 
-    this.extended$.set(!this.extended$());
+    this.extended$.update((value: boolean) => !value);
   }
 
   handleActionClick(): void {

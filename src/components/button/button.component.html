@@ -1,28 +1,28 @@
-@let clsValue = cls();
-@let typeValue = type();
-@let disabledValue = disabled();
-@let tabIndexValue = tabIndex();
-@let iconValue = icon();
-@let iconPositionValue = iconPosition();
-@let tagValue = tag();
+@let cls = cls$();
+@let type = type$();
+@let disabled = disabled$();
+@let tabIndex = tabIndex$();
+@let icon = icon$();
+@let iconPosition = iconPosition$();
+@let tag = tag$();
 
 <button
-  [class]="clsValue"
-  [type]="typeValue"
-  [disabled]="disabledValue"
-  [tabindex]="tabIndexValue"
+  [class]="cls"
+  [type]="type"
+  [disabled]="disabled"
+  [tabindex]="tabIndex"
   (click)="handleClick()">
-  @if (iconValue && iconPositionValue === 'left') {
-    <cadrart-icon [name]="iconValue || 'question_mark'"></cadrart-icon>
+  @if (icon && iconPosition === 'left') {
+    <cadrart-icon [name]="icon || 'question_mark'"></cadrart-icon>
   }
 
   <div class="cadrart-button__content"><ng-content></ng-content></div>
 
-  @if (iconValue && iconPositionValue === 'right') {
-    <cadrart-icon [name]="iconValue || 'question_mark'"></cadrart-icon>
+  @if (icon && iconPosition === 'right') {
+    <cadrart-icon [name]="icon || 'question_mark'"></cadrart-icon>
   }
 
-  @if (tagValue) {
-    <small>{{ tagValue }}</small>
+  @if (tag) {
+    <small>{{ tag }}</small>
   }
 </button>
