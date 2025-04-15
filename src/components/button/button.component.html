@@ -1,20 +1,20 @@
 <button
   [class]="cls()"
-  [type]="type"
-  [disabled]="disabled"
-  [tabindex]="tabIndex"
+  [type]="type()"
+  [disabled]="disabled()"
+  [tabindex]="tabIndex()"
   (click)="handleClick()">
-  @if (icon && iconPosition === 'left') {
-    <cadrart-icon [name]="icon || 'question_mark'"></cadrart-icon>
+  @if (icon() && iconPosition() === 'left') {
+    <cadrart-icon [name]="icon() || 'question_mark'"></cadrart-icon>
   }
 
   <div class="cadrart-button__content"><ng-content></ng-content></div>
 
-  @if (icon && iconPosition === 'right') {
-    <cadrart-icon [name]="icon || 'question_mark'"></cadrart-icon>
+  @if (icon() && iconPosition() === 'right') {
+    <cadrart-icon [name]="icon() || 'question_mark'"></cadrart-icon>
   }
 
-  @if (tag) {
-    <small>{{ tag }}</small>
+  @if (tag()) {
+    <small>{{ tag() }}</small>
   }
 </button>

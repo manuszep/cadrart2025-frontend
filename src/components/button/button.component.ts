@@ -1,14 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Input,
-  OnChanges,
   OnDestroy,
-  Output,
   Renderer2,
   ViewEncapsulation,
-  signal
+  computed,
+  effect,
+  input,
+  output
 } from '@angular/core';
 
 import { CadrartIconComponent } from '../icon/icon.component';
@@ -23,38 +22,56 @@ import { ICadrartColor, ICadrartSize } from '../../styles/styles.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class CadrartButtonComponent implements OnChanges, OnDestroy {
+export class CadrartButtonComponent implements OnDestroy {
   private _hotKeyHandler?: () => void;
 
-  public cls = signal('cadrart-button');
+  public type = input<'button' | 'submit' | 'reset'>('button');
+  public disabled = input(false);
+  public loading = input(false);
+  public icon = input<ICadrartIcon | null>(null);
+  public iconPosition = input<'left' | 'right'>('left');
+  public iconOnly = input(false);
+  public size = input<ICadrartSize>('medium');
+  public color = input<ICadrartColor>('primary');
+  public hoverColor = input<ICadrartColor | null>(null);
+  public outline = input(false);
+  public grow = input(false);
+  public tag = input<string | null>(null);
+  public justify = input<'left' | 'center' | 'right'>('center');
+  public tabIndex = input(0);
+  public hotKey = input<string | undefined | null>(null);
 
-  @Input() public type: 'button' | 'submit' | 'reset' = 'button';
-  @Input() public disabled = false;
-  @Input() public loading = false;
-  @Input() public icon: ICadrartIcon | null = null;
-  @Input() public iconPosition: 'left' | 'right' = 'left';
-  @Input() public iconOnly = false;
-  @Input() public size: ICadrartSize = 'medium';
-  @Input() public color: ICadrartColor = 'primary';
-  @Input() public hoverColor: ICadrartColor | null = null;
-  @Input() public outline = false;
-  @Input() public grow = false;
-  @Input() public tag: string | null = null;
-  @Input() public justify: 'left' | 'center' | 'right' = 'center';
-  @Input() public tabIndex = 0;
-  @Input() public set hotKey(key: string | undefined | null) {
-    if (this._hotKeyHandler) {
-      this._hotKeyHandler();
-    }
+  public cls = computed(() => {
+    const loadingCls = this.loading() ? ' cadrart-button--loading' : '';
+    const iconPositionCls = this.iconPosition() && this.icon() ? ` cadrart-button--icon-${this.iconPosition()}` : '';
+    const iconOnlyCls = this.iconOnly() ? ' cadrart-button--icon-only' : '';
+    const sizeCls = this.size() ? ` cadrart-button--${this.size()}` : '';
+    const colorCls = this.color() ? ` cadrart-button--${this.color()}` : '';
+    const outlineCls = this.outline() ? ' cadrart-button--outline' : '';
+    const growCls = this.grow() ? ' cadrart-button--grow' : '';
+    const justifyCls = this.justify() ? ` cadrart-button--justify-${this.justify()}` : '';
+    const hoverColorCls = this.hoverColor() ? ` cadrart-button--hover-${this.hoverColor()}` : '';
 
-    if (key) {
-      this._hotKeyHandler = this.renderer.listen(`window`, `keydown`, (e: KeyboardEvent) => this.handleHotKey(e, key));
-    }
+    return `cadrart-button${loadingCls}${iconPositionCls}${iconOnlyCls}${sizeCls}${colorCls}${outlineCls}${growCls}${justifyCls}${hoverColorCls}`;
+  });
+
+  public cadrartClick = output<void>();
+
+  constructor(private readonly renderer: Renderer2) {
+    effect(() => {
+      const key = this.hotKey();
+
+      if (this._hotKeyHandler) {
+        this._hotKeyHandler();
+      }
+
+      if (key) {
+        this._hotKeyHandler = this.renderer.listen(`window`, `keydown`, (e: KeyboardEvent) =>
+          this.handleHotKey(e, key)
+        );
+      }
+    });
   }
-
-  @Output() public cadrartClick: EventEmitter<void> = new EventEmitter();
-
-  constructor(private readonly renderer: Renderer2) {}
 
   ngOnDestroy(): void {
     if (this._hotKeyHandler) {
@@ -62,28 +79,12 @@ export class CadrartButtonComponent implements OnChanges, OnDestroy {
     }
   }
 
-  ngOnChanges(): void {
-    const loadingCls = this.loading ? ' cadrart-button--loading' : '';
-    const iconPositionCls = this.iconPosition && this.icon ? ` cadrart-button--icon-${this.iconPosition}` : '';
-    const iconOnlyCls = this.iconOnly ? ' cadrart-button--icon-only' : '';
-    const sizeCls = this.size ? ` cadrart-button--${this.size}` : '';
-    const colorCls = this.color ? ` cadrart-button--${this.color}` : '';
-    const outlineCls = this.outline ? ' cadrart-button--outline' : '';
-    const growCls = this.grow ? ' cadrart-button--grow' : '';
-    const justifyCls = this.justify ? ` cadrart-button--justify-${this.justify}` : '';
-    const hoverColorCls = this.hoverColor ? ` cadrart-button--hover-${this.hoverColor}` : '';
-
-    this.cls.set(
-      `cadrart-button${loadingCls}${iconPositionCls}${iconOnlyCls}${sizeCls}${colorCls}${outlineCls}${growCls}${justifyCls}${hoverColorCls}`
-    );
-  }
-
   handleClick(): void {
     this.cadrartClick.emit();
   }
 
   handleHotKey(e: KeyboardEvent, key: string): void {
-    if (this.disabled) {
+    if (this.disabled()) {
       return;
     }
 
