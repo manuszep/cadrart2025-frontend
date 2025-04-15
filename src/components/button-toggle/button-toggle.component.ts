@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+  ViewEncapsulation,
+  input,
+  model
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CadrartButtonComponent } from '../button/button.component';
@@ -14,15 +22,15 @@ import { ICadrartButtonToggleItem } from './button-toggle.model';
   encapsulation: ViewEncapsulation.None
 })
 export class CadrartButtonToggleComponent {
-  @Input() public label?: string;
-  @Input() public items: ICadrartButtonToggleItem[] = [];
-  @Input() public outline = false;
-  @Input() public value: string | number = '';
+  public label = input<string>();
+  public items = input<ICadrartButtonToggleItem[]>([]);
+  public outline = input(false);
+  public value = model<string | number>('');
 
   @Output() public cadrartChange: EventEmitter<string | number> = new EventEmitter<string | number>();
 
   handleClick(item: ICadrartButtonToggleItem): void {
-    this.value = item.value;
+    this.value.set(item.value);
 
     this.cadrartChange.emit(item.value);
   }
