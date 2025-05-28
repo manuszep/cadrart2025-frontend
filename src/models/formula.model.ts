@@ -54,33 +54,55 @@ export class CadrartFormula extends CadrartEntity<ICadrartFormula> {
   }
 
   apply(price: number, multiplier: number, threshold: number): number {
+    // If no formula exists, simply apply the multiplier
     if (this.formula === null) {
       return price * multiplier;
     }
 
     const steps = this._parsedFormula;
 
-    let finalOperation = '';
-    let activeLimit = 0;
-    let activeOperation = '';
-
     // Convert threshold from meters to centimeters for comparison with formula limits
     const thresholdInCm = threshold * 100;
 
-    for (const step of steps) {
-      if (step.start === 0) {
-        finalOperation = `${step.operation}${step.amount}`;
-      }
+    // Start with the base value
+    let result = price * multiplier;
 
-      if (step.start <= thresholdInCm && step.start > activeLimit) {
-        activeLimit = step.start;
-        activeOperation = `${step.operation}${step.amount}`;
-      }
+    // Find the highest applicable threshold-based step (excluding baseline steps with start=0)
+    const thresholdStep = steps
+      .filter((step) => step.start > 0 && step.start <= thresholdInCm)
+      .sort((a, b) => b.start - a.start)[0];
+
+    if (thresholdStep) {
+      // Apply the threshold-based step to the result
+      result = this.applyOperation(result, thresholdStep.operation, thresholdStep.amount);
     }
 
-    finalOperation = `((${Number(price)} * ${Number(multiplier)}) ${activeOperation})${finalOperation}`;
+    // Always apply the baseline step (start=0) if it exists
+    const baselineStep = steps.find((step) => step.start === 0);
+    if (baselineStep) {
+      // Apply the baseline step to the result
+      result = this.applyOperation(result, baselineStep.operation, baselineStep.amount);
+    }
 
-    return new Function('return ' + finalOperation)();
+    return result;
+  }
+
+  /**
+   * Helper method to apply mathematical operations
+   */
+  private applyOperation(value: number, operation: '+' | '-' | '*' | '/', amount: number): number {
+    switch (operation) {
+      case '+':
+        return value + amount;
+      case '-':
+        return value - amount;
+      case '*':
+        return value * amount;
+      case '/':
+        return value / amount;
+      default:
+        return value;
+    }
   }
 
   public static stringifyFormula(formula: ICadrartParsedFormula): string {
