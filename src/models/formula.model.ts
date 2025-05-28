@@ -64,12 +64,15 @@ export class CadrartFormula extends CadrartEntity<ICadrartFormula> {
     let activeLimit = 0;
     let activeOperation = '';
 
+    // Convert threshold from meters to centimeters for comparison with formula limits
+    const thresholdInCm = threshold * 100;
+
     for (const step of steps) {
       if (step.start === 0) {
         finalOperation = `${step.operation}${step.amount}`;
       }
 
-      if (step.start <= threshold && step.start > activeLimit) {
+      if (step.start <= thresholdInCm && step.start > activeLimit) {
         activeLimit = step.start;
         activeOperation = `${step.operation}${step.amount}`;
       }
