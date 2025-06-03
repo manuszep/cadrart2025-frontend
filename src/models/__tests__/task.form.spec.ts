@@ -3,31 +3,8 @@ import { Observable, of } from 'rxjs';
 import { ECadrartArticlePriceMethod, ICadrartArticle, ICadrartTask } from '@manuszep/cadrart2025-common';
 import { IEsfsDropdownOption } from '@manuszep/es-form-system';
 
-import { CadrartArticleService } from '../services/article.service';
-import * as utils from '../utils';
-
-import { CadrartTaskForm } from './task.form';
-
-// Mock utils functions
-jest.mock('../utils', () => {
-  const original = jest.requireActual('../utils');
-  return {
-    ...original,
-    numberRound2: jest.fn((num) => Math.round(num * 100) / 100),
-    applyReduction: jest.fn((price, reduction) => price * (1 - reduction / 100))
-  };
-});
-
-// Mock CadrartFormula
-jest.mock('./formula.model', () => {
-  return {
-    CadrartFormula: jest.fn().mockImplementation(() => {
-      return {
-        apply: jest.fn((sellPrice, multiplier) => sellPrice * multiplier)
-      };
-    })
-  };
-});
+import { CadrartArticleService } from '../../services/article.service';
+import { CadrartTaskForm } from '../task.form';
 
 class MockArticleService {
   getEntitiesAsOptions(): Observable<IEsfsDropdownOption<ICadrartArticle | undefined>[]> {
@@ -48,7 +25,6 @@ describe('CadrartTaskForm', () => {
     });
 
     articleService = TestBed.inject(CadrartArticleService);
-    jest.clearAllMocks();
   });
 
   it('should create an instance', () => {
@@ -191,7 +167,7 @@ describe('CadrartTaskForm', () => {
       taskForm.getArticle().setValue(article as ICadrartArticle);
 
       // Spy on the update event
-      const updateSpy = jest.spyOn(taskForm['_updatePriceSubject'], 'next');
+      const updateSpy = spyOn((taskForm as any)._updatePriceSubject, 'next');
 
       // Act
       taskForm.updatePrice(100, 100, 10000, 0, 21);
@@ -230,7 +206,7 @@ describe('CadrartTaskForm', () => {
 
       // Assert
       const childTask = taskForm.getChildren().controls[0];
-      expect(childTask.get('id').value).toBe(123);
+      expect(childTask.get('id')?.value).toBe(123);
       expect(childTask.getComment().value).toBe('Test comment');
       expect(childTask.getDoneCount().value).toBe(2);
     });
@@ -249,8 +225,8 @@ describe('CadrartTaskForm', () => {
       const childTask = taskForm.getChildren().controls[0];
 
       // Spy on the update events
-      const updatesSpy = jest.spyOn(taskForm['$updateEvents'], 'next');
-      const childUpdatesSpy = jest.spyOn(childTask['$updateEvents'], 'next');
+      const updatesSpy = spyOn((taskForm as any).$updateEvents, 'next');
+      const childUpdatesSpy = spyOn((childTask as any).$updateEvents, 'next');
 
       // Act
       taskForm.sendUpdates();
@@ -269,9 +245,9 @@ describe('CadrartTaskForm', () => {
       taskForm = new CadrartTaskForm(articleService);
 
       // Setup some values
-      taskForm['_subTasksTotal'] = 100;
-      taskForm['_subTasksTotalBeforeReduction'] = 120;
-      taskForm['_subTasksTotalWithVat'] = 121;
+      (taskForm as any)._subTasksTotal = 100;
+      (taskForm as any)._subTasksTotalBeforeReduction = 120;
+      (taskForm as any)._subTasksTotalWithVat = 121;
     });
 
     it('should return correct sub-task totals', () => {
