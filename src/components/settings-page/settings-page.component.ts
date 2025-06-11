@@ -59,8 +59,8 @@ export abstract class CadrartSettingsPageComponent<
       .pipe(takeUntilDestroyed());
   }
 
-  identify(_index: number, item: TEntity): number | undefined {
-    return item.id;
+  identify(_index: number, item: TEntity): number {
+    return item.id ?? 0;
   }
 
   saveForm(newEntity = false): void {

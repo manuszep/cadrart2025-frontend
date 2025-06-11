@@ -1,0 +1,27 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Core concepts
+
+## The projects folder contains a front-end application written in Angular:
+
+- The main goal is to quote custom frames for artists and galleries
+- Focus on speed and ease of use
+
+## Core aspects:
+
+- Use of es-form-system
+- A custom backend in workspace folder named `cadrart2025-backend`
+- Signal-Based Reactivity
+- Type safe everything
+- Composition over inheritance
+- Any text displayed in templates should come from translation files
+
+### Application Development
+
+- During development, `cadrart2025-common`and `es-fs-form` are built, published and installed from regitry. `cadrart2025-backend` nad `cadrart2025-frontent` however need to run in watch mode
+- Use `npm run build` for production builds
+- Use `npm start` for development with file watching
+- Workspace project `cadrart2025-backend` needs to run before starting frontend.

@@ -36,7 +36,7 @@ import { CadrartFiltersComponent } from '../../../components/filters/filters.com
 export class CadrartRouteOfferListComponent {
   public statuses = ECadrartOfferStatus;
   public offers?: Observable<CadrartOffer[]>;
-  public trackBy = (_index: number, item: CadrartOffer): number | undefined => item.id;
+  public trackBy = (_index: number, item: CadrartOffer): number => item.id ?? 0;
   public filtersConfig: ICadrartFiltersConfig = [
     {
       key: 'period',

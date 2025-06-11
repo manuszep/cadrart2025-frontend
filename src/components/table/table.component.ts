@@ -21,6 +21,7 @@ import { CadrartIconComponent } from '../icon/icon.component';
 import { CadrartConcatPipe } from '../../pipes/concat.pipe';
 
 import { CadrartTableValueFormatterDirective } from './table-value-formatter.directive';
+import { CadrartTableExpandedContentDirective } from './table-expanded-content.directive';
 
 @Component({
   selector: 'cadrart-table',
@@ -50,18 +51,27 @@ export class CadrartTableComponent<TData> {
   @ContentChildren(CadrartTableValueFormatterDirective, { read: CadrartTableValueFormatterDirective })
   dataTemplates?: QueryList<CadrartTableValueFormatterDirective>;
 
+  @ContentChildren(CadrartTableExpandedContentDirective, { read: CadrartTableExpandedContentDirective })
+  expandedTemplates?: QueryList<CadrartTableExpandedContentDirective>;
+
   @Input() public data!: TData[];
   @Input() public keys!: Array<keyof TData | string>;
   @Input() public headerPrefix = 'TABLE';
-  @Input() public trackBy?: (index: number, item: TData) => any;
+  @Input() public trackBy?: (index: number, item: TData) => string | number;
   @Input() public getItemName: (item: TData) => string = (item: TData) => String(item);
   @Input() public deletable = true;
   @Input() public editable = true;
   @Input() public consultable = true;
+  @Input() public expandable = false;
+  @Input() public alwaysExpanded = false;
+  @Input() public reduceColspan = 0;
+  @Input() public shouldShowExpanded?: (entry: TData) => boolean;
 
   @Output() public readonly cadrartEdit = new EventEmitter<TData>();
   @Output() public readonly cadrartDelete = new EventEmitter<TData>();
   @Output() public readonly cadrartConsult = new EventEmitter<TData>();
+
+  public expandedRows = new Set<TData>();
 
   getTemplateOutlet(key: string | number | symbol): TemplateRef<string> | false {
     if (!this.dataTemplates) {
@@ -69,6 +79,14 @@ export class CadrartTableComponent<TData> {
     }
 
     return this.dataTemplates.find((template) => template.targetKey === key)?.templateRef || false;
+  }
+
+  getExpandedTemplate(): TemplateRef<unknown> | null {
+    if (!this.expandedTemplates || this.expandedTemplates.length === 0) {
+      return null;
+    }
+
+    return this.expandedTemplates.first?.templateRef || null;
   }
 
   handleEditClick(entity: TData): void {
@@ -83,7 +101,7 @@ export class CadrartTableComponent<TData> {
     this.cadrartConsult.emit(entity);
   }
 
-  identify(index: number, item: TData): any {
+  identify(index: number, item: TData): string | number {
     return this.trackBy ? this.trackBy(index, item) : this.getItemName(item);
   }
 
@@ -100,5 +118,24 @@ export class CadrartTableComponent<TData> {
     if (entity === this.deleting) {
       this.deleting = false;
     }
+  }
+
+  toggleExpanded(item: TData): void {
+    if (this.expandedRows.has(item)) {
+      this.expandedRows.delete(item);
+    } else {
+      this.expandedRows.add(item);
+    }
+  }
+
+  isExpanded(item: TData): boolean {
+    if (this.alwaysExpanded) {
+      return !this.shouldShowExpanded || this.shouldShowExpanded(item);
+    }
+    return this.expandedRows.has(item);
+  }
+
+  getColspan(): number {
+    return this.keys.length - this.reduceColspan;
   }
 }

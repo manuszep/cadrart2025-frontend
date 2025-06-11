@@ -20,14 +20,17 @@
         <tr
           @existanceAnimation
           [class.cadrart-table__row--overlay-active]="deleting === entry"
-          (cadrartClickOutside)="handleClickOutside(entry)">
+          [class.cadrart-table__row--expandable]="expandable && !alwaysExpanded"
+          [class.cadrart-table__row--expanded]="expandable && isExpanded(entry)"
+          (cadrartClickOutside)="handleClickOutside(entry)"
+          (click)="expandable && !alwaysExpanded && (!shouldShowExpanded || shouldShowExpanded(entry)) ? toggleExpanded(entry) : null">
           @for (key of keys; track $index) {
             <ng-container
               [ngTemplateOutlet]="getTemplateOutlet(key) || defaultContent"
-              [ngTemplateOutletContext]="{ $implicit: entry, key: [key] }"></ng-container>
+              [ngTemplateOutletContext]="{ $implicit: entry, key: [key], expandable: expandable, alwaysExpanded: alwaysExpanded, isExpanded: isExpanded(entry) }"></ng-container>
           }
           @if (deletable || editable || consultable) {
-            <td class="cadrart-table__row__actions">
+            <td class="cadrart-table__row__actions" [rowSpan]="expandable && isExpanded(entry) ? 2 : 1">
               <cadrart-actions-group
                 [deletable]="deletable"
                 [editable]="editable"
@@ -47,22 +50,32 @@
                       icon="cancel"
                       color="neutral"
                       (cadrartClick)="handleDeleteCancelClick()">{{ 'ALERT.DELETE_CONFIRMATION.CANCEL' | translate }}</cadrart-button>
-                      <cadrart-button
-                        [outline]="true"
-                        icon="delete"
-                        color="danger"
-                        (cadrartClick)="handleDeleteConfirmClick(entry)">{{ 'ALERT.DELETE_CONFIRMATION.CONFIRM' | translate }}</cadrart-button>
-                      </div>
-                    </div>
+                    <cadrart-button
+                      [outline]="true"
+                      icon="delete"
+                      color="danger"
+                      (cadrartClick)="handleDeleteConfirmClick(entry)">{{ 'ALERT.DELETE_CONFIRMATION.CONFIRM' | translate }}</cadrart-button>
                   </div>
-                </td>
-              }
-            </tr>
+                </div>
+              </div>
+            </td>
           }
+        </tr>
+        @if (expandable && isExpanded(entry) && (!shouldShowExpanded || shouldShowExpanded(entry))) {
+          <tr class="cadrart-table__expanded-row" @existanceAnimation>
+            <td class="cadrart-table__expanded-cell" [attr.colspan]="getColspan()">
+              <ng-container
+                [ngTemplateOutlet]="getExpandedTemplate()"
+                [ngTemplateOutletContext]="{ $implicit: entry }">
+              </ng-container>
+            </td>
+          </tr>
+        }
+      }
         </tbody>
       </table>
     }
 
-    <ng-template #defaultContent let-entry let-key="key">
+    <ng-template #defaultContent let-entry let-key="key" let-expandable="expandable" let-alwaysExpanded="alwaysExpanded" let-isExpanded="isExpanded">
       <td [ngClass]="['cadrart-table__body__', key] | cadrartConcatPipe">{{ entry[key] }}</td>
     </ng-template>

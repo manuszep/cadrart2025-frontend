@@ -3,7 +3,7 @@
   <div class="cadrart-tasks cadrart-tasks--assembly">
     <cadrart-table
       [data]="data"
-      [keys]="['quantity', 'dimensions', 'measure', 'article', 'comment', 'articles', 'jobImage', 'taskImage', 'dueDate', 'actions']"
+      [keys]="['quantity', 'dimensions', 'measure', 'article', 'comment', 'articles', 'jobImage', 'dueDate', 'actions']"
       headerPrefix="TASKS.LIST"
       [trackBy]="trackBy"
       [consultable]="false"
@@ -53,8 +53,6 @@
         @if (entry.jobImage) {
           <cadrart-image [name]="entry.jobImage" folder="job" size="s" alt="Job Image"></cadrart-image>
         }
-      </td>
-      <td *cadrartTableValueFormatter="'taskImage'; let entry">
         @if (entry.taskImage) {
           <cadrart-image [name]="entry.taskImage" folder="task" size="s" alt="Task Image"></cadrart-image>
         }

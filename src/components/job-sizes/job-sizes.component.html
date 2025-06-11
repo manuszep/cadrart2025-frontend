@@ -1,14 +1,11 @@
 <div class="cadrart-job-sizes">
-  <div class="cadrart-job-sizes__opening">
-    <span class="cadrart-job-sizes__opening__width">{{ openingWidth() }}</span>
-    <span class="cadrart-job-sizes__opening__height">{{ openingHeight() }}</span>
-  </div>
-  <div class="cadrart-job-sizes__margin">
-    <span class="cadrart-job-sizes__margin__width">{{ marginWidth() }}</span>
-    <span class="cadrart-job-sizes__margin__height">{{ marginHeight() }}</span>
-  </div>
-  <div class="cadrart-job-sizes__glass">
-    <span class="cadrart-job-sizes__glass__width">{{ glassWidth() }}</span>
-    <span class="cadrart-job-sizes__glass__height">{{ glassHeight() }}</span>
-  </div>
+  <cadrart-job-size
+    [width]="openingWidth()"
+    [height]="openingHeight()" />
+  <cadrart-job-size
+    [width]="marginWidth()"
+    [height]="marginHeight()" />
+  <cadrart-job-size
+    [width]="glassWidth()"
+    [height]="glassHeight()" />
 </div>

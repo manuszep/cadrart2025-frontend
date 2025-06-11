@@ -16,7 +16,7 @@ import { CadrartDataConnectorService } from '../../services/data-connector.servi
 export abstract class CadrartRouteTasksBaseComponent {
   protected abstract family: ECadrartArticleFamily;
   public tasks!: Observable<CadrartExtendedTask[]>;
-  public trackBy = (_index: number, item: CadrartExtendedTask): number | undefined => item.id;
+  public trackBy = (_index: number, item: CadrartExtendedTask): number => item.id ?? 0;
 
   protected readonly service = inject(CadrartTaskService);
   protected readonly dataConnectorService = inject(CadrartDataConnectorService<ICadrartExtendedTask>);

@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, input, ViewEncapsulation } from '@angular/core';
 
+import { CadrartJobSizeComponent } from './job-size.component';
+
 @Component({
   selector: 'cadrart-job-sizes',
-  imports: [],
+  imports: [CadrartJobSizeComponent],
   templateUrl: './job-sizes.component.html',
   styleUrl: './job-sizes.component.scss',
   encapsulation: ViewEncapsulation.None,

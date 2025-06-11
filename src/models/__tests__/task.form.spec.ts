@@ -167,6 +167,7 @@ describe('CadrartTaskForm', () => {
       taskForm.getArticle().setValue(article as ICadrartArticle);
 
       // Spy on the update event
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const updateSpy = spyOn((taskForm as any)._updatePriceSubject, 'next');
 
       // Act
@@ -225,7 +226,9 @@ describe('CadrartTaskForm', () => {
       const childTask = taskForm.getChildren().controls[0];
 
       // Spy on the update events
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const updatesSpy = spyOn((taskForm as any).$updateEvents, 'next');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const childUpdatesSpy = spyOn((childTask as any).$updateEvents, 'next');
 
       // Act
@@ -245,8 +248,11 @@ describe('CadrartTaskForm', () => {
       taskForm = new CadrartTaskForm(articleService);
 
       // Setup some values
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (taskForm as any)._subTasksTotal = 100;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (taskForm as any)._subTasksTotalBeforeReduction = 120;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (taskForm as any)._subTasksTotalWithVat = 121;
     });
 

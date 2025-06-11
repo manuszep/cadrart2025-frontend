@@ -1,0 +1,20 @@
+@use '../../styles/variables.scss' as *;
+
+.cadrart-job-size {
+  border-radius: $border-radius;
+  display: flex;
+  gap: $spacing-small;
+  padding: $spacing-small;
+
+  &__width,
+  &__height {
+    display: flex;
+    align-items: center;
+    flex-basis: 50%;
+  }
+
+  &__width::after {
+    content: '×';
+    margin: 0 0 0 $spacing-small;
+  }
+}

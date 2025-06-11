@@ -14,7 +14,7 @@ import { CadrartHeaderService } from '../../components/header/header.service';
   encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteTasksComponent implements OnDestroy {
-  public trackBy = (_index: number, item: CadrartExtendedTask): number | undefined => item.id;
+  public trackBy = (_index: number, item: CadrartExtendedTask): number => item.id ?? 0;
 
   private readonly headerService = inject(CadrartHeaderService);
 

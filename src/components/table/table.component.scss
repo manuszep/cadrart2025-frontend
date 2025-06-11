@@ -1,5 +1,6 @@
 @use 'sass:math';
 @use '../../styles/mixins.scss' as *;
+@use '../../styles/functions.scss' as *;
 @use '../../styles/variables' as *;
 
 .cadrart-table {
@@ -37,6 +38,18 @@
     &:hover {
       opacity: 1;
     }
+
+    &.cadrart-table__row--expandable {
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.02);
+      }
+    }
+
+    &.cadrart-table__row--expanded {
+      opacity: 1;
+    }
   }
 
   td:first-child,
@@ -52,6 +65,16 @@
   tr {
     background-color: $color-background-l1;
     position: relative;
+  }
+
+  &__expanded-row {
+    background-color: rgba($color-background-l1, 0.5);
+
+    .cadrart-table__expanded-cell {
+      padding: $spacing-small $spacing-medium;
+      border-left: 3px solid getColor(primary);
+      border-radius: 0 $border-radius $border-radius $border-radius;
+    }
   }
 }
 
