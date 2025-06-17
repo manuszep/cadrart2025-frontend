@@ -10,6 +10,7 @@ import { CadrartDatePipe } from '../../../pipes/date.pipe';
 import { CadrartJobSizesComponent } from '../../../components/job-sizes/job-sizes.component';
 import { CadrartImageComponent } from '../../../components/image/image.component';
 import { CadrartRouteTasksBaseComponent } from '../task.component.base';
+import { CadrartTableExpandedContentDirective } from '../../../components/table/table-expanded-content.directive';
 
 @Component({
   selector: 'cadrart-route-tasks-assembly',
@@ -19,6 +20,7 @@ import { CadrartRouteTasksBaseComponent } from '../task.component.base';
     CommonModule,
     CadrartTableComponent,
     CadrartTableValueFormatterDirective,
+    CadrartTableExpandedContentDirective,
     CadrartButtonComponent,
     TranslateModule,
     CadrartDatePipe,
@@ -34,9 +36,5 @@ export class CadrartRouteTasksAssemblyComponent extends CadrartRouteTasksBaseCom
   constructor() {
     super();
     this.init();
-  }
-
-  log(data: any): void {
-    console.log(data);
   }
 }

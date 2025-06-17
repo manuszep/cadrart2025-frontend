@@ -142,4 +142,10 @@ export class CadrartExtendedTask extends CadrartEntity<ICadrartExtendedTask> {
   get clientLastName(): string | null {
     return this._data.clientLastName ?? null;
   }
+
+  get clientFullName(): string | null {
+    const spacer = this.clientFirstName && this.clientLastName ? ' ' : '';
+
+    return `${this.clientFirstName}${spacer}${this.clientLastName}`;
+  }
 }

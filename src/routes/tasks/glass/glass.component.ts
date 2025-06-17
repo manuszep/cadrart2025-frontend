@@ -16,7 +16,6 @@ import { CadrartExtendedTask } from '../../../models/extended-task.model';
 @Component({
   selector: 'cadrart-route-tasks-glass',
   templateUrl: './glass.component.html',
-  styleUrls: ['./glass.component.scss'],
   imports: [
     CommonModule,
     CadrartTableComponent,

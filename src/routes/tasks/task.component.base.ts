@@ -33,9 +33,13 @@ export abstract class CadrartRouteTasksBaseComponent {
       .pipe(
         takeUntilDestroyed(),
         map((tasks: ICadrartExtendedTask[]) => {
-          return tasks.map((task: ICadrartExtendedTask) => {
-            return new CadrartExtendedTask(task);
-          });
+          return tasks
+            .map((task: ICadrartExtendedTask) => {
+              return new CadrartExtendedTask(task);
+            })
+            .sort((a, b) => {
+              return (a.clientFullName ?? '').localeCompare(b.clientFullName ?? '');
+            });
         })
       );
   }

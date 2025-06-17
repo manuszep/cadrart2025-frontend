@@ -1,6 +1,17 @@
 @use '../../styles/variables.scss' as *;
 
 .cadrart-tasks {
+  &__expanded-content {
+    font-size: 80%;
+  }
+
+  &__job-tasks {
+    background-color: rgba(255, 255, 255, 0.02);
+    border-radius: $border-radius;
+    padding: $spacing-medium;
+    margin-top: $spacing-medium;
+  }
+
   &__actions {
     &__group {
       display: flex;

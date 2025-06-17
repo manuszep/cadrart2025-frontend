@@ -3,7 +3,7 @@
   <div class="cadrart-tasks cadrart-tasks--assembly">
     <cadrart-table
       [data]="data"
-      [keys]="['quantity', 'dimensions', 'measure', 'article', 'comment', 'articles', 'jobImage', 'dueDate', 'actions']"
+      [keys]="['quantity', 'client', 'dimensions', 'measure', 'article', 'articles', 'jobImage', 'dueDate', 'actions']"
       headerPrefix="TASKS.LIST"
       [trackBy]="trackBy"
       [consultable]="false"
@@ -14,6 +14,7 @@
       (cadrartDelete)="handleDeleteClick($event)"
       >
       <td *cadrartTableValueFormatter="'quantity'; let entry">{{ entry.taskDoneCount }} / {{ entry.jobCount }}</td>
+      <td *cadrartTableValueFormatter="'client'; let entry">{{ entry.clientFullName }}</td>
       <td *cadrartTableValueFormatter="'dimensions'; let entry">
         <cadrart-job-sizes
           [openingWidth]="entry.jobOpeningWidth"
@@ -34,7 +35,6 @@
           }
         </div>
       </td>
-      <td *cadrartTableValueFormatter="'comment'; let entry">{{ entry.taskComment }}</td>
       <td *cadrartTableValueFormatter="'articles'; let entry">
         <ul>
           @for (jobTask of entry.jobTasks; track jobTask.id) {
@@ -66,6 +66,13 @@
           <cadrart-button [iconOnly]="true" icon="production_quantity_limits" color="danger" [outline]="true"></cadrart-button>
         </div>
       </td>
+
+      <!-- Expanded content for each row -->
+      <div *cadrartTableExpanded="let entry">
+        <div class="cadrart-tasks__expanded-content">
+          {{ entry.taskComment }}
+        </div>
+      </div>
     </cadrart-table>
   </div>
 }
