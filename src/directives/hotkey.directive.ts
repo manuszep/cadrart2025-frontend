@@ -34,9 +34,13 @@ export class CadrartHotkeyDirective implements OnDestroy {
 
   private handleHotKey(e: KeyboardEvent, key: string): void {
     const parts = key.split('.');
-    const modifiers = parts.slice(0, parts.length - 1);
+    const modifiers = parts.slice(0, parts.length - 1).map((value) => value.toLowerCase());
 
     if (modifiers.length > 0) {
+      if (modifiers.includes('cmd') && !e.metaKey) {
+        return;
+      }
+
       if (modifiers.includes('ctrl') && !e.ctrlKey) {
         return;
       }
@@ -54,10 +58,12 @@ export class CadrartHotkeyDirective implements OnDestroy {
     const lastKey = parts[parts.length - 1].toLowerCase();
 
     if (specialKeys.includes(lastKey) && e.code && e.code.toLowerCase() === lastKey) {
+      e.preventDefault();
       this.cadrartHotkeyTrigger.emit();
     }
 
     if (e.code && e.code.toLowerCase() === `key${lastKey}`) {
+      e.preventDefault();
       this.cadrartHotkeyTrigger.emit();
     }
   }

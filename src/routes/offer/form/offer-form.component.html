@@ -60,11 +60,18 @@
       <cadrart-button
         icon="add_task"
         color="secondary"
+        hotKey="Cmd.s"
+        tag="Cmd+S"
         (cadrartClick)="handleSaveAndPlay()"
         [disabled]="offerForm?.status === 'INVALID'">{{ 'OFFER.FORM.START' | translate }}</cadrart-button>
-        <cadrart-button icon="save" (cadrartClick)="handleSave()" [disabled]="offerForm?.status === 'INVALID'">{{
-          'OFFER.FORM.SAVE' | translate
-        }}</cadrart-button>
+      <cadrart-button
+        icon="save"
+        hotKey="Alt.s"
+        tag="Alt+S"
+        [disabled]="offerForm?.status === 'INVALID'"
+        (cadrartClick)="handleSave()">{{
+        'OFFER.FORM.SAVE' | translate
+      }}</cadrart-button>
       </div>
     </div>
   </ng-template>
