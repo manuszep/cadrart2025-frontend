@@ -1,30 +1,19 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  Renderer2,
-  ViewEncapsulation,
-  computed,
-  effect,
-  input,
-  output
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, output } from '@angular/core';
 
 import { CadrartIconComponent } from '../icon/icon.component';
 import { ICadrartIcon } from '../icon/icon.model';
 import { ICadrartColor, ICadrartSize } from '../../styles/styles.model';
+import { CadrartHotkeyDirective } from '../../directives/hotkey.directive';
 
 @Component({
   selector: 'cadrart-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
-  imports: [CadrartIconComponent],
+  imports: [CadrartIconComponent, CadrartHotkeyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class CadrartButtonComponent implements OnDestroy {
-  private _hotKeyHandler?: () => void;
-
+export class CadrartButtonComponent {
   public type$ = input<'button' | 'submit' | 'reset'>('button', { alias: 'type' });
   public disabled$ = input(false, { alias: 'disabled' });
   public loading$ = input(false, { alias: 'loading' });
@@ -39,7 +28,7 @@ export class CadrartButtonComponent implements OnDestroy {
   public tag$ = input<string | null>(null, { alias: 'tag' });
   public justify$ = input<'left' | 'center' | 'right'>('center', { alias: 'justify' });
   public tabIndex$ = input(0, { alias: 'tabIndex' });
-  public hotKey$ = input<string | undefined | null>(null, { alias: 'hotKey' });
+  public hotKey$ = input<string | null>(null, { alias: 'hotKey' });
 
   public cls$ = computed(() => {
     const loadingCls = this.loading$() ? ' cadrart-button--loading' : '';
@@ -57,63 +46,10 @@ export class CadrartButtonComponent implements OnDestroy {
 
   public cadrartClick = output<void>();
 
-  constructor(private readonly renderer: Renderer2) {
-    effect(() => {
-      const key = this.hotKey$();
-
-      if (this._hotKeyHandler) {
-        this._hotKeyHandler();
-      }
-
-      if (key) {
-        this._hotKeyHandler = this.renderer.listen(`window`, `keydown`, (e: KeyboardEvent) =>
-          this.handleHotKey(e, key)
-        );
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    if (this._hotKeyHandler) {
-      this._hotKeyHandler();
-    }
-  }
-
-  handleClick(): void {
-    this.cadrartClick.emit();
-  }
-
-  handleHotKey(e: KeyboardEvent, key: string): void {
+  public handleHotKey(): void {
     if (this.disabled$()) {
       return;
     }
-
-    const parts = key.split('.');
-    const modifiers = parts.slice(0, parts.length - 1);
-
-    if (modifiers.length > 0) {
-      if (modifiers.includes('ctrl') && !e.ctrlKey) {
-        return;
-      }
-
-      if (modifiers.includes('alt') && !e.altKey) {
-        return;
-      }
-
-      if (modifiers.includes('shift') && !e.shiftKey) {
-        return;
-      }
-    }
-
-    const specialKeys = ['enter', 'escape', 'space', 'tab'];
-    const lastKey = parts[parts.length - 1].toLowerCase();
-
-    if (specialKeys.includes(lastKey) && e.code && e.code.toLowerCase() === lastKey) {
-      this.cadrartClick.emit();
-    }
-
-    if (e.code && e.code.toLowerCase() === `key${lastKey}`) {
-      this.cadrartClick.emit();
-    }
+    this.cadrartClick.emit();
   }
 }

@@ -5,13 +5,20 @@
 @let icon = icon$();
 @let iconPosition = iconPosition$();
 @let tag = tag$();
+@let loading = loading$();
+@let hotKey = hotKey$();
 
 <button
-  [class]="cls"
   [type]="type"
-  [disabled]="disabled"
+  [disabled]="disabled || loading"
+  [class]="cls"
   [tabindex]="tabIndex"
-  (click)="handleClick()">
+  [cadrartHotkey]="hotKey"
+  (cadrartHotkeyTrigger)="handleHotKey()"
+  (click)="cadrartClick.emit()">
+  @if (loading$()) {
+    <cadrart-icon name="refresh" class="cadrart-button__loading"></cadrart-icon>
+  }
   @if (icon && iconPosition === 'left') {
     <cadrart-icon [name]="icon || 'question_mark'"></cadrart-icon>
   }
@@ -21,8 +28,7 @@
   @if (icon && iconPosition === 'right') {
     <cadrart-icon [name]="icon || 'question_mark'"></cadrart-icon>
   }
-
   @if (tag) {
-    <small>{{ tag }}</small>
+    <small class="cadrart-button__tag">{{ tag }}</small>
   }
 </button>
