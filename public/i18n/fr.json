@@ -733,9 +733,16 @@
     "ZW": "Zimbabwe"
   },
   "TASKS": {
+    "MENU": {
+      "WOOD": "Bois",
+      "CARDBOARD": "Carton",
+      "GLASS": "Verre",
+      "ASSEMBLY": "Assemblage",
+      "PASS": "Pass"
+    },
     "LIST": {
       "HEADER": {
-        "CLIENT": "Client",
+        "CLIENTFULLNAME": "Client",
         "DIMENSIONS": "Dimensions",
         "MEASURE": "Mesure",
         "ARTICLE": "Article",
@@ -744,7 +751,8 @@
         "ACTIONS": "Actions",
         "QUANTITY": "Qté.",
         "JOBIMAGE": "Job",
-        "DUEDATE": "&Eacute;chéance"
+        "DUEDATE": "&Eacute;chéance",
+        "LOCATION": "Emplacement"
       }
     }
   }

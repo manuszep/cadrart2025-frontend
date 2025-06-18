@@ -9,7 +9,7 @@
     @if (service.navigation().length) {
       <div class="cadrart-header__nav">
         @for (nav of service.navigation(); track nav.path) {
-          <a [routerLink]="nav.path" routerLinkActive="active" tabindex="-1">{{ nav.label }}</a>
+          <a [routerLink]="nav.path" routerLinkActive="active" tabindex="-1">{{ nav.label | translate }}</a>
         }
       </div>
     }
@@ -19,7 +19,7 @@
       <cadrart-button
         [icon]="service.action()?.icon ?? null"
         [tag]="service.action()?.tag ?? null"
-        [hotKey]="service.action()?.hotkey"
+        [hotKey]="service.action()?.hotkey ?? null"
         [outline]="true"
         [tabIndex]="-1"
         (cadrartClick)="handleActionClick()">

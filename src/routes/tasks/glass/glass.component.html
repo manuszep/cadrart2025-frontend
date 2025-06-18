@@ -3,7 +3,7 @@
   <div class="cadrart-tasks cadrart-tasks--glass">
     <cadrart-table
       [data]="data"
-      [keys]="['quantity', 'dimensions', 'measure', 'article', 'jobImage', 'dueDate', 'actions']"
+      [keys]="['quantity', 'clientFullName', 'dimensions', 'measure', 'article', 'jobImage', 'dueDate', 'actions']"
       headerPrefix="TASKS.LIST"
       [trackBy]="trackBy"
       [consultable]="false"
@@ -44,7 +44,6 @@
       <td *cadrartTableValueFormatter="'dueDate'; let entry">{{ entry.jobDueDate | cadrartDate }}</td>
       <td class="cadrart-tasks__actions" *cadrartTableValueFormatter="'actions'; let entry; let expandable=expandable; let alwaysExpanded=alwaysExpanded; let isExpanded=isExpanded" [attr.rowspan]="expandable && isExpanded ? 2 : 1">
         <div class="cadrart-tasks__actions__group">
-          <cadrart-button [iconOnly]="true" icon="open_in_full" color="neutral" [outline]="true"></cadrart-button>
           <cadrart-button [iconOnly]="true" icon="block" color="secondary" [outline]="true"></cadrart-button>
           <cadrart-button [iconOnly]="true" icon="play_circle" color="info" [outline]="true"></cadrart-button>
           <cadrart-button [iconOnly]="true" icon="production_quantity_limits" color="danger" [outline]="true"></cadrart-button>

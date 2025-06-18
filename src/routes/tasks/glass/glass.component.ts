@@ -1,6 +1,6 @@
-import { TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { ECadrartArticleFamily } from '@manuszep/cadrart2025-common';
 
 import { CadrartTableComponent } from '../../../components/table/table.component';

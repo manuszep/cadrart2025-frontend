@@ -297,7 +297,6 @@ export class CadrartRouteOfferFormComponent implements OnInit, AfterViewInit, On
   }
 
   handleSave(): void {
-    this.offerForm?.getStatus().setValue(ECadrartOfferStatus.STATUS_CREATED);
     this.save();
   }
 

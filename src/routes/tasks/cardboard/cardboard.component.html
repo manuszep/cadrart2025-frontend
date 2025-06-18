@@ -1,23 +1,61 @@
 @let data = tasks | async;
 @if (data) {
-  <div class="cadrart-extended-task">
+  <div class="cadrart-tasks cadrart-tasks--glass">
     <cadrart-table
       [data]="data"
-      [keys]="['client', 'actions']"
-      headerPrefix="TASKS_LIST"
+      [keys]="['quantity', 'clientFullName', 'dimensions', 'measure', 'article', 'jobImage', 'dueDate', 'actions']"
+      headerPrefix="TASKS.LIST"
       [trackBy]="trackBy"
       [consultable]="false"
       [deletable]="false"
       [editable]="false"
+      [expandable]="true"
+      [alwaysExpanded]="true"
+      [reduceColspan]="1"
+      [shouldShowExpanded]="hasExpandedContent"
       (cadrartConsult)="handleConsultClick($event)"
       (cadrartEdit)="handleEditClick($event)"
       (cadrartDelete)="handleDeleteClick($event)"
       >
-      <td *cadrartTableValueFormatter="'client'; let entry">{{ entry.clientFirstName }} {{ entry.clientLastName }}</td>
-      <td *cadrartTableValueFormatter="'actions'">
-        <cadrart-button [iconOnly]="true" icon="block" color="secondary" [outline]="true"></cadrart-button>
-        <cadrart-button [iconOnly]="true" icon="play_circle" color="info" [outline]="true"></cadrart-button>
+      <td *cadrartTableValueFormatter="'quantity'; let entry">{{ entry.taskDoneCount }} / {{ entry.jobCount }}</td>
+      <td *cadrartTableValueFormatter="'dimensions'; let entry">
+        <cadrart-job-size
+          [width]="entry.jobOpeningWidth"
+          [height]="entry.jobOpeningHeight"></cadrart-job-size>
       </td>
+      <td *cadrartTableValueFormatter="'measure'; let entry">{{ 'JOB.MEASURE.' + entry.jobMeasure + '_SHORT' | translate }}</td>
+      <td *cadrartTableValueFormatter="'article'; let entry">
+        <div>
+          {{ entry.articleName }}
+          @if (entry.parent && entry.parent.articleName) {
+            <br />
+            <small>({{ entry.parent.articleName }})</small>
+          }
+        </div>
+      </td>
+      <td *cadrartTableValueFormatter="'jobImage'; let entry">
+        @if (entry.jobImage) {
+          <cadrart-image [name]="entry.jobImage" folder="job" size="s" alt="Job Image"></cadrart-image>
+        }
+        @if (entry.taskImage) {
+          <cadrart-image [name]="entry.taskImage" folder="task" size="s" alt="Task Image"></cadrart-image>
+        }
+      </td>
+      <td *cadrartTableValueFormatter="'dueDate'; let entry">{{ entry.jobDueDate | cadrartDate }}</td>
+      <td class="cadrart-tasks__actions" *cadrartTableValueFormatter="'actions'; let entry; let expandable=expandable; let alwaysExpanded=alwaysExpanded; let isExpanded=isExpanded" [attr.rowspan]="expandable && isExpanded ? 2 : 1">
+        <div class="cadrart-tasks__actions__group">
+          <cadrart-button [iconOnly]="true" icon="block" color="secondary" [outline]="true"></cadrart-button>
+          <cadrart-button [iconOnly]="true" icon="play_circle" color="info" [outline]="true"></cadrart-button>
+          <cadrart-button [iconOnly]="true" icon="production_quantity_limits" color="danger" [outline]="true"></cadrart-button>
+        </div>
+      </td>
+
+      <!-- Expanded content for each row -->
+      <div *cadrartTableExpanded="let entry">
+        <div class="cadrart-tasks__expanded-content">
+          {{ entry.taskComment }}
+        </div>
+      </div>
     </cadrart-table>
   </div>
 }

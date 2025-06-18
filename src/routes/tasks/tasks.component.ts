@@ -20,11 +20,11 @@ export class CadrartRouteTasksComponent implements OnDestroy {
 
   constructor() {
     this.headerService.setNavigation([
-      { label: 'Wood', path: '/tasks/wood' },
-      { label: 'Cardboard', path: '/tasks/cardboard' },
-      { label: 'Glass', path: '/tasks/glass' },
-      { label: 'Assembly', path: '/tasks/assembly' },
-      { label: 'Pass', path: '/tasks/pass' }
+      { label: 'TASKS.MENU.WOOD', path: '/tasks/wood' },
+      { label: 'TASKS.MENU.CARDBOARD', path: '/tasks/cardboard' },
+      { label: 'TASKS.MENU.GLASS', path: '/tasks/glass' },
+      { label: 'TASKS.MENU.ASSEMBLY', path: '/tasks/assembly' },
+      { label: 'TASKS.MENU.PASS', path: '/tasks/pass' }
     ]);
 
     this.headerService.clearAction();
