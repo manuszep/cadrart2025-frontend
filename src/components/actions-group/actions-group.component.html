@@ -44,4 +44,16 @@
       hoverColor="info"
       (cadrartClick)="handleToggleClick()"></cadrart-button>
   }
+
+  @for (action of customActions$(); track action.icon) {
+    <cadrart-button
+      class="cadrart-actions-group__custom"
+      [iconOnly]="true"
+      [icon]="action.icon"
+      [color]="action.color"
+      [outline]="!!action.outline"
+      [disabled]="!!action.disabled"
+      [title]="(action.tooltip ?? '') | translate"
+      (cadrartClick)="handleCustomActionClick()"></cadrart-button>
+  }
 </div>

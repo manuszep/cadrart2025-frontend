@@ -754,6 +754,11 @@
         "DUEDATE": "&Eacute;chéance",
         "LOCATION": "Emplacement"
       }
+    },
+    "ACTIONS": {
+      "ORDER": "Commander",
+      "DONE": "Fait",
+      "UNDO": "Annuler"
     }
   }
 }

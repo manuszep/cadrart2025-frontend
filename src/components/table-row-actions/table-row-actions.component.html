@@ -1,0 +1,13 @@
+<div class="cadrart-table-row-actions cadrart-actions-group">
+  @for (action of actions(); track action.icon) {
+    <cadrart-button
+      [iconOnly]="true"
+      [icon]="action.icon"
+      [color]="action.color"
+      [outline]="!!action.outline"
+      [disabled]="!!action.disabled"
+      [title]="(action.tooltip ?? '') | translate"
+      (cadrartClick)="handleActionClick(action)">
+    </cadrart-button>
+  }
+</div>

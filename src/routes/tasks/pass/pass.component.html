@@ -3,7 +3,7 @@
   <div class="cadrart-tasks cadrart-tasks--glass">
     <cadrart-table
       [data]="data"
-      [keys]="['quantity', 'clientFullName', 'dimensions', 'measure', 'article', 'jobImage', 'dueDate', 'actions']"
+      [keys]="['quantity', 'clientFullName', 'dimensions', 'measure', 'article', 'location', 'jobImage', 'dueDate', 'actions']"
       headerPrefix="TASKS.LIST"
       [trackBy]="trackBy"
       [consultable]="false"
@@ -13,9 +13,6 @@
       [alwaysExpanded]="true"
       [reduceColspan]="1"
       [shouldShowExpanded]="hasExpandedContent"
-      (cadrartConsult)="handleConsultClick($event)"
-      (cadrartEdit)="handleEditClick($event)"
-      (cadrartDelete)="handleDeleteClick($event)"
       >
       <td *cadrartTableValueFormatter="'quantity'; let entry">{{ entry.taskDoneCount }} / {{ entry.jobCount }}</td>
       <td *cadrartTableValueFormatter="'dimensions'; let entry">
@@ -33,6 +30,7 @@
           }
         </div>
       </td>
+      <td *cadrartTableValueFormatter="'location'; let entry">{{ entry.articlePlace }}</td>
       <td *cadrartTableValueFormatter="'jobImage'; let entry">
         @if (entry.jobImage) {
           <cadrart-image [name]="entry.jobImage" folder="job" size="s" alt="Job Image"></cadrart-image>
@@ -42,12 +40,8 @@
         }
       </td>
       <td *cadrartTableValueFormatter="'dueDate'; let entry">{{ entry.jobDueDate | cadrartDate }}</td>
-      <td class="cadrart-tasks__actions" *cadrartTableValueFormatter="'actions'; let entry; let expandable=expandable; let alwaysExpanded=alwaysExpanded; let isExpanded=isExpanded" [attr.rowspan]="expandable && isExpanded ? 2 : 1">
-        <div class="cadrart-tasks__actions__group">
-          <cadrart-button [iconOnly]="true" icon="block" color="secondary" [outline]="true"></cadrart-button>
-          <cadrart-button [iconOnly]="true" icon="play_circle" color="info" [outline]="true"></cadrart-button>
-          <cadrart-button [iconOnly]="true" icon="production_quantity_limits" color="danger" [outline]="true"></cadrart-button>
-        </div>
+      <td class="cadrart-tasks__actions" *cadrartTableValueFormatter="'actions'; let entry; let expandable=expandable; let isExpanded=isExpanded" [attr.rowspan]="expandable && isExpanded ? 2 : 1">
+        <cadrart-actions-group [customActions]="actions" (cadrartCustom)="handleCustomAction(entry)"></cadrart-actions-group>
       </td>
 
       <!-- Expanded content for each row -->

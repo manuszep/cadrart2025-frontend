@@ -1,0 +1,20 @@
+const keys = ['a', 'b', 'test'];
+
+function getTranslations<T extends readonly string[]>(keys: T): Record<T[number], string> {
+  const ret = {} as Record<T[number], string>;
+
+  for (const key of keys) {
+    ret[key] = 'value';
+  }
+
+  return ret;
+}
+
+// Helper function to create a tuple with literal types
+function tuple<T extends readonly string[]>(...args: T): T {
+  return args;
+}
+
+const test = getTranslations(tuple('a', 'b', 'test'));
+
+// typescript should know that test has 'a', 'b' and 'test' keys

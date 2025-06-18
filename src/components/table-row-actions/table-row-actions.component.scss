@@ -1,0 +1,9 @@
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/functions.scss' as *;
+@use '../../styles/variables' as *;
+
+.cadrart-task-actions {
+  display: flex;
+  gap: $spacing-small;
+  align-items: center;
+}

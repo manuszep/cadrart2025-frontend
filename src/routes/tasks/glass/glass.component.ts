@@ -4,7 +4,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ECadrartArticleFamily } from '@manuszep/cadrart2025-common';
 
 import { CadrartTableComponent } from '../../../components/table/table.component';
-import { CadrartButtonComponent } from '../../../components/button/button.component';
 import { CadrartTableValueFormatterDirective } from '../../../components/table/table-value-formatter.directive';
 import { CadrartTableExpandedContentDirective } from '../../../components/table/table-expanded-content.directive';
 import { CadrartDatePipe } from '../../../pipes/date.pipe';
@@ -12,6 +11,7 @@ import { CadrartJobSizeComponent } from '../../../components/job-sizes/job-size.
 import { CadrartImageComponent } from '../../../components/image/image.component';
 import { CadrartRouteTasksBaseComponent } from '../task.component.base';
 import { CadrartExtendedTask } from '../../../models/extended-task.model';
+import { CadrartActionsGroupComponent } from '../../../components/actions-group/actions-group.component';
 
 @Component({
   selector: 'cadrart-route-tasks-glass',
@@ -21,11 +21,11 @@ import { CadrartExtendedTask } from '../../../models/extended-task.model';
     CadrartTableComponent,
     CadrartTableValueFormatterDirective,
     CadrartTableExpandedContentDirective,
-    CadrartButtonComponent,
     TranslateModule,
     CadrartDatePipe,
     CadrartJobSizeComponent,
-    CadrartImageComponent
+    CadrartImageComponent,
+    CadrartActionsGroupComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

@@ -1,12 +1,15 @@
 import { ChangeDetectionStrategy, Component, input, output, ViewEncapsulation } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CadrartButtonComponent } from '../button/button.component';
+
+import { IActionsGroupAction } from './actions-group.model';
 
 @Component({
   selector: 'cadrart-actions-group',
   templateUrl: './actions-group.component.html',
   styleUrls: ['./actions-group.component.scss'],
-  imports: [CadrartButtonComponent],
+  imports: [CadrartButtonComponent, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
@@ -17,12 +20,16 @@ export class CadrartActionsGroupComponent {
   public duplicatable$ = input<boolean>(false, { alias: 'duplicatable' });
   public extendable$ = input<boolean>(false, { alias: 'extendable' });
   public extended$ = input<boolean>(false, { alias: 'extended' });
+  public customActions$ = input<Array<IActionsGroupAction<any>>>([] as Array<IActionsGroupAction<unknown>>, {
+    alias: 'customActions'
+  });
 
   public readonly cadrartEdit = output<void>();
   public readonly cadrartDelete = output<void>();
   public readonly cadrartConsult = output<void>();
   public readonly cadrartDuplicate = output<void>();
   public readonly cadrartToggleExtend = output<void>();
+  public readonly cadrartCustom = output<void>();
 
   handleEditClick(): void {
     this.cadrartEdit.emit();
@@ -42,5 +49,9 @@ export class CadrartActionsGroupComponent {
 
   handleToggleClick(): void {
     this.cadrartToggleExtend.emit();
+  }
+
+  handleCustomActionClick(): void {
+    this.cadrartCustom.emit();
   }
 }

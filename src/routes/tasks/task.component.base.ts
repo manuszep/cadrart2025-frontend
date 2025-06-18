@@ -6,6 +6,7 @@ import { ECadrartArticleFamily, ICadrartExtendedTask } from '@manuszep/cadrart20
 import { CadrartExtendedTask } from '../../models/extended-task.model';
 import { CadrartTaskService } from '../../services/task.service';
 import { CadrartDataConnectorService } from '../../services/data-connector.service';
+import { IActionsGroupAction } from '../../components/actions-group/actions-group.model';
 
 @Component({
   selector: 'cadrart-route-tasks-base',
@@ -17,6 +18,35 @@ export abstract class CadrartRouteTasksBaseComponent {
   protected abstract family: ECadrartArticleFamily;
   public tasks!: Observable<CadrartExtendedTask[]>;
   public trackBy = (_index: number, item: CadrartExtendedTask): number => item.id ?? 0;
+  public actions: Array<IActionsGroupAction<CadrartExtendedTask>> = [
+    {
+      icon: 'done',
+      color: 'success',
+      action: (task: CadrartExtendedTask): void => {
+        this.handleDoneClick(task);
+      },
+      outline: true,
+      tooltip: 'TASKS.ACTIONS.DONE'
+    },
+    {
+      icon: 'undo',
+      color: 'warning',
+      action: (task: CadrartExtendedTask): void => {
+        this.handleUndoClick(task);
+      },
+      outline: true,
+      tooltip: 'TASKS.ACTIONS.UNDO'
+    },
+    {
+      icon: 'shop',
+      color: 'danger',
+      action: (task: CadrartExtendedTask): void => {
+        this.handleShopClick(task);
+      },
+      outline: true,
+      tooltip: 'TASKS.ACTIONS.ORDER'
+    }
+  ];
 
   protected readonly service = inject(CadrartTaskService);
   protected readonly dataConnectorService = inject(CadrartDataConnectorService<ICadrartExtendedTask>);
@@ -44,15 +74,19 @@ export abstract class CadrartRouteTasksBaseComponent {
       );
   }
 
-  handleConsultClick(task: CadrartExtendedTask): void {
+  private handleDoneClick(task: CadrartExtendedTask): void {
     console.log(task);
   }
 
-  handleEditClick(task: CadrartExtendedTask): void {
+  private handleUndoClick(task: CadrartExtendedTask): void {
     console.log(task);
   }
 
-  handleDeleteClick(task: CadrartExtendedTask): void {
+  private handleShopClick(task: CadrartExtendedTask): void {
+    console.log(task);
+  }
+
+  public handleCustomAction(task: CadrartExtendedTask): void {
     console.log(task);
   }
 }

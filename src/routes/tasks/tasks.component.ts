@@ -34,16 +34,4 @@ export class CadrartRouteTasksComponent implements OnDestroy {
     this.headerService.clearNavigation();
     this.headerService.clearAction();
   }
-
-  handleConsultClick(task: CadrartExtendedTask): void {
-    console.log(task);
-  }
-
-  handleEditClick(task: CadrartExtendedTask): void {
-    console.log(task);
-  }
-
-  handleDeleteClick(task: CadrartExtendedTask): void {
-    console.log(task);
-  }
 }
