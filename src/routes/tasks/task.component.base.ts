@@ -75,18 +75,24 @@ export abstract class CadrartRouteTasksBaseComponent {
   }
 
   private handleDoneClick(task: CadrartExtendedTask): void {
+    console.log('handleDoneClick');
     console.log(task);
+    this.service.doTask(task);
   }
 
   private handleUndoClick(task: CadrartExtendedTask): void {
+    console.log('handleUndoClick');
     console.log(task);
+    this.service.undoTask(task);
   }
 
   private handleShopClick(task: CadrartExtendedTask): void {
+    console.log('handleShopClick');
     console.log(task);
+    this.service.blockTask(task);
   }
 
-  public handleCustomAction(task: CadrartExtendedTask): void {
-    console.log(task);
+  public handleCustomAction(action: (data: CadrartExtendedTask) => void, task: CadrartExtendedTask): void {
+    action(task);
   }
 }

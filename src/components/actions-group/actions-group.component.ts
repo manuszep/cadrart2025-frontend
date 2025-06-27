@@ -29,7 +29,7 @@ export class CadrartActionsGroupComponent {
   public readonly cadrartConsult = output<void>();
   public readonly cadrartDuplicate = output<void>();
   public readonly cadrartToggleExtend = output<void>();
-  public readonly cadrartCustom = output<void>();
+  public readonly cadrartCustom = output<(data: any) => void>();
 
   handleEditClick(): void {
     this.cadrartEdit.emit();
@@ -51,7 +51,7 @@ export class CadrartActionsGroupComponent {
     this.cadrartToggleExtend.emit();
   }
 
-  handleCustomActionClick(): void {
-    this.cadrartCustom.emit();
+  handleCustomActionClick(action: IActionsGroupAction<any>): void {
+    this.cadrartCustom.emit(action.action);
   }
 }

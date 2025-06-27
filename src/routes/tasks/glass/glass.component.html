@@ -40,7 +40,7 @@
       </td>
       <td *cadrartTableValueFormatter="'dueDate'; let entry">{{ entry.jobDueDate | cadrartDate }}</td>
       <td class="cadrart-tasks__actions" *cadrartTableValueFormatter="'actions'; let entry; let expandable=expandable; let isExpanded=isExpanded" [attr.rowspan]="expandable && isExpanded ? 2 : 1">
-        <cadrart-actions-group [customActions]="actions" (cadrartCustom)="handleCustomAction(entry)"></cadrart-actions-group>
+        <cadrart-actions-group [customActions]="actions" (cadrartCustom)="handleCustomAction($event, entry)"></cadrart-actions-group>
       </td>
 
       <!-- Expanded content for each row -->

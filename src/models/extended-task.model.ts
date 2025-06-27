@@ -1,4 +1,4 @@
-import { ICadrartExtendedTask, PartialDeep } from '@manuszep/cadrart2025-common';
+import { ICadrartExtendedTask } from '@manuszep/cadrart2025-common';
 
 import { CadrartEntity } from './api.model';
 

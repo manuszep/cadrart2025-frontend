@@ -7,5 +7,5 @@ export interface IActionsGroupAction<TEntry> {
   outline?: boolean;
   disabled?: boolean;
   tooltip?: string;
-  action: (task: TEntry) => void;
+  action: (data: TEntry) => void;
 }

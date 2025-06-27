@@ -54,6 +54,6 @@
       [outline]="!!action.outline"
       [disabled]="!!action.disabled"
       [title]="(action.tooltip ?? '') | translate"
-      (cadrartClick)="handleCustomActionClick()"></cadrart-button>
+      (cadrartClick)="handleCustomActionClick(action)"></cadrart-button>
   }
 </div>
