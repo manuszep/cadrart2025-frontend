@@ -66,6 +66,7 @@ export class CadrartTableComponent<TData> {
   @Input() public alwaysExpanded = false;
   @Input() public reduceColspan = 0;
   @Input() public shouldShowExpanded?: (entry: TData) => boolean;
+  @Input() public getRowClass?: (entry: TData) => string | string[] | null | undefined;
 
   @Output() public readonly cadrartEdit = new EventEmitter<TData>();
   @Output() public readonly cadrartDelete = new EventEmitter<TData>();
@@ -137,5 +138,29 @@ export class CadrartTableComponent<TData> {
 
   getColspan(): number {
     return this.keys.length - this.reduceColspan;
+  }
+
+  getRowClasses(entry: TData): { [key: string]: boolean } {
+    const classes: { [key: string]: boolean } = {
+      'cadrart-table__row--overlay-active': this.deleting === entry,
+      'cadrart-table__row--expandable': this.expandable && !this.alwaysExpanded,
+      'cadrart-table__row--expanded': this.expandable && this.isExpanded(entry)
+    };
+
+    if (this.getRowClass) {
+      const customClasses = this.getRowClass(entry);
+
+      if (customClasses) {
+        if (Array.isArray(customClasses)) {
+          customClasses.filter(Boolean).forEach((className) => {
+            classes[className] = true;
+          });
+        } else {
+          classes[customClasses] = true;
+        }
+      }
+    }
+
+    return classes;
   }
 }

@@ -42,4 +42,22 @@ export class CadrartRouteTasksWoodComponent extends CadrartRouteTasksBaseCompone
   public hasExpandedContent = (entry: CadrartExtendedTask): boolean => {
     return !!entry.taskComment;
   };
+
+  public getRowClass = (entry: CadrartExtendedTask): string | string[] | null => {
+    const classes: string[] = [];
+    const isDone = entry.taskDoneCount === entry.jobCount;
+    const isOverdue = entry.jobDueDate && new Date(entry.jobDueDate) < new Date();
+
+    // Example: Add class based on task status
+    if (isDone) {
+      classes.push('cadrart-tasks--completed-task');
+    }
+
+    // Example: Add class based on due date
+    if (!isDone && isOverdue) {
+      classes.push('cadrart-tasks--overdue-task');
+    }
+
+    return classes.length > 0 ? classes : null;
+  };
 }

@@ -19,9 +19,7 @@
       @for (entry of data; track identify($index, entry)) {
         <tr
           @existanceAnimation
-          [class.cadrart-table__row--overlay-active]="deleting === entry"
-          [class.cadrart-table__row--expandable]="expandable && !alwaysExpanded"
-          [class.cadrart-table__row--expanded]="expandable && isExpanded(entry)"
+          [ngClass]="getRowClasses(entry)"
           (cadrartClickOutside)="handleClickOutside(entry)"
           (click)="expandable && !alwaysExpanded && (!shouldShowExpanded || shouldShowExpanded(entry)) ? toggleExpanded(entry) : null">
           @for (key of keys; track $index) {
@@ -62,7 +60,7 @@
           }
         </tr>
         @if (expandable && isExpanded(entry) && (!shouldShowExpanded || shouldShowExpanded(entry))) {
-          <tr class="cadrart-table__expanded-row" @existanceAnimation>
+          <tr class="cadrart-table__expanded-row" @existanceAnimation [ngClass]="getRowClasses(entry)">
             <td class="cadrart-table__expanded-cell" [attr.colspan]="getColspan()">
               <ng-container
                 [ngTemplateOutlet]="getExpandedTemplate()"
