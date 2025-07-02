@@ -5,6 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CadrartDatePipe implements PipeTransform {
   transform(value: string | Date): string {
+    if (!value) {
+      return '';
+    }
+
     const d = new Date(value);
 
     const day = d.getDate();
