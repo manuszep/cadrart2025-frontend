@@ -1,5 +1,7 @@
 # Cadrart2025Frontend
 
+[![Deploy](https://github.com/manuszep/cadrart2025-frontend/actions/workflows/deploy.yaml/badge.svg)](https://github.com/manuszep/cadrart2025-frontend/actions/workflows/deploy.yaml)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
 
 ## Development server
