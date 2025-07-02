@@ -9,6 +9,7 @@
       [consultable]="false"
       [deletable]="false"
       [editable]="false"
+      [getRowClass]="getRowClass"
       >
       <td *cadrartTableValueFormatter="'quantity'; let entry">{{ entry.taskDoneCount }} / {{ entry.jobCount }}</td>
       <td *cadrartTableValueFormatter="'dimensions'; let entry">
