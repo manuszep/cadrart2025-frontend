@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { Injectable, inject, signal, WritableSignal } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { ICadrartConnectedUser, ICadrartIsLoggedInResponse, ICadrartLoginResponse } from '@manuszep/cadrart2025-common';
@@ -8,6 +8,8 @@ import { getEndpointUrl } from '../utils/url';
 import { CadrartNavigationService } from '../components/navigation/navigation.service';
 import { CadrartHeaderService } from '../components/header/header.service';
 
+import { AuthenticatedSocketService } from './authenticated-socket.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +17,7 @@ export class CadrartLoginService {
   private connected = false;
 
   public connectedUser: WritableSignal<ICadrartConnectedUser | null> = signal(null);
+  private socketService = inject(AuthenticatedSocketService);
 
   constructor(
     private readonly http: HttpClient,
@@ -47,6 +50,9 @@ export class CadrartLoginService {
           this.connectedUser.set(result.user ?? null);
           this.enableInterface();
           this.connected = true;
+
+          // Connect to WebSocket if not already connected
+          this.socketService.connect();
         }
 
         return isLoggedIn;
@@ -75,6 +81,10 @@ export class CadrartLoginService {
 
         this.enableInterface();
         this.connected = true;
+
+        // Connect to WebSocket after successful login
+        this.socketService.connect();
+
         this.router.navigate(['/offers']);
 
         return true;
@@ -87,6 +97,10 @@ export class CadrartLoginService {
     this.connectedUser.set(null);
     this.connected = false;
     localStorage.removeItem('connectedUser');
+
+    // Disconnect from WebSocket on logout
+    this.socketService.disconnect();
+
     this.disableInterface();
   }
 

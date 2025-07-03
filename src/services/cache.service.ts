@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, filter, Observable } from 'rxjs';
-import { Socket } from 'ngx-socket-io';
 import {
   ICadrartApiEntity,
   ICadrartSocketCreateEntity,
@@ -11,6 +10,7 @@ import {
 
 import { getEndpointUrl } from '../utils/url';
 
+import { AuthenticatedSocketService } from './authenticated-socket.service';
 import { ICadrartRequestOptions } from './api.service';
 
 @Injectable({ providedIn: 'root' })
@@ -21,10 +21,12 @@ export class CadrartCacheService {
   public updateSocket: Observable<ICadrartSocketUpdateEntity<any>>;
   public deleteSocket: Observable<ICadrartSocketDeleteEntity>;
 
-  constructor(private readonly http: HttpClient, private socket: Socket) {
-    this.createSocket = this.socket.fromEvent<ICadrartSocketCreateEntity<any>, string>('create');
-    this.updateSocket = this.socket.fromEvent<ICadrartSocketUpdateEntity<any>, string>('update');
-    this.deleteSocket = this.socket.fromEvent<ICadrartSocketDeleteEntity, string>('delete');
+  private socketService = inject(AuthenticatedSocketService);
+
+  constructor(private readonly http: HttpClient) {
+    this.createSocket = this.socketService.createEvents$;
+    this.updateSocket = this.socketService.updateEvents$;
+    this.deleteSocket = this.socketService.deleteEvents$;
   }
 
   private setEndpointCache(endpoint: string, data: unknown): void {

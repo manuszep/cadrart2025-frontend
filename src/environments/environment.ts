@@ -6,5 +6,6 @@ export const environment = {
   production: false,
   apiUrl: `${prot}//${host}${port}/api/`,
   imageUrl: `${prot}//${host}${port}/static/`,
-  backendUrl: `${prot}//${host}/`
+  wsUrl: `${prot}//${host}${port}`,
+  wsPath: '/ws'
 };
