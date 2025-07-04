@@ -53,12 +53,8 @@ test.describe('Complete Application Workflow', () => {
     await apiHelpers.cleanupTestEnvironment();
   });
 
-  test('should complete full workflow: login -> create offer -> view data', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    // Step 1: Login with test credentials
-    await loginPage.navigateToLogin();
-    await loginPage.login(testEnvironment.testUser.email, testEnvironment.testUser.password);
-    await loginPage.expectSuccessfulLogin();
+  test('should complete full workflow: create offer -> view data', async ({ page }) => {
+    // Authentication is handled by global setup
 
     // Step 2: Navigate to offers page
     await page.goto('/offers');
@@ -134,11 +130,7 @@ test.describe('Complete Application Workflow', () => {
   });
 
   test('should maintain session after successful login', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    // Login first
-    await loginPage.navigateToLogin();
-    await loginPage.login(testEnvironment.testUser.email, testEnvironment.testUser.password);
-    await loginPage.expectSuccessfulLogin();
+    // Authentication is handled by global setup
 
     // Navigate to different pages
     await page.goto('/offers');

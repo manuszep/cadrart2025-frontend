@@ -14,7 +14,7 @@ export class OfferPage extends BasePage {
   }
 
   async navigateToOffers(): Promise<void> {
-    await this.navigateTo('/offer');
+    await this.navigateTo('/offers');
     await this.waitForPageLoad();
   }
 

@@ -5,10 +5,7 @@ import { BasePage } from './base.page';
 export class TasksPage extends BasePage {
   private readonly taskList = '[data-testid="task-list"]';
   private readonly taskItem = '[data-testid="task-item"]';
-  private readonly createTaskButton = '[data-testid="create-task-button"]';
-  private readonly taskStatusFilter = '[data-testid="task-status-filter"]';
-  private readonly taskTypeFilter = '[data-testid="task-type-filter"]';
-  private readonly searchTasksInput = '[data-testid="search-tasks-input"]';
+  // Note: These elements don't exist in the current implementation
 
   constructor(page: Page) {
     super(page);
@@ -19,21 +16,7 @@ export class TasksPage extends BasePage {
     await this.waitForPageLoad();
   }
 
-  async clickCreateTask(): Promise<void> {
-    await this.clickElement(this.createTaskButton);
-  }
-
-  async filterByStatus(status: string): Promise<void> {
-    await this.selectOption(this.taskStatusFilter, status);
-  }
-
-  async filterByType(type: string): Promise<void> {
-    await this.selectOption(this.taskTypeFilter, type);
-  }
-
-  async searchTasks(searchTerm: string): Promise<void> {
-    await this.fillInput(this.searchTasksInput, searchTerm);
-  }
+  // Note: These methods are not implemented as the UI elements don't exist
 
   async expectTaskListToBeVisible(): Promise<void> {
     await this.expectElementToBeVisible(this.taskList);

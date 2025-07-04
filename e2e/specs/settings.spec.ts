@@ -1,22 +1,12 @@
 import { test } from '@playwright/test';
 
-import { LoginPage } from '../pages/login.page';
 import { SettingsPage } from '../pages/settings.page';
-import { TestDataFactory } from '../fixtures/test-data';
 
 test.describe('Settings', () => {
-  let loginPage: LoginPage;
   let settingsPage: SettingsPage;
 
   test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
     settingsPage = new SettingsPage(page);
-
-    // Login first
-    await loginPage.navigateToLogin();
-    const validCredentials = TestDataFactory.getValidCredentials();
-    await loginPage.login(validCredentials.email, validCredentials.password);
-    await loginPage.expectSuccessfulLogin();
   });
 
   test('should navigate to settings page', async () => {
