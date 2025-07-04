@@ -1,5 +1,5 @@
 @if (data$ | async; as data) {
-  <div class="cadrart-formulas">
+  <div class="cadrart-formulas" data-testid="formula-section">
     <cadrart-table
       [data]="data"
       [keys]="['name', 'formula']"

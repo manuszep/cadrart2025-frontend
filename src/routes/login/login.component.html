@@ -1,13 +1,13 @@
 <div class="cadrart-login">
   <cadrart-card [title]="'LOGIN.TITLE'" [image]="image()">
-    <form class="cadrart-login__form" [esfsFormGroup]="loginForm">
-      <esfs-field name="mail" (esfsBlur)="handleMailBlur()"></esfs-field>
-      <esfs-field name="password"></esfs-field>
-      <cadrart-button type="submit" (cadrartClick)="handleSubmit()">{{ 'LOGIN.SUBMIT' | translate }}</cadrart-button>
+    <form class="cadrart-login__form" [esfsFormGroup]="loginForm" data-testid="login-form">
+      <esfs-field name="mail" (esfsBlur)="handleMailBlur()" data-testid="email-input"></esfs-field>
+      <esfs-field name="password" data-testid="password-input"></esfs-field>
+      <cadrart-button type="submit" (cadrartClick)="handleSubmit()" data-testid="login-button">{{ 'LOGIN.SUBMIT' | translate }}</cadrart-button>
     </form>
 
     @if (error()) {
-      <div class="cadrart-login__error">
+      <div class="cadrart-login__error" data-testid="error-message">
         {{ error() ?? '' | translate }}
       </div>
     }

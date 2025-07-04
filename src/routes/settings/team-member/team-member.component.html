@@ -1,5 +1,5 @@
 @if (data$ | async; as data) {
-  <div class="cadrart-team-members">
+  <div class="cadrart-team-members" data-testid="team-member-section">
     <div class="cadrart-team-members__list">
       @for (tm of data; track identify($index, tm)) {
         <cadrart-data-card

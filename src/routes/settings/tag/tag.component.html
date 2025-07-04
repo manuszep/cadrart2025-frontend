@@ -1,5 +1,5 @@
 @if (data$ | async; as data) {
-  <div class="cadrart-tags">
+  <div class="cadrart-tags" data-testid="tag-section">
     <div class="cadrart-tags__list">
       @for (tag of data; track identify($index, tag)) {
         <cadrart-data-card

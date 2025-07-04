@@ -7,7 +7,7 @@
   </div>
   <ng-container>
     @if (service.navigation().length) {
-      <div class="cadrart-header__nav">
+      <div class="cadrart-header__nav" data-testid="settings-menu">
         @for (nav of service.navigation(); track nav.path) {
           <a [routerLink]="nav.path" routerLinkActive="active" tabindex="-1">{{ nav.label | translate }}</a>
         }

@@ -1,7 +1,8 @@
 @let data = tasks | async;
 @if (data) {
-  <div class="cadrart-tasks cadrart-tasks--glass">
+  <div class="cadrart-tasks cadrart-tasks--glass" data-testid="tasks-page">
     <cadrart-table
+      data-testid="task-list"
       [data]="data"
       [keys]="['quantity', 'clientFullName', 'dimensions', 'measure', 'article', 'jobImage', 'dueDate', 'actions']"
       headerPrefix="TASKS.LIST"

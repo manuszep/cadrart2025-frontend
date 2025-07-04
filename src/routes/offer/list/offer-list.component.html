@@ -1,7 +1,8 @@
 @if (offers | async; as data) {
-  <div class="cadrart-offers">
+  <div class="cadrart-offers" data-testid="offers-page">
     <cadrart-filters [config]="filtersConfig" (cadrartChange)="handleFilterChange($event)"></cadrart-filters>
     <cadrart-table
+      data-testid="offer-list"
       [data]="data"
       [keys]="['status', 'number', 'clientName', 'assignedToName', 'total']"
       headerPrefix="OFFER_LIST"

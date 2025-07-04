@@ -57,6 +57,7 @@
     <ul class="cadrart__navigation__actions">
       <li class="cadrart__navigation__actions__item">
         <cadrart-button
+          data-testid="create-offer-button"
           icon="add_shopping_cart"
           [iconOnly]="!service.enabled() || !toggled()"
           [disabled]="!service.enabled()"
@@ -80,7 +81,7 @@
           [esfsFormGroup]="searchForm"
           class="cadrart__navigation__actions__item__search-box"
           [class.cadrart__navigation__actions__item__search-box--active]="showSearch()">
-          <esfs-field #searchField name="search"></esfs-field>
+          <esfs-field #searchField name="search" data-testid="search-input"></esfs-field>
           <cadrart-button
             icon="search"
             [iconOnly]="true"
