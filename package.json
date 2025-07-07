@@ -14,7 +14,11 @@
     "e2e:debug": "playwright test --debug",
     "e2e:report": "playwright show-report",
     "e2e:dev": "E2E_SKIP_CLEANUP=true playwright test",
-    "setup:dev-data": "./e2e/setup-dev-data.sh"
+    "setup:dev-data": "./e2e/setup-dev-data.sh",
+    "chrome:debug": "./scripts/launch-chrome-debug.sh",
+    "dev:full": "npm run start & npm run chrome:debug",
+    "debug:troubleshoot": "./scripts/debug-troubleshoot.sh",
+    "debug:prepare": "./scripts/prepare-debug.sh"
   },
   "private": true,
   "dependencies": {

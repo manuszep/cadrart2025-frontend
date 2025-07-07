@@ -3,39 +3,111 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "npm",
-      "script": "start",
+      "label": "Start Backend (Dev)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "start:debug"],
+      "options": {
+        "cwd": "${workspaceFolder}/../cadrart2025-backend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
       "isBackground": true,
       "problemMatcher": {
-        "owner": "typescript",
-        "pattern": "$tsc",
+        "pattern": {
+          "regexp": ".",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
         "background": {
           "activeOnStart": true,
-          "beginsPattern": {
-            "regexp": "(.*?)"
-          },
-          "endsPattern": {
-            "regexp": "bundle generation complete"
-          }
+          "beginsPattern": ".*Nest application successfully started.*",
+          "endsPattern": ".*Nest application successfully started.*"
         }
       }
     },
     {
-      "type": "npm",
-      "script": "test",
+      "label": "Start Frontend (Dev)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["start"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
       "isBackground": true,
       "problemMatcher": {
-        "owner": "typescript",
-        "pattern": "$tsc",
+        "pattern": {
+          "regexp": ".",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
         "background": {
           "activeOnStart": true,
-          "beginsPattern": {
-            "regexp": "(.*?)"
-          },
-          "endsPattern": {
-            "regexp": "bundle generation complete"
-          }
+          "beginsPattern": ".*Compiled successfully.*",
+          "endsPattern": ".*Compiled successfully.*"
         }
+      }
+    },
+    {
+      "label": "Run E2E Tests",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "e2e"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Run Backend Tests",
+      "type": "shell",
+      "command": "npm",
+      "args": ["test"],
+      "options": {
+        "cwd": "${workspaceFolder}/../cadrart2025-backend"
+      },
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Setup Test Data",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "setup:dev-data"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
       }
     }
   ]

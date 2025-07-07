@@ -1,14 +1,37 @@
 {
   "eslint.workingDirectories": ["."],
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
   },
   "editor.hover.delay": 500,
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "files.exclude": {
-    "**/.angular/cache": true
+    "**/node_modules": true,
+    "**/dist": false,
+    "**/.angular": true
   },
   "search.exclude": {
-    "**/.angular/cache": true
-  }
+    "**/node_modules": true,
+    "**/dist": false,
+    "**/.angular": true
+  },
+  "debug.node.autoAttach": "on",
+  "debug.javascript.autoAttachFilter": "smart",
+  "debug.javascript.terminalOptions": {
+    "skipFiles": ["<node_internals>/**"]
+  },
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "debug.chrome.useV3": true,
+  "debug.chrome.breakOnConditionalError": true,
+  "debug.chrome.breakOnLoad": false,
+  "debug.chrome.disableNetworkCache": true,
+  "debug.chrome.showAsyncStacks": true,
+  "debug.chrome.skipFiles": [
+    "<node_internals>/**",
+    "**/node_modules/**"
+  ]
 }

@@ -3,22 +3,143 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Attach to Chrome for Karma",
-      "type": "chrome",
-      "request": "attach",
-      "port": 9222,
-      "webRoot": "${workspaceFolder}",
+      "name": "Launch Backend (NestJS)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/../cadrart2025-backend/node_modules/@nestjs/cli/bin/nest.js",
+      "args": ["start", "--watch", "--debug"],
+      "cwd": "${workspaceFolder}/../cadrart2025-backend",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
       "sourceMaps": true,
-      "sourceMapPathOverrides": {
-        "webpack:///./*": "${webRoot}/*"
+      "outFiles": ["${workspaceFolder}/../cadrart2025-backend/dist/**/*.js"],
+      "presentation": {
+        "hidden": false,
+        "group": "backend",
+        "order": 1
       }
     },
     {
-      "name": "Launch Chrome",
+      "name": "Launch Frontend (Angular)",
+      "type": "node",
       "request": "launch",
+      "program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
+      "args": ["serve", "--port", "4200"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "presentation": {
+        "hidden": false,
+        "group": "frontend",
+        "order": 1
+      }
+    },
+    {
+      "name": "Launch Chrome (Debug)",
       "type": "chrome",
+      "request": "launch",
       "url": "http://localhost:4200",
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${webRoot}/*",
+        "webpack:///src/*": "${webRoot}/src/*",
+        "webpack:///*": "*",
+        "webpack:///./~/*": "${webRoot}/node_modules/*",
+        "webpack:///./src/*": "${webRoot}/src/*",
+        "webpack:///src/*": "${webRoot}/src/*",
+        "webpack:///*": "${webRoot}/*",
+        "webpack:///./~/*": "${webRoot}/node_modules/*",
+        "meteor://💻app/*": "${webRoot}/*",
+        "webpack:///./src/**": "${webRoot}/src/**",
+        "webpack:///src/**": "${webRoot}/src/**"
+      },
+      "userDataDir": "${workspaceFolder}/.vscode/chrome-debug-profile",
+      "runtimeArgs": [
+        "--disable-web-security",
+        "--disable-features=VizDisplayCompositor",
+        "--remote-debugging-port=9222",
+        "--disable-extensions"
+      ],
+      "trace": true,
+      "smartStep": false,
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**"
+      ],
+      "timeout": 30000,
+      "presentation": {
+        "hidden": false,
+        "group": "browser",
+        "order": 1
+      }
+    },
+    {
+      "name": "Debug E2E Tests",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/@playwright/test/cli.js",
+      "args": ["test", "--debug"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "presentation": {
+        "hidden": false,
+        "group": "testing",
+        "order": 1
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "🚀 Full Stack Debugging",
+      "configurations": [
+        "Launch Backend (NestJS)",
+        "Launch Frontend (Angular)",
+        "Launch Chrome (Debug)"
+      ],
+      "stopAll": true,
+      "presentation": {
+        "hidden": false,
+        "group": "fullstack",
+        "order": 1
+      },
+      "preLaunchTask": "npm: build:dev"
+    },
+    {
+      "name": "🔧 Backend + Frontend (No Browser)",
+      "configurations": [
+        "Launch Backend (NestJS)",
+        "Launch Frontend (Angular)"
+      ],
+      "stopAll": true,
+      "presentation": {
+        "hidden": false,
+        "group": "fullstack",
+        "order": 2
+      }
+    },
+    {
+      "name": "🌐 Frontend + Chrome",
+      "configurations": [
+        "Launch Frontend (Angular)",
+        "Launch Chrome (Debug)"
+      ],
+      "stopAll": true,
+      "presentation": {
+        "hidden": false,
+        "group": "frontend",
+        "order": 1
+      }
     }
   ]
 }
