@@ -3,16 +3,14 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: frontend
-    environment: $(ENVIRONMENT_COLOR)
-  name: frontend
-  namespace: cadrart-$(ENVIRONMENT)
+    io.kompose.service: frontend-a
+  name: frontend-a
+  namespace: cadrart
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: frontend
-      environment: $(ENVIRONMENT_COLOR)
+      io.kompose.service: frontend-a
   strategy:
     type: Recreate
   template:
@@ -20,8 +18,7 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.network/cadrart-default: 'true'
-        io.kompose.service: frontend
-        environment: $(ENVIRONMENT_COLOR)
+        io.kompose.service: frontend-a
     spec:
       containers:
         - image: ghcr.io/manuszep/cadrart2025-frontend
@@ -40,5 +37,5 @@ spec:
       volumes:
         - name: static-volume
           persistentVolumeClaim:
-            claimName: static-volume-$(ENVIRONMENT)
+            claimName: static-volume-a
 status: {}
