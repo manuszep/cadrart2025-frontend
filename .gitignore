@@ -49,3 +49,18 @@ Thumbs.db
 /playwright/.cache/
 e2e/auth.json
 e2e/screenshots/
+
+# Security - prevent accidental commits of sensitive files
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.env
+*.env.*
+secrets/
+backups/
+backup-*/
+k8s-backup-*/
+production-data-backup-*/
+static-files-backup-*/
