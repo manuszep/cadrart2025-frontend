@@ -4,8 +4,9 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: frontend
+    environment: blue
   name: frontend
-  namespace: cadrart
+  namespace: cadrart-a
 spec:
   ports:
     - name: http
@@ -14,5 +15,6 @@ spec:
       targetPort: 8080
   selector:
     io.kompose.service: frontend
+    environment: blue
 status:
   loadBalancer: {}

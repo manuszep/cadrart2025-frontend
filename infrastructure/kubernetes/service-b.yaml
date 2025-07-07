@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: frontend
+    environment: green
+  name: frontend
+  namespace: cadrart-b
+spec:
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    io.kompose.service: frontend
+    environment: green
+status:
+  loadBalancer: {}

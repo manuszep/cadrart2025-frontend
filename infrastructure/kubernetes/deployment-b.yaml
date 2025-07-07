@@ -4,13 +4,15 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: frontend
+    environment: green
   name: frontend
-  namespace: cadrart
+  namespace: cadrart-b
 spec:
   replicas: 1
   selector:
     matchLabels:
       io.kompose.service: frontend
+      environment: green
   strategy:
     type: Recreate
   template:
@@ -19,6 +21,7 @@ spec:
       labels:
         io.kompose.network/cadrart-default: 'true'
         io.kompose.service: frontend
+        environment: green
     spec:
       containers:
         - image: ghcr.io/manuszep/cadrart2025-frontend
@@ -37,5 +40,5 @@ spec:
       volumes:
         - name: static-volume
           persistentVolumeClaim:
-            claimName: static-volume
+            claimName: static-volume-b
 status: {}
