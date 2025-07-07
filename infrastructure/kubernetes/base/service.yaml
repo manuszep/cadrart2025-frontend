@@ -3,8 +3,9 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: frontend-a
-  name: frontend-a
+    io.kompose.service: frontend-$COLOR_TEST
+    environment: $COLOR_TEST
+  name: frontend-$COLOR_TEST
   namespace: cadrart
 spec:
   ports:
@@ -13,6 +14,7 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    io.kompose.service: frontend-a
+    io.kompose.service: frontend-$COLOR_TEST
+    environment: $COLOR_TEST
 status:
   loadBalancer: {}

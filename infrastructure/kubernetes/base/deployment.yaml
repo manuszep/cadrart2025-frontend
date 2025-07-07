@@ -3,14 +3,16 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: frontend-a
-  name: frontend-a
+    io.kompose.service: frontend-$COLOR_TEST
+    environment: $COLOR_TEST
+  name: frontend-$COLOR_TEST
   namespace: cadrart
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: frontend-a
+      io.kompose.service: frontend-$COLOR_TEST
+      environment: $COLOR_TEST
   strategy:
     type: Recreate
   template:
@@ -18,12 +20,13 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.network/cadrart-default: 'true'
-        io.kompose.service: frontend-a
+        io.kompose.service: frontend-$COLOR_TEST
+        environment: $COLOR_TEST
     spec:
       containers:
         - image: ghcr.io/manuszep/cadrart2025-frontend
           imagePullPolicy: Always
-          name: frontend
+          name: frontend-$COLOR_TEST
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -37,5 +40,5 @@ spec:
       volumes:
         - name: static-volume
           persistentVolumeClaim:
-            claimName: static-volume-a
+            claimName: static-volume
 status: {}
