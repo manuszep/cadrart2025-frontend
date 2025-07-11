@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject, signal, WritableSignal } from '@angular/core';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Injectable, WritableSignal, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICadrartConnectedUser, ICadrartIsLoggedInResponse, ICadrartLoginResponse } from '@manuszep/cadrart2025-common';
+import { Observable, catchError, map, of } from 'rxjs';
 
-import { getEndpointUrl } from '../utils/url';
-import { CadrartNavigationService } from '../components/navigation/navigation.service';
 import { CadrartHeaderService } from '../components/header/header.service';
+import { CadrartNavigationService } from '../components/navigation/navigation.service';
+import { getEndpointUrl } from '../utils/url';
 
 import { AuthenticatedSocketService } from './authenticated-socket.service';
 
@@ -102,6 +102,9 @@ export class CadrartLoginService {
     this.socketService.disconnect();
 
     this.disableInterface();
+
+    // Navigate to login page
+    this.router.navigate(['/login']);
   }
 
   public disableInterface(): void {

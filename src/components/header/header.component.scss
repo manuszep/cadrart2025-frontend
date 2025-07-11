@@ -48,25 +48,6 @@ $nav-color: getColor(primary);
     display: flex;
     padding: $spacing-small 0;
     flex-grow: 1;
-
-    &__user {
-      display: flex;
-      align-items: center;
-      margin-left: $spacing-medium;
-      align-self: center;
-      width: 30px;
-
-      img {
-        display: block;
-        width: 30px;
-        max-height: 30px;
-        border-radius: 50%;
-      }
-
-      @media print {
-        display: none;
-      }
-    }
   }
 
   &__nav {

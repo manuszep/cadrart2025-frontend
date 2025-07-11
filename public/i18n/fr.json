@@ -3,6 +3,10 @@
     "ADD": "Ajouter",
     "ADD_JOB": "Ajouter un travail"
   },
+  "USER": {
+    "UNKNOWN": "Utilisateur inconnu",
+    "LOGOUT": "Déconnexion"
+  },
   "NAVIGATION": {
     "PAGES": {
       "TASKS": "Production",

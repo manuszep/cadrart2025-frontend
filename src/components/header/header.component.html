@@ -27,9 +27,5 @@
       </cadrart-button>
     </div>
   }
-  <cadrart-image
-    class="cadrart-header__actions__user"
-    [name]="loginService.connectedUser()?.image ?? 'default'"
-    folder="team-member"
-    size="s"></cadrart-image>
+  <cadrart-connected-user></cadrart-connected-user>
 </header>

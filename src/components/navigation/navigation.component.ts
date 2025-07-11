@@ -21,7 +21,6 @@ import { Subject, filter, map, takeUntil } from 'rxjs';
 import { CadrartClickOutsideDirective } from '../../directives/click-outside.directive';
 import { CadrartDataConnectorService } from '../../services/data-connector.service';
 import { CadrartButtonComponent } from '../button/button.component';
-import { DeploymentIndicatorComponent } from '../deployment-indicator/deployment-indicator.component';
 import { CadrartIconComponent } from '../icon/icon.component';
 
 import { CadrartNavigationService } from './navigation.service';
@@ -38,8 +37,7 @@ import { CadrartNavigationService } from './navigation.service';
     CadrartClickOutsideDirective,
     CadrartIconComponent,
     EsfsFieldComponent,
-    EsfsFormGroupDirective,
-    DeploymentIndicatorComponent
+    EsfsFormGroupDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

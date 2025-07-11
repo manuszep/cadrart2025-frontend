@@ -1,0 +1,90 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+cadrart-connected-user {
+  display: flex;
+
+  @media print {
+    display: none;
+  }
+}
+
+.cadrart-connected-user {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: $spacing-medium;
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    gap: $spacing-small;
+    cursor: pointer;
+    padding: $spacing-small;
+    border-radius: $border-radius;
+    transition: background-color $transition-duration;
+    user-select: none;
+
+    img {
+      display: block;
+      width: 30px;
+      max-height: 30px;
+      border-radius: 50%;
+    }
+
+    &:hover {
+      background-color: rgba($color-yellow, 0.1);
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all $transition-duration;
+    z-index: $z-index-dropdown;
+    margin-top: $spacing-small;
+    @include panel();
+
+    &.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      text-align: center;
+    }
+
+    &__username {
+      display: block;
+      color: $color-text-light;
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: $spacing-medium;
+    }
+
+    &__deployment {
+      padding: $spacing-medium;
+    }
+
+    &__actions {
+      padding: $spacing-small;
+      border-bottom: 1px solid rgba($color-text-light, 0.1);
+      text-align: center;
+
+      &__logout {
+        width: 100%;
+        justify-content: flex-start;
+        padding: $spacing-medium;
+        border-radius: $border-radius;
+        transition: background-color $transition-duration;
+
+        &:hover {
+          background-color: rgba($color-red, 0.1);
+        }
+      }
+    }
+  }
+}

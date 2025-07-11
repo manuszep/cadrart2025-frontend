@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { CadrartButtonComponent } from '../button/button.component';
 import { CadrartLoginService } from '../../services/login.service';
-import { CadrartImageComponent } from '../image/image.component';
+import { CadrartButtonComponent } from '../button/button.component';
+import { CadrartConnectedUserComponent } from '../connected-user/connected-user.component';
 
 import { CadrartHeaderService } from './header.service';
 
@@ -12,7 +12,7 @@ import { CadrartHeaderService } from './header.service';
   selector: 'cadrart-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [RouterLink, RouterLinkActive, CadrartButtonComponent, TranslateModule, CadrartImageComponent],
+  imports: [RouterLink, RouterLinkActive, CadrartButtonComponent, TranslateModule, CadrartConnectedUserComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })

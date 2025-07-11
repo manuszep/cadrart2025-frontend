@@ -1,0 +1,34 @@
+<div class="cadrart-connected-user" (cadrartClickOutside)="closeDropdown()">
+  <div class="cadrart-connected-user__trigger" (click)="toggleDropdown()">
+    <cadrart-image
+      class="cadrart-connected-user__avatar"
+      [name]="loginService.connectedUser()?.image ?? 'default'"
+      folder="team-member"
+      size="s">
+    </cadrart-image>
+  </div>
+
+  <div class="cadrart-connected-user__dropdown" [class.open]="isDropdownOpen()">
+    <div class="cadrart-connected-user__dropdown__header">
+      <span class="cadrart-connected-user__dropdown__username">
+        {{ loginService.connectedUser()?.name ?? 'USER.UNKNOWN' | translate }}
+      </span>
+    </div>
+
+    <div class="cadrart-connected-user__dropdown__actions">
+      <cadrart-button
+        class="cadrart-connected-user__dropdown__logout"
+        icon="logout"
+        color="neutral"
+        hoverColor="danger"
+        justify="left"
+        (cadrartClick)="handleLogout()">
+        {{ 'USER.LOGOUT' | translate }}
+      </cadrart-button>
+    </div>
+
+    <div class="cadrart-connected-user__dropdown__deployment">
+      <app-deployment-indicator></app-deployment-indicator>
+    </div>
+  </div>
+</div>
