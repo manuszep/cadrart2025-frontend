@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpContext, HttpHeaders, HttpParams } from '@angular/common/http';
-import { catchError, map, Observable, of } from 'rxjs';
+import { Injectable } from '@angular/core';
 import {
   ICadrartApiEntity,
   ICadrartEntitiesResponse,
@@ -9,6 +8,7 @@ import {
   ICadrartSocketDeleteEntity,
   ICadrartSocketUpdateEntity
 } from '@manuszep/cadrart2025-common';
+import { catchError, map, Observable, of } from 'rxjs';
 
 import { CadrartAlertService } from '../components/alert/alert.service';
 
@@ -37,16 +37,22 @@ export abstract class CadrartApiService<T extends ICadrartApiEntity> {
   abstract endpointName: string;
 
   constructor(protected readonly cache: CadrartCacheService, protected readonly alertService: CadrartAlertService) {
-    this.cache.createSocket.subscribe((data: ICadrartSocketCreateEntity<T>) => {
-      this.handleSocketCreate(data);
+    this.cache.createSocket.subscribe((data: ICadrartSocketCreateEntity<ICadrartApiEntity> | null) => {
+      if (data) {
+        this.handleSocketCreate(data as ICadrartSocketCreateEntity<T>);
+      }
     });
 
-    this.cache.updateSocket.subscribe((data: ICadrartSocketUpdateEntity<T>) => {
-      this.handleSocketUpdate(data);
+    this.cache.updateSocket.subscribe((data: ICadrartSocketUpdateEntity<ICadrartApiEntity> | null) => {
+      if (data) {
+        this.handleSocketUpdate(data as ICadrartSocketUpdateEntity<T>);
+      }
     });
 
-    this.cache.deleteSocket.subscribe((data: ICadrartSocketDeleteEntity) => {
-      this.handleSocketDelete(data);
+    this.cache.deleteSocket.subscribe((data: ICadrartSocketDeleteEntity | null) => {
+      if (data) {
+        this.handleSocketDelete(data);
+      }
     });
   }
 
@@ -136,12 +142,12 @@ export abstract class CadrartApiService<T extends ICadrartApiEntity> {
     );
   }
 
-  shouldUpdateFromSocketEvent(operation: 'create' | 'update' | 'delete', name: string): boolean {
+  shouldUpdateFromSocketEvent(operation: 'create' | 'update' | 'delete', name: string | null | undefined): boolean {
     return !!name && !!operation;
   }
 
   handleSocketCreate(data: ICadrartSocketCreateEntity<T>): void {
-    if (!this.shouldUpdateFromSocketEvent('create', data.name)) {
+    if (!data || !this.shouldUpdateFromSocketEvent('create', data.name)) {
       return;
     }
 
@@ -154,7 +160,7 @@ export abstract class CadrartApiService<T extends ICadrartApiEntity> {
   }
 
   handleSocketUpdate(data: ICadrartSocketUpdateEntity<T>): void {
-    if (!this.shouldUpdateFromSocketEvent('update', data.name)) {
+    if (!data || !this.shouldUpdateFromSocketEvent('update', data.name)) {
       return;
     }
 
@@ -171,7 +177,7 @@ export abstract class CadrartApiService<T extends ICadrartApiEntity> {
   }
 
   handleSocketDelete(data: ICadrartSocketDeleteEntity): void {
-    if (!this.shouldUpdateFromSocketEvent('delete', data.name)) {
+    if (!data || !this.shouldUpdateFromSocketEvent('delete', data.name)) {
       return;
     }
 

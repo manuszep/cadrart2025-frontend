@@ -1,0 +1,7 @@
+<div class="deployment-indicator" [class]="'deployment-' + (versionInfo?.color || 'local')">
+  <div class="indicator-dot"></div>
+  <span class="indicator-text">
+    f: {{ versionInfo?.frontendVersion }}<br />
+    b: {{ versionInfo?.version }}
+  </span>
+</div>

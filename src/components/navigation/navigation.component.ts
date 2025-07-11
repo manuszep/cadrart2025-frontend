@@ -9,20 +9,20 @@ import {
   signal
 } from '@angular/core';
 import { NavigationStart, Router, RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { Subject, filter, map, takeUntil } from 'rxjs';
 import {
   EsfsFieldComponent,
   EsfsFormControlText,
   EsfsFormGroup,
   EsfsFormGroupDirective
 } from '@manuszep/es-form-system';
+import { TranslateModule } from '@ngx-translate/core';
+import { Subject, filter, map, takeUntil } from 'rxjs';
 
 import { CadrartClickOutsideDirective } from '../../directives/click-outside.directive';
 import { CadrartDataConnectorService } from '../../services/data-connector.service';
 import { CadrartButtonComponent } from '../button/button.component';
+import { DeploymentIndicatorComponent } from '../deployment-indicator/deployment-indicator.component';
 import { CadrartIconComponent } from '../icon/icon.component';
-import { cadrartVersion } from '../../version';
 
 import { CadrartNavigationService } from './navigation.service';
 
@@ -38,13 +38,13 @@ import { CadrartNavigationService } from './navigation.service';
     CadrartClickOutsideDirective,
     CadrartIconComponent,
     EsfsFieldComponent,
-    EsfsFormGroupDirective
+    EsfsFormGroupDirective,
+    DeploymentIndicatorComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class CadrartNavigationComponent implements OnDestroy {
-  public appVersion: string = cadrartVersion;
   public toggled: WritableSignal<boolean> = signal(false);
   public showSearch: WritableSignal<boolean> = signal(false);
   public hasSearchData: WritableSignal<boolean> = signal(true);

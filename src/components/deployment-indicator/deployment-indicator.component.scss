@@ -1,0 +1,39 @@
+@use "../../styles/variables" as *;
+@use "../../styles/functions" as *;
+
+.deployment-indicator {
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 0.5;
+}
+
+.indicator-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.indicator-text {
+  white-space: nowrap;
+  font-size: 8px;
+  align-self: center;
+  opacity: 0.5;
+  margin-top: 5px;
+  margin-bottom: -5px;
+}
+
+.deployment-blue .indicator-dot {
+  background-color: getColor(secondary);
+}
+
+.deployment-green .indicator-dot {
+  background-color: getColor(success);
+}
+
+.deployment-unknown .indicator-dot {
+  background-color: getColor(neutral);
+}

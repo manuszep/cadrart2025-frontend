@@ -1,25 +1,25 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, filter, Observable } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
 import {
   ICadrartApiEntity,
   ICadrartSocketCreateEntity,
   ICadrartSocketDeleteEntity,
   ICadrartSocketUpdateEntity
 } from '@manuszep/cadrart2025-common';
+import { BehaviorSubject, filter, Observable } from 'rxjs';
 
 import { getEndpointUrl } from '../utils/url';
 
-import { AuthenticatedSocketService } from './authenticated-socket.service';
 import { ICadrartRequestOptions } from './api.service';
+import { AuthenticatedSocketService } from './authenticated-socket.service';
 
 @Injectable({ providedIn: 'root' })
 export class CadrartCacheService {
   private cache$: Record<string, BehaviorSubject<unknown>> = {};
 
-  public createSocket: Observable<ICadrartSocketCreateEntity<any>>;
-  public updateSocket: Observable<ICadrartSocketUpdateEntity<any>>;
-  public deleteSocket: Observable<ICadrartSocketDeleteEntity>;
+  public createSocket: Observable<ICadrartSocketCreateEntity<ICadrartApiEntity> | null>;
+  public updateSocket: Observable<ICadrartSocketUpdateEntity<ICadrartApiEntity> | null>;
+  public deleteSocket: Observable<ICadrartSocketDeleteEntity | null>;
 
   private socketService = inject(AuthenticatedSocketService);
 
