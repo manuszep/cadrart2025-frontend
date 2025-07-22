@@ -22,16 +22,6 @@ cadrart-navigation {
   position: relative;
   transition: max-width $transition-duration, padding $transition-duration;
 
-  &__toggle {
-    align-self: flex-end;
-    transform: translateX(24px);
-    transition: transform $transition-duration;
-    cursor: pointer;
-    margin-bottom: -38px;
-    font-size: 12px;
-    padding: $spacing-small;
-  }
-
   &__pages {
     flex-grow: 1;
     overflow: hidden;
@@ -51,6 +41,16 @@ cadrart-navigation {
   &__actions {
     &__item {
       margin: 0 0 $spacing-small;
+
+      &--expand {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 0;
+        margin-right: calc(50% - 1px);
+        transform: translateX(50%);
+        transition-duration: .3s;
+        transition-property: trasform margin;
+      }
 
       &--search {
         position: relative;
@@ -107,6 +107,17 @@ cadrart-navigation {
 
     .cadrart__navigation__toggle {
       transform: translateX(28px) scaleX(-1);
+    }
+
+    .cadrart__navigation__actions__item--expand {
+      margin-right: 0;
+      transform: translateX(0);
+
+      cadrart-button {
+        cadrart-icon {
+          transform: scaleX(-1);
+        }
+      }
     }
   }
 

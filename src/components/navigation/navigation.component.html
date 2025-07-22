@@ -90,11 +90,19 @@
             [disabled]="!service.enabled() || (searchStatus$ | async) !== 'VALID'"></cadrart-button>
         </div>
       </li>
+      <li class="cadrart__navigation__actions__item cadrart__navigation__actions__item--expand">
+        <cadrart-button
+          data-testid="create-expand-button"
+          icon="double_arrow"
+          color="neutral"
+          [outline]="true"
+          size="small"
+          [iconOnly]="true"
+          [grow]="false"
+          justify="left"
+          [tabIndex]="-1"
+          (click)="service.enabled() ? handleMenuToggleClick() : null"></cadrart-button>
+      </li>
     </ul>
-    <cadrart-icon
-      class="cadrart__navigation__toggle"
-      name="double_arrow"
-      (click)="service.enabled() ? handleMenuToggleClick() : null"
-      tabindex="-1"></cadrart-icon>
   </nav>
 </ng-container>
