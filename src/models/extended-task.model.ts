@@ -1,4 +1,4 @@
-import { ICadrartExtendedTask } from '@manuszep/cadrart2025-common';
+import { ECadrartOfferStatus, ICadrartExtendedTask } from '@manuszep/cadrart2025-common';
 
 import { CadrartEntity } from './api.model';
 
@@ -115,7 +115,7 @@ export class CadrartExtendedTask extends CadrartEntity<ICadrartExtendedTask> {
     return this._data.offerId ?? null;
   }
 
-  get offerStatus(): number | null {
+  get offerStatus(): ECadrartOfferStatus | null {
     return this._data.offerStatus ?? null;
   }
 
