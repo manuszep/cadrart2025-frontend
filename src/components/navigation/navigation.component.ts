@@ -21,7 +21,6 @@ import { Subject, filter, map, takeUntil } from 'rxjs';
 import { CadrartClickOutsideDirective } from '../../directives/click-outside.directive';
 import { CadrartDataConnectorService } from '../../services/data-connector.service';
 import { CadrartButtonComponent } from '../button/button.component';
-import { CadrartIconComponent } from '../icon/icon.component';
 
 import { CadrartNavigationService } from './navigation.service';
 
@@ -35,7 +34,6 @@ import { CadrartNavigationService } from './navigation.service';
     CadrartButtonComponent,
     RouterLink,
     CadrartClickOutsideDirective,
-    CadrartIconComponent,
     EsfsFieldComponent,
     EsfsFormGroupDirective
   ],
@@ -100,6 +98,5 @@ export class CadrartNavigationComponent implements OnDestroy {
 
   handleSearchClick(): void {
     this.showSearch.set(!this.showSearch());
-    //this.searchField?.focus();
   }
 }

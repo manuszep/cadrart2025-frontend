@@ -24,10 +24,19 @@
 ## Plan
 
 - Remove caching in a first step.
+  - Modify CadrartCacheService.makeRequest to always make HTTP calls
   - Assess performance
-- Implement basic caching on the interceptor side.
+- Implement basic caching on the interceptor side. Create new HttpCacheInterceptor
+  - Cache GET requests only
   - Clear the whole cache on each websocket events
-- Enforce subscription / unsubscription on any cached data request. Try to automatize as much as possible so errors are reduced
-- Once done, detect active subscriptions to force a refresh of these subscriptions (if related to the modified endpoint).
+  - Simple in-memory storage
+- Enhance CadrartCacheService with:
+  - Active subscription tracking
+  - Automatic cleanup on component destruction
+  - Subscription lifecycle management
+- Implement automatic cache invalidation:
+  - Entity-based invalidation patterns
+  - Active subscription refresh
+  - Standard endpoint mapping
 - I think we can suppose that if an entity changes, it's most probably related in a way to the current view. So we can update the data requests for all active subscription
 

@@ -1,0 +1,9 @@
+@if (form) {
+  <div class="cadrart-filtering">
+    @for (field of config.fields; track $index) {
+      <form [esfsFormGroup]="form">
+        <esfs-field [name]="field.key"></esfs-field>
+      </form>
+    }
+  </div>
+}

@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { map, Observable } from 'rxjs';
 import { ECadrartArticleFamily, ICadrartExtendedTask } from '@manuszep/cadrart2025-common';
+import { map, Observable } from 'rxjs';
 
-import { CadrartExtendedTask } from '../../models/extended-task.model';
-import { CadrartTaskService } from '../../services/task.service';
-import { CadrartDataConnectorService } from '../../services/data-connector.service';
 import { IActionsGroupAction } from '../../components/actions-group/actions-group.model';
+import { CadrartExtendedTask } from '../../models/extended-task.model';
+import { CadrartDataConnectorService } from '../../services/data-connector.service';
+import { CadrartTaskService } from '../../services/task.service';
 
 @Component({
   selector: 'cadrart-route-tasks-base',
@@ -93,20 +93,14 @@ export abstract class CadrartRouteTasksBaseComponent {
   };
 
   private handleDoneClick(task: CadrartExtendedTask): void {
-    console.log('handleDoneClick');
-    console.log(task);
     this.service.doTask(task);
   }
 
   private handleUndoClick(task: CadrartExtendedTask): void {
-    console.log('handleUndoClick');
-    console.log(task);
     this.service.undoTask(task);
   }
 
   private handleShopClick(task: CadrartExtendedTask): void {
-    console.log('handleShopClick');
-    console.log(task);
     this.service.blockTask(task);
   }
 
