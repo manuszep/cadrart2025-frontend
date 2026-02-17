@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject, combineLatest, map } from 'rxjs';
 
-import { CadrartDataConnectorService } from '../../services/data-connector.service';
 import { CadrartButtonComponent } from '../button/button.component';
+import { CadrartPaginationService } from './pagination.service';
 
 @Component({
   selector: 'cadrart-pagination',
@@ -14,53 +13,38 @@ import { CadrartButtonComponent } from '../button/button.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class CadrartPaginationComponent implements OnDestroy {
-  private unsubscribeSubject$ = new Subject<void>();
-
-  public templateData;
-
-  constructor(private dataConnectorService: CadrartDataConnectorService) {
-    this.templateData = combineLatest([
-      this.dataConnectorService.total,
-      this.dataConnectorService.pageSize,
-      this.dataConnectorService.page
-    ]).pipe(
-      map(([total, pageSize, page]) => ({
-        total,
-        pageSize,
-        page,
-        lastPage: Math.ceil(total / pageSize),
-        looper: Array.from({ length: Math.ceil(total / pageSize) }, (_, i) => i + 1)
-      }))
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribeSubject$.next(void 0);
-    this.unsubscribeSubject$.complete();
-  }
+export class CadrartPaginationComponent {
+  protected service = inject(CadrartPaginationService);
 
   handlePageClick(page: number): void {
-    this.dataConnectorService.setPage(page);
+    this.service.setPage(page);
   }
 
   handlePageSizeClick(pageSize: number): void {
-    this.dataConnectorService.setPageSize(pageSize);
+    this.service.setPageSize(pageSize);
   }
 
   handleFirstClick(): void {
-    this.dataConnectorService.setPage(1);
+    this.service.setPageToFirst();
   }
 
   handleLastClick(): void {
-    this.dataConnectorService.setPage('last');
+    this.service.setPageToLast();
   }
 
   handlePreviousClick(): void {
-    this.dataConnectorService.setPage('previous');
+    if (this.service.page() <= 1) {
+      return;
+    }
+
+    this.service.setPage(this.service.page() - 1);
   }
 
   handleNextClick(): void {
-    this.dataConnectorService.setPage('next');
+    if (this.service.page() >= this.service.lastPage()) {
+      return;
+    }
+
+    this.service.setPage(this.service.page() + 1);
   }
 }

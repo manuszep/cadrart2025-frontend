@@ -1,22 +1,23 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  ViewChild,
-  ViewEncapsulation,
-  WritableSignal,
-  signal
+    ChangeDetectionStrategy,
+    Component,
+    OnDestroy,
+    ViewChild,
+    ViewEncapsulation,
+    WritableSignal,
+    computed,
+    signal
 } from '@angular/core';
 import { NavigationStart, Router, RouterLink } from '@angular/router';
 import {
-  EsfsFieldComponent,
-  EsfsFormControlText,
-  EsfsFormGroup,
-  EsfsFormGroupDirective
+    EsfsFieldComponent,
+    EsfsFormControlText,
+    EsfsFormGroup,
+    EsfsFormGroupDirective
 } from '@manuszep/es-form-system';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject, filter, map, takeUntil } from 'rxjs';
+import { Subject, filter, takeUntil } from 'rxjs';
 
 import { CadrartClickOutsideDirective } from '../../directives/click-outside.directive';
 import { CadrartDataConnectorService } from '../../services/data-connector.service';
@@ -43,7 +44,7 @@ import { CadrartNavigationService } from './navigation.service';
 export class CadrartNavigationComponent implements OnDestroy {
   public toggled: WritableSignal<boolean> = signal(false);
   public showSearch: WritableSignal<boolean> = signal(false);
-  public hasSearchData: WritableSignal<boolean> = signal(true);
+  public $hasSearchData = computed(() => this.dataConnectorService.data()?.length > 0);
 
   public searchForm = new EsfsFormGroup(
     {
@@ -68,8 +69,6 @@ export class CadrartNavigationComponent implements OnDestroy {
     public readonly service: CadrartNavigationService,
     private readonly router: Router
   ) {
-    this.dataConnectorService.data.pipe(map((data: unknown[]) => this.hasSearchData.set(data.length > 0)));
-
     this.searchForm
       .get('search')
       ?.valueChanges.pipe(takeUntil(this.unsubscribeSubject$))

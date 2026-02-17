@@ -1,6 +1,6 @@
-import { map, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ICadrartArticle, ICadrartEntitiesResponse } from '@manuszep/cadrart2025-common';
+import { map, Observable, of } from 'rxjs';
 
 import { CadrartAlertService } from '../components/alert/alert.service';
 
@@ -51,5 +51,27 @@ export class CadrartArticleService extends CadrartApiService<ICadrartArticle> {
         return entities.map((entity: ICadrartArticle) => this.mapEntityForOption(entity));
       })
     );
+  }
+
+  findOutOfStock(): Observable<ICadrartEntitiesResponse<ICadrartArticle[]>> {
+    return (
+      this.cache.makeRequest('get', `${this.endpointName}/out-of-stock`) as Observable<ICadrartEntitiesResponse<ICadrartArticle[]>>
+    ).pipe(
+      map((response: ICadrartEntitiesResponse<ICadrartArticle[]>) => {
+        return response;
+      })
+    );
+  }
+
+  setOutOfStock(id: number | null): Observable<{ statusCode: number; result: unknown }> {
+    if (!id) {
+      return of({ statusCode: 400, result: null });
+    }
+
+    return this.cache.makeRequest('post', `${this.endpointName}/${id}/out-of-stock`) as Observable<{ statusCode: number; result: unknown }>;
+  }
+
+  setInStock(id: number): Observable<{ statusCode: number; result: unknown }> {
+    return this.cache.makeRequest('post', `${this.endpointName}/${id}/in-stock`) as Observable<{ statusCode: number; result: unknown }>;
   }
 }

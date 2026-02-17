@@ -1,19 +1,30 @@
-import { Injectable } from '@angular/core';
+import { computed, effect, inject, Injectable, Signal, signal } from '@angular/core';
+import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription, filter } from 'rxjs';
 import { ICadrartApiEntity, ICadrartEntitiesResponse } from '@manuszep/cadrart2025-common';
+import { filter, Observable, skip } from 'rxjs';
 
-import { sortStringOrNumbers } from '../utils';
 import { CadrartFooterService } from '../components/footer/footer.service';
+import { CadrartPaginationService } from '../components/pagination/pagination.service';
+import { sortStringOrNumbers } from '../utils';
+
+import { AuthenticatedSocketService } from './authenticated-socket.service';
 
 export type IDataConnectorSortAccessor<TModel extends ICadrartApiEntity = ICadrartApiEntity> = Record<
   string,
   (value: TModel, key: string) => string | number
 >;
 
+export type IDataConnectorRequestor<TModel extends ICadrartApiEntity = ICadrartApiEntity> = (
+  page: number,
+  count: number,
+  needle?: string,
+  extra?: Record<string, unknown>
+) => Observable<ICadrartEntitiesResponse<TModel>>;
+
 export type IDataConnectorConfig<T extends ICadrartApiEntity> = {
-  requestor: (page: number, count: number, needle?: string) => Observable<ICadrartEntitiesResponse<T>>;
-  accessors: IDataConnectorSortAccessor;
+  requestor: IDataConnectorRequestor<T>;
+  accessors?: IDataConnectorSortAccessor;
   showPagination?: boolean;
 };
 
@@ -28,192 +39,145 @@ function defaultAccessor<TModel extends ICadrartApiEntity = ICadrartApiEntity>(
   providedIn: 'root'
 })
 export class CadrartDataConnectorService<TData extends ICadrartApiEntity = ICadrartApiEntity> {
-  private data$: BehaviorSubject<TData[]> = new BehaviorSubject([] as TData[]);
-  private filteredData$: BehaviorSubject<TData[]> = new BehaviorSubject([] as TData[]);
-  private needle$: BehaviorSubject<string> = new BehaviorSubject('');
-  private sortColumn$: BehaviorSubject<string | ''> = new BehaviorSubject('');
-  private page$: BehaviorSubject<number> = new BehaviorSubject(1);
-  private pageSize$: BehaviorSubject<number> = new BehaviorSubject(20);
-  private accessors$: IDataConnectorSortAccessor = {} as IDataConnectorSortAccessor;
-  private total$: BehaviorSubject<number> = new BehaviorSubject(0);
-  private requestor: (page: number, count: number, needle?: string) => Observable<ICadrartEntitiesResponse<TData>> =
-    () => new Observable();
+  private readonly router = inject(Router);
+  private readonly footerService = inject(CadrartFooterService);
+  private readonly paginationService = inject(CadrartPaginationService);
+  private readonly socketService = inject(AuthenticatedSocketService);
 
-  private requestorSubscription: Subscription | null = null;
+  private readonly _$needle = signal('');
+  private readonly _$sortColumn = signal('');
+  private readonly _$extraParams = signal<Record<string, unknown>>({});
+  private readonly _$requestor = signal<IDataConnectorRequestor<TData> | null>(null);
 
-  /*clear(): void {
-    this.setData([]);
-  }*/
-
-  /*setData(data: any[]): void {
-    this.needle$.next('');
-    this.data$.next(data);
-    this.filteredData$.next(data);
-    this.accessors$ = {} as IDataConnectorSortAccessor;
-  }*/
-
-  /*setAccessors(accessors: IDataConnectorSortAccessor): void {
-    this.accessors$ = accessors;
-  }*/
-
-  constructor(private readonly router: Router, private readonly footerService: CadrartFooterService) {
-    this.router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe(() => {
-      this.reset();
-    });
-  }
-
-  public get data(): Observable<TData[]> {
-    return this.filteredData$.asObservable();
-  }
-
-  public get total(): Observable<number> {
-    return this.total$.asObservable();
-  }
-
-  public get pageSize(): Observable<number> {
-    return this.pageSize$.asObservable();
-  }
-
-  public get page(): Observable<number> {
-    return this.page$.asObservable();
-  }
-
-  public setPage(target: number | 'last' | 'next' | 'previous'): void {
-    const lastPage = Math.ceil(this.total$.value / this.pageSize$.value);
-    let page = -1;
-
-    if (target === 'last') {
-      page = lastPage;
-    }
-
-    if (target === 'next' && this.page$.value < lastPage) {
-      page = this.page$.value + 1;
-    }
-
-    if (target === 'previous' && this.page$.value > 1) {
-      page = this.page$.value - 1;
-    }
-
-    if (typeof target === 'number') {
-      page = target;
-    }
-
-    if (page !== -1 && page !== this.page$.value) {
-      this.page$.next(page);
-      this.makeRequest();
-    }
-  }
-
-  public setPageSize(pageSize: number): void {
-    this.pageSize$.next(pageSize);
-
-    if (this.page$.value !== 1) {
-      this.page$.next(1);
-    }
-
-    this.makeRequest();
-  }
-
-  connect(config: IDataConnectorConfig<TData>): Observable<TData[]> {
-    const { requestor, accessors } = config;
-
-    this.requestor = requestor;
-    this.accessors$ = accessors;
-
-    this.makeRequest();
-
-    if (typeof config.showPagination === 'undefined' || config.showPagination) {
-      this.footerService.enablePagination();
-    }
-
-    return this.filteredData$.asObservable();
-  }
-
-  makeRequest(): void {
-    if (this.requestorSubscription) {
-      this.requestorSubscription.unsubscribe();
-    }
-
-    this.requestorSubscription = this.requestor(this.page$.value, this.pageSize$.value, this.needle$.value).subscribe(
-      (data: ICadrartEntitiesResponse<TData>) => {
-        this.data$.next(data.entities);
-        this.filteredData$.next(data.entities);
-        this.total$.next(data.total);
+  // The core resource that reacts to all input signals
+  private readonly _$resource = rxResource({
+    request: () => ({
+      page: this.paginationService.page(),
+      count: this.paginationService.pageSize(),
+      needle: this._$needle(),
+      extra: this._$extraParams(),
+      requestor: this._$requestor()
+    }),
+    loader: ({ request }) => {
+      if (!request.requestor) {
+        return new Observable<ICadrartEntitiesResponse<TData>>((observer) => {
+          observer.next({ entities: [], total: 0, statusCode: 200 });
+          observer.complete();
+        });
       }
-    );
-  }
-
-  reset(): void {
-    this.needle$.next('');
-    this.sortColumn$.next('');
-    this.page$.next(1);
-    this.pageSize$.next(20);
-    this.data$.next([]);
-    this.filteredData$.next([]);
-    this.accessors$ = {} as IDataConnectorSortAccessor;
-    this.footerService.disablePagination();
-
-    if (this.requestorSubscription) {
-      this.requestorSubscription.unsubscribe();
+      return request.requestor(request.page, request.count, request.needle, request.extra);
     }
-  }
+  });
 
-  setNeedle(needle: string): void {
-    this.needle$.next(needle);
-    this.page$.next(1);
-    this.makeRequest();
-  }
+  private readonly _$total = computed(() => this._$resource.value()?.total ?? 0);
 
-  setSortColumn(sortColumn: string): void {
-    this.sortColumn$.next(sortColumn);
-    this.doFilter();
-  }
+  // Derived signal for filtered/sorted data (if client-side filtering/sorting is still needed)
+  public readonly data = computed(() => {
+    const data = this._$resource.value();
+    const sortColumn = this._$sortColumn();
 
-  private doSearch(data: TData[]): TData[] {
-    if (this.needle$.value === '') {
-      return data;
-    }
+    if (!data) return [];
 
-    return data.filter((item: TData) => {
-      /*const values = Object.keys(item).map((k: string) => {
-        return this.accessors$[k] ? this.accessors$[k](item, k) : item[k];
-      });
-      const hayStack = values.join('||').toLowerCase();*/
-      const hayStack = JSON.stringify(item).toLowerCase();
-      const sanitizedNeedle = new RegExp(
-        this.needle$.value
-          .toLowerCase()
-          .replace(/\\/g, '\\\\')
-          .replace(/\./g, `\\.`)
-          .replace(/\+/g, `\\+`)
-          .replace(/\(/g, '\\(')
-          .replace(/\)/g, '\\)')
-          .replace(/\[/g, '\\[')
-          .replace(/\]/g, '\\]')
-          .replace(/\*/g, '\\*')
-      );
+    // Note: Usually filtering is done on backend via 'needle', but we keep client-side sorting/search for flexibility
+    const searchResults = this.doSearch(data.entities, this._$needle());
+    const sortedResults = this.doSort(searchResults, sortColumn);
 
-      return hayStack.search(sanitizedNeedle) !== -1;
+    return sortedResults;
+  });
+
+  private accessors: IDataConnectorSortAccessor = {};
+
+  constructor() {
+    // Reset on navigation
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationStart),
+        takeUntilDestroyed()
+      )
+      .subscribe(() => this.reset());
+
+    // Sync total with pagination service
+    effect(() => {
+      this.paginationService.total = this._$total();
+    });
+
+    // Aggressive Refresh on Socket Events
+    this.socketService.updateEvents$.pipe(takeUntilDestroyed(), skip(1)).subscribe(() => {
+      this._$resource.reload();
+    });
+    this.socketService.createEvents$.pipe(takeUntilDestroyed(), skip(1)).subscribe(() => {
+      this._$resource.reload();
+    });
+    this.socketService.deleteEvents$.pipe(takeUntilDestroyed(), skip(1)).subscribe(() => {
+      this._$resource.reload();
     });
   }
 
-  private doSort(data: TData[]): TData[] {
-    const sortValue = this.sortColumn$.value;
+  public connect(config: IDataConnectorConfig<TData>): Signal<TData[]> {
+    this._$requestor.set(config.requestor);
+    this.accessors = config.accessors ?? {};
 
-    if (sortValue === '') {
-      return data;
+    if (config.showPagination !== false) {
+      this.footerService.enablePagination();
+    } else {
+      this.footerService.disablePagination();
     }
 
-    return data.sort((a: TData, b: TData) => {
-      const accessor = this.accessors$[sortValue] || defaultAccessor<TData>;
-      const valA = accessor(a, sortValue);
-      const valB = accessor(b, sortValue);
+    return this.data;
+  }
 
+  public setNeedle(needle: string): void {
+    this._$needle.set(needle);
+    this.paginationService.setPage(1);
+  }
+
+  public setExtraParams(params: Record<string, unknown>, resetPage = true): void {
+    this._$extraParams.update((prev) => ({ ...prev, ...params }));
+    if (resetPage) {
+      this.paginationService.setPage(1);
+    }
+  }
+
+  public setSortColumn(sortColumn: string): void {
+    this._$sortColumn.set(sortColumn);
+  }
+
+  public reset(): void {
+    this._$needle.set('');
+    this._$sortColumn.set('');
+    this._$extraParams.set({});
+    this._$requestor.set(null);
+    this.accessors = {};
+    this.paginationService.reset();
+    this.footerService.disablePagination();
+  }
+
+  public get needle(): Signal<string> {
+    return this._$needle.asReadonly();
+  }
+
+  public reload(): void {
+    this._$resource.reload();
+  }
+
+  private doSearch(data: TData[], needle: string): TData[] {
+    if (!needle) return data;
+
+    const sanitizedNeedle = needle.toLowerCase().trim();
+    return data.filter((item) => {
+      const hayStack = JSON.stringify(item).toLowerCase();
+      return hayStack.includes(sanitizedNeedle);
+    });
+  }
+
+  private doSort(data: TData[], sortColumn: string): TData[] {
+    if (!sortColumn) return data;
+
+    return [...data].sort((a, b) => {
+      const accessor = this.accessors[sortColumn] || defaultAccessor;
+      const valA = accessor(a, sortColumn);
+      const valB = accessor(b, sortColumn);
       return sortStringOrNumbers(valA, valB);
     });
-  }
-
-  private doFilter(): void {
-    this.filteredData$.next(this.doSort(this.doSearch(this.data$.value)));
   }
 }

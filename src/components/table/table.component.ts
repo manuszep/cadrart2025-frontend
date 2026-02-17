@@ -14,14 +14,14 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CadrartClickOutsideDirective } from '../../directives/click-outside.directive';
+import { CadrartConcatPipe } from '../../pipes/concat.pipe';
 import { cadrartAnimationFlipInX, cadrartAnimationFlipOutX } from '../../utils/animation';
 import { CadrartActionsGroupComponent } from '../actions-group/actions-group.component';
 import { CadrartButtonComponent } from '../button/button.component';
 import { CadrartIconComponent } from '../icon/icon.component';
-import { CadrartConcatPipe } from '../../pipes/concat.pipe';
 
-import { CadrartTableValueFormatterDirective } from './table-value-formatter.directive';
 import { CadrartTableExpandedContentDirective } from './table-expanded-content.directive';
+import { CadrartTableValueFormatterDirective } from './table-value-formatter.directive';
 
 @Component({
   selector: 'cadrart-table',
@@ -162,5 +162,9 @@ export class CadrartTableComponent<TData> {
     }
 
     return classes;
+  }
+
+  log(data: any | undefined) {
+    console.log(data);
   }
 }

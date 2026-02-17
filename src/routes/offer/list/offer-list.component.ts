@@ -1,21 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, ViewEncapsulation } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Observable, map, take } from 'rxjs';
-import { ECadrartOfferStatus, ICadrartEntitiesResponse, ICadrartOffer } from '@manuszep/cadrart2025-common';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, Signal, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { ECadrartOfferStatus, ICadrartOffer } from '@manuszep/cadrart2025-common';
+import { take } from 'rxjs';
 
-import { CadrartOfferService } from '../../../services/offer.service';
-import { CadrartTableComponent } from '../../../components/table/table.component';
-import { CadrartTableValueFormatterDirective } from '../../../components/table/table-value-formatter.directive';
-import { CadrartPricePipe } from '../../../pipes/price.pipe';
-import { CadrartButtonComponent } from '../../../components/button/button.component';
-import { CadrartDataConnectorService } from '../../../services/data-connector.service';
 import { CadrartAlertService } from '../../../components/alert/alert.service';
+import { CadrartButtonComponent } from '../../../components/button/button.component';
+import { CadrartFilteringComponent } from '../../../components/filtering/filtering';
+import { ICadrartFilterConfig } from '../../../components/filtering/model';
+import { CadrartTableValueFormatterDirective } from '../../../components/table/table-value-formatter.directive';
+import { CadrartTableComponent } from '../../../components/table/table.component';
 import { CadrartOffer } from '../../../models/offer.model';
 import { CadrartMysqlDatePipe } from '../../../pipes/mysql-date.pipe';
-import { ICadrartFilterEvent, ICadrartFiltersConfig } from '../../../components/filters/filters.model';
-import { CadrartFiltersComponent } from '../../../components/filters/filters.component';
+import { CadrartPricePipe } from '../../../pipes/price.pipe';
+import { CadrartDataConnectorService } from '../../../services/data-connector.service';
+import { CadrartOfferService } from '../../../services/offer.service';
 
 @Component({
   selector: 'cadrart-route-offer-list',
@@ -28,76 +27,78 @@ import { CadrartFiltersComponent } from '../../../components/filters/filters.com
     CadrartPricePipe,
     CadrartButtonComponent,
     CadrartMysqlDatePipe,
-    CadrartFiltersComponent
+    CadrartFilteringComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class CadrartRouteOfferListComponent {
   public statuses = ECadrartOfferStatus;
-  public offers?: Observable<CadrartOffer[]>;
+  public $offersResponse:Signal<ICadrartOffer[]>;
+  public offers: Signal<CadrartOffer[]> = computed(() => this.$offersResponse().map((entry: ICadrartOffer) => new CadrartOffer(entry)));
   public trackBy = (_index: number, item: CadrartOffer): number => item.id ?? 0;
-  public filtersConfig: ICadrartFiltersConfig = [
-    {
-      key: 'period',
-      label: 'OFFER_LIST.FILTER.PERIOD.TITLE',
-      type: 'toggle',
-      config: [
-        { label: 'OFFER_LIST.FILTER.PERIOD.ALL', value: 'all', icon: 'all_inclusive' },
-        { label: 'OFFER_LIST.FILTER.PERIOD.WEEK', value: 'week', icon: 'view_week' },
-        { label: 'OFFER_LIST.FILTER.PERIOD.TODAY', value: 'today', icon: 'today' }
-      ],
-      value: 'all'
-    },
-    {
-      key: 'status',
-      label: 'OFFER_LIST.FILTER.STATUS.TITLE',
-      type: 'toggle',
-      config: [
-        { label: 'OFFER_LIST.FILTER.STATUS.ALL', value: 'all', icon: 'all_inclusive' },
-        { label: 'OFFER_LIST.FILTER.STATUS.PAUSED', value: ECadrartOfferStatus.STATUS_CREATED, icon: 'view_week' },
-        { label: 'OFFER_LIST.FILTER.STATUS.ACTIVE', value: ECadrartOfferStatus.STATUS_STARTED, icon: 'today' },
-        { label: 'OFFER_LIST.FILTER.STATUS.DONE', value: ECadrartOfferStatus.STATUS_DONE, icon: 'today' }
-      ],
-      value: 'all'
-    }
-  ];
-
-  private filters: {
-    start?: string;
-    end?: string;
-    status?: ECadrartOfferStatus;
-  } = {};
+  public filtersConfig: ICadrartFilterConfig = {
+    fields: [
+      {
+        key: 'period',
+        label: 'OFFER_LIST.FILTER.PERIOD.TITLE',
+        type: 'toggle',
+        values: [
+          { label: 'OFFER_LIST.FILTER.PERIOD.ALL', value: 'all', icon: 'all_inclusive' },
+          { label: 'OFFER_LIST.FILTER.PERIOD.WEEK', value: 'week', icon: 'view_week' },
+          { label: 'OFFER_LIST.FILTER.PERIOD.TODAY', value: 'today', icon: 'today' }
+        ]
+      },
+      {
+        key: 'status',
+        label: 'OFFER_LIST.FILTER.STATUS.TITLE',
+        type: 'toggle',
+        values: [
+          { label: 'OFFER_LIST.FILTER.STATUS.ALL', value: 'all', icon: 'all_inclusive' },
+          { label: 'OFFER_LIST.FILTER.STATUS.PAUSED', value: ECadrartOfferStatus.STATUS_CREATED, icon: 'view_week' },
+          { label: 'OFFER_LIST.FILTER.STATUS.ACTIVE', value: ECadrartOfferStatus.STATUS_STARTED, icon: 'today' },
+          { label: 'OFFER_LIST.FILTER.STATUS.DONE', value: ECadrartOfferStatus.STATUS_DONE, icon: 'today' }
+        ]
+      }
+    ]
+  };
 
   public readonly service = inject(CadrartOfferService);
   private readonly destroyRef = inject(DestroyRef);
-  protected readonly dataConnectorService = inject(CadrartDataConnectorService<ICadrartOffer>);
+  protected readonly dataConnectorService: CadrartDataConnectorService<ICadrartOffer> = inject(CadrartDataConnectorService<ICadrartOffer>);
   private readonly router = inject(Router);
   private readonly alertService = inject(CadrartAlertService);
 
   constructor() {
-    this.handleFilterPeriodChange('all');
-    this.handleFilterStatusChange('all');
+    this.$offersResponse = this.dataConnectorService.connect({
+      requestor: (page: number, count: number, _needle?: string, extra?: Record<string, unknown>) => {
+        const period = extra?.['period'] as 'all' | 'week' | 'today';
+        const status = extra?.['status'] as ECadrartOfferStatus | 'all';
 
-    this.connect(this.filterConnection.bind(this));
-  }
+        let start: string | undefined;
+        let end: string | undefined;
 
-  filterConnection(page: number, count: number): Observable<ICadrartEntitiesResponse<ICadrartOffer>> {
-    return this.service.getEntities(page, count, this.filters.start, this.filters.end, this.filters.status);
-  }
-
-  connect(method: (page: number, count: number) => Observable<ICadrartEntitiesResponse<ICadrartOffer>>): void {
-    this.offers = this.dataConnectorService
-      .connect({
-        requestor: method,
-        accessors: {
-          // TODO: Implement accessors
+        if (period === 'week') {
+          const today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+          const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+          start = `${sevenDaysAgo.getFullYear()}-${sevenDaysAgo.getMonth() + 1}-${sevenDaysAgo.getDate()}`;
         }
-      })
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        map((offers: ICadrartOffer[]) => offers.map((entry: ICadrartOffer) => new CadrartOffer(entry)))
-      );
+
+        if (period === 'today') {
+          const today = new Date();
+          start = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+        }
+
+        return this.service.getEntities(
+          page,
+          count,
+          start,
+          end,
+          status === 'all' ? undefined : status
+        );
+      },
+      accessors: {}
+    });
   }
 
   saveEntity(entry: CadrartOffer): void {
@@ -149,52 +150,5 @@ export class CadrartRouteOfferListComponent {
         message: 'OFFER_LIST.ALERTS.DELETE_SUCCESS'
       });
     });
-  }
-
-  handleFilterChange(e: ICadrartFilterEvent): void {
-    if (e.key === 'period') {
-      this.handleFilterPeriodChange(e.value as 'all' | 'week' | 'today');
-    }
-
-    if (e.key === 'status') {
-      this.handleFilterStatusChange(e.value as ECadrartOfferStatus | 'all');
-    }
-
-    // TODO: Filtering should be updated without using connect
-    this.connect((page: number, count: number) =>
-      this.service.getEntities(page, count, this.filters.start, this.filters.end, this.filters.status)
-    );
-  }
-
-  handleFilterPeriodChange(value: 'all' | 'week' | 'today'): void {
-    if (value === 'all') {
-      this.filters.start = undefined;
-      this.filters.end = undefined;
-    }
-
-    if (value === 'week') {
-      const today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-      const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-      const start = `${sevenDaysAgo.getFullYear()}-${sevenDaysAgo.getMonth() + 1}-${sevenDaysAgo.getDate()}`;
-      const end = undefined;
-
-      this.filters.start = start;
-      this.filters.end = end;
-    }
-
-    if (value === 'today') {
-      const today = new Date();
-
-      this.filters.start = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-      this.filters.end = undefined;
-    }
-  }
-
-  handleFilterStatusChange(value: ECadrartOfferStatus | 'all'): void {
-    if (value === 'all') {
-      this.filters.status = undefined;
-    } else {
-      this.filters.status = value;
-    }
   }
 }

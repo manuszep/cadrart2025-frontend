@@ -33,7 +33,7 @@
         <cadrart-button
           icon="inventory_2"
           [iconOnly]="!service.enabled() || !toggled()"
-          [disabled]="true"
+          [disabled]="!service.enabled()"
           color="transparent"
           hoverColor="secondary"
           [grow]="true"
@@ -74,7 +74,7 @@
           [iconOnly]="!service.enabled() || !toggled()"
           [grow]="true"
           justify="left"
-          [disabled]="!service.enabled() || !hasSearchData()"
+          [disabled]="!service.enabled() || !$hasSearchData()"
           [tabIndex]="-1"
           (cadrartClick)="handleSearchClick()">{{ 'NAVIGATION.ACTIONS.SEARCH' | translate }}</cadrart-button>
         <div

@@ -1,9 +1,9 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
-import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Observable, Subscription, map, startWith, take } from 'rxjs';
 import { ICadrartApiEntity } from '@manuszep/cadrart2025-common';
 import { EsfsFormGroup } from '@manuszep/es-form-system';
+import { Subscription, map, startWith, take } from 'rxjs';
 
 import { CadrartApiService } from '../../services/api.service';
 import { CadrartDataConnectorService } from '../../services/data-connector.service';
@@ -32,7 +32,7 @@ export abstract class CadrartSettingsPageComponent<
 
   public entityFormGroup?: TFormGroup;
 
-  public data$: Observable<TEntity[]>;
+  public $data: Signal<TEntity[]>;
   public getItemName;
 
   @ViewChild('formTemplate', { static: true }) formTemplate?: TemplateRef<unknown>;
@@ -49,14 +49,12 @@ export abstract class CadrartSettingsPageComponent<
       this.handleNewClick();
     });
 
-    this.data$ = this.dataConnectorService
-      .connect({
-        requestor: (page: number, count: number, needle?: string) => this.service.getEntities(page, count, needle),
-        accessors: {
-          // TODO: Implement accessors
-        }
-      })
-      .pipe(takeUntilDestroyed());
+    this.$data = this.dataConnectorService.connect({
+      requestor: (page, count, needle, _extra) => this.service.getEntities(page, count, needle),
+      accessors: {
+        // TODO: Implement accessors
+      }
+    });
   }
 
   identify(_index: number, item: TEntity): number {

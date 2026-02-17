@@ -1,4 +1,4 @@
-@if (data$ | async; as data) {
+@if ($data(); as data) {
   <div class="cadrart-locations" data-testid="location-section">
     <div class="cadrart-locations__list">
       @for (location of data; track identify($index, location)) {

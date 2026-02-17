@@ -1,0 +1,38 @@
+@let data = $articlesResponse();
+
+@if (data) {
+  <div class="cadrart-stock" data-testid="stock-page">
+    <cadrart-table
+      data-testid="stock-list"
+      [data]="data"
+      [keys]="['namePlace', 'buySellPrice', 'type', 'provider']"
+      [trackBy]="trackBy"
+      [consultable]="false"
+      [deletable]="false"
+      [editable]="false"
+      [expandable]="false"
+      >
+      <td *cadrartTableValueFormatter="'namePlace'; let entry">
+        {{ entry.name }}@if (entry.place) {
+        <br />
+        }{{ entry.place }}
+      </td>
+      <td *cadrartTableValueFormatter="'buySellPrice'; let entry">
+        {{ entry?.buyPrice }}&nbsp;&euro; <cadrart-icon name="arrow_right"></cadrart-icon>
+        {{ entry?.sellPrice }}&nbsp;&euro;
+      </td>
+      <td *cadrartTableValueFormatter="'type'; let entry">
+        {{ 'ARTICLE.FAMILY.' + entry.family | translate }}
+        <br />
+        {{ 'ARTICLE.PRICEMETHOD.' + entry.getPriceMethod | translate }}
+      </td>
+      <td *cadrartTableValueFormatter="'provider'; let entry">
+        {{ entry.provider?.name }}
+        @if (entry.provider && entry.providerRef) {
+          <br />
+        }
+        <small>{{ entry.providerRef }}</small>
+      </td>
+    </cadrart-table>
+  </div>
+}

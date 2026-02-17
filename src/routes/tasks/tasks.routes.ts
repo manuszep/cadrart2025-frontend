@@ -1,16 +1,15 @@
 import { Routes } from '@angular/router';
 
-import { CadrartRouteTasksComponent } from './tasks.component';
-import { CadrartRouteTasksWoodComponent } from './wood/wood.component';
+import { CadrartRouteTasksAssemblyComponent } from './assembly/assembly.component';
 import { CadrartRouteTasksCardboardComponent } from './cardboard/cardboard.component';
 import { CadrartRouteTasksGlassComponent } from './glass/glass.component';
-import { CadrartRouteTasksAssemblyComponent } from './assembly/assembly.component';
 import { CadrartRouteTasksPassComponent } from './pass/pass.component';
+import { CadrartRouteTasksWoodComponent } from './wood/wood.component';
 
 export const cadrartTasksRoutes: Routes = [
   {
     path: '',
-    component: CadrartRouteTasksComponent,
+    //component: CadrartRouteTasksComponent,
     children: [
       {
         path: '',

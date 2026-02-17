@@ -1,4 +1,4 @@
-@let data = tasks | async;
+@let data = tasks();
 @if (data) {
   <div class="cadrart-tasks cadrart-tasks--assembly">
     <cadrart-table

@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal, ViewEncapsulation } from '@angular/core';
 import { ECadrartArticleFamily, ICadrartExtendedTask } from '@manuszep/cadrart2025-common';
-import { map, Observable } from 'rxjs';
 
 import { IActionsGroupAction } from '../../components/actions-group/actions-group.model';
 import { CadrartExtendedTask } from '../../models/extended-task.model';
+import { CadrartArticleService } from '../../services/article.service';
 import { CadrartDataConnectorService } from '../../services/data-connector.service';
 import { CadrartTaskService } from '../../services/task.service';
 
@@ -16,7 +15,8 @@ import { CadrartTaskService } from '../../services/task.service';
 })
 export abstract class CadrartRouteTasksBaseComponent {
   protected abstract family: ECadrartArticleFamily;
-  public tasks!: Observable<CadrartExtendedTask[]>;
+  private _$tasksResponse: Signal<ICadrartExtendedTask[]>;
+  public tasks = computed(() => this.mapTasks(this._$tasksResponse()));
   public trackBy = (_index: number, item: CadrartExtendedTask): number => item.id ?? 0;
   public actions: Array<IActionsGroupAction<CadrartExtendedTask>> = [
     {
@@ -49,35 +49,30 @@ export abstract class CadrartRouteTasksBaseComponent {
   ];
 
   protected readonly service = inject(CadrartTaskService);
+  protected readonly articleService = inject(CadrartArticleService);
   protected readonly dataConnectorService = inject(CadrartDataConnectorService<ICadrartExtendedTask>);
 
-  protected init(): void {
-    this.tasks = this.dataConnectorService
-      .connect({
-        requestor: () => this.service.getEntitiesForFamily(this.family),
-        accessors: {
-          // TODO: Implement accessors
-        },
-        showPagination: false
-      })
-      .pipe(
-        takeUntilDestroyed(),
-        map((tasks: ICadrartExtendedTask[]) => {
-          return tasks
-            .map((task: ICadrartExtendedTask) => {
-              return new CadrartExtendedTask(task);
-            })
-            .sort((a, b) => {
-              return (a.clientFullName ?? '').localeCompare(b.clientFullName ?? '');
-            });
-        })
-      );
+  constructor() {
+    this._$tasksResponse = this.dataConnectorService.connect({
+      requestor: (_page, _count, _needle, _extra) => this.service.getEntitiesForFamily(this.family),
+      accessors: {
+        // TODO: Implement accessors
+      },
+      showPagination: false
+    });
   }
 
-  public getRowClass = (entry: CadrartExtendedTask): string | string[] | null => {
+  private mapTasks(tasks: ICadrartExtendedTask[]): CadrartExtendedTask[] {
+    return tasks.map((task: ICadrartExtendedTask) => new CadrartExtendedTask(task)).sort((a, b) => {
+      return (a.clientFullName ?? '').localeCompare(b.clientFullName ?? '');
+    });
+  }
+
+  public getRowClass(entry: CadrartExtendedTask): string | string[] | null {
     const classes: string[] = [];
     const isDone = entry.taskDoneCount === entry.jobCount;
     const isOverdue = entry.jobDueDate && new Date(entry.jobDueDate) < new Date();
+    const isOutOfStock = entry.articleOutOfStock;
 
     // Example: Add class based on task status
     if (isDone) {
@@ -89,8 +84,12 @@ export abstract class CadrartRouteTasksBaseComponent {
       classes.push('cadrart-tasks--overdue-task');
     }
 
+    if (isOutOfStock) {
+      classes.push('cadrart-tasks--out-of-stock');
+    }
+
     return classes.length > 0 ? classes : null;
-  };
+  }
 
   private handleDoneClick(task: CadrartExtendedTask): void {
     this.service.doTask(task);
@@ -101,7 +100,7 @@ export abstract class CadrartRouteTasksBaseComponent {
   }
 
   private handleShopClick(task: CadrartExtendedTask): void {
-    this.service.blockTask(task);
+    this.articleService.setOutOfStock(task.articleId).subscribe();
   }
 
   public handleCustomAction(action: (data: CadrartExtendedTask) => void, task: CadrartExtendedTask): void {

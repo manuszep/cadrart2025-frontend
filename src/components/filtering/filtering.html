@@ -1,9 +1,18 @@
 @if (form) {
   <div class="cadrart-filtering">
-    @for (field of config.fields; track $index) {
-      <form [esfsFormGroup]="form">
-        <esfs-field [name]="field.key"></esfs-field>
-      </form>
-    }
+    <form [esfsFormGroup]="form">
+      @for (field of config.fields; track $index) {
+        @if (field.type === 'toggle') {
+          <cadrart-button-toggle
+            [label]="field.label || ''"
+            [items]="$any(field.values || [])"
+            [value]="$any(form.get(field.key)?.value)"
+            (cadrartChange)="form.get(field.key)?.setValue($event)">
+          </cadrart-button-toggle>
+        } @else {
+          <esfs-field [name]="field.key"></esfs-field>
+        }
+      }
+    </form>
   </div>
 }
